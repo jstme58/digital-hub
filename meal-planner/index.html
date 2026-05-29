@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Meal Planner — E Pelissier Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1F3C; --navy-2: #142647; --navy-3: #1B2F55;
+  --green: #00C896; --green-dim: rgba(0,200,150,0.12); --green-glow: rgba(0,200,150,0.25);
+  --green-dark: #009970;
+  --lime: #A8E063; --lime-dim: rgba(168,224,99,0.12);
+  --teal: #2DD4BF; --teal-dim: rgba(45,212,191,0.1);
+  --gold: #C9A84C; --gold-light: #F0D58A;
+  --coral: #FF6B6B; --coral-dim: rgba(255,107,107,0.12);
+  --amber: #FFB347; --amber-dim: rgba(255,179,71,0.12);
+  --blue: #74B9FF; --blue-dim: rgba(116,185,255,0.12);
+  --purple: #A29BFE; --purple-dim: rgba(162,155,254,0.12);
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.30);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --card-bg: rgba(255,255,255,0.04);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease-smooth: cubic-bezier(0.4,0,0.2,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--navy); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-size:200px; opacity:0.4; }
+.orb { position:fixed; border-radius:50%; pointer-events:none; z-index:0; filter:blur(80px); opacity:0.28; }
+.orb-1 { width:500px; height:500px; background:radial-gradient(circle,rgba(0,200,150,0.35),transparent 70%); top:-150px; right:-150px; }
+.orb-2 { width:380px; height:380px; background:radial-gradient(circle,rgba(201,168,76,0.2),transparent 70%); bottom:20%; left:-100px; }
+.orb-3 { width:280px; height:280px; background:radial-gradient(circle,rgba(168,224,99,0.18),transparent 70%); bottom:-80px; right:15%; }
+
+/* TOP BAR */
+.top-bar { position:relative; z-index:10; background:rgba(13,31,60,0.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:10px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.brand-mark { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
+.brand-dot { width:6px; height:6px; border-radius:50%; background:var(--green); display:inline-block; }
+.controls { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.ctrl-group { display:flex; align-items:center; gap:6px; }
+.ctrl-group label { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.ctrl-group select { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-primary); font-family:var(--font-body); font-size:12px; font-weight:500; padding:5px 10px; border-radius:8px; cursor:pointer; outline:none; transition:border-color 0.2s; }
+.ctrl-group select:focus { border-color:var(--green); }
+.ctrl-group select option { background:var(--navy-2); }
+.ctrl-divider { width:1px; height:20px; background:var(--border); }
+
+/* HERO */
+.hero { position:relative; z-index:1; padding:52px 24px 40px; text-align:center; }
+.hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:18px; padding:6px 16px; border:1px solid rgba(0,200,150,0.25); border-radius:99px; background:rgba(0,200,150,0.06); }
+.hero-eyebrow::before { content:'✦'; font-size:8px; }
+.hero h1 { font-family:var(--font-display); font-size:clamp(28px,5vw,48px); font-weight:700; color:var(--text-primary); line-height:1.1; letter-spacing:-1px; margin-bottom:14px; }
+.hero h1 em { font-style:italic; background:linear-gradient(135deg,var(--green),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:15px; font-weight:300; color:var(--text-secondary); max-width:420px; margin:0 auto; line-height:1.7; }
+.hero-line { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--green),transparent); margin:24px auto 0; }
+
+/* STICKY DASH */
+.sticky-dash { position:sticky; top:0; z-index:50; background:rgba(13,31,60,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); padding:12px 20px 0; transition:box-shadow 0.3s; }
+.sticky-dash.scrolled { box-shadow:0 4px 40px rgba(0,0,0,0.4); }
+.dash-inner { max-width:860px; margin:0 auto; }
+.summary-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+.sum-card { border-radius:14px; padding:14px 14px 12px; border:1px solid var(--border); background:var(--card-bg); position:relative; overflow:hidden; transition:border-color 0.3s,background 0.3s; }
+.sum-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent); pointer-events:none; }
+.sum-card.good { border-color:rgba(0,200,150,0.3); background:rgba(0,200,150,0.06); }
+.sum-card.warn { border-color:rgba(255,179,71,0.3); background:rgba(255,179,71,0.06); }
+.sc-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.sc-label { font-size:9px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.sc-icon { font-size:13px; opacity:0.7; }
+.sc-value { font-family:var(--font-display); font-size:clamp(14px,3vw,20px); font-weight:700; color:var(--text-primary); letter-spacing:-0.5px; line-height:1; }
+.sum-card.good .sc-value { color:var(--green); }
+.sum-card.warn .sc-value { color:var(--amber); }
+.sc-sub { font-size:10px; color:var(--text-muted); margin-top:4px; }
+
+/* WEEK NAV */
+.week-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.week-label { font-family:var(--font-display); font-size:14px; font-weight:600; color:var(--text-primary); }
+.week-btn { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-secondary); font-size:14px; width:30px; height:30px; border-radius:8px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+.week-btn:hover { border-color:var(--green); color:var(--green); }
+
+/* DAY STRIP */
+.day-strip { display:flex; gap:6px; margin-bottom:10px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px; }
+.day-strip::-webkit-scrollbar { display:none; }
+.day-pill { flex-shrink:0; padding:6px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card-bg); cursor:pointer; transition:all 0.2s; text-align:center; }
+.day-pill.active { border-color:rgba(0,200,150,0.4); background:rgba(0,200,150,0.1); }
+.day-pill:hover:not(.active) { border-color:var(--border-hover); }
+.dp-day { font-size:9px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; display:block; }
+.day-pill.active .dp-day { color:var(--green); }
+.dp-meals { font-size:10px; color:var(--text-muted); display:block; margin-top:2px; }
+.day-pill.has-meals .dp-meals { color:var(--green); }
+
+/* CONTAINER */
+.container { max-width:860px; margin:0 auto; padding:24px 16px 140px; position:relative; z-index:1; }
+
+/* WEEK BUDGET BAR */
+.budget-bar-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:20px 22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.budget-bar-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.4),transparent); }
+.bb-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.bb-title { font-size:13px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.8px; }
+.bb-amounts { display:flex; align-items:baseline; gap:6px; }
+.bb-spent { font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--text-primary); }
+.bb-total { font-size:13px; color:var(--text-muted); }
+.bb-track { height:8px; background:rgba(255,255,255,0.06); border-radius:99px; overflow:hidden; margin-bottom:8px; }
+.bb-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--green),var(--lime)); transition:width 0.5s var(--ease-smooth); box-shadow:0 0 10px rgba(0,200,150,0.3); }
+.bb-fill.over { background:linear-gradient(90deg,var(--amber),var(--coral)); box-shadow:0 0 10px rgba(255,107,107,0.3); }
+.bb-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); }
+.bb-input-row { display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.05); }
+.bb-input-label { font-size:11px; color:var(--text-secondary); white-space:nowrap; }
+.bb-input-wrap { position:relative; flex:1; max-width:160px; }
+.bb-pfx { position:absolute; left:10px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--text-muted); pointer-events:none; }
+.bb-input { width:100%; height:38px; padding:0 12px 0 26px; font-size:14px; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s,box-shadow 0.2s; -moz-appearance:textfield; }
+.bb-input::-webkit-inner-spin-button,.bb-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+.bb-input:focus { border-color:rgba(0,200,150,0.5); box-shadow:0 0 0 3px rgba(0,200,150,0.1); }
+.bb-portions-label { font-size:11px; color:var(--text-secondary); white-space:nowrap; }
+.bb-portions-input { width:60px; height:38px; padding:0 10px; font-size:14px; text-align:center; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s; -moz-appearance:textfield; }
+.bb-portions-input:focus { border-color:rgba(0,200,150,0.5); }
+
+/* CARD HEADING */
+.card-heading { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.ch-icon { width:30px; height:30px; border-radius:9px; background:var(--green-dim); border:1px solid rgba(0,200,150,0.2); display:flex; align-items:center; justify-content:center; font-size:14px; }
+
+/* MEAL GRID */
+.meal-grid-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.meal-grid-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.3),transparent); }
+.day-meals-grid { display:grid; grid-template-columns:1fr; gap:10px; }
+@media (min-width:600px) { .day-meals-grid { grid-template-columns:repeat(3,1fr); } }
+.meal-slot { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:14px; transition:all 0.2s; position:relative; }
+.meal-slot.has-meal { border-color:rgba(0,200,150,0.2); }
+.meal-slot:hover { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.12); }
+.meal-slot-type { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.meal-slot-type-dot { width:5px; height:5px; border-radius:50%; background:var(--green); }
+.meal-name-input { width:100%; background:none; border:none; outline:none; font-family:var(--font-body); font-size:13px; font-weight:500; color:var(--text-primary); padding:0; resize:none; line-height:1.4; }
+.meal-name-input::placeholder { color:rgba(255,255,255,0.2); }
+.meal-cost-row { display:flex; align-items:center; gap:6px; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05); }
+.meal-cost-pfx { font-size:11px; color:var(--text-muted); }
+.meal-cost-input { flex:1; background:none; border:none; outline:none; font-family:var(--font-body); font-size:12px; color:var(--text-secondary); -moz-appearance:textfield; width:60px; }
+.meal-cost-input::-webkit-inner-spin-button,.meal-cost-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+.meal-cost-input::placeholder { color:rgba(255,255,255,0.15); }
+.meal-per-person { font-size:10px; color:var(--text-muted); margin-left:auto; }
+.meal-clear-btn { position:absolute; top:8px; right:8px; background:none; border:none; color:var(--text-muted); font-size:12px; cursor:pointer; opacity:0; transition:opacity 0.2s; padding:2px 5px; border-radius:5px; }
+.meal-slot:hover .meal-clear-btn { opacity:0.6; }
+.meal-clear-btn:hover { opacity:1 !important; color:var(--coral); }
+
+/* WEEK VIEW */
+.week-view-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.week-view-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(168,224,99,0.3),transparent); }
+.week-table { width:100%; border-collapse:collapse; }
+.week-table th { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; padding:0 8px 12px; text-align:left; }
+.week-table th:first-child { width:80px; }
+.week-table td { padding:6px 8px; vertical-align:middle; border-top:1px solid rgba(255,255,255,0.04); }
+.wt-meal-type { font-size:11px; color:var(--text-muted); display:flex; align-items:center; gap:5px; }
+.wt-cell { font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; }
+.wt-cell.filled { color:var(--text-primary); }
+.wt-cell.empty { color:rgba(255,255,255,0.12); font-style:italic; }
+.wt-day-head { font-size:11px; font-weight:600; color:var(--text-secondary); }
+.wt-today { color:var(--green) !important; }
+
+/* GROCERY LIST */
+.grocery-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.grocery-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent); }
+.grocery-section { margin-bottom:18px; }
+.grocery-section-title { font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.grocery-items { display:flex; flex-direction:column; gap:6px; }
+.grocery-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; transition:all 0.2s; cursor:pointer; }
+.grocery-item.checked { opacity:0.45; }
+.grocery-item.checked .gi-name { text-decoration:line-through; color:var(--text-muted); }
+.gi-check { width:18px; height:18px; border-radius:5px; border:1.5px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; transition:all 0.2s; }
+.grocery-item.checked .gi-check { background:var(--green); border-color:var(--green); }
+.gi-name { font-size:13px; color:var(--text-primary); flex:1; }
+.gi-add-row { display:flex; gap:8px; margin-top:10px; }
+.gi-add-input { flex:1; height:38px; padding:0 12px; font-size:13px; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s; }
+.gi-add-input::placeholder { color:rgba(255,255,255,0.2); }
+.gi-add-input:focus { border-color:rgba(0,200,150,0.5); }
+.gi-add-btn { height:38px; padding:0 16px; background:rgba(0,200,150,0.12); border:1px solid rgba(0,200,150,0.25); color:var(--green); font-family:var(--font-body); font-size:13px; font-weight:500; border-radius:10px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+.gi-add-btn:hover { background:rgba(0,200,150,0.2); }
+.grocery-empty { text-align:center; padding:20px; color:var(--text-muted); font-size:13px; }
+
+/* TIPS */
+.tips-card { background:rgba(201,168,76,0.03); border:1px solid rgba(201,168,76,0.18); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.tips-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent); }
+.tips-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.tips-title { font-family:var(--font-display); font-size:16px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:10px; }
+.tips-badge { font-size:10px; font-weight:600; color:var(--navy); background:var(--green); padding:2px 9px; border-radius:99px; }
+.tips-sub { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
+.tip-list { display:flex; flex-direction:column; gap:9px; }
+.tip-item { display:flex; align-items:flex-start; gap:12px; padding:13px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); transition:all 0.2s; }
+.tip-item:hover { background:rgba(255,255,255,0.05); transform:translateX(2px); }
+.tip-ico { width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.tip-ico.green { background:var(--green-dim); }
+.tip-ico.gold { background:var(--amber-dim); }
+.tip-ico.blue { background:var(--blue-dim); }
+.tip-ico.coral { background:var(--coral-dim); }
+.tip-ico.purple { background:var(--purple-dim); }
+.tip-txt { font-size:13px; font-weight:500; color:var(--text-primary); margin-bottom:2px; line-height:1.4; }
+.tip-detail { font-size:11px; color:var(--text-secondary); line-height:1.5; }
+.tip-tag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap; flex-shrink:0; align-self:center; }
+.tip-tag.good { color:var(--green); background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.2); }
+.tip-tag.gold { color:var(--gold); background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); }
+.tip-tag.warn { color:var(--amber); background:var(--amber-dim); border:1px solid rgba(255,179,71,0.25); }
+
+/* RESET + FAB + FOOTER */
+.reset-wrap { text-align:center; margin:28px 0; }
+.reset-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:500; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:99px; cursor:pointer; transition:all 0.2s; }
+.reset-btn:hover { color:var(--coral); border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.06); }
+.fab { position:fixed; bottom:28px; right:20px; z-index:200; background:linear-gradient(135deg,var(--green-dark),#006644); color:#fff; border:none; cursor:pointer; padding:13px 18px; border-radius:99px; font-family:var(--font-body); font-size:13px; font-weight:600; box-shadow:0 4px 24px rgba(0,200,150,0.3),0 2px 8px rgba(0,0,0,0.3); display:none; align-items:center; gap:8px; transition:transform 0.2s; }
+.fab:active { transform:scale(0.97); }
+.fab-num { background:rgba(255,255,255,0.2); font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; min-width:20px; text-align:center; }
+@media (max-width:767px) { .fab { display:flex; } }
+.footer { background:rgba(13,31,60,0.8); border-top:1px solid var(--border); text-align:center; padding:22px 20px; color:var(--text-muted); font-size:12px; position:relative; z-index:1; }
+.footer strong { color:var(--green); font-weight:500; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.hero { animation:fadeUp 0.7s ease both; }
+.budget-bar-card { animation:fadeUp 0.7s 0.1s ease both; }
+.meal-grid-card { animation:fadeUp 0.7s 0.15s ease both; }
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="brand-mark"><span class="brand-dot"></span><span data-i18n="brand">E Pelissier Enterprise</span></div>
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>🌍</label>
+      <select id="lang-select" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
+    </div>
+    <div class="ctrl-divider"></div>
+    <div class="ctrl-group">
+      <label>💱</label>
+      <select id="currency-select" onchange="setCurrency(this.value)">
+        <option value="USD">$ USD</option>
+        <option value="CAD">$ CAD</option>
+        <option value="GBP">£ GBP</option>
+        <option value="EUR">€ EUR</option>
+        <option value="BRL">R$ BRL</option>
+        <option value="MXN">$ MXN</option>
+        <option value="CHF">Fr CHF</option>
+        <option value="AUD">A$ AUD</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow" data-i18n="eyebrow">Family Meal Tool</div>
+  <h1><em data-i18n="hero_em">Plan</em> <span data-i18n="hero_rest">Smarter Meals,<br>Save Every Week</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Plan your week, track your food budget, generate your grocery list — and watch the savings add up.</p>
+  <div class="hero-line"></div>
+</div>
+
+<!-- STICKY DASH -->
+<div class="sticky-dash" id="sticky-dash">
+  <div class="dash-inner">
+    <div class="summary-row">
+      <div class="sum-card good">
+        <div class="sc-top"><span class="sc-label" data-i18n="weekly_budget">Weekly Budget</span><span class="sc-icon">🛒</span></div>
+        <div class="sc-value" id="val-budget">$0</div>
+        <div class="sc-sub" id="sub-budget">—</div>
+      </div>
+      <div class="sum-card" id="card-spent">
+        <div class="sc-top"><span class="sc-label" data-i18n="meals_planned">Meals Planned</span><span class="sc-icon">🍽️</span></div>
+        <div class="sc-value" id="val-meals">0</div>
+        <div class="sc-sub" id="sub-meals">—</div>
+      </div>
+      <div class="sum-card" id="card-remaining">
+        <div class="sc-top"><span class="sc-label" data-i18n="cost_per_meal">Per Meal</span><span class="sc-icon">💰</span></div>
+        <div class="sc-value" id="val-per-meal">$0</div>
+        <div class="sc-sub" id="sub-per-meal">—</div>
+      </div>
+    </div>
+    <!-- DAY STRIP -->
+    <div class="day-strip" id="day-strip"></div>
+  </div>
+</div>
+
+<!-- CONTAINER -->
+<div class="container">
+
+  <!-- BUDGET BAR -->
+  <div class="budget-bar-card">
+    <div class="bb-head">
+      <span class="bb-title" data-i18n="food_budget">Weekly Food Budget</span>
+      <div class="bb-amounts">
+        <span class="bb-spent" id="bb-spent">$0</span>
+        <span class="bb-total" id="bb-total">/ $0</span>
+      </div>
+    </div>
+    <div class="bb-track"><div class="bb-fill" id="bb-fill" style="width:0%"></div></div>
+    <div class="bb-labels">
+      <span data-i18n="spent">Spent</span>
+      <span id="bb-remaining-lbl">$0 remaining</span>
+    </div>
+    <div class="bb-input-row">
+      <span class="bb-input-label" data-i18n="weekly_budget_label">Weekly budget:</span>
+      <div class="bb-input-wrap">
+        <span class="bb-pfx currency-symbol">$</span>
+        <input type="number" class="bb-input" id="weekly-budget" placeholder="200" min="0" step="1" value="200" oninput="updateBudget()">
+      </div>
+      <span class="bb-portions-label" data-i18n="portions_label">Portions per meal:</span>
+      <input type="number" class="bb-portions-input" id="portions" placeholder="4" min="1" max="20" value="4" oninput="renderAll()">
+    </div>
+  </div>
+
+  <!-- MEAL PLANNER GRID -->
+  <div class="meal-grid-card">
+    <div class="card-heading"><div class="ch-icon">📅</div><span id="day-heading" data-i18n="plan_for">Plan for Monday</span></div>
+    <div class="day-meals-grid" id="meal-grid"></div>
+  </div>
+
+  <!-- WEEK OVERVIEW TABLE -->
+  <div class="week-view-card">
+    <div class="card-heading"><div class="ch-icon" style="background:var(--lime-dim);border-color:rgba(168,224,99,0.2);">📊</div><span data-i18n="week_overview">Week at a Glance</span></div>
+    <div style="overflow-x:auto;">
+      <table class="week-table" id="week-table">
+        <thead><tr id="week-table-head"></tr></thead>
+        <tbody id="week-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROCERY LIST -->
+  <div class="grocery-card" id="grocery-anchor">
+    <div class="card-heading"><div class="ch-icon" style="background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.2);">🛒</div><span data-i18n="grocery_list">Grocery List</span></div>
+    <div id="grocery-auto"></div>
+    <div class="grocery-section">
+      <div class="grocery-section-title">➕ <span data-i18n="add_item">Add Custom Item</span></div>
+      <div class="gi-add-row">
+        <input type="text" class="gi-add-input" id="gi-input" placeholder="e.g. Olive oil, pasta..." onkeydown="if(event.key==='Enter')addGroceryItem()">
+        <button class="gi-add-btn" onclick="addGroceryItem()" data-i18n="add_btn">+ Add</button>
+      </div>
+    </div>
+    <div id="grocery-custom"></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips-card" id="tips-anchor">
+    <div class="tips-head">
+      <div class="tips-title">💡 <span data-i18n="tips_title">Meal Planning Tips</span></div>
+      <span class="tips-badge" id="tips-badge"></span>
+    </div>
+    <div class="tips-sub" data-i18n="tips_sub">Smart strategies to cut your grocery bill</div>
+    <div id="tips-body"></div>
+  </div>
+
+  <div class="reset-wrap">
+    <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
+  </div>
+</div>
+
+<button class="fab" id="fab" onclick="document.getElementById('grocery-anchor').scrollIntoView({behavior:'smooth'})">
+  🛒 <span data-i18n="grocery_list">Grocery List</span>
+  <span class="fab-num" id="fab-num">0</span>
+</button>
+
+<div class="footer"><span data-i18n="footer">Eat well, spend less — </span><strong>E Pelissier Enterprise</strong></div>
+
+<script>
+const T={
+  en:{
+    brand:"E Pelissier Enterprise",eyebrow:"Family Meal Tool",
+    hero_em:"Plan",hero_rest:"Smarter Meals,\nSave Every Week",
+    hero_sub:"Plan your week, track your food budget, generate your grocery list — and watch the savings add up.",
+    weekly_budget:"Weekly Budget",meals_planned:"Meals Planned",cost_per_meal:"Per Meal",
+    food_budget:"Weekly Food Budget",spent:"Spent",
+    weekly_budget_label:"Weekly budget:",portions_label:"Portions per meal:",
+    plan_for:"Plan for",week_overview:"Week at a Glance",
+    grocery_list:"Grocery List",add_item:"Add Custom Item",add_btn:"+ Add",
+    tips_title:"Meal Planning Tips",tips_sub:"Smart strategies to cut your grocery bill",
+    reset:"Reset Week",footer:"Eat well, spend less — ",
+    breakfast:"Breakfast",lunch:"Lunch",dinner:"Dinner",
+    days:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    days_short:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    meal_placeholder:["Oatmeal, eggs...","Salad, sandwich...","Pasta, chicken..."],
+    cost_placeholder:"Cost",
+    per_person:"/ person",
+    remaining:"remaining",over_budget:"over budget",
+    grocery_from_meals:"From Your Meal Plan",
+    ingredients_hint:"Ingredients detected from your meals:",
+    no_meals:"No meals planned yet — add meals above to auto-generate your grocery list.",
+    custom_items:"Custom Items",
+    tip1_txt:"Meal prep Sundays save 3–4 hours",tip1_detail:"Batch cooking grains, proteins, and veggies on Sunday means faster meals all week and less food waste.",tip1_tag:"3-4 hrs saved",
+    tip2_txt:"Plan before you shop — always",tip2_detail:"Families who plan meals before grocery shopping spend 25–30% less and waste significantly less food.",tip2_tag:"25% less spend",
+    tip3_txt:"Double recipes and freeze half",tip3_detail:"Making double portions and freezing half cuts your cost per meal and saves you on busy weeknights.",tip3_tag:"50% cost cut",
+    tip4_txt:"Shop the perimeter of the store",tip4_detail:"Fresh produce, meat, and dairy are on the perimeter. The interior aisles are where impulse buys happen.",tip4_tag:"Less impulse buys",
+    tip5_txt:"Use a set weekly budget",tip5_detail:"Families with a defined food budget spend an average of $150/month less than those without one.",tip5_tag:"$150/mo savings",
+    tip6_txt:"Meatless Monday saves big",tip6_detail:"Replacing one meat dinner per week with a plant-based meal saves $20–40/month per family.",tip6_tag:"$30/mo avg",
+    tip7_txt:"Buy in bulk for staples",tip7_detail:"Rice, beans, oats, pasta, and canned goods bought in bulk cost 40–60% less per serving than smaller packages.",tip7_tag:"40% cheaper",
+    budget_good:"On track",budget_over:"Over budget",budget_pct:"of budget used",
+    meals_of:"of 21 meals",per_portion:"per portion",
+    mark_done:"Done",
+  },
+  fr:{
+    brand:"E Pelissier Enterprise",eyebrow:"Outil Repas Familial",
+    hero_em:"Planifiez",hero_rest:"des Repas Intelligents,\nÉconomisez Chaque Semaine",
+    hero_sub:"Planifiez votre semaine, suivez votre budget alimentaire, générez votre liste de courses.",
+    weekly_budget:"Budget Hebdo",meals_planned:"Repas Planifiés",cost_per_meal:"Par Repas",
+    food_budget:"Budget Alimentaire Hebdomadaire",spent:"Dépensé",
+    weekly_budget_label:"Budget hebdomadaire:",portions_label:"Portions par repas:",
+    plan_for:"Planifier pour",week_overview:"La Semaine en un Coup d'Œil",
+    grocery_list:"Liste de Courses",add_item:"Ajouter un Article",add_btn:"+ Ajouter",
+    tips_title:"Conseils Repas",tips_sub:"Stratégies pour réduire votre facture d'épicerie",
+    reset:"Réinitialiser la Semaine",footer:"Bien manger, dépenser moins — ",
+    breakfast:"Petit-déjeuner",lunch:"Déjeuner",dinner:"Dîner",
+    days:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],
+    days_short:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
+    meal_placeholder:["Porridge, œufs...","Salade, sandwich...","Pâtes, poulet..."],
+    cost_placeholder:"Coût",per_person:"/ pers.",
+    remaining:"restant",over_budget:"dépassement",
+    grocery_from_meals:"De Votre Plan de Repas",
+    ingredients_hint:"Ingrédients détectés dans vos repas:",
+    no_meals:"Aucun repas planifié — ajoutez des repas ci-dessus pour générer automatiquement votre liste de courses.",
+    custom_items:"Articles Personnalisés",
+    tip1_txt:"La prépa du dimanche économise 3–4 heures",tip1_detail:"Cuisiner en lot le dimanche signifie des repas plus rapides toute la semaine et moins de gaspillage alimentaire.",tip1_tag:"3-4h économisées",
+    tip2_txt:"Planifiez avant de faire les courses",tip2_detail:"Les familles qui planifient les repas avant les courses dépensent 25–30% de moins.",tip2_tag:"25% d'économies",
+    tip3_txt:"Doublez les recettes et congelez la moitié",tip3_detail:"Faire le double et congeler la moitié réduit le coût par repas et vous sauve les soirs chargés.",tip3_tag:"50% moins cher",
+    tip4_txt:"Faites le tour du périmètre du magasin",tip4_detail:"Les produits frais sont sur le périmètre. Les allées intérieures sont là où se font les achats impulsifs.",tip4_tag:"Moins d'achats impulsifs",
+    tip5_txt:"Utilisez un budget hebdomadaire fixe",tip5_detail:"Les familles avec un budget alimentaire défini dépensent en moyenne 150€/mois de moins.",tip5_tag:"150€/mois économisés",
+    tip6_txt:"Le lundi sans viande économise beaucoup",tip6_detail:"Remplacer un dîner à la viande par semaine par un repas végétal économise 20–40€/mois.",tip6_tag:"30€/mois en moyenne",
+    tip7_txt:"Achetez en vrac pour les essentiels",tip7_detail:"Le riz, les légumineuses, les flocons d'avoine achetés en vrac coûtent 40–60% moins cher par portion.",tip7_tag:"40% moins cher",
+    budget_good:"Dans les limites",budget_over:"Dépassement",budget_pct:"du budget utilisé",
+    meals_of:"sur 21 repas",per_portion:"par portion",mark_done:"Fait",
+  },
+  es:{
+    brand:"E Pelissier Enterprise",eyebrow:"Herramienta Comidas Familiares",
+    hero_em:"Planifica",hero_rest:"Comidas Inteligentes,\nAhorra Cada Semana",
+    hero_sub:"Planifica tu semana, rastrea tu presupuesto de comida, genera tu lista de compras.",
+    weekly_budget:"Presupuesto Semanal",meals_planned:"Comidas Planificadas",cost_per_meal:"Por Comida",
+    food_budget:"Presupuesto Semanal de Comida",spent:"Gastado",
+    weekly_budget_label:"Presupuesto semanal:",portions_label:"Porciones por comida:",
+    plan_for:"Planificar para",week_overview:"La Semana de un Vistazo",
+    grocery_list:"Lista de Compras",add_item:"Agregar Artículo",add_btn:"+ Agregar",
+    tips_title:"Consejos de Planificación",tips_sub:"Estrategias para reducir tu factura de supermercado",
+    reset:"Reiniciar Semana",footer:"Come bien, gasta menos — ",
+    breakfast:"Desayuno",lunch:"Almuerzo",dinner:"Cena",
+    days:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    days_short:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+    meal_placeholder:["Avena, huevos...","Ensalada, sándwich...","Pasta, pollo..."],
+    cost_placeholder:"Costo",per_person:"/ pers.",
+    remaining:"restante",over_budget:"excedido",
+    grocery_from_meals:"De Tu Plan de Comidas",
+    ingredients_hint:"Ingredientes detectados en tus comidas:",
+    no_meals:"Sin comidas planificadas — agrega comidas arriba para generar automáticamente tu lista de compras.",
+    custom_items:"Artículos Personalizados",
+    tip1_txt:"Prepara comidas los domingos — ahorra 3-4 horas",tip1_detail:"Cocinar en lote los domingos significa comidas más rápidas toda la semana y menos desperdicio.",tip1_tag:"3-4 horas ahorradas",
+    tip2_txt:"Planifica antes de ir al supermercado",tip2_detail:"Las familias que planifican comidas antes de las compras gastan 25–30% menos.",tip2_tag:"25% menos gasto",
+    tip3_txt:"Duplica recetas y congela la mitad",tip3_detail:"Hacer el doble y congelar la mitad reduce el costo por comida y te salva las noches ocupadas.",tip3_tag:"50% más barato",
+    tip4_txt:"Recorre el perímetro del supermercado",tip4_detail:"Los productos frescos están en el perímetro. Los pasillos interiores son donde ocurren las compras impulsivas.",tip4_tag:"Menos compras impulsivas",
+    tip5_txt:"Usa un presupuesto semanal fijo",tip5_detail:"Las familias con un presupuesto alimentario definido gastan en promedio $150/mes menos.",tip5_tag:"$150/mes ahorrados",
+    tip6_txt:"Lunes sin carne ahorra mucho",tip6_detail:"Reemplazar una cena de carne por semana por una comida vegetal ahorra $20–40/mes.",tip6_tag:"$30/mes promedio",
+    tip7_txt:"Compra a granel para básicos",tip7_detail:"Arroz, frijoles, avena, pasta comprados a granel cuestan 40–60% menos por porción.",tip7_tag:"40% más barato",
+    budget_good:"En camino",budget_over:"Excedido",budget_pct:"del presupuesto usado",
+    meals_of:"de 21 comidas",per_portion:"por porción",mark_done:"Hecho",
+  },
+  pt:{
+    brand:"E Pelissier Enterprise",eyebrow:"Ferramenta Refeições Familiares",
+    hero_em:"Planeje",hero_rest:"Refeições Inteligentes,\nEconomize Toda Semana",
+    hero_sub:"Planeje sua semana, acompanhe seu orçamento alimentar, gere sua lista de compras.",
+    weekly_budget:"Orçamento Semanal",meals_planned:"Refeições Planejadas",cost_per_meal:"Por Refeição",
+    food_budget:"Orçamento Semanal de Alimentação",spent:"Gasto",
+    weekly_budget_label:"Orçamento semanal:",portions_label:"Porções por refeição:",
+    plan_for:"Planejar para",week_overview:"A Semana em um Relance",
+    grocery_list:"Lista de Compras",add_item:"Adicionar Item",add_btn:"+ Adicionar",
+    tips_title:"Dicas de Planejamento",tips_sub:"Estratégias para reduzir sua conta de supermercado",
+    reset:"Redefinir Semana",footer:"Coma bem, gaste menos — ",
+    breakfast:"Café da Manhã",lunch:"Almoço",dinner:"Jantar",
+    days:["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],
+    days_short:["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"],
+    meal_placeholder:["Aveia, ovos...","Salada, sanduíche...","Macarrão, frango..."],
+    cost_placeholder:"Custo",per_person:"/ pessoa",
+    remaining:"restante",over_budget:"acima do orçamento",
+    grocery_from_meals:"Do Seu Plano de Refeições",
+    ingredients_hint:"Ingredientes detectados nas suas refeições:",
+    no_meals:"Sem refeições planejadas — adicione refeições acima para gerar automaticamente sua lista de compras.",
+    custom_items:"Itens Personalizados",
+    tip1_txt:"Preparo de domingo economiza 3-4 horas",tip1_detail:"Cozinhar em lote no domingo significa refeições mais rápidas durante a semana e menos desperdício.",tip1_tag:"3-4h economizadas",
+    tip2_txt:"Planeje antes de ir ao mercado",tip2_detail:"Famílias que planejam refeições antes das compras gastam 25–30% menos.",tip2_tag:"25% de economia",
+    tip3_txt:"Duplique receitas e congele a metade",tip3_detail:"Fazer o dobro e congelar a metade reduz o custo por refeição e salva as noites ocupadas.",tip3_tag:"50% mais barato",
+    tip4_txt:"Percorra o perímetro do supermercado",tip4_detail:"Produtos frescos ficam no perímetro. Os corredores internos são onde acontecem as compras por impulso.",tip4_tag:"Menos compras impulsivas",
+    tip5_txt:"Use um orçamento semanal fixo",tip5_detail:"Famílias com orçamento alimentar definido gastam em média R$150/mês a menos.",tip5_tag:"R$150/mês economizados",
+    tip6_txt:"Segunda sem carne economiza bastante",tip6_detail:"Substituir um jantar de carne por semana por uma refeição vegetal economiza R$20–40/mês.",tip6_tag:"R$30/mês em média",
+    tip7_txt:"Compre a granel para itens básicos",tip7_detail:"Arroz, feijão, aveia, macarrão comprados a granel custam 40–60% menos por porção.",tip7_tag:"40% mais barato",
+    budget_good:"No caminho certo",budget_over:"Acima do orçamento",budget_pct:"do orçamento usado",
+    meals_of:"de 21 refeições",per_portion:"por porção",mark_done:"Feito",
+  }
+};
+
+const CURRENCIES={USD:{symbol:'$',locale:'en-US'},CAD:{symbol:'$',locale:'en-CA'},GBP:{symbol:'£',locale:'en-GB'},EUR:{symbol:'€',locale:'de-DE'},BRL:{symbol:'R$',locale:'pt-BR'},MXN:{symbol:'$',locale:'es-MX'},CHF:{symbol:'Fr',locale:'de-CH'},AUD:{symbol:'A$',locale:'en-AU'}};
+const MEAL_TYPES=['breakfast','lunch','dinner'];
+
+let lang='en', currency='USD';
+let activeDay=0;
+let weekData=Array.from({length:7},(_,i)=>({
+  day:i,
+  meals:{
+    breakfast:{name:'',cost:''},
+    lunch:{name:'',cost:''},
+    dinner:{name:'',cost:''}
+  }
+}));
+let customGrocery=[];
+let groceryChecked={};
+
+function t(k){return T[lang][k]||T.en[k]||k;}
+function sym(){return CURRENCIES[currency].symbol;}
+function fmt(n,dec=0){const c=CURRENCIES[currency];return c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
+  document.documentElement.lang=l;
+  renderAll();
+}
+function setCurrency(c){
+  currency=c;
+  document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  renderAll();
+}
+function updateBudget(){ renderAll(); }
+
+// ── DAY STRIP ────────────────────────────────────────────────
+function renderDayStrip(){
+  const strip=document.getElementById('day-strip');
+  const days=t('days_short');
+  strip.innerHTML=weekData.map((d,i)=>{
+    const mealCount=Object.values(d.meals).filter(m=>m.name.trim()).length;
+    const cls=(i===activeDay?'active ':'')+(mealCount>0?'has-meals':'');
+    return `<div class="day-pill ${cls}" onclick="setActiveDay(${i})">
+      <span class="dp-day">${days[i]}</span>
+      <span class="dp-meals">${mealCount>0?mealCount+' 🍽️':'—'}</span>
+    </div>`;
+  }).join('');
+}
+
+function setActiveDay(i){
+  activeDay=i;
+  renderAll();
+}
+
+// ── MEAL GRID ────────────────────────────────────────────────
+function renderMealGrid(){
+  const grid=document.getElementById('meal-grid');
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const dayData=weekData[activeDay];
+  const dayName=t('days')[activeDay];
+  document.getElementById('day-heading').textContent=t('plan_for')+' '+dayName;
+
+  grid.innerHTML=MEAL_TYPES.map((type,i)=>{
+    const meal=dayData.meals[type];
+    const cost=parseFloat(meal.cost)||0;
+    const perPerson=portions>0?cost/portions:0;
+    const hasMeal=meal.name.trim().length>0;
+    return `<div class="meal-slot ${hasMeal?'has-meal':''}">
+      <div class="meal-slot-type"><span class="meal-slot-type-dot"></span>${t(type)}</div>
+      <textarea class="meal-name-input" rows="2" placeholder="${t('meal_placeholder')[i]}"
+        oninput="updateMeal(${activeDay},'${type}','name',this.value)">${meal.name}</textarea>
+      <div class="meal-cost-row">
+        <span class="meal-cost-pfx currency-symbol">${sym()}</span>
+        <input type="number" class="meal-cost-input" placeholder="${t('cost_placeholder')}" value="${meal.cost}" min="0" step="0.01"
+          oninput="updateMeal(${activeDay},'${type}','cost',this.value)">
+        <span class="meal-per-person">${perPerson>0?fmt(perPerson,2)+t('per_person'):''}</span>
+      </div>
+      ${hasMeal?`<button class="meal-clear-btn" onclick="clearMeal(${activeDay},'${type}')">✕</button>`:''}
+    </div>`;
+  }).join('');
+}
+
+function updateMeal(dayIdx,type,field,value){
+  weekData[dayIdx].meals[type][field]=value;
+  renderAll();
+}
+
+function clearMeal(dayIdx,type){
+  weekData[dayIdx].meals[type]={name:'',cost:''};
+  renderAll();
+}
+
+// ── WEEK TABLE ───────────────────────────────────────────────
+function renderWeekTable(){
+  const head=document.getElementById('week-table-head');
+  const body=document.getElementById('week-table-body');
+  const days=t('days_short');
+  head.innerHTML='<th></th>'+days.map((d,i)=>`<th><span class="wt-day-head ${i===activeDay?'wt-today':''}">${d}</span></th>`).join('');
+  body.innerHTML=MEAL_TYPES.map(type=>`
+    <tr>
+      <td><span class="wt-meal-type">${t(type)}</span></td>
+      ${weekData.map((d,i)=>{
+        const name=d.meals[type].name.trim();
+        return `<td><span class="wt-cell ${name?'filled':'empty'}" onclick="setActiveDay(${i})">${name||'—'}</span></td>`;
+      }).join('')}
+    </tr>`).join('');
+}
+
+// ── GROCERY LIST ─────────────────────────────────────────────
+function extractIngredients(){
+  const words=[];
+  const stopWords=new Set(['and','or','with','the','a','an','of','in','on','for','to','some','fresh','sliced','diced','chopped','cooked','baked','grilled','steamed','fried','homemade','my','our','e','g','etc']);
+  weekData.forEach(d=>{
+    Object.values(d.meals).forEach(m=>{
+      if(!m.name.trim())return;
+      m.name.split(/[,\n\/\+\&]+/).forEach(part=>{
+        const clean=part.trim().toLowerCase().replace(/[^a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ0-9 ]/g,'').trim();
+        if(clean.length>2&&!stopWords.has(clean))words.push(clean.charAt(0).toUpperCase()+clean.slice(1));
+      });
+    });
+  });
+  return [...new Set(words)];
+}
+
+function renderGroceryList(){
+  const autoDiv=document.getElementById('grocery-auto');
+  const customDiv=document.getElementById('grocery-custom');
+  const ingredients=extractIngredients();
+  const fabNum=document.getElementById('fab-num');
+
+  if(ingredients.length===0){
+    autoDiv.innerHTML=`<div class="grocery-section"><div class="grocery-section-title">🥗 ${t('grocery_from_meals')}</div><div class="grocery-empty">${t('no_meals')}</div></div>`;
+  } else {
+    autoDiv.innerHTML=`<div class="grocery-section">
+      <div class="grocery-section-title">🥗 ${t('grocery_from_meals')}</div>
+      <div class="grocery-items">${ingredients.map((item,i)=>{
+        const key='auto_'+i+'_'+item;
+        const checked=groceryChecked[key]||false;
+        return `<div class="grocery-item ${checked?'checked':''}" onclick="toggleGrocery('${key}',this)">
+          <div class="gi-check">${checked?'✓':''}</div>
+          <span class="gi-name">${item}</span>
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  }
+
+  if(customGrocery.length>0){
+    customDiv.innerHTML=`<div class="grocery-section">
+      <div class="grocery-section-title">📝 ${t('custom_items')}</div>
+      <div class="grocery-items">${customGrocery.map((item,i)=>{
+        const key='custom_'+i;
+        const checked=groceryChecked[key]||false;
+        return `<div class="grocery-item ${checked?'checked':''}" onclick="toggleGrocery('${key}',this)">
+          <div class="gi-check">${checked?'✓':''}</div>
+          <span class="gi-name">${item}</span>
+          <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;padding:2px 6px;" onclick="event.stopPropagation();removeCustomItem(${i})">✕</button>
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  } else { customDiv.innerHTML=''; }
+
+  const total=ingredients.length+customGrocery.length;
+  fabNum.textContent=total;
+}
+
+function toggleGrocery(key,el){
+  groceryChecked[key]=!groceryChecked[key];
+  el.classList.toggle('checked',groceryChecked[key]);
+  const check=el.querySelector('.gi-check');
+  if(check)check.textContent=groceryChecked[key]?'✓':'';
+}
+
+function addGroceryItem(){
+  const input=document.getElementById('gi-input');
+  const val=input.value.trim();
+  if(!val)return;
+  customGrocery.push(val);
+  input.value='';
+  renderGroceryList();
+}
+
+function removeCustomItem(i){
+  customGrocery.splice(i,1);
+  renderGroceryList();
+}
+
+// ── TIPS ─────────────────────────────────────────────────────
+function renderTips(){
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
+  const tips=[
+    {ico:'🥦',color:'green',txt:t('tip2_txt'),detail:t('tip2_detail'),tag:t('tip2_tag'),tagClass:'good'},
+    {ico:'🍳',color:'gold',txt:t('tip1_txt'),detail:t('tip1_detail'),tag:t('tip1_tag'),tagClass:'gold'},
+    {ico:'🧊',color:'blue',txt:t('tip3_txt'),detail:t('tip3_detail'),tag:t('tip3_tag'),tagClass:'good'},
+    {ico:'🌿',color:'green',txt:t('tip6_txt'),detail:t('tip6_detail'),tag:t('tip6_tag'),tagClass:'gold'},
+    {ico:'🛒',color:'gold',txt:t('tip4_txt'),detail:t('tip4_detail'),tag:t('tip4_tag'),tagClass:'warn'},
+    {ico:'💰',color:'green',txt:t('tip5_txt'),detail:t('tip5_detail'),tag:t('tip5_tag'),tagClass:'good'},
+    {ico:'📦',color:'blue',txt:t('tip7_txt'),detail:t('tip7_detail'),tag:t('tip7_tag'),tagClass:'good'},
+  ];
+  document.getElementById('tips-badge').textContent=tips.length;
+  document.getElementById('tips-body').innerHTML=`<div class="tip-list">${tips.map(tip=>`
+    <div class="tip-item">
+      <div class="tip-ico ${tip.color}">${tip.ico}</div>
+      <div>
+        <div class="tip-txt">${tip.txt}</div>
+        <div class="tip-detail">${tip.detail}</div>
+      </div>
+      <div class="tip-tag ${tip.tagClass}">${tip.tag}</div>
+    </div>`).join('')}</div>`;
+}
+
+// ── RENDER ALL ───────────────────────────────────────────────
+function renderAll(){
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
+  const totalMeals=weekData.reduce((s,d)=>s+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  const remaining=budget-totalCost;
+  const pct=budget>0?Math.min(100,(totalCost/budget)*100):0;
+  const perMeal=totalMeals>0?totalCost/totalMeals:0;
+
+  // summary
+  document.getElementById('val-budget').textContent=fmt(budget);
+  document.getElementById('val-meals').textContent=totalMeals;
+  document.getElementById('val-per-meal').textContent=totalMeals>0?fmt(perMeal,2):'—';
+  document.getElementById('sub-budget').textContent=pct.toFixed(0)+'% '+t('budget_pct');
+  document.getElementById('sub-meals').textContent=totalMeals+' '+t('meals_of');
+  document.getElementById('sub-per-meal').textContent=totalMeals>0?(fmt(perMeal/portions,2)+t('per_portion')):'—';
+
+  // budget bar
+  document.getElementById('bb-spent').textContent=fmt(totalCost,2);
+  document.getElementById('bb-total').textContent='/ '+fmt(budget,2);
+  const fill=document.getElementById('bb-fill');
+  fill.style.width=pct+'%';
+  fill.classList.toggle('over',pct>100);
+  const remCard=document.getElementById('card-remaining');
+  remCard.classList.toggle('warn',pct>90);
+  document.getElementById('bb-remaining-lbl').textContent=remaining>=0?fmt(remaining,2)+' '+t('remaining'):fmt(Math.abs(remaining),2)+' '+t('over_budget');
+  document.getElementById('val-budget').textContent=fmt(budget);
+
+  renderDayStrip();
+  renderMealGrid();
+  renderWeekTable();
+  renderGroceryList();
+  renderTips();
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('sticky-dash').classList.toggle('scrolled',window.scrollY>10);
+},{passive:true});
+
+function resetAll(){
+  weekData=Array.from({length:7},(_,i)=>({day:i,meals:{breakfast:{name:'',cost:''},lunch:{name:'',cost:''},dinner:{name:'',cost:''}}}));
+  customGrocery=[];groceryChecked={};activeDay=0;
+  document.getElementById('weekly-budget').value='200';
+  document.getElementById('portions').value='4';
+  renderAll();
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
