@@ -287,6 +287,16 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 </div>
 
 <!-- CONTAINER -->
+
+<!-- BUDGET SYNC BANNER -->
+<div id="budget-sync-banner" style="display:none;background:rgba(0,200,150,0.07);border:1px solid rgba(0,200,150,0.2);border-radius:14px;padding:12px 18px;margin:0 auto 16px;max-width:860px;position:relative;z-index:1;align-items:center;gap:10px;flex-wrap:wrap;">
+  <span style="font-size:14px;">🔗</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;">Your Budget Planner food budget:</span>
+  <strong class="bsb-val" style="color:var(--green);font-size:14px;font-weight:700;"></strong>
+  <button class="bsb-btn" style="background:rgba(0,200,150,0.15);border:1px solid rgba(0,200,150,0.3);color:var(--green);font-family:var(--font-body);font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;cursor:pointer;">Apply →</button>
+  <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;padding:0 4px;">✕</button>
+</div>
+
 <div class="container">
 
   <!-- BUDGET BAR -->
@@ -740,6 +750,14 @@ function renderAll(){
   renderWeekTable();
   renderGroceryList();
   renderTips();
+
+  // ── save to shared store ──
+  const _budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const _portions=parseInt(document.getElementById('portions').value)||4;
+  ssWrite({ep_meal_spend:totalCost,mp_weekly_budget:_budget,mp_portions:_portions,
+    mp_weekData:JSON.stringify(weekData),mp_customGrocery:JSON.stringify(customGrocery),
+    ep_currency:currency,ep_lang:lang});
+
 }
 
 window.addEventListener('scroll',()=>{
@@ -747,6 +765,7 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 function resetAll(){
+  SS.clear();
   weekData=Array.from({length:7},(_,i)=>({day:i,meals:{breakfast:{name:'',cost:''},lunch:{name:'',cost:''},dinner:{name:'',cost:''}}}));
   customGrocery=[];groceryChecked={};activeDay=0;
   document.getElementById('weekly-budget').value='200';
@@ -754,8 +773,48 @@ function resetAll(){
   renderAll();
 }
 
+
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang){document.getElementById('lang-select').value=s.ep_lang;setLang(s.ep_lang);}
+  if(s.ep_currency){document.getElementById('currency-select').value=s.ep_currency;setCurrency(s.ep_currency);}
+  if(s.ep_food_weekly&&s.ep_food_weekly>0){
+    document.getElementById('weekly-budget').value=Math.round(s.ep_food_weekly);
+  }
+  if(s.mp_portions){document.getElementById('portions').value=s.mp_portions;}
+  if(s.mp_weekData){
+    try{ weekData=JSON.parse(s.mp_weekData); }catch(e){}
+  }
+  if(s.mp_customGrocery){
+    try{ customGrocery=JSON.parse(s.mp_customGrocery); }catch(e){}
+  }
+}
+
+function checkBudgetSync(){
+  const s=SS.get();
+  const foodWeekly=s.ep_food_weekly||0;
+  const banner=document.getElementById('budget-sync-banner');
+  if(banner&&foodWeekly>0){
+    const c=CURRENCIES[currency];
+    banner.style.display='flex';
+    banner.querySelector('.bsb-val').textContent=c.symbol+Math.round(foodWeekly)+'/wk';
+    banner.querySelector('.bsb-btn').onclick=()=>{
+      document.getElementById('weekly-budget').value=Math.round(foodWeekly);
+      renderAll();
+      banner.style.display='none';
+    };
+  }
+}
+
 // Init
+loadFromStore();
 renderAll();
+checkBudgetSync();
 </script>
 </body>
 </html>
