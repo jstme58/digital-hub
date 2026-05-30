@@ -1289,15 +1289,37 @@ function calculate(){
 
   updateProgress();
   renderWins(getWins(income,housing,food,transport,family,savingsGoals,remaining));
+
+  // ── save to shared store ──
+  ssWrite({ep_income:income,ep_expenses:totalExpenses,ep_remaining:remaining,
+    ep_food_monthly:food,ep_food_weekly:+(food/4.33).toFixed(2),
+    ep_savings_rate:+savingsRate.toFixed(1),ep_currency:currency,ep_lang:lang});
+  // save all field values
+  ['income-primary','income-secondary','income-other','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'].forEach(id=>{const el=document.getElementById(id);if(el)ssWrite({['bp_'+id]:el.value});});
+
 }
 
 function resetAll(){
   document.querySelectorAll('input[type="number"]').forEach(i=>i.value='');
   dismissed.clear();activeSection='sec-income';Object.keys(prevVals).forEach(k=>delete prevVals[k]);
+  SS.clear();
   calculate();
 }
 
-buildProgress();updateSubtitles();calculate();
+
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang){document.getElementById('lang-select').value=s.ep_lang;setLang(s.ep_lang);}
+  if(s.ep_currency){document.getElementById('currency-select').value=s.ep_currency;setCurrency(s.ep_currency);}
+  const fields=['income-primary','income-secondary','income-other','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'];
+  fields.forEach(id=>{if(s['bp_'+id]!==undefined){const el=document.getElementById(id);if(el)el.value=s['bp_'+id];}});
+}
+
+buildProgress();updateSubtitles();loadFromStore();calculate();
 </script>
 </body>
 </html>
