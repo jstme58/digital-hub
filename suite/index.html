@@ -453,9 +453,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
-    <a href="./budget-planner/" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
-    <a href="./meal-planner/" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
-    <a href="./debt-tracker/" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
+    <a href="/budget-planner/" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
+    <a href="/meal-planner/" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
+    <a href="/debt-tracker/" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
     <a href="https://epelissierenterprise.com" class="footer-link">epelissierenterprise.com</a>
   </div>
   <span data-i18n="footer">Your complete family finance suite — </span><strong>E Pelissier Enterprise</strong>
@@ -585,9 +585,9 @@ const CURRENCIES={USD:{symbol:'$',locale:'en-US'},CAD:{symbol:'$',locale:'en-CA'
 
 // Tool paths — adjust if your folder names differ
 const TOOL_PATHS={
-  budget:'./budget-planner/',
-  meals:'./meal-planner/',
-  debt:'./debt-tracker/'
+  budget:'/budget-planner/',
+  meals:'/meal-planner/',
+  debt:'/debt-tracker/'
 };
 
 let lang='en', currency='USD';
