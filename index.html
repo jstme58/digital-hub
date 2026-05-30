@@ -3,222 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E Pelissier Enterprise — Family Finance Suite</title>
-<meta name="description" content="Three premium digital tools to help families take control of their finances. Budget Planner, Debt Tracker & Meal Planner — beautifully designed, instantly usable.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Financial Freedom Suite — E Pelissier Enterprise</title>
+<meta name="description" content="One complete system to budget smarter, reduce debt, plan meals, and build lasting financial confidence. Available in 4 languages.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --navy: #1B365D; --deep-navy: #0f2240;
-  --teal: #2DD4BF; --dark-teal: #0B7A6E;
-  --coral: #FF6B6B; --green: #00C896;
-  --gold: #C9A84C; --gold-light: #F0D58A;
-  --cream: #F9F7F4; --white: #FFFFFF;
-  --charcoal: #2d2d2d; --mid-gray: #666666;
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-2:#142647;--deep-navy:#081628;
+  --teal:#2DD4BF;--dark-teal:#0B7A6E;--teal-dim:rgba(45,212,191,0.12);
+  --gold:#C9A84C;--gold-light:#F0D58A;
+  --coral:#FF6B6B;--green:#00C896;
+  --white:#fff;--cream:#F9F7F4;
+  --text-dark:#0D1F3C;--text-mid:#4A5568;--text-light:#718096;
+  --border-light:rgba(0,0,0,0.08);
+  --font-display:'Playfair Display',serif;
+  --font-body:'DM Sans',sans-serif;
+  --ease-smooth:cubic-bezier(0.4,0,0.2,1);
 }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-body); background: var(--cream); color: var(--charcoal); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-/* LANG BAR */
-.lang-bar { background: var(--deep-navy); padding: 10px 40px; display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
-.lang-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); font-family: var(--font-body); font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 99px; cursor: pointer; transition: all 0.2s; }
-.lang-btn:hover, .lang-btn.active { background: var(--teal); border-color: var(--teal); color: var(--deep-navy); }
+/* ── SHARED ─────────────────────────────────────── */
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:12px;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-0.5px;color:var(--navy);}
+.section-sub{font-size:16px;font-weight:300;color:var(--text-mid);line-height:1.75;margin-top:12px;}
+.teal-bar{width:48px;height:3px;background:linear-gradient(90deg,var(--teal),var(--dark-teal));border-radius:99px;margin:16px 0 0;}
+.container{max-width:1080px;margin:0 auto;padding:0 24px;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--teal),var(--dark-teal));color:#fff;font-family:var(--font-body);font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:18px 48px;border-radius:99px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 6px 32px rgba(45,212,191,0.35);transition:all 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(45,212,191,0.45);}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--navy);font-family:var(--font-body);font-size:14px;font-weight:600;padding:13px 28px;border-radius:99px;text-decoration:none;border:2px solid rgba(13,31,60,0.2);transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal);}
 
-/* NAVBAR */
-.navbar { background: var(--navy); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-.logo-mark { width: 42px; height: 42px; background: linear-gradient(135deg, var(--teal), var(--dark-teal)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; }
-.logo-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; display: block; }
-.logo-tagline { font-size: 10px; font-weight: 300; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; display: block; }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-link { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.2s; }
-.nav-link:hover { color: var(--teal); }
-.nav-cta { background: linear-gradient(135deg, var(--teal), var(--dark-teal)); color: #fff !important; padding: 10px 22px; border-radius: 99px; font-weight: 600 !important; }
-.nav-cta:hover { opacity: 0.9; }
+/* ── NAVBAR ─────────────────────────────────────── */
+.navbar{background:var(--navy);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.3);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--teal),var(--dark-teal));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.logo-name{font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;display:block;line-height:1.2;}
+.logo-tag{font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;display:block;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s;}
+.nav-link:hover{color:var(--teal);}
+.nav-cta{background:linear-gradient(135deg,var(--teal),var(--dark-teal));color:#fff!important;padding:9px 20px;border-radius:99px;font-weight:600!important;font-size:13px;}
 
-/* HERO */
-.hero { background: linear-gradient(160deg, var(--deep-navy) 0%, var(--navy) 60%, #1a4a7a 100%); padding: 100px 40px 90px; text-align: center; position: relative; overflow: hidden; }
-.hero::before { content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(45,212,191,0.12),transparent 70%); }
-.hero::after { content:''; position:absolute; bottom:-120px; left:-80px; width:350px; height:350px; border-radius:50%; background:radial-gradient(circle,rgba(45,212,191,0.08),transparent 70%); }
-.hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.3); color:var(--teal); font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:7px 18px; border-radius:99px; margin-bottom:28px; position:relative; z-index:1; }
-.hero h1 { font-family:var(--font-display); font-size:clamp(36px,5vw,62px); font-weight:700; color:#fff; line-height:1.15; letter-spacing:-1px; max-width:720px; margin:0 auto 20px; position:relative; z-index:1; }
-.hero h1 span { background:linear-gradient(135deg,var(--teal),#7fffd4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.hero-sub { font-size:18px; font-weight:300; color:rgba(255,255,255,0.70); max-width:540px; margin:0 auto 44px; line-height:1.7; position:relative; z-index:1; }
-.hero-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
-.btn-primary { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--teal),var(--dark-teal)); color:#fff; font-family:var(--font-body); font-size:15px; font-weight:600; padding:15px 32px; border-radius:99px; text-decoration:none; transition:all 0.2s; box-shadow:0 4px 20px rgba(45,212,191,0.3); border:none; cursor:pointer; }
-.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(45,212,191,0.4); }
-.btn-secondary { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); color:#fff; font-family:var(--font-body); font-size:15px; font-weight:500; padding:15px 32px; border-radius:99px; text-decoration:none; border:1px solid rgba(255,255,255,0.2); transition:all 0.2s; }
-.btn-secondary:hover { background:rgba(255,255,255,0.14); }
+/* ── HERO ───────────────────────────────────────── */
+.hero{background:linear-gradient(170deg,var(--deep-navy) 0%,var(--navy) 55%,#0f2a4a 100%);position:relative;overflow:hidden;}
+.hero-glow-1{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,0.14),transparent 70%);top:-200px;right:-150px;pointer-events:none;}
+.hero-glow-2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,0.07),transparent 70%);bottom:-150px;left:-100px;pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;padding:72px 28px 68px;text-align:center;position:relative;z-index:2;}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(45,212,191,0.25);background:rgba(45,212,191,0.06);color:rgba(255,255,255,0.6);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:10px;}
+.hero-pill span{color:var(--teal);}
+.hero-pill-2{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(45,212,191,0.3);background:rgba(45,212,191,0.09);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:28px;}
+.hero h1{font-family:var(--font-display);font-size:clamp(38px,6vw,68px);font-weight:700;color:#fff;line-height:1.07;letter-spacing:-2px;margin-bottom:20px;}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--teal),#7fffd4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,0.68);max-width:540px;margin:0 auto 48px;line-height:1.75;}
+.hero-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:640px;margin:0 auto 48px;}
+.hero-tool{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.hero-tool-icon{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:26px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.07);backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all 0.25s;}
+.hero-tool:hover .hero-tool-icon{border-color:rgba(45,212,191,0.5);background:rgba(45,212,191,0.12);box-shadow:0 0 24px rgba(45,212,191,0.25);transform:translateY(-3px);}
+.hero-tool-name{font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);text-align:center;line-height:1.3;}
+.hero-tool-desc{font-size:10px;color:rgba(255,255,255,0.4);text-align:center;line-height:1.4;}
+.hero-cta-wrap{margin-bottom:22px;}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.45);}
+.hero-stars{display:flex;align-items:center;justify-content:center;gap:10px;}
+.stars-row{color:var(--teal);font-size:18px;letter-spacing:3px;}
+.stars-score{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;}
+.stars-label{font-size:12px;color:rgba(255,255,255,0.4);}
+.hero-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(45,212,191,0.2),transparent);}
+@media(max-width:560px){.hero-tools{grid-template-columns:repeat(2,1fr);}}
 
-/* STATS */
-.stats-strip { background:#fff; padding:32px 40px; display:flex; justify-content:center; gap:60px; flex-wrap:wrap; border-bottom:1px solid rgba(0,0,0,0.06); }
-.stat-item { text-align:center; }
-.stat-number { font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--navy); display:block; }
-.stat-label { font-size:12px; font-weight:500; color:var(--mid-gray); text-transform:uppercase; letter-spacing:0.8px; margin-top:4px; }
+/* ── PROBLEM ─────────────────────────────────────── */
+.problem-section{background:var(--cream);padding:88px 0;}
+.problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.problem-list{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:28px;}
+.problem-item{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:#fff;border-radius:14px;border:1px solid var(--border-light);box-shadow:0 2px 8px rgba(0,0,0,0.04);transition:all 0.2s;}
+.problem-item:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);transform:translateX(4px);}
+.problem-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,107,107,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.problem-text{font-size:14px;font-weight:500;color:var(--text-dark);line-height:1.5;padding-top:8px;}
+.problem-visual{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:24px;padding:40px 32px;position:relative;overflow:hidden;}
+.problem-visual::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,0.1),transparent 70%);}
+.pv-stat{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 20px;margin-bottom:12px;}
+.pv-stat:last-child{margin-bottom:0;}
+.pv-icon{font-size:24px;flex-shrink:0;}
+.pv-label{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:3px;}
+.pv-val{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--coral);}
+@media(max-width:768px){.problem-inner{grid-template-columns:1fr;gap:40px;}}
 
-/* SECTIONS */
-.section-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:12px; display:block; }
-.section-title { font-family:var(--font-display); font-size:clamp(26px,3vw,40px); font-weight:700; color:var(--navy); line-height:1.2; letter-spacing:-0.5px; }
-.section-sub { font-size:16px; font-weight:300; color:var(--mid-gray); line-height:1.7; margin-top:12px; }
-.teal-bar { width:48px; height:3px; background:linear-gradient(135deg,var(--teal),var(--dark-teal)); border-radius:99px; margin:16px 0 0; }
+/* ── SOLUTION ─────────────────────────────────────── */
+.solution-section{background:#fff;padding:88px 0;text-align:center;}
+.solution-badge{display:inline-flex;align-items:center;gap:8px;background:var(--teal-dim);border:1px solid rgba(45,212,191,0.25);color:var(--dark-teal);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:99px;margin-bottom:20px;}
+.solution-mockups{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px;}
+.mockup-card{background:linear-gradient(160deg,var(--navy),var(--navy-2));border-radius:20px;padding:28px 20px;border:1px solid rgba(255,255,255,0.08);transition:all 0.3s;position:relative;overflow:hidden;}
+.mockup-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--mc-color,var(--teal));}
+.mockup-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.2);}
+.mc-icon{font-size:32px;display:block;margin-bottom:14px;}
+.mc-name{font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;}
+.mc-desc{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;}
+.mc-line{height:3px;border-radius:99px;margin-top:16px;opacity:0.6;}
+@media(max-width:700px){.solution-mockups{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:400px){.solution-mockups{grid-template-columns:1fr;}}
 
-/* ── BUNDLE SECTION ──────────────────────────────── */
-.bundle-section { background: linear-gradient(160deg, var(--deep-navy), var(--navy)); padding: 90px 40px; position: relative; overflow: hidden; }
-.bundle-section::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(45,212,191,0.07),transparent 70%); pointer-events:none; }
-.bundle-inner { max-width: 1100px; margin: 0 auto; }
-.bundle-header { text-align: center; margin-bottom: 56px; }
-.bundle-header .section-title { color: #fff; }
-.bundle-header .section-sub { color: rgba(255,255,255,0.6); max-width: 560px; margin: 12px auto 0; }
-.bundle-header .teal-bar { margin: 16px auto 0; }
+/* ── BEFORE AFTER ────────────────────────────────── */
+.ba-section{background:var(--cream);padding:88px 0;}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
+.ba-card{border-radius:20px;padding:36px 32px;position:relative;overflow:hidden;}
+.ba-card.before{background:linear-gradient(135deg,#1a0a0a,#2d1010);border:1px solid rgba(255,107,107,0.2);}
+.ba-card.after{background:linear-gradient(135deg,var(--navy),var(--navy-2));border:1px solid rgba(45,212,191,0.25);}
+.ba-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.ba-card.before::before{background:linear-gradient(90deg,transparent,var(--coral),transparent);}
+.ba-card.after::before{background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.ba-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.ba-card.before .ba-label{color:var(--coral);}
+.ba-card.after .ba-label{color:var(--teal);}
+.ba-items{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.ba-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;}
+.ba-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;margin-top:1px;}
+.ba-card.before .ba-dot{background:rgba(255,107,107,0.2);color:var(--coral);}
+.ba-card.after .ba-dot{background:rgba(45,212,191,0.2);color:var(--teal);}
+@media(max-width:640px){.ba-grid{grid-template-columns:1fr;}}
 
-/* INDIVIDUAL PRODUCT CARDS */
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-bottom: 48px; }
-.product-card { background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; display: flex; flex-direction: column; }
-.product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.18); }
-.product-card.featured { border-color: rgba(45,212,191,0.35); box-shadow: 0 4px 24px rgba(45,212,191,0.12); }
-.pc-header { padding: 28px 24px 20px; position: relative; overflow: hidden; }
-.pc-header::after { content:''; position:absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:rgba(255,255,255,0.04); }
-.pc-header.h-teal { background: linear-gradient(135deg, rgba(45,212,191,0.15), rgba(11,122,110,0.2)); border-bottom: 1px solid rgba(45,212,191,0.15); }
-.pc-header.h-coral { background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(180,50,50,0.2)); border-bottom: 1px solid rgba(255,107,107,0.15); }
-.pc-header.h-green { background: linear-gradient(135deg, rgba(0,200,150,0.15), rgba(0,120,90,0.2)); border-bottom: 1px solid rgba(0,200,150,0.15); }
-.pc-badge { display:inline-block; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:4px 12px; border-radius:99px; margin-bottom:14px; }
-.pc-badge.new { background:linear-gradient(135deg,var(--teal),var(--dark-teal)); color:#fff; }
-.pc-badge.teal { background:rgba(45,212,191,0.15); color:var(--teal); border:1px solid rgba(45,212,191,0.3); }
-.pc-badge.coral { background:rgba(255,107,107,0.15); color:var(--coral); border:1px solid rgba(255,107,107,0.3); }
-.pc-badge.green { background:rgba(0,200,150,0.15); color:var(--green); border:1px solid rgba(0,200,150,0.3); }
-.pc-icon { font-size:34px; display:block; margin-bottom:10px; }
-.pc-name { font-family:var(--font-display); font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; }
-.pc-tagline { font-size:12px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.5; }
-.pc-body { padding:20px 24px; flex:1; display:flex; flex-direction:column; }
-.pc-features { list-style:none; margin-bottom:20px; flex:1; }
-.pc-features li { display:flex; align-items:flex-start; gap:9px; font-size:13px; color:rgba(255,255,255,0.75); padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); line-height:1.5; }
-.pc-features li:last-child { border-bottom:none; }
-.feat-check { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; flex-shrink:0; margin-top:2px; }
-.feat-check.teal { background:linear-gradient(135deg,var(--teal),var(--dark-teal)); }
-.feat-check.coral { background:linear-gradient(135deg,var(--coral),#cc4444); }
-.feat-check.green { background:linear-gradient(135deg,var(--green),#006644); }
-.pc-footer { display:flex; align-items:center; justify-content:space-between; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08); }
-.pc-price { display:flex; flex-direction:column; }
-.price-amount { font-family:var(--font-display); font-size:24px; font-weight:700; color:#fff; line-height:1; }
-.price-note { font-size:11px; color:rgba(255,255,255,0.4); margin-top:3px; }
-.btn-buy { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-body); font-size:13px; font-weight:600; padding:10px 20px; border-radius:99px; text-decoration:none; transition:all 0.2s; border:none; cursor:pointer; }
-.btn-buy.teal { background:linear-gradient(135deg,var(--teal),var(--dark-teal)); color:#fff; }
-.btn-buy.coral { background:linear-gradient(135deg,var(--coral),#cc4444); color:#fff; }
-.btn-buy.green { background:linear-gradient(135deg,var(--green),#006644); color:#fff; }
-.btn-buy:hover { transform:scale(1.04); box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+/* ── VALUE ───────────────────────────────────────── */
+.value-section{background:linear-gradient(160deg,var(--deep-navy),var(--navy));padding:88px 0;}
+.value-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.value-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.vs-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;}
+.vs-name{font-size:14px;font-weight:500;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:10px;}
+.vs-price{font-family:var(--font-display);font-size:18px;font-weight:700;color:rgba(255,255,255,0.5);text-decoration:line-through;}
+.vs-total-row{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;margin-top:4px;}
+.vs-total-label{font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.8px;}
+.vs-total-price{font-family:var(--font-display);font-size:20px;font-weight:700;color:rgba(255,255,255,0.3);text-decoration:line-through;}
+.value-box{background:rgba(45,212,191,0.06);border:2px solid rgba(201,168,76,0.35);border-radius:24px;padding:40px 36px;text-align:center;position:relative;overflow:hidden;}
+.value-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.vb-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px;}
+.vb-name{font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff;margin-bottom:20px;}
+.vb-includes{list-style:none;margin-bottom:24px;text-align:left;}
+.vb-includes li{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.7);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.vb-includes li:last-child{border-bottom:none;}
+.vb-check{width:18px;height:18px;border-radius:50%;background:rgba(45,212,191,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--teal);flex-shrink:0;}
+.vb-save{display:inline-flex;align-items:center;gap:6px;background:rgba(0,200,150,0.15);border:1px solid rgba(0,200,150,0.3);color:#00C896;font-size:12px;font-weight:700;padding:5px 14px;border-radius:99px;margin-bottom:20px;}
+.vb-price{font-family:var(--font-display);font-size:64px;font-weight:700;color:#fff;letter-spacing:-3px;line-height:1;}
+.vb-price sup{font-size:28px;vertical-align:super;letter-spacing:0;}
+.vb-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px;margin-bottom:24px;}
+.vb-guarantee{font-size:11px;color:rgba(255,255,255,0.35);margin-top:10px;}
+@media(max-width:768px){.value-inner{grid-template-columns:1fr;gap:40px;}}
 
-/* ── BUNDLE OFFER BOX ───────────────────────────── */
-.bundle-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.35); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; }
-.bundle-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-.bundle-box::after { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%); }
-.bundle-box-inner { display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; }
-@media (max-width:700px) { .bundle-box-inner { grid-template-columns:1fr; gap:28px; } }
-.bundle-label { display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); color:var(--gold-light); font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:99px; margin-bottom:16px; }
-.bundle-title { font-family:var(--font-display); font-size:clamp(22px,3vw,32px); font-weight:700; color:#fff; line-height:1.2; margin-bottom:12px; letter-spacing:-0.5px; }
-.bundle-title em { font-style:italic; background:linear-gradient(135deg,var(--teal),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.bundle-desc { font-size:14px; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:20px; max-width:480px; }
-.bundle-includes { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
-.bi-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.75); font-size:12px; font-weight:500; padding:5px 12px; border-radius:99px; }
-.bundle-savings { display:flex; align-items:center; gap:12px; }
-.bs-old { font-size:18px; color:rgba(255,255,255,0.3); text-decoration:line-through; font-family:var(--font-display); }
-.bs-save { font-size:12px; font-weight:600; color:var(--green); background:rgba(0,200,150,0.12); border:1px solid rgba(0,200,150,0.25); padding:3px 10px; border-radius:99px; }
-.bundle-price-col { text-align:center; flex-shrink:0; }
-.bundle-price { font-family:var(--font-display); font-size:clamp(48px,6vw,72px); font-weight:700; color:#fff; line-height:1; letter-spacing:-2px; }
-.bundle-price-sup { font-size:24px; vertical-align:super; letter-spacing:0; }
-.bundle-price-note { font-size:13px; color:rgba(255,255,255,0.45); margin-top:6px; }
-.bundle-cta { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--teal),var(--dark-teal)); color:#fff; font-family:var(--font-body); font-size:15px; font-weight:700; padding:16px 36px; border-radius:99px; text-decoration:none; transition:all 0.2s; box-shadow:0 4px 24px rgba(45,212,191,0.3); margin-top:16px; display:block; text-align:center; }
-.bundle-cta:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(45,212,191,0.4); }
-.bundle-guarantee { font-size:11px; color:rgba(255,255,255,0.35); margin-top:8px; text-align:center; }
+/* ── TESTIMONIALS ────────────────────────────────── */
+.testimonials-section{background:#fff;padding:88px 0;}
+.testimonials-header{text-align:center;margin-bottom:52px;}
+.testimonials-header .teal-bar{margin:16px auto 0;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testimonial-card{background:var(--cream);border-radius:18px;padding:28px;border:1px solid var(--border-light);transition:all 0.2s;}
+.testimonial-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.tc-stars{color:var(--teal);font-size:15px;letter-spacing:2px;margin-bottom:14px;}
+.tc-text{font-size:14px;line-height:1.7;color:var(--text-mid);margin-bottom:20px;font-style:italic;}
+.tc-author{display:flex;align-items:center;gap:12px;}
+.tc-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--dark-teal));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.tc-name{font-size:14px;font-weight:600;color:var(--navy);}
+.tc-role{font-size:12px;color:var(--text-light);}
+@media(max-width:700px){.testimonials-grid{grid-template-columns:1fr;}}
 
-/* WHY SECTION */
-.why-section { background: var(--navy); padding: 90px 40px; }
-.why-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-.why-section .section-title { color:#fff; }
-.why-section .section-sub { color:rgba(255,255,255,0.60); }
-.pillars { margin-top:40px; display:flex; flex-direction:column; gap:20px; }
-.pillar { display:flex; gap:16px; align-items:flex-start; }
-.pillar-icon { width:44px; height:44px; background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.pillar-title { font-size:15px; font-weight:600; color:#fff; margin-bottom:4px; }
-.pillar-desc { font-size:13px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.6; }
-.why-visual { background:linear-gradient(160deg,rgba(45,212,191,0.08),rgba(45,212,191,0.02)); border:1px solid rgba(45,212,191,0.15); border-radius:24px; padding:40px; display:flex; flex-direction:column; gap:20px; }
-.mini-stat { display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:18px 20px; }
-.mini-stat-icon { font-size:24px; }
-.mini-stat-label { font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:3px; }
-.mini-stat-value { font-family:var(--font-display); font-size:20px; color:var(--teal); font-weight:700; }
+/* ── INDIVIDUAL TOOLS ────────────────────────────── */
+.tools-section{background:var(--cream);padding:88px 0;}
+.tools-header{text-align:center;margin-bottom:52px;}
+.tools-header .teal-bar{margin:16px auto 0;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.tool-card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--border-light);box-shadow:0 2px 12px rgba(0,0,0,0.05);transition:all 0.3s;display:flex;flex-direction:column;}
+.tool-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.1);}
+.tc-header{padding:28px 24px 20px;position:relative;}
+.tc-header.h-teal{background:linear-gradient(135deg,rgba(45,212,191,0.12),rgba(11,122,110,0.15));border-bottom:1px solid rgba(45,212,191,0.15);}
+.tc-header.h-coral{background:linear-gradient(135deg,rgba(255,107,107,0.12),rgba(180,50,50,0.15));border-bottom:1px solid rgba(255,107,107,0.15);}
+.tc-header.h-green{background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,120,90,0.15));border-bottom:1px solid rgba(0,200,150,0.15);}
+.tc-icon{font-size:32px;display:block;margin-bottom:10px;}
+.tc-name{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.tc-tagline{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.tc-body{padding:20px 24px;flex:1;}
+.tc-price{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--navy);}
+.tc-price-note{font-size:11px;color:var(--text-light);}
+.tc-footer{padding:16px 24px 24px;border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;}
+.btn-tool{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-tool.teal{background:linear-gradient(135deg,var(--teal),var(--dark-teal));color:#fff;}
+.btn-tool.coral{background:linear-gradient(135deg,var(--coral),#cc4444);color:#fff;}
+.btn-tool.green{background:linear-gradient(135deg,var(--green),#006644);color:#fff;}
+.btn-tool:hover{transform:scale(1.04);}
+@media(max-width:700px){.tools-grid{grid-template-columns:1fr;}}
 
-/* DEMO */
-.demo-section { background:var(--cream); padding:90px 40px; text-align:center; }
-.demo-inner { max-width:900px; margin:0 auto; }
-.demo-inner .teal-bar { margin:16px auto 40px; }
-.demo-frame { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 8px 48px rgba(0,0,0,0.12); border:1px solid rgba(0,0,0,0.08); }
-.demo-bar { background:var(--navy); padding:14px 20px; display:flex; align-items:center; gap:8px; }
-.demo-dot { width:12px; height:12px; border-radius:50%; }
-.demo-url { flex:1; background:rgba(255,255,255,0.08); border-radius:6px; padding:6px 14px; font-size:12px; color:rgba(255,255,255,0.6); margin-left:8px; text-align:left; }
-.demo-embed { width:100%; height:500px; border:none; display:block; }
+/* ── FINAL CTA ───────────────────────────────────── */
+.final-cta{background:linear-gradient(160deg,var(--deep-navy),var(--navy));padding:100px 0;text-align:center;position:relative;overflow:hidden;}
+.final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,0.08),transparent 70%);pointer-events:none;}
+.final-cta h2{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:700;color:#fff;margin-bottom:16px;position:relative;z-index:1;letter-spacing:-0.5px;}
+.final-cta h2 em{font-style:italic;background:linear-gradient(135deg,var(--teal),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.final-cta p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.65);margin-bottom:44px;position:relative;z-index:1;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.final-cta .btn-primary{position:relative;z-index:1;font-size:16px;padding:20px 52px;}
+.final-cta-guarantee{font-size:12px;color:rgba(255,255,255,0.35);margin-top:16px;position:relative;z-index:1;}
 
-/* TESTIMONIALS */
-.testimonials-section { background:#fff; padding:90px 40px; }
-.testimonials-header { text-align:center; margin-bottom:56px; }
-.testimonials-header .teal-bar { margin:16px auto 0; }
-.testimonials-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
-.testimonial-card { background:var(--cream); border-radius:16px; padding:28px; border:1px solid rgba(0,0,0,0.06); transition:all 0.2s; }
-.testimonial-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.08); }
-.stars { color:var(--teal); font-size:16px; margin-bottom:14px; letter-spacing:2px; }
-.testimonial-text { font-size:14px; line-height:1.7; color:var(--charcoal); margin-bottom:20px; font-style:italic; }
-.testimonial-author { display:flex; align-items:center; gap:12px; }
-.author-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--teal),var(--dark-teal)); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#fff; flex-shrink:0; }
-.author-name { font-size:14px; font-weight:600; color:var(--navy); }
-.author-role { font-size:12px; color:var(--mid-gray); }
+/* ── FOOTER ──────────────────────────────────────── */
+.footer{background:var(--deep-navy);padding:48px 28px 28px;text-align:center;}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:20px;flex-wrap:wrap;}
+.footer-link{color:rgba(255,255,255,0.45);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-link:hover{color:var(--teal);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+.footer strong{color:var(--teal);font-weight:500;}
 
-/* CTA */
-.cta-section { background:linear-gradient(135deg,var(--deep-navy),var(--navy)); padding:90px 40px; text-align:center; position:relative; overflow:hidden; }
-.cta-section::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(45,212,191,0.08),transparent 70%); }
-.cta-section h2 { font-family:var(--font-display); font-size:clamp(28px,4vw,46px); font-weight:700; color:#fff; margin-bottom:16px; position:relative; z-index:1; }
-.cta-section p { font-size:16px; font-weight:300; color:rgba(255,255,255,0.65); margin-bottom:40px; position:relative; z-index:1; }
-.cta-section .btn-primary { position:relative; z-index:1; font-size:16px; padding:18px 40px; }
-
-/* FOOTER */
-.footer { background:var(--deep-navy); padding:56px 40px 32px; }
-.footer-top { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:32px; }
-.footer-desc { font-size:13px; font-weight:300; color:rgba(255,255,255,0.45); line-height:1.7; max-width:280px; }
-.footer-col-title { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:16px; }
-.footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
-.footer-links a { font-size:13px; font-weight:300; color:rgba(255,255,255,0.50); text-decoration:none; transition:color 0.2s; }
-.footer-links a:hover { color:var(--teal); }
-.footer-bottom { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-.footer-copy { font-size:12px; color:rgba(255,255,255,0.30); }
-.social-links { display:flex; gap:12px; }
-.social-link { width:32px; height:32px; background:rgba(255,255,255,0.07); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; text-decoration:none; transition:background 0.2s; }
-.social-link:hover { background:rgba(45,212,191,0.2); }
-
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.hero { animation:fadeUp 0.7s ease both; }
-
-@media (max-width:768px) {
-  .navbar { padding:16px 20px; }
-  .nav-links { display:none; }
-  .hero { padding:70px 24px 60px; }
-  .bundle-section,.why-section,.demo-section,.testimonials-section,.cta-section { padding:60px 24px; }
-  .why-inner { grid-template-columns:1fr; gap:40px; }
-  .stats-strip { gap:32px; padding:28px 24px; }
-  .footer-top { grid-template-columns:1fr; gap:32px; }
-  .footer { padding:40px 24px 24px; }
-  .lang-bar { padding:8px 20px; }
-  .bundle-box { padding:28px 22px; }
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner{animation:fadeUp 0.7s ease both;}
 </style>
 </head>
 <body>
-
-<!-- LANG BAR -->
-<div class="lang-bar">
-  <button class="lang-btn active" onclick="setLang('en')">EN</button>
-  <button class="lang-btn" onclick="setLang('fr')">FR</button>
-  <button class="lang-btn" onclick="setLang('es')">ES</button>
-  <button class="lang-btn" onclick="setLang('pt')">PT</button>
-</div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
@@ -226,425 +216,302 @@ body { font-family: var(--font-body); background: var(--cream); color: var(--cha
     <div class="logo-mark">EP</div>
     <div>
       <span class="logo-name">E Pelissier Enterprise</span>
-      <span class="logo-tagline">Honoring Legacy. Empowering Dreams.</span>
+      <span class="logo-tag">Financial Freedom Suite</span>
     </div>
   </a>
   <div class="nav-links">
-    <a href="#products" class="nav-link" data-i18n="nav_products">Products</a>
-    <a href="#bundle" class="nav-link" data-i18n="nav_bundle">Bundle</a>
-    <a href="#why" class="nav-link" data-i18n="nav_why">Why Us</a>
-    <a href="#demo" class="nav-link" data-i18n="nav_demo">Live Demo</a>
-    <a href="https://epelissierenterprise.com" class="nav-link" data-i18n="nav_main">Main Site</a>
-    <a href="#bundle" class="nav-link nav-cta" data-i18n="nav_cta">Get the Bundle →</a>
+    <a href="#problem" class="nav-link">Why It Works</a>
+    <a href="#whats-included" class="nav-link">What's Included</a>
+    <a href="#value" class="nav-link">Pricing</a>
+    <a href="#testimonials" class="nav-link">Reviews</a>
+    <a href="https://stan.store/EPelissierdigital" class="nav-link nav-cta">Get Instant Access →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">✦ <span data-i18n="hero_badge">Family Finance Suite — 3 Premium Tools</span></div>
-  <h1 data-i18n="hero_h1">Take Control of Your <span>Family's Financial Future</span></h1>
-  <p class="hero-sub" data-i18n="hero_sub">Three beautifully designed tools — budget smarter, crush debt faster, and plan meals that save money every week.</p>
-  <div class="hero-actions">
-    <a href="#bundle" class="btn-primary" data-i18n="hero_cta1">Get the Bundle →</a>
-    <a href="#demo" class="btn-secondary" data-i18n="hero_cta2">Try Live Demo</a>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">🌎 Available in <span>English · Français · Español · Português</span></div>
+    <br>
+    <div class="hero-pill-2">✨ Complete Financial Wellness System</div>
+    <h1>Your <em>Financial Life,</em><br>All in One Place</h1>
+    <p class="hero-sub">Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete financial system.</p>
+    <div class="hero-tools">
+      <div class="hero-tool">
+        <div class="hero-tool-icon">📊</div>
+        <div class="hero-tool-name">Budget Planner</div>
+        <div class="hero-tool-desc">Track income, expenses, and savings with confidence.</div>
+      </div>
+      <div class="hero-tool">
+        <div class="hero-tool-icon">💳</div>
+        <div class="hero-tool-name">Debt Tracker</div>
+        <div class="hero-tool-desc">Create a clear strategy to eliminate debt faster.</div>
+      </div>
+      <div class="hero-tool">
+        <div class="hero-tool-icon">🥗</div>
+        <div class="hero-tool-name">Meal Planner</div>
+        <div class="hero-tool-desc">Reduce grocery spending and plan meals efficiently.</div>
+      </div>
+      <div class="hero-tool">
+        <div class="hero-tool-icon">❤️</div>
+        <div class="hero-tool-name">Financial Health Score</div>
+        <div class="hero-tool-desc">Measure your financial progress and stay on track.</div>
+      </div>
+    </div>
+    <div class="hero-cta-wrap">
+      <a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 GET INSTANT ACCESS &nbsp;›</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">🛡️ Secure Payment</div>
+      <div class="trust-item">⚡ Instant Access</div>
+      <div class="trust-item">🔄 Lifetime Updates</div>
+    </div>
+    <div class="hero-stars">
+      <span class="stars-row">★★★★★</span>
+      <span class="stars-score">4.8/5</span>
+      <span class="stars-label">Trusted by thousands of families worldwide</span>
+    </div>
   </div>
+  <div class="hero-divider"></div>
 </section>
 
-<!-- STATS -->
-<div class="stats-strip">
-  <div class="stat-item"><span class="stat-number">3</span><span class="stat-label" data-i18n="stat1">Premium Tools</span></div>
-  <div class="stat-item"><span class="stat-number">8</span><span class="stat-label" data-i18n="stat2">Currencies</span></div>
-  <div class="stat-item"><span class="stat-number">4</span><span class="stat-label" data-i18n="stat3">Languages</span></div>
-  <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label" data-i18n="stat4">Private & Secure</span></div>
-</div>
-
-<!-- PRODUCTS + BUNDLE -->
-<section class="bundle-section" id="products">
-  <div class="bundle-inner">
-    <div class="bundle-header">
-      <span class="section-label" data-i18n="products_label">Our Tools</span>
-      <h2 class="section-title" data-i18n="products_title">Three Tools. One Complete System.</h2>
-      <p class="section-sub" data-i18n="products_sub">Each tool is powerful on its own. Together they give your family complete financial control.</p>
-      <div class="teal-bar"></div>
-    </div>
-
-    <!-- 3 PRODUCT CARDS -->
-    <div class="products-grid">
-
-      <!-- BUDGET PLANNER -->
-      <div class="product-card featured">
-        <div class="pc-header h-teal">
-          <span class="pc-badge new" data-i18n="badge_live">⭐ Live Now</span>
-          <span class="pc-icon">🏠</span>
-          <div class="pc-name" data-i18n="p1_name">Family Budget Planner</div>
-          <div class="pc-tagline" data-i18n="p1_tagline">Your complete monthly budget — live, visual, and stress-free.</div>
-        </div>
-        <div class="pc-body">
-          <ul class="pc-features">
-            <li><span class="feat-check teal">✓</span><span data-i18n="p1_f1">Live dashboard with instant calculations</span></li>
-            <li><span class="feat-check teal">✓</span><span data-i18n="p1_f2">Animated spending breakdown by category</span></li>
-            <li><span class="feat-check teal">✓</span><span data-i18n="p1_f3">10 personalized Quick Wins tips</span></li>
-            <li><span class="feat-check teal">✓</span><span data-i18n="p1_f4">4 languages & 8 currencies</span></li>
-            <li><span class="feat-check teal">✓</span><span data-i18n="p1_f5">100% private — no data stored</span></li>
-          </ul>
-          <div class="pc-footer">
-            <div class="pc-price"><span class="price-amount">$27.99</span><span class="price-note" data-i18n="price_one">one-time</span></div>
-            <a href="https://stan.store/EPelissierdigital" class="btn-buy teal" data-i18n="btn_buy">Get It →</a>
-          </div>
-        </div>
+<!-- PROBLEM -->
+<section class="problem-section" id="problem">
+  <div class="container">
+    <div class="problem-inner">
+      <div>
+        <span class="section-label">Sound Familiar?</span>
+        <h2 class="section-title">Are You Struggling<br>With Any of These?</h2>
+        <div class="teal-bar"></div>
+        <ul class="problem-list">
+          <li class="problem-item"><div class="problem-icon">😰</div><div class="problem-text">Living paycheck to paycheck with nothing left to save</div></li>
+          <li class="problem-item"><div class="problem-icon">❓</div><div class="problem-text">Not knowing where your money actually goes each month</div></li>
+          <li class="problem-item"><div class="problem-icon">🎯</div><div class="problem-text">Struggling to save consistently and hit financial goals</div></li>
+          <li class="problem-item"><div class="problem-icon">💳</div><div class="problem-text">Feeling overwhelmed by debt that never seems to shrink</div></li>
+          <li class="problem-item"><div class="problem-icon">🛒</div><div class="problem-text">Spending too much on groceries without a clear plan</div></li>
+        </ul>
       </div>
-
-      <!-- DEBT TRACKER -->
-      <div class="product-card">
-        <div class="pc-header h-coral">
-          <span class="pc-badge coral" data-i18n="badge_new">🔥 New</span>
-          <span class="pc-icon">🎯</span>
-          <div class="pc-name" data-i18n="p2_name">Debt Payoff Tracker</div>
-          <div class="pc-tagline" data-i18n="p2_tagline">Visualize your path to debt-free with avalanche or snowball.</div>
-        </div>
-        <div class="pc-body">
-          <ul class="pc-features">
-            <li><span class="feat-check coral">✓</span><span data-i18n="p2_f1">Avalanche & snowball methods</span></li>
-            <li><span class="feat-check coral">✓</span><span data-i18n="p2_f2">Animated progress bars per debt</span></li>
-            <li><span class="feat-check coral">✓</span><span data-i18n="p2_f3">Exact payoff date projections</span></li>
-            <li><span class="feat-check coral">✓</span><span data-i18n="p2_f4">Total interest saved calculator</span></li>
-            <li><span class="feat-check coral">✓</span><span data-i18n="p2_f5">Smart debt strategies & tips</span></li>
-          </ul>
-          <div class="pc-footer">
-            <div class="pc-price"><span class="price-amount">$19.99</span><span class="price-note" data-i18n="price_one">one-time</span></div>
-            <a href="https://stan.store/EPelissierdigital" class="btn-buy coral" data-i18n="btn_buy">Get It →</a>
-          </div>
-        </div>
+      <div class="problem-visual">
+        <div class="pv-stat"><div class="pv-icon">📉</div><div><div class="pv-label">Average family without a budget</div><div class="pv-val">Wastes $500+/mo</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">💸</div><div><div class="pv-label">Households with high-interest debt</div><div class="pv-val">Pay 3x more in interest</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">🛒</div><div><div class="pv-label">Families without a meal plan</div><div class="pv-val">Overspend by $200/mo</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">✅</div><div><div class="pv-label">Families with a complete system</div><div class="pv-val" style="color:var(--teal)">Save $340+/mo avg.</div></div></div>
       </div>
-
-      <!-- MEAL PLANNER -->
-      <div class="product-card">
-        <div class="pc-header h-green">
-          <span class="pc-badge green" data-i18n="badge_new2">🌿 New</span>
-          <span class="pc-icon">🥗</span>
-          <div class="pc-name" data-i18n="p3_name">Family Meal Planner</div>
-          <div class="pc-tagline" data-i18n="p3_tagline">Plan weekly meals and cut your grocery bill automatically.</div>
-        </div>
-        <div class="pc-body">
-          <ul class="pc-features">
-            <li><span class="feat-check green">✓</span><span data-i18n="p3_f1">7-day meal calendar</span></li>
-            <li><span class="feat-check green">✓</span><span data-i18n="p3_f2">Auto-generated grocery list</span></li>
-            <li><span class="feat-check green">✓</span><span data-i18n="p3_f3">Weekly food budget tracker</span></li>
-            <li><span class="feat-check green">✓</span><span data-i18n="p3_f4">Cost per meal & per portion</span></li>
-            <li><span class="feat-check green">✓</span><span data-i18n="p3_f5">7 money-saving meal tips</span></li>
-          </ul>
-          <div class="pc-footer">
-            <div class="pc-price"><span class="price-amount">$19.99</span><span class="price-note" data-i18n="price_one">one-time</span></div>
-            <a href="https://stan.store/EPelissierdigital" class="btn-buy green" data-i18n="btn_buy">Get It →</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- BUNDLE BOX -->
-    <div class="bundle-box" id="bundle">
-      <div class="bundle-box-inner">
-        <div>
-          <div class="bundle-label">🎁 <span data-i18n="bundle_label">Best Value — Complete Bundle</span></div>
-          <div class="bundle-title" data-i18n="bundle_title">Get All <em>Three Tools</em> Together</div>
-          <div class="bundle-desc" data-i18n="bundle_desc">Budget Planner + Debt Tracker + Meal Planner. Three tools that work together as a complete family finance system — at a significant discount.</div>
-          <div class="bundle-includes">
-            <span class="bi-tag">🏠 Budget Planner</span>
-            <span class="bi-tag">🎯 Debt Tracker</span>
-            <span class="bi-tag">🥗 Meal Planner</span>
-            <span class="bi-tag">🔗 Unified Dashboard</span>
-          </div>
-          <div class="bundle-savings">
-            <span class="bs-old" data-i18n="bundle_old_price">$67.97</span>
-            <span class="bs-save" data-i18n="bundle_save">Save 33%</span>
-          </div>
-        </div>
-        <div class="bundle-price-col">
-          <div class="bundle-price"><sup class="bundle-price-sup">$</sup>44<span style="font-size:32px">.99</span></div>
-          <div class="bundle-price-note" data-i18n="bundle_price_note">one-time · all 3 tools</div>
-          <a href="https://stan.store/EPelissierdigital" class="bundle-cta" data-i18n="bundle_cta">Get the Bundle →</a>
-          <div class="bundle-guarantee" data-i18n="bundle_guarantee">✓ Instant access · No subscription</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- WHY US -->
-<section class="why-section" id="why">
-  <div class="why-inner">
-    <div>
-      <span class="section-label" data-i18n="why_label">Why E Pelissier Enterprise</span>
-      <h2 class="section-title" data-i18n="why_title">Built on Trust. Designed for Real Life.</h2>
-      <p class="section-sub" data-i18n="why_sub">We speak like a trusted friend who knows finance — no jargon, no overwhelm. Just tools that actually work for your family.</p>
-      <div class="teal-bar"></div>
-      <div class="pillars">
-        <div class="pillar"><div class="pillar-icon">🔒</div><div><div class="pillar-title" data-i18n="pillar1_title">100% Private</div><div class="pillar-desc" data-i18n="pillar1_desc">Your financial data never leaves your device. No accounts, no tracking, no storage.</div></div></div>
-        <div class="pillar"><div class="pillar-icon">⚡</div><div><div class="pillar-title" data-i18n="pillar2_title">Instant Results</div><div class="pillar-desc" data-i18n="pillar2_desc">Everything updates as you type. No submit buttons, no loading, no waiting.</div></div></div>
-        <div class="pillar"><div class="pillar-icon">🌍</div><div><div class="pillar-title" data-i18n="pillar3_title">Global by Design</div><div class="pillar-desc" data-i18n="pillar3_desc">4 languages and 8 currencies so every family can use it, anywhere in the world.</div></div></div>
-      </div>
-    </div>
-    <div class="why-visual">
-      <div class="mini-stat"><div class="mini-stat-icon">💰</div><div><div class="mini-stat-label" data-i18n="mini1_label">Average monthly savings identified</div><div class="mini-stat-value">$340+</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon">⚡</div><div><div class="mini-stat-label" data-i18n="mini2_label">Setup time</div><div class="mini-stat-value" data-i18n="mini2_val">Under 5 min</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon">📱</div><div><div class="mini-stat-label" data-i18n="mini3_label">Works on any device</div><div class="mini-stat-value" data-i18n="mini3_val">Always</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon">🔄</div><div><div class="mini-stat-label" data-i18n="mini4_label">Updates & improvements</div><div class="mini-stat-value" data-i18n="mini4_val">Free forever</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- DEMO -->
-<section class="demo-section" id="demo">
-  <div class="demo-inner">
-    <span class="section-label" data-i18n="demo_label">Try Before You Buy</span>
-    <h2 class="section-title" data-i18n="demo_title">See It Live — Right Here</h2>
-    <p class="section-sub" data-i18n="demo_sub">This is the actual Budget Planner. Enter your real numbers and watch it work instantly.</p>
-    <div class="teal-bar"></div>
-    <div class="demo-frame" style="margin-top:40px">
-      <div class="demo-bar">
-        <div class="demo-dot" style="background:#ff5f57"></div>
-        <div class="demo-dot" style="background:#ffbd2e"></div>
-        <div class="demo-dot" style="background:#28c840"></div>
-        <div class="demo-url">digital.epelissierenterprise.com/budget-planner</div>
+<!-- SOLUTION -->
+<section class="solution-section" id="whats-included">
+  <div class="container">
+    <div class="solution-badge">💎 The Solution</div>
+    <h2 class="section-title">Introducing The<br><em style="font-style:italic;background:linear-gradient(135deg,var(--teal),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Financial Freedom Suite</em></h2>
+    <p class="section-sub" style="max-width:540px;margin:12px auto 0;">One complete system to organize finances, reduce debt, save more, and gain financial confidence. All four tools work together seamlessly.</p>
+    <div class="teal-bar" style="margin:16px auto 0;"></div>
+    <div class="solution-mockups">
+      <div class="mockup-card" style="--mc-color:var(--teal)">
+        <span class="mc-icon">📊</span>
+        <div class="mc-name">Budget Planner</div>
+        <div class="mc-desc">Track income, expenses, bills, and savings. See exactly where every dollar goes with a live dashboard.</div>
+        <div class="mc-line" style="background:var(--teal);"></div>
       </div>
-      <iframe class="demo-embed" src="/budget-planner/index.html" title="Family Budget Planner Demo"></iframe>
+      <div class="mockup-card" style="--mc-color:var(--coral)">
+        <span class="mc-icon">💳</span>
+        <div class="mc-name">Debt Tracker</div>
+        <div class="mc-desc">Create a clear debt payoff strategy with avalanche or snowball method. See your debt-free date.</div>
+        <div class="mc-line" style="background:var(--coral);"></div>
+      </div>
+      <div class="mockup-card" style="--mc-color:var(--green)">
+        <span class="mc-icon">🥗</span>
+        <div class="mc-name">Meal Planner</div>
+        <div class="mc-desc">Reduce grocery spending by planning meals efficiently and auto-generating your weekly grocery list.</div>
+        <div class="mc-line" style="background:var(--green);"></div>
+      </div>
+      <div class="mockup-card" style="--mc-color:var(--gold)">
+        <span class="mc-icon">❤️</span>
+        <div class="mc-name">Financial Health Score</div>
+        <div class="mc-desc">Measure your financial progress with a live 0–100 score across savings, debt, food, and expenses.</div>
+        <div class="mc-line" style="background:var(--gold);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="ba-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span class="section-label">The Transformation</span>
+      <h2 class="section-title">Before & After the Suite</h2>
+      <div class="teal-bar" style="margin:16px auto 0;"></div>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-label">😟 Before</div>
+        <ul class="ba-items">
+          <li class="ba-item"><div class="ba-dot">✗</div>Financial stress and anxiety every month</li>
+          <li class="ba-item"><div class="ba-dot">✗</div>Missed savings goals with no clear plan</li>
+          <li class="ba-item"><div class="ba-dot">✗</div>Debt growing with no payoff strategy</li>
+          <li class="ba-item"><div class="ba-dot">✗</div>Unorganized spending with no visibility</li>
+          <li class="ba-item"><div class="ba-dot">✗</div>Grocery overspend with no meal plan</li>
+          <li class="ba-item"><div class="ba-dot">✗</div>No idea of your actual financial health</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">✨ After</div>
+        <ul class="ba-items">
+          <li class="ba-item"><div class="ba-dot">✓</div>Organized finances with complete clarity</li>
+          <li class="ba-item"><div class="ba-dot">✓</div>Consistent savings hitting your goals monthly</li>
+          <li class="ba-item"><div class="ba-dot">✓</div>Clear debt payoff plan with an exact date</li>
+          <li class="ba-item"><div class="ba-dot">✓</div>Every dollar tracked and working for you</li>
+          <li class="ba-item"><div class="ba-dot">✓</div>Grocery budget under control every week</li>
+          <li class="ba-item"><div class="ba-dot">✓</div>Financial Health Score improving month over month</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE / PRICING -->
+<section class="value-section" id="value">
+  <div class="container">
+    <div class="value-inner">
+      <div>
+        <span class="section-label" style="color:var(--gold-light);">Unbeatable Value</span>
+        <h2 class="section-title" style="color:#fff;">Everything You Need,<br>At One Low Price</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.55);">Buy all four tools individually or save big with the complete suite.</p>
+        <div class="teal-bar" style="margin-top:16px;margin-bottom:32px;"></div>
+        <div class="value-stack">
+          <div class="vs-row"><span class="vs-name">📊 Budget Planner</span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">💳 Debt Tracker</span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">🥗 Meal Planner</span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">❤️ Financial Health Score</span><span class="vs-price">$17</span></div>
+          <div class="vs-total-row"><span class="vs-total-label">Total Value</span><span class="vs-total-price">$98</span></div>
+        </div>
+      </div>
+      <div class="value-box">
+        <div class="vb-label">🎁 Best Value</div>
+        <div class="vb-name">Financial Freedom Suite</div>
+        <ul class="vb-includes">
+          <li><div class="vb-check">✓</div>Budget Planner</li>
+          <li><div class="vb-check">✓</div>Debt Payoff Tracker</li>
+          <li><div class="vb-check">✓</div>Family Meal Planner</li>
+          <li><div class="vb-check">✓</div>Financial Health Score</li>
+          <li><div class="vb-check">✓</div>Unified Suite Dashboard</li>
+          <li><div class="vb-check">✓</div>4 Languages · 8 Currencies</li>
+          <li><div class="vb-check">✓</div>Lifetime Updates — Free Forever</li>
+        </ul>
+        <div class="vb-save">🎉 Save 52% vs. buying separately</div>
+        <div class="vb-price"><sup>$</sup>47</div>
+        <div class="vb-note">one-time payment · instant access</div>
+        <a href="https://stan.store/EPelissierdigital" class="btn-primary" style="width:100%;justify-content:center;">🔒 GET INSTANT ACCESS &nbsp;›</a>
+        <div class="vb-guarantee">✓ No subscription · No hidden fees</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials-section">
-  <div class="testimonials-header">
-    <span class="section-label" data-i18n="reviews_label">What Families Say</span>
-    <h2 class="section-title" data-i18n="reviews_title">Real Results for Real Families</h2>
-    <div class="teal-bar"></div>
-  </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text" data-i18n="t1_text">"Finally a budget tool that doesn't feel like homework. I set it up in 5 minutes and immediately saw we were overspending on dining out by $300/month!"</p>
-      <div class="testimonial-author"><div class="author-avatar">SM</div><div><div class="author-name">Sarah M.</div><div class="author-role" data-i18n="t1_role">Mom of 3, Florida</div></div></div>
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <span class="section-label">Real Results</span>
+      <h2 class="section-title">What Families Are Saying</h2>
+      <div class="teal-bar"></div>
     </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text" data-i18n="t2_text">"The Quick Wins section alone saved us over $200 a month. It spotted things we never would have noticed on our own. Worth every penny."</p>
-      <div class="testimonial-author"><div class="author-avatar">JR</div><div><div class="author-name">James R.</div><div class="author-role" data-i18n="t2_role">Father of 2, Texas</div></div></div>
-    </div>
-    <div class="testimonial-card">
-      <div class="stars">★★★★★</div>
-      <p class="testimonial-text" data-i18n="t3_text">"My husband and I use this every month together now. It's made money conversations so much easier. No more arguments — just clarity."</p>
-      <div class="testimonial-author"><div class="author-avatar">AL</div><div><div class="author-name">Amara L.</div><div class="author-role" data-i18n="t3_role">Couple, Georgia</div></div></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"This suite helped me finally understand where my money was going every month. I found $340 in wasted spending in the first week alone."</p>
+        <div class="tc-author"><div class="tc-avatar">SM</div><div><div class="tc-name">Sarah M.</div><div class="tc-role">Mom of 3, Florida</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"The Debt Tracker showed me I'll be debt-free in 18 months. I had no idea I was paying that much in interest. Complete game changer."</p>
+        <div class="tc-author"><div class="tc-avatar">JR</div><div><div class="tc-name">James R.</div><div class="tc-role">Father of 2, Texas</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"My husband and I now sit down every month with this suite. Money conversations went from arguments to actually exciting. We're finally on the same page."</p>
+        <div class="tc-author"><div class="tc-avatar">AL</div><div><div class="tc-name">Amara L.</div><div class="tc-role">Couple, Georgia</div></div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2 data-i18n="cta_title">Ready to Take Control?</h2>
-  <p data-i18n="cta_sub">Get all three tools today. Your family's financial future starts now.</p>
-  <a href="#bundle" class="btn-primary" data-i18n="cta_btn">Get the Bundle — $44.99 →</a>
+<!-- INDIVIDUAL TOOLS -->
+<section class="tools-section">
+  <div class="container">
+    <div class="tools-header">
+      <span class="section-label">Individual Tools</span>
+      <h2 class="section-title">Not Ready for the Suite?</h2>
+      <p class="section-sub">Explore our individual tools — each powerful on its own.</p>
+      <div class="teal-bar"></div>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tc-header h-teal">
+          <span class="tc-icon">📊</span>
+          <div class="tc-name">Budget Planner</div>
+          <div class="tc-tagline">Track income, expenses, and savings with a live dashboard.</div>
+        </div>
+        <div class="tc-body"></div>
+        <div class="tc-footer">
+          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool teal">Learn More →</a>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tc-header h-coral">
+          <span class="tc-icon">💳</span>
+          <div class="tc-name">Debt Tracker</div>
+          <div class="tc-tagline">Avalanche or snowball — see your exact debt-free date.</div>
+        </div>
+        <div class="tc-body"></div>
+        <div class="tc-footer">
+          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool coral">Learn More →</a>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tc-header h-green">
+          <span class="tc-icon">🥗</span>
+          <div class="tc-name">Meal Planner</div>
+          <div class="tc-tagline">Plan meals, auto-generate grocery lists, cut food spend.</div>
+        </div>
+        <div class="tc-body"></div>
+        <div class="tc-footer">
+          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool green">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Take Control of Your<br><em>Financial Future Today</em></h2>
+    <p>Start budgeting smarter, reducing debt, saving more money, and building lasting financial confidence — all with one complete system.</p>
+    <a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 GET INSTANT ACCESS &nbsp;›</a>
+    <div class="final-cta-guarantee">✓ One-time payment · Instant access · No subscription ever</div>
+  </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-top">
-    <div>
-      <span style="font-family:var(--font-display);color:white;font-size:18px;display:block;margin-bottom:6px;">E Pelissier Enterprise</span>
-      <span style="font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:14px;">Honoring Legacy. Empowering Dreams.</span>
-      <p class="footer-desc" data-i18n="footer_desc">Three premium digital tools to help families take control of their finances — beautifully designed, instantly usable.</p>
-    </div>
-    <div>
-      <div class="footer-col-title" data-i18n="footer_products">Products</div>
-      <ul class="footer-links">
-        <li><a href="/budget-planner/" data-i18n="p1_name">Family Budget Planner</a></li>
-        <li><a href="/debt-tracker/" data-i18n="p2_name">Debt Payoff Tracker</a></li>
-        <li><a href="/meal-planner/" data-i18n="p3_name">Family Meal Planner</a></li>
-        <li><a href="/suite/" data-i18n="nav_bundle">Finance Suite Dashboard</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title" data-i18n="footer_connect">Connect</div>
-      <ul class="footer-links">
-        <li><a href="https://epelissierenterprise.com">epelissierenterprise.com</a></li>
-        <li><a href="mailto:contact@epelissierenterprise.com">contact@epelissierenterprise.com</a></li>
-        <li><a href="https://instagram.com/epelissierenterprise">Instagram</a></li>
-        <li><a href="https://facebook.com/EpelissierEnterprise">Facebook</a></li>
-      </ul>
-    </div>
+<div class="footer">
+  <div class="footer-links">
+    <a href="/budget-planner/" class="footer-link">Budget Planner</a>
+    <a href="/debt-tracker/" class="footer-link">Debt Tracker</a>
+    <a href="/meal-planner/" class="footer-link">Meal Planner</a>
+    <a href="/suite/" class="footer-link">Suite Dashboard</a>
+    <a href="https://epenterprisesgroup.com" class="footer-link">Main Site</a>
   </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 E Pelissier Enterprise. All rights reserved.</span>
-    <div class="social-links">
-      <a href="https://instagram.com/epelissierenterprise" class="social-link">📸</a>
-      <a href="https://facebook.com/EpelissierEnterprise" class="social-link">📘</a>
-      <a href="https://linkedin.com/company/epelissierenterprise" class="social-link">💼</a>
-      <a href="https://tiktok.com/@epelissierenterprise" class="social-link">🎵</a>
-    </div>
-  </div>
-</footer>
+  <div class="footer-copy">© 2025 <strong>E Pelissier Enterprise</strong> · All rights reserved.</div>
+</div>
 
-<script>
-const translations = {
-  en: {
-    nav_products:"Products",nav_bundle:"Bundle",nav_why:"Why Us",nav_demo:"Live Demo",nav_main:"Main Site",nav_cta:"Get the Bundle →",
-    hero_badge:"Family Finance Suite — 3 Premium Tools",
-    hero_h1:"Take Control of Your Family's Financial Future",
-    hero_sub:"Three beautifully designed tools — budget smarter, crush debt faster, and plan meals that save money every week.",
-    hero_cta1:"Get the Bundle →",hero_cta2:"Try Live Demo",
-    stat1:"Premium Tools",stat2:"Currencies",stat3:"Languages",stat4:"Private & Secure",
-    products_label:"Our Tools",products_title:"Three Tools. One Complete System.",
-    products_sub:"Each tool is powerful on its own. Together they give your family complete financial control.",
-    badge_live:"⭐ Live Now",badge_new:"🔥 New",badge_new2:"🌿 New",
-    p1_name:"Family Budget Planner",p1_tagline:"Your complete monthly budget — live, visual, and stress-free.",
-    p1_f1:"Live dashboard with instant calculations",p1_f2:"Animated spending breakdown by category",p1_f3:"10 personalized Quick Wins tips",p1_f4:"4 languages & 8 currencies",p1_f5:"100% private — no data stored",
-    p2_name:"Debt Payoff Tracker",p2_tagline:"Visualize your path to debt-free with avalanche or snowball.",
-    p2_f1:"Avalanche & snowball methods",p2_f2:"Animated progress bars per debt",p2_f3:"Exact payoff date projections",p2_f4:"Total interest saved calculator",p2_f5:"Smart debt strategies & tips",
-    p3_name:"Family Meal Planner",p3_tagline:"Plan weekly meals and cut your grocery bill automatically.",
-    p3_f1:"7-day meal calendar",p3_f2:"Auto-generated grocery list",p3_f3:"Weekly food budget tracker",p3_f4:"Cost per meal & per portion",p3_f5:"7 money-saving meal tips",
-    price_one:"one-time",btn_buy:"Get It →",
-    bundle_label:"Best Value — Complete Bundle",bundle_title:"Get All Three Tools Together",
-    bundle_desc:"Budget Planner + Debt Tracker + Meal Planner. Three tools that work together as a complete family finance system — at a significant discount.",
-    bundle_old_price:"$67.97",bundle_save:"Save 33%",bundle_price_note:"one-time · all 3 tools",
-    bundle_cta:"Get the Bundle →",bundle_guarantee:"✓ Instant access · No subscription",
-    why_label:"Why E Pelissier Enterprise",why_title:"Built on Trust. Designed for Real Life.",
-    why_sub:"We speak like a trusted friend who knows finance — no jargon, no overwhelm.",
-    pillar1_title:"100% Private",pillar1_desc:"Your financial data never leaves your device. No accounts, no tracking, no storage.",
-    pillar2_title:"Instant Results",pillar2_desc:"Everything updates as you type. No submit buttons, no loading, no waiting.",
-    pillar3_title:"Global by Design",pillar3_desc:"4 languages and 8 currencies so every family can use it, anywhere in the world.",
-    mini1_label:"Average monthly savings identified",mini2_label:"Setup time",mini2_val:"Under 5 min",mini3_label:"Works on any device",mini3_val:"Always",mini4_label:"Updates & improvements",mini4_val:"Free forever",
-    demo_label:"Try Before You Buy",demo_title:"See It Live — Right Here",demo_sub:"This is the actual Budget Planner. Enter your real numbers and watch it work instantly.",
-    reviews_label:"What Families Say",reviews_title:"Real Results for Real Families",
-    t1_text:'"Finally a budget tool that doesn\'t feel like homework. I set it up in 5 minutes and immediately saw we were overspending on dining out by $300/month!"',t1_role:"Mom of 3, Florida",
-    t2_text:'"The Quick Wins section alone saved us over $200 a month. It spotted things we never would have noticed on our own. Worth every penny."',t2_role:"Father of 2, Texas",
-    t3_text:'"My husband and I use this every month together now. It\'s made money conversations so much easier. No more arguments — just clarity."',t3_role:"Couple, Georgia",
-    cta_title:"Ready to Take Control?",cta_sub:"Get all three tools today. Your family's financial future starts now.",cta_btn:"Get the Bundle — $44.99 →",
-    footer_desc:"Three premium digital tools to help families take control of their finances — beautifully designed, instantly usable.",
-    footer_products:"Products",footer_connect:"Connect",nav_bundle:"Finance Suite Dashboard"
-  },
-  fr: {
-    nav_products:"Produits",nav_bundle:"Offre Groupée",nav_why:"Pourquoi Nous",nav_demo:"Démo Live",nav_main:"Site Principal",nav_cta:"Obtenir l'Offre →",
-    hero_badge:"Suite Finance Familiale — 3 Outils Premium",
-    hero_h1:"Prenez le Contrôle de l'Avenir Financier de Votre Famille",
-    hero_sub:"Trois outils magnifiquement conçus — budgétisez mieux, éliminez les dettes plus vite, planifiez des repas qui économisent chaque semaine.",
-    hero_cta1:"Obtenir l'Offre Groupée →",hero_cta2:"Essayer la Démo",
-    stat1:"Outils Premium",stat2:"Devises",stat3:"Langues",stat4:"Privé et Sécurisé",
-    products_label:"Nos Outils",products_title:"Trois Outils. Un Système Complet.",
-    products_sub:"Chaque outil est puissant seul. Ensemble, ils donnent à votre famille un contrôle financier complet.",
-    badge_live:"⭐ Disponible",badge_new:"🔥 Nouveau",badge_new2:"🌿 Nouveau",
-    p1_name:"Planificateur Budgétaire",p1_tagline:"Votre budget mensuel complet — en direct, visuel et sans stress.",
-    p1_f1:"Tableau de bord en direct",p1_f2:"Répartition animée des dépenses",p1_f3:"10 conseils Quick Wins personnalisés",p1_f4:"4 langues & 8 devises",p1_f5:"100% privé — aucune donnée stockée",
-    p2_name:"Suivi des Dettes",p2_tagline:"Visualisez votre chemin vers la liberté financière.",
-    p2_f1:"Méthodes avalanche & boule de neige",p2_f2:"Barres de progression animées",p2_f3:"Projections de date de remboursement",p2_f4:"Calculateur d'intérêts économisés",p2_f5:"Stratégies et conseils intelligents",
-    p3_name:"Planificateur de Repas",p3_tagline:"Planifiez vos repas et réduisez votre facture d'épicerie.",
-    p3_f1:"Calendrier de repas 7 jours",p3_f2:"Liste de courses automatique",p3_f3:"Suivi du budget alimentaire",p3_f4:"Coût par repas & par portion",p3_f5:"7 conseils d'économies",
-    price_one:"paiement unique",btn_buy:"Obtenir →",
-    bundle_label:"Meilleure Valeur — Offre Complète",bundle_title:"Obtenez les Trois Outils Ensemble",
-    bundle_desc:"Planificateur Budgétaire + Suivi des Dettes + Planificateur de Repas. Trois outils qui fonctionnent ensemble en tant que système financier familial complet.",
-    bundle_old_price:"67,97€",bundle_save:"Économisez 33%",bundle_price_note:"paiement unique · 3 outils",
-    bundle_cta:"Obtenir l'Offre Groupée →",bundle_guarantee:"✓ Accès immédiat · Sans abonnement",
-    why_label:"Pourquoi E Pelissier Enterprise",why_title:"Fondé sur la Confiance. Conçu pour la Vie Réelle.",
-    why_sub:"Nous parlons comme un ami de confiance qui connaît la finance — sans jargon, sans stress.",
-    pillar1_title:"100% Privé",pillar1_desc:"Vos données financières ne quittent jamais votre appareil.",
-    pillar2_title:"Résultats Instantanés",pillar2_desc:"Tout se met à jour au fur et à mesure que vous tapez.",
-    pillar3_title:"Mondial par Conception",pillar3_desc:"4 langues et 8 devises pour toutes les familles du monde.",
-    mini1_label:"Économies mensuelles identifiées",mini2_label:"Temps de configuration",mini2_val:"Moins de 5 min",mini3_label:"Fonctionne sur tout appareil",mini3_val:"Toujours",mini4_label:"Mises à jour",mini4_val:"Gratuites à vie",
-    demo_label:"Essayez Avant d'Acheter",demo_title:"Voyez-le en Direct — Ici Même",demo_sub:"C'est l'outil réel. Entrez vos vrais chiffres et regardez-le fonctionner.",
-    reviews_label:"Ce que Disent les Familles",reviews_title:"Résultats Réels pour Vraies Familles",
-    t1_text:'"Enfin un outil budgétaire qui ne ressemble pas à des devoirs. Je l\'ai configuré en 5 minutes!"',t1_role:"Maman de 3, Floride",
-    t2_text:'"La section Quick Wins seule nous a économisé plus de 200$/mois. Ça vaut chaque centime."',t2_role:"Papa de 2, Texas",
-    t3_text:'"Mon mari et moi l\'utilisons ensemble chaque mois. Ça a rendu les conversations sur l\'argent tellement plus faciles."',t3_role:"Couple, Géorgie",
-    cta_title:"Prêt à Prendre le Contrôle?",cta_sub:"Obtenez les trois outils aujourd'hui. L'avenir financier de votre famille commence maintenant.",cta_btn:"Obtenir l'Offre — 44,99€ →",
-    footer_desc:"Trois outils numériques premium pour aider les familles à contrôler leurs finances.",
-    footer_products:"Produits",footer_connect:"Contact",nav_bundle:"Tableau de Bord Suite"
-  },
-  es: {
-    nav_products:"Productos",nav_bundle:"Paquete",nav_why:"Por Qué Nosotros",nav_demo:"Demo en Vivo",nav_main:"Sitio Principal",nav_cta:"Obtener el Paquete →",
-    hero_badge:"Suite Financiera Familiar — 3 Herramientas Premium",
-    hero_h1:"Toma el Control del Futuro Financiero de Tu Familia",
-    hero_sub:"Tres herramientas hermosamente diseñadas — presupuesta mejor, aplasta deudas más rápido, planifica comidas que ahorran dinero.",
-    hero_cta1:"Obtener el Paquete →",hero_cta2:"Probar Demo en Vivo",
-    stat1:"Herramientas Premium",stat2:"Monedas",stat3:"Idiomas",stat4:"Privado y Seguro",
-    products_label:"Nuestras Herramientas",products_title:"Tres Herramientas. Un Sistema Completo.",
-    products_sub:"Cada herramienta es poderosa sola. Juntas dan a tu familia control financiero completo.",
-    badge_live:"⭐ Disponible",badge_new:"🔥 Nuevo",badge_new2:"🌿 Nuevo",
-    p1_name:"Planificador de Presupuesto",p1_tagline:"Tu presupuesto mensual completo — en vivo, visual y sin estrés.",
-    p1_f1:"Panel en vivo con cálculos instantáneos",p1_f2:"Desglose animado de gastos",p1_f3:"10 consejos Quick Wins personalizados",p1_f4:"4 idiomas & 8 monedas",p1_f5:"100% privado — sin datos almacenados",
-    p2_name:"Rastreador de Deudas",p2_tagline:"Visualiza tu camino hacia la libertad financiera.",
-    p2_f1:"Métodos avalancha y bola de nieve",p2_f2:"Barras de progreso animadas",p2_f3:"Proyecciones exactas de fecha de pago",p2_f4:"Calculadora de intereses ahorrados",p2_f5:"Estrategias inteligentes de deuda",
-    p3_name:"Planificador de Comidas",p3_tagline:"Planifica comidas semanales y reduce tu factura de supermercado.",
-    p3_f1:"Calendario de comidas 7 días",p3_f2:"Lista de compras automática",p3_f3:"Rastreador de presupuesto alimentario",p3_f4:"Costo por comida y por porción",p3_f5:"7 consejos de ahorro",
-    price_one:"pago único",btn_buy:"Obtener →",
-    bundle_label:"Mejor Valor — Paquete Completo",bundle_title:"Obtén las Tres Herramientas Juntas",
-    bundle_desc:"Planificador de Presupuesto + Rastreador de Deudas + Planificador de Comidas. Tres herramientas que trabajan juntas como un sistema financiero familiar completo.",
-    bundle_old_price:"$67.97",bundle_save:"Ahorra 33%",bundle_price_note:"pago único · 3 herramientas",
-    bundle_cta:"Obtener el Paquete →",bundle_guarantee:"✓ Acceso inmediato · Sin suscripción",
-    why_label:"Por Qué E Pelissier Enterprise",why_title:"Construido en Confianza. Diseñado para la Vida Real.",
-    why_sub:"Hablamos como un amigo de confianza que conoce las finanzas — sin jerga, sin agobio.",
-    pillar1_title:"100% Privado",pillar1_desc:"Tus datos financieros nunca salen de tu dispositivo.",
-    pillar2_title:"Resultados Instantáneos",pillar2_desc:"Todo se actualiza mientras escribes.",
-    pillar3_title:"Global por Diseño",pillar3_desc:"4 idiomas y 8 monedas para familias de todo el mundo.",
-    mini1_label:"Ahorros mensuales identificados",mini2_label:"Tiempo de configuración",mini2_val:"Menos de 5 min",mini3_label:"Funciona en cualquier dispositivo",mini3_val:"Siempre",mini4_label:"Actualizaciones",mini4_val:"Gratis para siempre",
-    demo_label:"Prueba Antes de Comprar",demo_title:"Véalo en Vivo — Aquí Mismo",demo_sub:"Esta es la herramienta real. Ingresa tus números y mírala funcionar al instante.",
-    reviews_label:"Lo que Dicen las Familias",reviews_title:"Resultados Reales para Familias Reales",
-    t1_text:'"¡Por fin una herramienta de presupuesto que no parece tarea! La configuré en 5 minutos."',t1_role:"Mamá de 3, Florida",
-    t2_text:'"La sección Quick Wins sola nos ahorró más de $200 al mes. Vale cada centavo."',t2_role:"Padre de 2, Texas",
-    t3_text:'"Mi esposo y yo la usamos juntos cada mes. Ha hecho las conversaciones sobre dinero mucho más fáciles."',t3_role:"Pareja, Georgia",
-    cta_title:"¿Listo para Tomar el Control?",cta_sub:"Obtén las tres herramientas hoy. El futuro financiero de tu familia empieza ahora.",cta_btn:"Obtener el Paquete — $44.99 →",
-    footer_desc:"Tres herramientas digitales premium para ayudar a las familias a controlar sus finanzas.",
-    footer_products:"Productos",footer_connect:"Contacto",nav_bundle:"Panel Suite Financiera"
-  },
-  pt: {
-    nav_products:"Produtos",nav_bundle:"Pacote",nav_why:"Por Que Nós",nav_demo:"Demo ao Vivo",nav_main:"Site Principal",nav_cta:"Obter o Pacote →",
-    hero_badge:"Suite Financeira Familiar — 3 Ferramentas Premium",
-    hero_h1:"Assuma o Controle do Futuro Financeiro da Sua Família",
-    hero_sub:"Três ferramentas lindamente projetadas — orce melhor, elimine dívidas mais rápido, planeje refeições que economizam dinheiro toda semana.",
-    hero_cta1:"Obter o Pacote →",hero_cta2:"Experimentar Demo",
-    stat1:"Ferramentas Premium",stat2:"Moedas",stat3:"Idiomas",stat4:"Privado e Seguro",
-    products_label:"Nossas Ferramentas",products_title:"Três Ferramentas. Um Sistema Completo.",
-    products_sub:"Cada ferramenta é poderosa sozinha. Juntas dão à sua família controle financeiro completo.",
-    badge_live:"⭐ Disponível",badge_new:"🔥 Novo",badge_new2:"🌿 Novo",
-    p1_name:"Planejador de Orçamento",p1_tagline:"Seu orçamento mensal completo — ao vivo, visual e sem estresse.",
-    p1_f1:"Painel ao vivo com cálculos instantâneos",p1_f2:"Gráfico animado de gastos",p1_f3:"10 dicas Quick Wins personalizadas",p1_f4:"4 idiomas & 8 moedas",p1_f5:"100% privado — sem dados armazenados",
-    p2_name:"Rastreador de Dívidas",p2_tagline:"Visualize seu caminho para a liberdade financeira.",
-    p2_f1:"Métodos avalanche e bola de neve",p2_f2:"Barras de progresso animadas",p2_f3:"Projeções exatas de data de pagamento",p2_f4:"Calculadora de juros economizados",p2_f5:"Estratégias inteligentes de dívida",
-    p3_name:"Planejador de Refeições",p3_tagline:"Planeje refeições semanais e reduza sua conta de supermercado.",
-    p3_f1:"Calendário de refeições 7 dias",p3_f2:"Lista de compras automática",p3_f3:"Rastreador de orçamento alimentar",p3_f4:"Custo por refeição e por porção",p3_f5:"7 dicas de economia",
-    price_one:"pagamento único",btn_buy:"Obter →",
-    bundle_label:"Melhor Valor — Pacote Completo",bundle_title:"Obtenha as Três Ferramentas Juntas",
-    bundle_desc:"Planejador de Orçamento + Rastreador de Dívidas + Planejador de Refeições. Três ferramentas que trabalham juntas como um sistema financeiro familiar completo.",
-    bundle_old_price:"R$67,97",bundle_save:"Economize 33%",bundle_price_note:"pagamento único · 3 ferramentas",
-    bundle_cta:"Obter o Pacote →",bundle_guarantee:"✓ Acesso imediato · Sem assinatura",
-    why_label:"Por Que E Pelissier Enterprise",why_title:"Construído na Confiança. Projetado para a Vida Real.",
-    why_sub:"Falamos como um amigo de confiança que conhece finanças — sem jargão, sem pressão.",
-    pillar1_title:"100% Privado",pillar1_desc:"Seus dados financeiros nunca saem do seu dispositivo.",
-    pillar2_title:"Resultados Instantâneos",pillar2_desc:"Tudo atualiza enquanto você digita.",
-    pillar3_title:"Global por Design",pillar3_desc:"4 idiomas e 8 moedas para famílias do mundo todo.",
-    mini1_label:"Economia mensal média identificada",mini2_label:"Tempo de configuração",mini2_val:"Menos de 5 min",mini3_label:"Funciona em qualquer dispositivo",mini3_val:"Sempre",mini4_label:"Atualizações",mini4_val:"Gratuitas para sempre",
-    demo_label:"Experimente Antes de Comprar",demo_title:"Veja ao Vivo — Aqui Mesmo",demo_sub:"Esta é a ferramenta real. Insira seus números e veja funcionar instantaneamente.",
-    reviews_label:"O que as Famílias Dizem",reviews_title:"Resultados Reais para Famílias Reais",
-    t1_text:'"Finalmente uma ferramenta de orçamento que não parece dever de casa. Configurei em 5 minutos!"',t1_role:"Mãe de 3, Flórida",
-    t2_text:'"A seção Quick Wins sozinha nos economizou mais de R$200 por mês. Vale cada centavo."',t2_role:"Pai de 2, Texas",
-    t3_text:'"Meu marido e eu usamos juntos todo mês. Tornou as conversas sobre dinheiro muito mais fáceis."',t3_role:"Casal, Geórgia",
-    cta_title:"Pronto para Assumir o Controle?",cta_sub:"Obtenha as três ferramentas hoje. O futuro financeiro da sua família começa agora.",cta_btn:"Obter o Pacote — R$44,99 →",
-    footer_desc:"Três ferramentas digitais premium para ajudar famílias a controlar suas finanças.",
-    footer_products:"Produtos",footer_connect:"Contato",nav_bundle:"Painel Suite Financeira"
-  }
-};
-
-let currentLang = 'en';
-function setLang(lang) {
-  currentLang = lang;
-  const t = translations[lang];
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  const btn = document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`);
-  if (btn) btn.classList.add('active');
-}
-</script>
 </body>
 </html>
