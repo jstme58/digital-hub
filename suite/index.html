@@ -241,6 +241,15 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 </div>
 
 <!-- MASTER SUMMARY -->
+
+<!-- SYNC STATUS -->
+<div id="sync-status" style="display:none;background:rgba(45,212,191,0.06);border:1px solid rgba(45,212,191,0.15);border-radius:14px;padding:10px 18px;max-width:900px;margin:0 auto 8px;position:relative;z-index:1;align-items:center;gap:10px;flex-wrap:wrap;">
+  <span style="font-size:12px;">🔗</span>
+  <span style="font-size:12px;color:rgba(255,255,255,0.5);">Synced from:</span>
+  <span class="sync-tools" style="font-size:12px;font-weight:600;color:var(--teal);"></span>
+  <span style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto;">Data saved on this device</span>
+</div>
+
 <div class="master-summary">
   <div class="ms-grid">
     <div class="ms-card c-teal">
@@ -590,12 +599,102 @@ function setLang(l){
   lang=l;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
   document.documentElement.lang=l;
+  
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang&&s.ep_lang!==lang){
+    document.getElementById('lang-select').value=s.ep_lang;
+    setLang(s.ep_lang);
+  }
+  if(s.ep_currency&&s.ep_currency!==currency){
+    document.getElementById('currency-select').value=s.ep_currency;
+    setCurrency(s.ep_currency);
+  }
+  // pre-fill quick numbers from stored data
+  if(s.ep_income>0) setQE('qe-income', s.ep_income);
+  if(s.ep_expenses>0) setQE('qe-expenses', s.ep_expenses);
+  if(s.ep_total_debt>0) setQE('qe-debt', s.ep_total_debt);
+  if(s.ep_food_weekly>0) setQE('qe-food', Math.round(s.ep_food_weekly));
   syncAll();
+  showLastSync(s);
+}
+
+function setQE(id,val){
+  const el=document.getElementById(id);
+  if(el&&val>0&&!el.value) el.value=val;
+}
+
+function showLastSync(s){
+  const banner=document.getElementById('sync-status');
+  if(!banner)return;
+  const hasData=s.ep_income>0||s.ep_total_debt>0||s.ep_meal_spend>0;
+  if(hasData){
+    banner.style.display='flex';
+    const parts=[];
+    if(s.ep_income>0) parts.push('Budget Planner ✓');
+    if(s.ep_total_debt>0) parts.push('Debt Tracker ✓');
+    if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push('Meal Planner ✓');
+    banner.querySelector('.sync-tools').textContent=parts.join(' · ');
+  }
+}
+
+loadFromStore();
+
 }
 function setCurrency(c){
   currency=c;
   document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang&&s.ep_lang!==lang){
+    document.getElementById('lang-select').value=s.ep_lang;
+    setLang(s.ep_lang);
+  }
+  if(s.ep_currency&&s.ep_currency!==currency){
+    document.getElementById('currency-select').value=s.ep_currency;
+    setCurrency(s.ep_currency);
+  }
+  // pre-fill quick numbers from stored data
+  if(s.ep_income>0) setQE('qe-income', s.ep_income);
+  if(s.ep_expenses>0) setQE('qe-expenses', s.ep_expenses);
+  if(s.ep_total_debt>0) setQE('qe-debt', s.ep_total_debt);
+  if(s.ep_food_weekly>0) setQE('qe-food', Math.round(s.ep_food_weekly));
   syncAll();
+  showLastSync(s);
+}
+
+function setQE(id,val){
+  const el=document.getElementById(id);
+  if(el&&val>0&&!el.value) el.value=val;
+}
+
+function showLastSync(s){
+  const banner=document.getElementById('sync-status');
+  if(!banner)return;
+  const hasData=s.ep_income>0||s.ep_total_debt>0||s.ep_meal_spend>0;
+  if(hasData){
+    banner.style.display='flex';
+    const parts=[];
+    if(s.ep_income>0) parts.push('Budget Planner ✓');
+    if(s.ep_total_debt>0) parts.push('Debt Tracker ✓');
+    if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push('Meal Planner ✓');
+    banner.querySelector('.sync-tools').textContent=parts.join(' · ');
+  }
+}
+
+loadFromStore();
+
 }
 
 function openTool(tool){
@@ -658,6 +757,7 @@ function syncAll(){
 
   // health score
   calcHealthScore(income,expenses,debt,food);
+  ssWrite({ep_currency:currency,ep_lang:lang});
 }
 
 function calcHealthScore(income,expenses,debt,food){
@@ -719,7 +819,52 @@ function resetHealth(){
   });
 }
 
-syncAll();
+
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang&&s.ep_lang!==lang){
+    document.getElementById('lang-select').value=s.ep_lang;
+    setLang(s.ep_lang);
+  }
+  if(s.ep_currency&&s.ep_currency!==currency){
+    document.getElementById('currency-select').value=s.ep_currency;
+    setCurrency(s.ep_currency);
+  }
+  // pre-fill quick numbers from stored data
+  if(s.ep_income>0) setQE('qe-income', s.ep_income);
+  if(s.ep_expenses>0) setQE('qe-expenses', s.ep_expenses);
+  if(s.ep_total_debt>0) setQE('qe-debt', s.ep_total_debt);
+  if(s.ep_food_weekly>0) setQE('qe-food', Math.round(s.ep_food_weekly));
+  syncAll();
+  showLastSync(s);
+}
+
+function setQE(id,val){
+  const el=document.getElementById(id);
+  if(el&&val>0&&!el.value) el.value=val;
+}
+
+function showLastSync(s){
+  const banner=document.getElementById('sync-status');
+  if(!banner)return;
+  const hasData=s.ep_income>0||s.ep_total_debt>0||s.ep_meal_spend>0;
+  if(hasData){
+    banner.style.display='flex';
+    const parts=[];
+    if(s.ep_income>0) parts.push('Budget Planner ✓');
+    if(s.ep_total_debt>0) parts.push('Debt Tracker ✓');
+    if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push('Meal Planner ✓');
+    banner.querySelector('.sync-tools').textContent=parts.join(' · ');
+  }
+}
+
+loadFromStore();
+
 </script>
 </body>
 </html>
