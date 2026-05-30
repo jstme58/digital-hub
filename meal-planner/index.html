@@ -365,7 +365,30 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div id="tips-body"></div>
   </div>
 
-  <div class="reset-wrap">
+  
+<!-- UPSELL PROMPT -->
+<div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(0,200,150,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
+  <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:28px;flex-shrink:0;">🏠</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Not sure what your food budget should be?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;">The <strong style="color:var(--green);">Budget Planner</strong> calculates your exact food budget based on your income and all other expenses — then sends it here automatically so you always plan within your means.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--green-dark),#004d33);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_meal','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$44.99</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+    </div>
+  </div>
+</div>
+
+<div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
   </div>
 </div>
@@ -750,6 +773,7 @@ function renderAll(){
   renderWeekTable();
   renderGroceryList();
   renderTips();
+  showUpsellIfNeeded();
 
   // ── save to shared store ──
   const _budget=parseFloat(document.getElementById('weekly-budget').value)||0;
@@ -808,6 +832,21 @@ function checkBudgetSync(){
       renderAll();
       banner.style.display='none';
     };
+  }
+}
+
+
+function showUpsellIfNeeded(){
+  if(localStorage.getItem('ep_upsell_dismissed_meal')==='1') return;
+  const s=SS.get();
+  const hasBudgetPlanner=s.ep_income>0;
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt)return;
+  const totalMeals=weekData.reduce((sum,d)=>sum+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  if(totalMeals>0 && !hasBudgetPlanner){
+    prompt.style.display='block';
+  } else {
+    prompt.style.display='none';
   }
 }
 
