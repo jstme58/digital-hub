@@ -335,6 +335,14 @@ body::before {
 </div>
 
 <!-- CONTAINER -->
+<!-- BUDGET SYNC BANNER -->
+<div id="budget-sync-banner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:14px;padding:12px 18px;margin:0 auto 16px;max-width:820px;position:relative;z-index:1;align-items:center;gap:12px;flex-wrap:wrap;">
+  <span style="font-size:14px;">💡</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;">Your Budget Planner shows</span>
+  <strong class="bsb-val" style="color:var(--coral);font-size:14px;font-weight:700;"></strong>
+  <span style="font-size:13px;color:rgba(255,255,255,0.55);">available as extra debt payment each month</span>
+  <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;padding:0 4px;">✕</button>
+</div>
 <div class="container">
 
   <!-- OVERVIEW -->
@@ -381,7 +389,28 @@ body::before {
     <div id="tips-body"><div class="tips-empty" data-i18n="tips_empty">Add your debts to get personalized payoff strategies.</div></div>
   </div>
 
-  <div class="reset-wrap">
+  <!-- UPSELL PROMPT -->
+<div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(255,107,107,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
+  <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:28px;flex-shrink:0;">💡</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Know how much extra you can pay each month?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;">The <strong style="color:var(--coral);">Budget Planner</strong> calculates exactly how much money you have left after expenses — so you know the perfect extra payment amount to crush your debt faster.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#cc4444,#8B0000);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_debt','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$44.99</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+    </div>
+  </div>
+</div>
+<div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All</span></button>
   </div>
 </div>
@@ -394,6 +423,51 @@ body::before {
 <div class="footer"><span data-i18n="footer">Your path to financial freedom — </span><strong>E Pelissier Enterprise</strong></div>
 
 <script>
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={
+  KEY:'ep_suite_v1',
+  get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},
+  set(d){try{localStorage.setItem(this.KEY,JSON.stringify({...this.get(),...d}))}catch(e){}},
+  clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}
+};
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang){const el=document.getElementById('lang-select');if(el)el.value=s.ep_lang;lang=s.ep_lang;}
+  if(s.ep_currency){const el=document.getElementById('currency-select');if(el)el.value=s.ep_currency;currency=s.ep_currency;}
+  if(s.ep_debts&&s.ep_debts.length){
+    debts=s.ep_debts;
+    debtIdCounter=Math.max(...debts.map(d=>d.id),0);
+    renderDebtList();
+  }
+}
+
+function saveToStore(){
+  const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+  SS.set({ep_total_debt:totalDebt,ep_debts:JSON.parse(JSON.stringify(debts)),ep_currency:currency,ep_lang:lang});
+}
+
+function checkBudgetSync(){
+  if(localStorage.getItem('ep_sync_dismissed_debt')==='1') return;
+  const s=SS.get();
+  const remaining=s.ep_remaining||0;
+  const banner=document.getElementById('budget-sync-banner');
+  if(banner&&remaining>50){
+    banner.style.display='flex';
+    const val=banner.querySelector('.bsb-val');
+    if(val) val.textContent=fmtM(remaining)+'/mo';
+  }
+}
+
+function showUpsellIfNeeded(){
+  if(localStorage.getItem('ep_upsell_dismissed_debt')==='1') return;
+  const s=SS.get();
+  const hasBudgetPlanner=s.ep_income>0;
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt) return;
+  prompt.style.display=(debts.length>0 && !hasBudgetPlanner)?'block':'none';
+}
+
 // ── TRANSLATIONS ────────────────────────────────────────────
 const T = {
   en:{
@@ -829,6 +903,8 @@ function renderAll(){
     document.getElementById('tips-badge').style.display='none';
     document.getElementById('fab-num').textContent='0';
   }
+  saveToStore();
+  showUpsellIfNeeded();
 }
 
 function renderProgressTrack(balances,activeDebts){
@@ -922,6 +998,7 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
 function resetAll(){
   debts=[];debtIdCounter=0;
   document.getElementById('debt-list').innerHTML='';
+  SS.clear();
   renderAll();
 }
 
@@ -929,10 +1006,17 @@ window.addEventListener('scroll',()=>{
   document.getElementById('sticky-dash').classList.toggle('scrolled',window.scrollY>10);
 },{passive:true});
 
-// ── INIT: add 2 sample debts ─────────────────────────────────
-addDebt('Credit Card','4500','22.99','120');
-addDebt('Car Loan','12000','6.5','280');
-renderAll();
+// ── INIT ──────────────────────────────────────────────────────
+const _s=SS.get();
+if(_s.ep_debts&&_s.ep_debts.length){
+  loadFromStore();
+  renderAll();
+} else {
+  addDebt('Credit Card','4500','22.99','120');
+  addDebt('Car Loan','12000','6.5','280');
+  renderAll();
+}
+checkBudgetSync();
 </script>
 </body>
 </html>
