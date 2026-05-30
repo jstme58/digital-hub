@@ -892,7 +892,30 @@ body::before {
     </div>
   </div>
 
-  <div class="reset-wrap">
+  
+<!-- UPSELL PROMPT -->
+<div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(45,212,191,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
+  <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:28px;flex-shrink:0;">🎯</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;" id="upsell-title">Want the full picture?</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;" id="upsell-desc">You have <strong id="upsell-remaining" style="color:var(--teal);">$0</strong> left over this month. Put it to work — track your debt payoff and plan meals that save even more.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--teal-dim),#0B7A6E);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(45,212,191,0.2);" id="upsell-cta">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;transition:all 0.2s;" id="upsell-dismiss">Maybe later</button>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$44.99</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+    </div>
+  </div>
+</div>
+
+<div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All Values</span></button>
   </div>
 </div>
@@ -1291,6 +1314,10 @@ function calculate(){
   renderWins(getWins(income,housing,food,transport,family,savingsGoals,remaining));
 
   // ── save to shared store ──
+
+  // ── upsell prompt ──
+  showUpsellIfNeeded(income, remaining);
+
   ssWrite({ep_income:income,ep_expenses:totalExpenses,ep_remaining:remaining,
     ep_food_monthly:food,ep_food_weekly:+(food/4.33).toFixed(2),
     ep_savings_rate:+savingsRate.toFixed(1),ep_currency:currency,ep_lang:lang});
@@ -1317,6 +1344,36 @@ function loadFromStore(){
   if(s.ep_currency){document.getElementById('currency-select').value=s.ep_currency;setCurrency(s.ep_currency);}
   const fields=['income-primary','income-secondary','income-other','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'];
   fields.forEach(id=>{if(s['bp_'+id]!==undefined){const el=document.getElementById(id);if(el)el.value=s['bp_'+id];}});
+}
+
+
+function showUpsellIfNeeded(income, remaining){
+  if(localStorage.getItem('ep_upsell_dismissed')==='1') return;
+  const s=SS.get();
+  const hasDebtTracker=s.ep_total_debt>0||s.ep_debts;
+  const hasMealPlanner=s.mp_weekData;
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt)return;
+  // show if income entered but missing other tools
+  if(income>0 && (!hasDebtTracker || !hasMealPlanner)){
+    prompt.style.display='block';
+    const remEl=document.getElementById('upsell-remaining');
+    if(remEl) remEl.textContent=fmt(Math.max(0,remaining));
+    // customize message based on what's missing
+    const title=document.getElementById('upsell-title');
+    const desc=document.getElementById('upsell-desc');
+    if(!hasDebtTracker && !hasMealPlanner){
+      if(title) title.textContent='Want the full picture?';
+    } else if(!hasDebtTracker){
+      if(title) title.textContent='You have money to put toward debt';
+      if(desc) desc.innerHTML='You have <strong style="color:var(--teal);">'+fmt(Math.max(0,remaining))+'</strong>/mo left over. The Debt Tracker shows exactly when you\'ll be debt-free if you put it to work.';
+    } else if(!hasMealPlanner){
+      if(title) title.textContent='Cut your food budget further';
+      if(desc) desc.innerHTML='The Meal Planner helps families save <strong style="color:var(--teal);">$150–300/mo</strong> on food by planning meals within your food budget.';
+    }
+  } else {
+    prompt.style.display='none';
+  }
 }
 
 buildProgress();updateSubtitles();loadFromStore();calculate();
