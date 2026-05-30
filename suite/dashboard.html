@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Finance Suite — E Pelissier Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1F3C; --navy-2: #142647; --navy-3: #1B2F55;
+  --teal: #2DD4BF; --teal-dim: rgba(45,212,191,0.12);
+  --coral: #FF6B6B; --coral-dim: rgba(255,107,107,0.12);
+  --green: #00C896; --green-dim: rgba(0,200,150,0.12);
+  --gold: #C9A84C; --gold-light: #F0D58A;
+  --amber: #FFB347; --amber-dim: rgba(255,179,71,0.12);
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.30);
+  --border: rgba(255,255,255,0.08);
+  --card-bg: rgba(255,255,255,0.04);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease-smooth: cubic-bezier(0.4,0,0.2,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--navy); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-size:200px; opacity:0.4; }
+
+.orb { position:fixed; border-radius:50%; pointer-events:none; z-index:0; filter:blur(90px); }
+.orb-1 { width:600px; height:600px; background:radial-gradient(circle,rgba(45,212,191,0.2),transparent 70%); top:-200px; right:-200px; opacity:0.4; }
+.orb-2 { width:500px; height:500px; background:radial-gradient(circle,rgba(255,107,107,0.15),transparent 70%); bottom:10%; left:-150px; opacity:0.3; }
+.orb-3 { width:400px; height:400px; background:radial-gradient(circle,rgba(0,200,150,0.15),transparent 70%); bottom:-100px; right:10%; opacity:0.3; }
+
+/* TOP BAR */
+.top-bar { position:relative; z-index:10; background:rgba(13,31,60,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:12px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand-logo { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--teal),#0B7A6E); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:14px; font-weight:700; color:#fff; flex-shrink:0; }
+.brand-text { display:flex; flex-direction:column; }
+.brand-name { font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text-primary); line-height:1.2; }
+.brand-tag { font-size:9px; font-weight:600; color:var(--teal); text-transform:uppercase; letter-spacing:1.5px; }
+.top-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.ctrl-group { display:flex; align-items:center; gap:6px; }
+.ctrl-group label { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.ctrl-select { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-primary); font-family:var(--font-body); font-size:12px; padding:5px 10px; border-radius:8px; cursor:pointer; outline:none; transition:border-color 0.2s; }
+.ctrl-select:focus { border-color:var(--teal); }
+.ctrl-select option { background:var(--navy-2); }
+.ctrl-divider { width:1px; height:20px; background:var(--border); }
+
+/* HERO */
+.hero { position:relative; z-index:1; padding:56px 28px 44px; text-align:center; }
+.hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:18px; padding:6px 18px; border:1px solid rgba(45,212,191,0.25); border-radius:99px; background:rgba(45,212,191,0.06); }
+.hero h1 { font-family:var(--font-display); font-size:clamp(30px,5vw,52px); font-weight:700; color:var(--text-primary); line-height:1.1; letter-spacing:-1px; margin-bottom:14px; }
+.hero h1 em { font-style:italic; background:linear-gradient(135deg,var(--teal),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:16px; font-weight:300; color:var(--text-secondary); max-width:480px; margin:0 auto 32px; line-height:1.7; }
+.hero-line { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--teal),transparent); margin:0 auto; }
+
+/* MASTER SUMMARY */
+.master-summary { max-width:900px; margin:0 auto; padding:0 20px 32px; position:relative; z-index:1; }
+.ms-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+@media (min-width:600px) { .ms-grid { grid-template-columns:repeat(4,1fr); } }
+.ms-card { background:var(--card-bg); border:1px solid var(--border); border-radius:18px; padding:18px 16px 14px; position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.2s; }
+.ms-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent); pointer-events:none; }
+.ms-card:hover { transform:translateY(-2px); }
+.ms-card.c-teal { border-color:rgba(45,212,191,0.2); }
+.ms-card.c-coral { border-color:rgba(255,107,107,0.2); }
+.ms-card.c-green { border-color:rgba(0,200,150,0.2); }
+.ms-card.c-gold { border-color:rgba(201,168,76,0.2); }
+.ms-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.ms-icon { width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.ms-card.c-teal .ms-icon { background:var(--teal-dim); }
+.ms-card.c-coral .ms-icon { background:var(--coral-dim); }
+.ms-card.c-green .ms-icon { background:var(--green-dim); }
+.ms-card.c-gold .ms-icon { background:var(--amber-dim); }
+.ms-label { font-size:9px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.ms-value { font-family:var(--font-display); font-size:clamp(18px,4vw,26px); font-weight:700; letter-spacing:-0.5px; line-height:1; }
+.ms-card.c-teal .ms-value { color:var(--teal); }
+.ms-card.c-coral .ms-value { color:var(--coral); }
+.ms-card.c-green .ms-value { color:var(--green); }
+.ms-card.c-gold .ms-value { color:var(--gold); }
+.ms-sub { font-size:10px; color:var(--text-muted); margin-top:6px; }
+
+/* FLOW DIAGRAM */
+.flow-wrap { max-width:900px; margin:0 auto; padding:0 20px 36px; position:relative; z-index:1; }
+.flow-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:24px; position:relative; overflow:hidden; }
+.flow-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.3),transparent); }
+.flow-title { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.flow-ch { width:28px; height:28px; border-radius:8px; background:var(--teal-dim); border:1px solid rgba(45,212,191,0.2); display:flex; align-items:center; justify-content:center; font-size:13px; }
+.flow-diagram { display:flex; align-items:center; gap:0; flex-wrap:wrap; justify-content:center; }
+.flow-tool { display:flex; flex-direction:column; align-items:center; gap:10px; flex:1; min-width:140px; max-width:220px; }
+.flow-tool-card { width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:16px; padding:18px 14px; text-align:center; cursor:pointer; transition:all 0.25s var(--ease-smooth); position:relative; overflow:hidden; }
+.flow-tool-card:hover { transform:translateY(-3px); }
+.flow-tool-card.t-teal { border-color:rgba(45,212,191,0.25); }
+.flow-tool-card.t-teal:hover { background:rgba(45,212,191,0.06); box-shadow:0 8px 32px rgba(45,212,191,0.15); }
+.flow-tool-card.t-coral { border-color:rgba(255,107,107,0.25); }
+.flow-tool-card.t-coral:hover { background:rgba(255,107,107,0.06); box-shadow:0 8px 32px rgba(255,107,107,0.15); }
+.flow-tool-card.t-green { border-color:rgba(0,200,150,0.25); }
+.flow-tool-card.t-green:hover { background:rgba(0,200,150,0.06); box-shadow:0 8px 32px rgba(0,200,150,0.15); }
+.flow-tool-emoji { font-size:28px; display:block; margin-bottom:8px; }
+.flow-tool-name { font-family:var(--font-display); font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px; }
+.flow-tool-desc { font-size:11px; color:var(--text-secondary); line-height:1.5; }
+.flow-tool-stat { font-size:12px; font-weight:600; margin-top:10px; padding:4px 10px; border-radius:99px; display:inline-block; }
+.t-teal .flow-tool-stat { color:var(--teal); background:rgba(45,212,191,0.1); }
+.t-coral .flow-tool-stat { color:var(--coral); background:rgba(255,107,107,0.1); }
+.t-green .flow-tool-stat { color:var(--green); background:rgba(0,200,150,0.1); }
+.flow-tool-btn { width:100%; margin-top:12px; padding:9px 0; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:none; color:var(--text-secondary); font-family:var(--font-body); font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.t-teal .flow-tool-btn:hover { border-color:rgba(45,212,191,0.4); color:var(--teal); background:rgba(45,212,191,0.06); }
+.t-coral .flow-tool-btn:hover { border-color:rgba(255,107,107,0.4); color:var(--coral); background:rgba(255,107,107,0.06); }
+.t-green .flow-tool-btn:hover { border-color:rgba(0,200,150,0.4); color:var(--green); background:rgba(0,200,150,0.06); }
+
+/* FLOW ARROWS */
+.flow-arrow { display:flex; align-items:center; flex-direction:column; gap:4px; padding:0 8px; flex-shrink:0; }
+.arrow-line { width:1px; height:40px; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.15),transparent); }
+.arrow-label { font-size:9px; color:var(--text-muted); text-align:center; white-space:nowrap; max-width:80px; line-height:1.3; text-transform:uppercase; letter-spacing:0.5px; }
+@media (min-width:600px) {
+  .flow-diagram { flex-wrap:nowrap; }
+  .flow-arrow { flex-direction:row; }
+  .arrow-line { width:40px; height:1px; }
+  .arrow-label { writing-mode:horizontal-tb; }
+}
+
+/* HANDOFF PANEL */
+.handoff-wrap { max-width:900px; margin:0 auto; padding:0 20px 36px; position:relative; z-index:1; }
+.handoff-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:24px; position:relative; overflow:hidden; }
+.handoff-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent); }
+.handoff-title { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+.handoff-sub { font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+.handoff-grid { display:grid; grid-template-columns:1fr; gap:12px; }
+@media (min-width:600px) { .handoff-grid { grid-template-columns:repeat(3,1fr); } }
+.handoff-item { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:16px; }
+.hi-from { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.hi-arrow { font-size:12px; color:var(--text-muted); }
+.hi-value { font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--text-primary); letter-spacing:-0.3px; margin-bottom:4px; }
+.hi-label { font-size:11px; color:var(--text-secondary); }
+.hi-to { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-muted); display:flex; align-items:center; gap:6px; }
+.hi-to-val { color:var(--teal); font-weight:600; }
+.send-btn { margin-top:10px; width:100%; padding:8px; border-radius:9px; border:1px solid rgba(255,255,255,0.1); background:none; color:var(--text-secondary); font-family:var(--font-body); font-size:11px; font-weight:500; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px; }
+.send-btn.teal:hover { border-color:rgba(45,212,191,0.4); color:var(--teal); background:rgba(45,212,191,0.06); }
+.send-btn.coral:hover { border-color:rgba(255,107,107,0.4); color:var(--coral); background:rgba(255,107,107,0.06); }
+.send-btn.green:hover { border-color:rgba(0,200,150,0.4); color:var(--green); background:rgba(0,200,150,0.06); }
+
+/* QUICK ENTRY */
+.qe-wrap { max-width:900px; margin:0 auto; padding:0 20px 36px; position:relative; z-index:1; }
+.qe-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:24px; position:relative; overflow:hidden; }
+.qe-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(45,212,191,0.25),transparent); }
+.qe-title { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:6px; }
+.qe-sub { font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+.qe-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+@media (min-width:600px) { .qe-grid { grid-template-columns:repeat(4,1fr); } }
+.qe-field label { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; display:block; }
+.qe-input-wrap { position:relative; }
+.qe-pfx { position:absolute; left:10px; top:50%; transform:translateY(-50%); font-size:12px; color:var(--text-muted); pointer-events:none; }
+.qe-input { width:100%; height:42px; padding:0 12px 0 26px; font-size:14px; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:all 0.2s; -moz-appearance:textfield; }
+.qe-input::-webkit-inner-spin-button,.qe-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+.qe-input::placeholder { color:rgba(255,255,255,0.2); }
+.qe-input:focus { border-color:rgba(45,212,191,0.5); background:rgba(45,212,191,0.04); box-shadow:0 0 0 3px rgba(45,212,191,0.08); }
+
+/* HEALTH SCORE */
+.health-wrap { max-width:900px; margin:0 auto; padding:0 20px 36px; position:relative; z-index:1; }
+.health-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:24px; position:relative; overflow:hidden; }
+.health-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.4),transparent); }
+.health-score-row { display:flex; align-items:center; gap:24px; margin-bottom:20px; }
+.health-score-circle { width:80px; height:80px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; border:3px solid var(--border); flex-shrink:0; transition:border-color 0.5s,box-shadow 0.5s; }
+.health-score-num { font-family:var(--font-display); font-size:24px; font-weight:700; line-height:1; }
+.health-score-lbl { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
+.health-score-txt { }
+.health-score-title { font-family:var(--font-display); font-size:18px; font-weight:600; color:var(--text-primary); margin-bottom:4px; }
+.health-score-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.health-bars { display:flex; flex-direction:column; gap:10px; }
+.hb-row { display:flex; align-items:center; gap:12px; }
+.hb-label { font-size:12px; color:var(--text-secondary); width:120px; flex-shrink:0; }
+.hb-track { flex:1; height:5px; background:rgba(255,255,255,0.06); border-radius:99px; overflow:hidden; }
+.hb-fill { height:100%; border-radius:99px; transition:width 0.6s var(--ease-smooth); }
+.hb-val { font-size:12px; font-weight:500; color:var(--text-primary); width:50px; text-align:right; flex-shrink:0; font-variant-numeric:tabular-nums; }
+
+/* FOOTER */
+.footer { background:rgba(13,31,60,0.9); border-top:1px solid var(--border); text-align:center; padding:28px 20px; color:var(--text-muted); font-size:12px; position:relative; z-index:1; }
+.footer-links { display:flex; justify-content:center; gap:24px; margin-bottom:12px; flex-wrap:wrap; }
+.footer-link { color:var(--text-secondary); text-decoration:none; font-size:13px; transition:color 0.2s; }
+.footer-link:hover { color:var(--teal); }
+.footer strong { color:var(--teal); font-weight:500; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes countUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.hero { animation:fadeUp 0.7s ease both; }
+.master-summary { animation:fadeUp 0.7s 0.1s ease both; }
+.flow-wrap { animation:fadeUp 0.7s 0.15s ease both; }
+.handoff-wrap { animation:fadeUp 0.7s 0.2s ease both; }
+.qe-wrap { animation:fadeUp 0.7s 0.25s ease both; }
+.health-wrap { animation:fadeUp 0.7s 0.3s ease both; }
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="#" class="brand">
+    <div class="brand-logo">EP</div>
+    <div class="brand-text">
+      <span class="brand-name">E Pelissier Enterprise</span>
+      <span class="brand-tag">Family Finance Suite</span>
+    </div>
+  </a>
+  <div class="top-controls">
+    <div class="ctrl-group">
+      <label>🌍</label>
+      <select class="ctrl-select" id="lang-select" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
+    </div>
+    <div class="ctrl-divider"></div>
+    <div class="ctrl-group">
+      <label>💱</label>
+      <select class="ctrl-select" id="currency-select" onchange="setCurrency(this.value)">
+        <option value="USD">$ USD</option>
+        <option value="CAD">$ CAD</option>
+        <option value="GBP">£ GBP</option>
+        <option value="EUR">€ EUR</option>
+        <option value="BRL">R$ BRL</option>
+        <option value="MXN">$ MXN</option>
+        <option value="CHF">Fr CHF</option>
+        <option value="AUD">A$ AUD</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow" data-i18n="eyebrow">✦ Complete Family Finance Suite</div>
+  <h1>Your <em data-i18n="hero_em">Financial Life,</em><br><span data-i18n="hero_rest">All in One Place</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Three powerful tools working together — budget smarter, crush debt faster, and plan meals that save money every week.</p>
+  <div class="hero-line"></div>
+</div>
+
+<!-- MASTER SUMMARY -->
+<div class="master-summary">
+  <div class="ms-grid">
+    <div class="ms-card c-teal">
+      <div class="ms-top"><span class="ms-label" data-i18n="ms_income">Monthly Income</span><div class="ms-icon">💵</div></div>
+      <div class="ms-value" id="ms-income">$0</div>
+      <div class="ms-sub" data-i18n="ms_income_sub">from budget planner</div>
+    </div>
+    <div class="ms-card c-coral">
+      <div class="ms-top"><span class="ms-label" data-i18n="ms_debt">Total Debt</span><div class="ms-icon">💳</div></div>
+      <div class="ms-value" id="ms-debt">$0</div>
+      <div class="ms-sub" id="ms-debt-sub">—</div>
+    </div>
+    <div class="ms-card c-green">
+      <div class="ms-top"><span class="ms-label" data-i18n="ms_food">Weekly Food</span><div class="ms-icon">🥗</div></div>
+      <div class="ms-value" id="ms-food">$0</div>
+      <div class="ms-sub" id="ms-food-sub">—</div>
+    </div>
+    <div class="ms-card c-gold">
+      <div class="ms-top"><span class="ms-label" data-i18n="ms_remaining">Free Money</span><div class="ms-icon">🎯</div></div>
+      <div class="ms-value" id="ms-remaining">$0</div>
+      <div class="ms-sub" data-i18n="ms_remaining_sub">after all expenses</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ENTRY -->
+<div class="qe-wrap">
+  <div class="qe-card">
+    <div class="qe-title" data-i18n="qe_title">⚡ Quick Numbers</div>
+    <div class="qe-sub" data-i18n="qe_sub">Enter your key figures here — they'll flow into all three tools automatically</div>
+    <div class="qe-grid">
+      <div class="qe-field">
+        <label data-i18n="qe_income">Monthly Income</label>
+        <div class="qe-input-wrap">
+          <span class="qe-pfx currency-symbol">$</span>
+          <input type="number" class="qe-input" id="qe-income" placeholder="5000" min="0" oninput="syncAll()">
+        </div>
+      </div>
+      <div class="qe-field">
+        <label data-i18n="qe_expenses">Monthly Expenses</label>
+        <div class="qe-input-wrap">
+          <span class="qe-pfx currency-symbol">$</span>
+          <input type="number" class="qe-input" id="qe-expenses" placeholder="3500" min="0" oninput="syncAll()">
+        </div>
+      </div>
+      <div class="qe-field">
+        <label data-i18n="qe_debt">Total Debt</label>
+        <div class="qe-input-wrap">
+          <span class="qe-pfx currency-symbol">$</span>
+          <input type="number" class="qe-input" id="qe-debt" placeholder="15000" min="0" oninput="syncAll()">
+        </div>
+      </div>
+      <div class="qe-field">
+        <label data-i18n="qe_food">Weekly Food Budget</label>
+        <div class="qe-input-wrap">
+          <span class="qe-pfx currency-symbol">$</span>
+          <input type="number" class="qe-input" id="qe-food" placeholder="200" min="0" oninput="syncAll()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3 TOOLS FLOW -->
+<div class="flow-wrap">
+  <div class="flow-card">
+    <div class="flow-title"><div class="flow-ch">🔗</div><span data-i18n="flow_title">Your Three Tools — How They Work Together</span></div>
+    <div class="flow-diagram">
+
+      <div class="flow-tool">
+        <div class="flow-tool-card t-teal" onclick="openTool('budget')">
+          <span class="flow-tool-emoji">🏠</span>
+          <div class="flow-tool-name" data-i18n="tool1_name">Budget Planner</div>
+          <div class="flow-tool-desc" data-i18n="tool1_desc">Set income, track all expenses, find savings</div>
+          <div class="flow-tool-stat" id="flow-stat-budget">— income</div>
+        </div>
+        <button class="flow-tool-btn" onclick="openTool('budget')" data-i18n="open_tool">Open Tool →</button>
+      </div>
+
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-label" data-i18n="arrow1">Food budget flows to meal planner</div>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="flow-tool">
+        <div class="flow-tool-card t-green" onclick="openTool('meals')">
+          <span class="flow-tool-emoji">🥗</span>
+          <div class="flow-tool-name" data-i18n="tool2_name">Meal Planner</div>
+          <div class="flow-tool-desc" data-i18n="tool2_desc">Plan meals within your food budget, auto grocery list</div>
+          <div class="flow-tool-stat" id="flow-stat-meals">— weekly budget</div>
+        </div>
+        <button class="flow-tool-btn" onclick="openTool('meals')" data-i18n="open_tool">Open Tool →</button>
+      </div>
+
+      <div class="flow-arrow">
+        <div class="arrow-line"></div>
+        <div class="arrow-label" data-i18n="arrow2">Savings go toward debt payoff</div>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="flow-tool">
+        <div class="flow-tool-card t-coral" onclick="openTool('debt')">
+          <span class="flow-tool-emoji">🎯</span>
+          <div class="flow-tool-name" data-i18n="tool3_name">Debt Tracker</div>
+          <div class="flow-tool-desc" data-i18n="tool3_desc">Crush debt with your freed-up monthly budget</div>
+          <div class="flow-tool-stat" id="flow-stat-debt">— total debt</div>
+        </div>
+        <button class="flow-tool-btn" onclick="openTool('debt')" data-i18n="open_tool">Open Tool →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- HANDOFF PANEL -->
+<div class="handoff-wrap">
+  <div class="handoff-card">
+    <div class="handoff-title">🔄 <span data-i18n="handoff_title">Smart Handoffs</span></div>
+    <div class="handoff-sub" data-i18n="handoff_sub">Numbers from your Budget Planner sent directly to the right tool — one click</div>
+    <div class="handoff-grid">
+
+      <div class="handoff-item">
+        <div class="hi-from">🏠 <span data-i18n="budget_planner">Budget Planner</span> <span class="hi-arrow">→</span> 🥗</div>
+        <div class="hi-value" id="hi-food-val">$0</div>
+        <div class="hi-label" data-i18n="hi_food_label">Monthly food budget</div>
+        <div class="hi-to">
+          <span data-i18n="hi_sends_to">Sends weekly budget of</span>
+          <span class="hi-to-val" id="hi-food-weekly">$0/wk</span>
+          <span data-i18n="hi_to_meal">to Meal Planner</span>
+        </div>
+        <button class="send-btn green" onclick="openTool('meals')" data-i18n="open_meal">→ Open Meal Planner</button>
+      </div>
+
+      <div class="handoff-item">
+        <div class="hi-from">🏠 <span data-i18n="budget_planner">Budget Planner</span> <span class="hi-arrow">→</span> 🎯</div>
+        <div class="hi-value" id="hi-remaining-val">$0</div>
+        <div class="hi-label" data-i18n="hi_remaining_label">Monthly remaining after expenses</div>
+        <div class="hi-to">
+          <span data-i18n="hi_extra_payment">Extra debt payment available:</span>
+          <span class="hi-to-val" id="hi-extra-payment">$0/mo</span>
+        </div>
+        <button class="send-btn coral" onclick="openTool('debt')" data-i18n="open_debt">→ Open Debt Tracker</button>
+      </div>
+
+      <div class="handoff-item">
+        <div class="hi-from">🥗 <span data-i18n="meal_planner">Meal Planner</span> <span class="hi-arrow">+</span> 🎯</div>
+        <div class="hi-value" id="hi-savings-val">$0</div>
+        <div class="hi-label" data-i18n="hi_savings_label">Combined monthly savings potential</div>
+        <div class="hi-to">
+          <span data-i18n="hi_debt_free">Debt-free</span>
+          <span class="hi-to-val" id="hi-debt-free">—</span>
+          <span data-i18n="hi_faster">faster with this extra</span>
+        </div>
+        <button class="send-btn teal" onclick="openTool('debt')" data-i18n="see_impact">→ See the Impact</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FINANCIAL HEALTH SCORE -->
+<div class="health-wrap">
+  <div class="health-card">
+    <div class="flow-title" style="margin-bottom:16px"><div class="flow-ch" style="background:var(--green-dim);border-color:rgba(0,200,150,0.2)">❤️</div><span data-i18n="health_title">Financial Health Score</span></div>
+    <div class="health-score-row">
+      <div class="health-score-circle" id="health-circle">
+        <span class="health-score-num" id="health-num">—</span>
+        <span class="health-score-lbl" data-i18n="score_lbl">/ 100</span>
+      </div>
+      <div class="health-score-txt">
+        <div class="health-score-title" id="health-title" data-i18n="health_default">Enter your numbers to get your score</div>
+        <div class="health-score-desc" id="health-desc" data-i18n="health_desc_default">Fill in your monthly income, expenses, debt, and food budget above to calculate your family's financial health score.</div>
+      </div>
+    </div>
+    <div class="health-bars">
+      <div class="hb-row">
+        <span class="hb-label" data-i18n="hb_savings">Savings Rate</span>
+        <div class="hb-track"><div class="hb-fill" id="hb-savings" style="background:var(--teal);width:0%"></div></div>
+        <span class="hb-val" id="hb-savings-val">0%</span>
+      </div>
+      <div class="hb-row">
+        <span class="hb-label" data-i18n="hb_debt_ratio">Debt-to-Income</span>
+        <div class="hb-track"><div class="hb-fill" id="hb-debt" style="background:var(--coral);width:0%"></div></div>
+        <span class="hb-val" id="hb-debt-val">0%</span>
+      </div>
+      <div class="hb-row">
+        <span class="hb-label" data-i18n="hb_food">Food vs Budget</span>
+        <div class="hb-track"><div class="hb-fill" id="hb-food" style="background:var(--green);width:0%"></div></div>
+        <span class="hb-val" id="hb-food-val">0%</span>
+      </div>
+      <div class="hb-row">
+        <span class="hb-label" data-i18n="hb_expense">Expense Ratio</span>
+        <div class="hb-track"><div class="hb-fill" id="hb-expense" style="background:var(--amber);width:0%"></div></div>
+        <span class="hb-val" id="hb-expense-val">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-links">
+    <a href="./budget-planner/" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
+    <a href="./meal-planner/" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
+    <a href="./debt-tracker/" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
+    <a href="https://epelissierenterprise.com" class="footer-link">epelissierenterprise.com</a>
+  </div>
+  <span data-i18n="footer">Your complete family finance suite — </span><strong>E Pelissier Enterprise</strong>
+</div>
+
+<script>
+const T={
+  en:{
+    eyebrow:"✦ Complete Family Finance Suite",
+    hero_em:"Financial Life,",hero_rest:"All in One Place",
+    hero_sub:"Three powerful tools working together — budget smarter, crush debt faster, and plan meals that save money every week.",
+    ms_income:"Monthly Income",ms_income_sub:"from budget planner",
+    ms_debt:"Total Debt",ms_food:"Weekly Food",ms_remaining:"Free Money",ms_remaining_sub:"after all expenses",
+    qe_title:"⚡ Quick Numbers",qe_sub:"Enter your key figures here — they'll flow into all three tools automatically",
+    qe_income:"Monthly Income",qe_expenses:"Monthly Expenses",qe_debt:"Total Debt",qe_food:"Weekly Food Budget",
+    flow_title:"Your Three Tools — How They Work Together",
+    tool1_name:"Budget Planner",tool1_desc:"Set income, track all expenses, find savings",
+    tool2_name:"Meal Planner",tool2_desc:"Plan meals within your food budget, auto grocery list",
+    tool3_name:"Debt Tracker",tool3_desc:"Crush debt with your freed-up monthly budget",
+    open_tool:"Open Tool →",
+    arrow1:"Food budget flows to meal planner",arrow2:"Savings go toward debt payoff",
+    handoff_title:"Smart Handoffs",handoff_sub:"Numbers from your Budget Planner sent directly to the right tool — one click",
+    budget_planner:"Budget Planner",meal_planner:"Meal Planner",
+    hi_food_label:"Monthly food budget",hi_sends_to:"Sends weekly budget of",hi_to_meal:"to Meal Planner",
+    hi_remaining_label:"Monthly remaining after expenses",hi_extra_payment:"Extra debt payment available:",
+    hi_savings_label:"Combined monthly savings potential",hi_debt_free:"Debt-free",hi_faster:"faster with this extra",
+    open_meal:"→ Open Meal Planner",open_debt:"→ Open Debt Tracker",see_impact:"→ See the Impact",
+    health_title:"Financial Health Score",score_lbl:"/ 100",
+    health_default:"Enter your numbers to get your score",
+    health_desc_default:"Fill in your monthly income, expenses, debt, and food budget above to calculate your family's financial health score.",
+    hb_savings:"Savings Rate",hb_debt_ratio:"Debt-to-Income",hb_food:"Food vs Budget",hb_expense:"Expense Ratio",
+    footer:"Your complete family finance suite — ",
+    score_excellent:"Excellent financial health 🌟",score_good:"Good financial health 👍",
+    score_fair:"Fair — room to improve 📈",score_poor:"Needs attention ⚠️",
+    ms_debt_sub_months:"months to debt-free",ms_food_pct:"of monthly income",
+  },
+  fr:{
+    eyebrow:"✦ Suite Finance Familiale Complète",
+    hero_em:"Vie Financière,",hero_rest:"Tout en Un Seul Endroit",
+    hero_sub:"Trois outils puissants travaillant ensemble — budgétisez mieux, éliminez les dettes plus vite, planifiez des repas qui économisent chaque semaine.",
+    ms_income:"Revenus Mensuels",ms_income_sub:"du planificateur budgétaire",
+    ms_debt:"Dette Totale",ms_food:"Alimentation Hebdo",ms_remaining:"Argent Libre",ms_remaining_sub:"après toutes les dépenses",
+    qe_title:"⚡ Chiffres Clés",qe_sub:"Entrez vos chiffres ici — ils seront transmis automatiquement aux trois outils",
+    qe_income:"Revenus Mensuels",qe_expenses:"Dépenses Mensuelles",qe_debt:"Dette Totale",qe_food:"Budget Alimentaire Hebdo",
+    flow_title:"Vos Trois Outils — Comment Ils Fonctionnent Ensemble",
+    tool1_name:"Planificateur Budgétaire",tool1_desc:"Définissez les revenus, suivez les dépenses, trouvez des économies",
+    tool2_name:"Planificateur de Repas",tool2_desc:"Planifiez les repas dans votre budget alimentaire, liste de courses auto",
+    tool3_name:"Suivi des Dettes",tool3_desc:"Éliminez les dettes avec votre budget libéré",
+    open_tool:"Ouvrir l'Outil →",
+    arrow1:"Le budget alimentaire va au planificateur de repas",arrow2:"Les économies vont vers le remboursement des dettes",
+    handoff_title:"Transferts Intelligents",handoff_sub:"Les chiffres de votre planificateur budgétaire envoyés directement au bon outil",
+    budget_planner:"Planificateur Budgétaire",meal_planner:"Planificateur de Repas",
+    hi_food_label:"Budget alimentaire mensuel",hi_sends_to:"Envoie un budget hebdomadaire de",hi_to_meal:"au Planificateur de Repas",
+    hi_remaining_label:"Reste mensuel après dépenses",hi_extra_payment:"Paiement de dette supplémentaire disponible:",
+    hi_savings_label:"Potentiel d'économies mensuelles combinées",hi_debt_free:"Libre de dettes",hi_faster:"plus tôt avec ce supplément",
+    open_meal:"→ Ouvrir Planificateur Repas",open_debt:"→ Ouvrir Suivi Dettes",see_impact:"→ Voir l'Impact",
+    health_title:"Score de Santé Financière",score_lbl:"/ 100",
+    health_default:"Entrez vos chiffres pour obtenir votre score",
+    health_desc_default:"Remplissez vos revenus, dépenses, dettes et budget alimentaire ci-dessus pour calculer le score de santé financière de votre famille.",
+    hb_savings:"Taux d'Épargne",hb_debt_ratio:"Ratio Dette/Revenus",hb_food:"Alimentation vs Budget",hb_expense:"Ratio de Dépenses",
+    footer:"Votre suite finance familiale complète — ",
+    score_excellent:"Excellente santé financière 🌟",score_good:"Bonne santé financière 👍",
+    score_fair:"Correct — peut s'améliorer 📈",score_poor:"Nécessite attention ⚠️",
+    ms_debt_sub_months:"mois jusqu'à liberté",ms_food_pct:"des revenus mensuels",
+  },
+  es:{
+    eyebrow:"✦ Suite Financiera Familiar Completa",
+    hero_em:"Vida Financiera,",hero_rest:"Todo en Un Solo Lugar",
+    hero_sub:"Tres herramientas poderosas trabajando juntas — presupuesta mejor, aplasta deudas más rápido, planifica comidas que ahorran dinero.",
+    ms_income:"Ingresos Mensuales",ms_income_sub:"del planificador de presupuesto",
+    ms_debt:"Deuda Total",ms_food:"Comida Semanal",ms_remaining:"Dinero Libre",ms_remaining_sub:"después de todos los gastos",
+    qe_title:"⚡ Números Clave",qe_sub:"Ingresa tus cifras clave aquí — fluirán automáticamente a las tres herramientas",
+    qe_income:"Ingresos Mensuales",qe_expenses:"Gastos Mensuales",qe_debt:"Deuda Total",qe_food:"Presupuesto Semanal de Comida",
+    flow_title:"Tus Tres Herramientas — Cómo Trabajan Juntas",
+    tool1_name:"Planificador de Presupuesto",tool1_desc:"Establece ingresos, rastrea gastos, encuentra ahorros",
+    tool2_name:"Planificador de Comidas",tool2_desc:"Planifica comidas dentro de tu presupuesto alimentario",
+    tool3_name:"Rastreador de Deudas",tool3_desc:"Aplasta deudas con tu presupuesto liberado",
+    open_tool:"Abrir Herramienta →",
+    arrow1:"El presupuesto alimentario va al planificador de comidas",arrow2:"Los ahorros van hacia el pago de deudas",
+    handoff_title:"Transferencias Inteligentes",handoff_sub:"Números de tu planificador de presupuesto enviados directamente a la herramienta correcta",
+    budget_planner:"Planificador de Presupuesto",meal_planner:"Planificador de Comidas",
+    hi_food_label:"Presupuesto alimentario mensual",hi_sends_to:"Envía presupuesto semanal de",hi_to_meal:"al Planificador de Comidas",
+    hi_remaining_label:"Sobrante mensual después de gastos",hi_extra_payment:"Pago extra de deuda disponible:",
+    hi_savings_label:"Potencial de ahorro mensual combinado",hi_debt_free:"Libre de deudas",hi_faster:"antes con este extra",
+    open_meal:"→ Abrir Planificador Comidas",open_debt:"→ Abrir Rastreador Deudas",see_impact:"→ Ver el Impacto",
+    health_title:"Puntuación de Salud Financiera",score_lbl:"/ 100",
+    health_default:"Ingresa tus números para obtener tu puntuación",
+    health_desc_default:"Completa tus ingresos mensuales, gastos, deudas y presupuesto alimentario arriba para calcular tu puntuación.",
+    hb_savings:"Tasa de Ahorro",hb_debt_ratio:"Deuda vs Ingresos",hb_food:"Comida vs Presupuesto",hb_expense:"Ratio de Gastos",
+    footer:"Tu suite financiera familiar completa — ",
+    score_excellent:"Excelente salud financiera 🌟",score_good:"Buena salud financiera 👍",
+    score_fair:"Regular — puede mejorar 📈",score_poor:"Necesita atención ⚠️",
+    ms_debt_sub_months:"meses hasta libertad",ms_food_pct:"de ingresos mensuales",
+  },
+  pt:{
+    eyebrow:"✦ Suite Financeira Familiar Completa",
+    hero_em:"Vida Financeira,",hero_rest:"Tudo em Um Só Lugar",
+    hero_sub:"Três ferramentas poderosas trabalhando juntas — orce melhor, elimine dívidas mais rápido, planeje refeições que economizam dinheiro.",
+    ms_income:"Renda Mensal",ms_income_sub:"do planejador de orçamento",
+    ms_debt:"Dívida Total",ms_food:"Alimentação Semanal",ms_remaining:"Dinheiro Livre",ms_remaining_sub:"após todas as despesas",
+    qe_title:"⚡ Números Chave",qe_sub:"Insira seus números aqui — eles fluirão automaticamente para as três ferramentas",
+    qe_income:"Renda Mensal",qe_expenses:"Despesas Mensais",qe_debt:"Dívida Total",qe_food:"Orçamento Semanal de Alimentação",
+    flow_title:"Suas Três Ferramentas — Como Trabalham Juntas",
+    tool1_name:"Planejador de Orçamento",tool1_desc:"Defina renda, acompanhe despesas, encontre economias",
+    tool2_name:"Planejador de Refeições",tool2_desc:"Planeje refeições dentro do seu orçamento alimentar",
+    tool3_name:"Rastreador de Dívidas",tool3_desc:"Elimine dívidas com seu orçamento liberado",
+    open_tool:"Abrir Ferramenta →",
+    arrow1:"Orçamento alimentar vai para o planejador de refeições",arrow2:"Economias vão para o pagamento de dívidas",
+    handoff_title:"Transferências Inteligentes",handoff_sub:"Números do seu planejador de orçamento enviados diretamente para a ferramenta certa",
+    budget_planner:"Planejador de Orçamento",meal_planner:"Planejador de Refeições",
+    hi_food_label:"Orçamento alimentar mensal",hi_sends_to:"Envia orçamento semanal de",hi_to_meal:"ao Planejador de Refeições",
+    hi_remaining_label:"Restante mensal após despesas",hi_extra_payment:"Pagamento extra de dívida disponível:",
+    hi_savings_label:"Potencial de economia mensal combinado",hi_debt_free:"Livre de dívidas",hi_faster:"antes com esse extra",
+    open_meal:"→ Abrir Planejador Refeições",open_debt:"→ Abrir Rastreador Dívidas",see_impact:"→ Ver o Impacto",
+    health_title:"Pontuação de Saúde Financeira",score_lbl:"/ 100",
+    health_default:"Insira seus números para obter sua pontuação",
+    health_desc_default:"Preencha sua renda mensal, despesas, dívidas e orçamento alimentar acima para calcular a pontuação.",
+    hb_savings:"Taxa de Poupança",hb_debt_ratio:"Dívida vs Renda",hb_food:"Alimentação vs Orçamento",hb_expense:"Ratio de Despesas",
+    footer:"Sua suite financeira familiar completa — ",
+    score_excellent:"Excelente saúde financeira 🌟",score_good:"Boa saúde financeira 👍",
+    score_fair:"Regular — pode melhorar 📈",score_poor:"Precisa de atenção ⚠️",
+    ms_debt_sub_months:"meses até liberdade",ms_food_pct:"da renda mensal",
+  }
+};
+
+const CURRENCIES={USD:{symbol:'$',locale:'en-US'},CAD:{symbol:'$',locale:'en-CA'},GBP:{symbol:'£',locale:'en-GB'},EUR:{symbol:'€',locale:'de-DE'},BRL:{symbol:'R$',locale:'pt-BR'},MXN:{symbol:'$',locale:'es-MX'},CHF:{symbol:'Fr',locale:'de-CH'},AUD:{symbol:'A$',locale:'en-AU'}};
+
+// Tool paths — adjust if your folder names differ
+const TOOL_PATHS={
+  budget:'./budget-planner/',
+  meals:'./meal-planner/',
+  debt:'./debt-tracker/'
+};
+
+let lang='en', currency='USD';
+
+function t(k){return T[lang][k]||T.en[k]||k;}
+function fmt(n,dec=0){const c=CURRENCIES[currency];return(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
+  document.documentElement.lang=l;
+  syncAll();
+}
+function setCurrency(c){
+  currency=c;
+  document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  syncAll();
+}
+
+function openTool(tool){
+  const income=parseFloat(document.getElementById('qe-income').value)||0;
+  const food=parseFloat(document.getElementById('qe-food').value)||0;
+  const debt=parseFloat(document.getElementById('qe-debt').value)||0;
+  const expenses=parseFloat(document.getElementById('qe-expenses').value)||0;
+  const remaining=income-expenses;
+
+  let url=TOOL_PATHS[tool];
+  const params=[];
+  if(tool==='meals'&&food>0) params.push('budget='+Math.round(food));
+  if(tool==='debt'&&remaining>0) params.push('extra='+Math.round(remaining));
+  if(params.length) url+='?'+params.join('&');
+  window.location.href=url;
+}
+
+function syncAll(){
+  const income=parseFloat(document.getElementById('qe-income').value)||0;
+  const expenses=parseFloat(document.getElementById('qe-expenses').value)||0;
+  const debt=parseFloat(document.getElementById('qe-debt').value)||0;
+  const food=parseFloat(document.getElementById('qe-food').value)||0;
+  const remaining=income-expenses;
+  const foodMonthly=food*4.33;
+  const weeklyFood=food;
+
+  // master summary
+  document.getElementById('ms-income').textContent=fmt(income);
+  document.getElementById('ms-debt').textContent=fmt(debt);
+  document.getElementById('ms-food').textContent=fmt(weeklyFood)+'/wk';
+  document.getElementById('ms-remaining').textContent=fmt(Math.max(0,remaining));
+
+  // debt sub — estimate months at min 2% payment
+  if(debt>0&&income>0){
+    const minPay=debt*0.02;
+    const months=minPay>0?Math.ceil(Math.log(minPay/(minPay-(debt*0.15/100/12)))/Math.log(1+(0.15/100/12))):null;
+    document.getElementById('ms-debt-sub').textContent=months?Math.round(debt/(remaining>0?remaining:minPay))+' '+t('ms_debt_sub_months'):'—';
+  } else { document.getElementById('ms-debt-sub').textContent='—'; }
+
+  if(income>0){
+    document.getElementById('ms-food-sub').textContent=foodMonthly>0?(foodMonthly/income*100).toFixed(0)+'% '+t('ms_food_pct'):'—';
+  }
+
+  // flow stats
+  document.getElementById('flow-stat-budget').textContent=income>0?fmt(income)+' '+t('qe_income').toLowerCase():'— income';
+  document.getElementById('flow-stat-meals').textContent=food>0?fmt(food)+'/wk budget':'— weekly budget';
+  document.getElementById('flow-stat-debt').textContent=debt>0?fmt(debt)+' total':'— total debt';
+
+  // handoff panel
+  document.getElementById('hi-food-val').textContent=fmt(foodMonthly);
+  document.getElementById('hi-food-weekly').textContent=fmt(weeklyFood)+'/wk';
+  document.getElementById('hi-remaining-val').textContent=fmt(Math.max(0,remaining));
+  document.getElementById('hi-extra-payment').textContent=fmt(Math.max(0,remaining))+'/mo';
+  const combined=Math.max(0,remaining)+(food>0?food*0.25:0);
+  document.getElementById('hi-savings-val').textContent=fmt(combined);
+  if(debt>0&&combined>0){
+    const mos=Math.ceil(debt/combined);
+    document.getElementById('hi-debt-free').textContent=mos+' mo';
+  } else { document.getElementById('hi-debt-free').textContent='—'; }
+
+  // health score
+  calcHealthScore(income,expenses,debt,food);
+}
+
+function calcHealthScore(income,expenses,debt,food){
+  if(!income){ resetHealth(); return; }
+  const savingsRate=(income-expenses)/income*100;
+  const debtToIncome=income>0?(debt/income)*100:0;
+  const foodPct=income>0?(food*4.33/income)*100:0;
+  const expenseRatio=income>0?(expenses/income)*100:0;
+
+  // score components (each 0-25)
+  const savingsScore=Math.min(25,Math.max(0,(savingsRate/20)*25));
+  const debtScore=Math.min(25,Math.max(0,25-(debtToIncome/400)*25));
+  const foodScore=Math.min(25,Math.max(0,foodPct<=15?25:foodPct<=20?18:foodPct<=30?10:3));
+  const expenseScore=Math.min(25,Math.max(0,expenseRatio<=70?25:expenseRatio<=80?18:expenseRatio<=90?10:3));
+  const total=Math.round(savingsScore+debtScore+foodScore+expenseScore);
+
+  // update circle
+  const circle=document.getElementById('health-circle');
+  const numEl=document.getElementById('health-num');
+  const titleEl=document.getElementById('health-title');
+  const descEl=document.getElementById('health-desc');
+  numEl.textContent=total;
+
+  let color,borderColor,title,desc;
+  if(total>=80){ color='var(--green)';borderColor='rgba(0,200,150,0.5)';title=t('score_excellent');desc='Your savings rate, debt load, food spend, and expense ratio are all in healthy ranges. Keep it up!'; }
+  else if(total>=60){ color='var(--teal)';borderColor='rgba(45,212,191,0.4)';title=t('score_good');desc='Your finances are in decent shape. Small improvements to your savings rate or debt load could push you to excellent.'; }
+  else if(total>=40){ color='var(--amber)';borderColor='rgba(255,179,71,0.4)';title=t('score_fair');desc='There are clear areas to improve. Focus on your highest-scoring opportunity: savings rate or debt payoff.'; }
+  else { color='var(--coral)';borderColor='rgba(255,107,107,0.4)';title=t('score_poor');desc='Your finances need attention. Start with the Budget Planner to understand where your money is going, then tackle debt.'; }
+
+  numEl.style.color=color;
+  circle.style.borderColor=borderColor;
+  circle.style.boxShadow='0 0 20px '+borderColor;
+  titleEl.textContent=title;
+  descEl.textContent=desc;
+
+  // bars
+  setHBar('hb-savings',Math.min(100,Math.max(0,savingsRate)),savingsRate.toFixed(1)+'%','var(--teal)');
+  setHBar('hb-debt',Math.min(100,debtToIncome/4),debtToIncome.toFixed(0)+'%','var(--coral)');
+  setHBar('hb-food',Math.min(100,foodPct*3),foodPct.toFixed(0)+'%','var(--green)');
+  setHBar('hb-expense',Math.min(100,expenseRatio),expenseRatio.toFixed(0)+'%','var(--amber)');
+}
+
+function setHBar(id,pct,label,color){
+  const fill=document.getElementById(id);
+  const val=document.getElementById(id+'-val');
+  if(fill){fill.style.width=pct+'%';fill.style.background=color;}
+  if(val)val.textContent=label;
+}
+
+function resetHealth(){
+  document.getElementById('health-num').textContent='—';
+  document.getElementById('health-circle').style.borderColor='var(--border)';
+  document.getElementById('health-circle').style.boxShadow='none';
+  document.getElementById('health-title').textContent=t('health_default');
+  document.getElementById('health-desc').textContent=t('health_desc_default');
+  ['hb-savings','hb-debt','hb-food','hb-expense'].forEach(id=>{
+    const f=document.getElementById(id);const v=document.getElementById(id+'-val');
+    if(f)f.style.width='0%';if(v)v.textContent='0%';
+  });
+}
+
+syncAll();
+</script>
+</body>
+</html>
