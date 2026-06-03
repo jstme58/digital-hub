@@ -257,6 +257,13 @@ body::before {
 .overview-card { animation: fadeUp 0.7s 0.1s ease both; }
 .timeline-card { animation: fadeUp 0.7s 0.15s ease both; }
 .debt-card { animation: slideIn 0.35s ease both; }
+
+/* ── DOWNLOAD REPORT ─────────────────────────────── */
+.download-wrap{text-align:center;margin-bottom:12px;}
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--coral);background:rgba(255,107,107,0.08);border:1.5px solid rgba(255,107,107,0.3);border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.download-btn:hover{background:rgba(255,107,107,0.15);border-color:rgba(255,107,107,0.5);transform:scale(1.02);}
+.download-btn:active{transform:scale(0.98);}
+
 </style>
 </head>
 <body>
@@ -410,6 +417,9 @@ body::before {
     </div>
   </div>
 </div>
+  <div class="download-wrap">
+    <button class="download-btn" onclick="downloadReport()">⬇ Save Debt Report as PDF</button>
+  </div>
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All</span></button>
   </div>
@@ -457,6 +467,129 @@ function checkBudgetSync(){
     const val=banner.querySelector('.bsb-val');
     if(val) val.textContent=fmtM(remaining)+'/mo';
   }
+}
+
+
+function downloadReport(){
+  const now=new Date();
+  const monthStr=now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const c=CURRENCIES[currency];
+  const f=(n)=>(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+  const totalMin=debts.reduce((s,d)=>s+(parseFloat(d.minPayment)||0),0);
+  const result=calcPayoff();
+
+  let debtRows='';
+  let timelineRows='';
+  let summaryInterest='—';
+  let summaryDate='—';
+  let summaryMonths='—';
+  let interestSaved='—';
+
+  if(result){
+    const{balances,totalInterest,maxMonth,interestSaved:iSaved,activeDebts}=result;
+    summaryInterest=f(totalInterest);
+    interestSaved=f(iSaved);
+    summaryMonths=maxMonth<600?maxMonth+' months':'50+ years';
+    if(maxMonth<600){
+      const fd=new Date(now.getFullYear(),now.getMonth()+maxMonth,1);
+      summaryDate=fd.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    }
+    debtRows=activeDebts.map((d,i)=>{
+      const b=balances.find(x=>x.id===d.id);
+      const pct=d.balance>0?((d.balance-(b?b.remaining:0))/d.balance*100).toFixed(1):0;
+      const mo=b?b.payoffMonth:0;
+      const pd=mo&&mo<600?new Date(now.getFullYear(),now.getMonth()+mo,1).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'—';
+      return `<tr>
+        <td>${d.emoji||'💳'} ${d.name||'Debt '+(i+1)}</td>
+        <td>${f(d.balance)}</td>
+        <td>${d.rate}%</td>
+        <td>${f(d.minPayment)}/mo</td>
+        <td>${b?f(b.totalInterest):'—'}</td>
+        <td>${pd}</td>
+        <td><div style="background:#f1f3f4;border-radius:99px;height:6px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:${d.color};border-radius:99px;"></div></div><span style="font-size:11px;color:#9AA0A6;">${pct}% paid</span></td>
+      </tr>`;
+    }).join('');
+  } else {
+    debtRows=debts.map((d,i)=>`<tr>
+      <td>${d.emoji||'💳'} ${d.name||'Debt '+(i+1)}</td>
+      <td>${f(parseFloat(d.balance)||0)}</td>
+      <td>${d.rate}%</td>
+      <td>${f(parseFloat(d.minPayment)||0)}/mo</td>
+      <td>—</td><td>—</td>
+      <td><div style="background:#f1f3f4;border-radius:99px;height:6px;"></div></td>
+    </tr>`).join('');
+  }
+
+  const reportHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Debt Report — ${monthStr}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:system-ui,sans-serif;background:#f8f9fa;color:#1a1a2e;padding:40px 24px;max-width:760px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#1a0808,#2d1010);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,107,107,0.1);}
+  .header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,107,107,0.8);margin-bottom:8px;}
+  .header-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.55);}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+  .sum-box{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.06);}
+  .sum-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;margin-bottom:6px;}
+  .sum-val{font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+  .sum-val.red{color:#E24B4A;} .sum-val.teal{color:#1D9E75;} .sum-val.amber{color:#EF9F27;} .sum-val.blue{color:#378ADD;}
+  .section{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid rgba(0,0,0,0.06);}
+  .section-title{font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f3f4;}
+  .method-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;margin-left:8px;}
+  .badge-avalanche{background:rgba(255,107,107,0.1);color:#E24B4A;}
+  .badge-snowball{background:rgba(116,185,255,0.1);color:#378ADD;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;padding:0 0 10px;border-bottom:1px solid #f1f3f4;}
+  td{padding:10px 0;border-bottom:1px solid #f8f9fa;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .footer{text-align:center;font-size:11px;color:#9AA0A6;margin-top:28px;padding-top:20px;border-top:1px solid #e8eaed;}
+  @media print{body{padding:20px;background:#fff!important;} .section{page-break-inside:avoid;} .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .summary-grid{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+  @page{margin:20mm;size:A4;}
+</style></head><body>
+<div class="header">
+  <div class="header-eyebrow">E Pelissier Enterprise — Debt Payoff Tracker</div>
+  <div class="header-title">Debt Payoff Report</div>
+  <div class="header-sub">${monthStr} · Generated ${now.toLocaleDateString()}</div>
+</div>
+<div class="summary-grid">
+  <div class="sum-box"><div class="sum-label">Total Debt</div><div class="sum-val red">${f(totalDebt)}</div></div>
+  <div class="sum-box"><div class="sum-label">Monthly Min.</div><div class="sum-val amber">${f(totalMin)}/mo</div></div>
+  <div class="sum-box"><div class="sum-label">Total Interest</div><div class="sum-val red">${summaryInterest}</div></div>
+  <div class="sum-box"><div class="sum-label">Interest Saved</div><div class="sum-val teal">${interestSaved}</div></div>
+</div>
+<div class="section">
+  <div class="section-title">📅 Payoff Summary
+    <span class="method-badge ${method==='avalanche'?'badge-avalanche':'badge-snowball'}">${method==='avalanche'?'⚡ Avalanche':'❄️ Snowball'}</span>
+  </div>
+  <table><tr><th>Stat</th><th>Value</th></tr>
+    <tr><td>Debt-Free Date</td><td><strong>${summaryDate}</strong></td></tr>
+    <tr><td>Months to Freedom</td><td>${summaryMonths}</td></tr>
+    <tr><td>Number of Debts</td><td>${debts.length}</td></tr>
+    <tr><td>Total Monthly Minimum</td><td>${f(totalMin)}/mo</td></tr>
+    <tr><td>Interest Saved vs Min. Only</td><td style="color:#1D9E75;font-weight:600;">${interestSaved}</td></tr>
+  </table>
+</div>
+<div class="section">
+  <div class="section-title">💳 Debt Details</div>
+  <table>
+    <tr><th>Debt</th><th>Balance</th><th>APR</th><th>Min. Payment</th><th>Interest</th><th>Payoff Date</th><th>Progress</th></tr>
+    ${debtRows}
+  </table>
+</div>
+<div class="footer">
+  Generated by the Debt Payoff Tracker · E Pelissier Enterprise<br>
+  digital.epelissierenterprise.com/debt-tracker · Your data stays private — nothing was sent or stored.
+</div>
+</body></html>`;
+
+  const win=window.open('','_blank');
+  win.document.write(reportHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
 }
 
 function showUpsellIfNeeded(){
