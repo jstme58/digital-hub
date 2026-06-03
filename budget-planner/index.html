@@ -943,6 +943,25 @@ body::before {
   <div class="download-wrap">
     <button class="download-btn" onclick="showDownloadModal()">⬇ Save Monthly Report as PDF</button>
   </div>
+
+<!-- DOWNLOAD UPSELL MODAL -->
+<div class="modal-overlay" id="download-modal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('download-modal').style.display='none'">✕</button>
+    <div class="modal-title">📄 Monthly PDF Report</div>
+    <div class="modal-sub">Get a clean, branded PDF report every month — no watermark, ready to save or share.</div>
+    <div class="modal-feature"><span class="modal-feature-icon">✨</span> Clean report — no watermark</div>
+    <div class="modal-feature"><span class="modal-feature-icon">💳</span> Debt Tracker included</div>
+    <div class="modal-feature"><span class="modal-feature-icon">🥗</span> Meal Planner included</div>
+    <div class="modal-feature"><span class="modal-feature-icon">❤️</span> Financial Health Score</div>
+    <div class="modal-btns">
+      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 Get the Suite — $47 →</a>
+      <button class="modal-btn-sample" onclick="document.getElementById('download-modal').style.display='none';downloadReport(true);">Download sample with watermark</button>
+    </div>
+    <div class="sample-note">Sample includes a SAMPLE watermark on all pages</div>
+  </div>
+</div>
+
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All Values</span></button>
   </div>
@@ -1533,13 +1552,14 @@ function downloadReport(isSample=false){
 </div>
 </body></html>`;
 
-  const win=window.open('','_blank');
   if(isSample){
     const watermark='<div class="watermark">SAMPLE SAMPLE SAMPLE</div>';
     const banner=`<div class="sample-banner"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark and unlock all tools</div><a href="https://stan.store/EPelissierdigital">Get the Suite $47 →</a></div>`;
     const bodyTag=html.indexOf('<body>')+6;
     html=html.slice(0,bodyTag)+watermark+banner+html.slice(bodyTag);
   }
+  const win=window.open('','_blank');
+  if(!win){alert('Please allow pop-ups for this site to download your report.');return;}
   win.document.write(html);
   win.document.close();
   win.focus();
