@@ -216,6 +216,13 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 .hero { animation:fadeUp 0.7s ease both; }
 .budget-bar-card { animation:fadeUp 0.7s 0.1s ease both; }
 .meal-grid-card { animation:fadeUp 0.7s 0.15s ease both; }
+
+/* ── DOWNLOAD REPORT ─────────────────────────────── */
+.download-wrap{text-align:center;margin-bottom:12px;}
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--green);background:rgba(0,200,150,0.08);border:1.5px solid rgba(0,200,150,0.3);border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.download-btn:hover{background:rgba(0,200,150,0.15);border-color:rgba(0,200,150,0.5);transform:scale(1.02);}
+.download-btn:active{transform:scale(0.98);}
+
 </style>
 </head>
 <body>
@@ -388,6 +395,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   </div>
 </div>
 
+  <div class="download-wrap">
+    <button class="download-btn" onclick="downloadReport()">⬇ Save Meal Plan as PDF</button>
+  </div>
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
   </div>
@@ -835,6 +845,116 @@ function checkBudgetSync(){
   }
 }
 
+
+
+function downloadReport(){
+  const now=new Date();
+  const monthStr=now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const c=CURRENCIES[currency];
+  const f=(n)=>c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
+  const totalMeals=weekData.reduce((s,d)=>s+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  const remaining=budget-totalCost;
+  const perMeal=totalMeals>0?totalCost/totalMeals:0;
+  const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  const mealTypes=["Breakfast","Lunch","Dinner"];
+
+  const calRows=weekData.map((d,i)=>{
+    const dayCost=Object.values(d.meals).reduce((s,m)=>s+(parseFloat(m.cost)||0),0);
+    return `<tr>
+      <td style="font-weight:600;color:#0D1F3C;">${days[i]}</td>
+      <td>${d.meals.breakfast.name||'—'}</td>
+      <td>${d.meals.lunch.name||'—'}</td>
+      <td>${d.meals.dinner.name||'—'}</td>
+      <td style="text-align:right;font-weight:600;">${dayCost>0?f(dayCost):'—'}</td>
+    </tr>`;
+  }).join('');
+
+  const ingredients=extractIngredients();
+  const groceryList=ingredients.length?ingredients.map(item=>`<li style="padding:4px 0;border-bottom:1px solid #f8f9fa;font-size:13px;">☐ ${item}</li>`).join(''):'<li style="color:#9AA0A6;font-size:13px;">No ingredients detected</li>';
+  const customList=customGrocery.length?customGrocery.map(item=>`<li style="padding:4px 0;border-bottom:1px solid #f8f9fa;font-size:13px;">☐ ${item}</li>`).join(''):'';
+
+  const reportHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Meal Plan — ${monthStr}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:system-ui,sans-serif;background:#f8f9fa;color:#1a1a2e;padding:40px 24px;max-width:760px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#0a1f0f,#0d2b15);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(0,200,150,0.12);}
+  .header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(0,200,150,0.8);margin-bottom:8px;}
+  .header-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.55);}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+  .sum-box{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.06);}
+  .sum-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;margin-bottom:6px;}
+  .sum-val{font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+  .sum-val.green{color:#00C896;} .sum-val.red{color:#E24B4A;} .sum-val.amber{color:#EF9F27;} .sum-val.navy{color:#0D1F3C;}
+  .section{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid rgba(0,0,0,0.06);}
+  .section-title{font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f3f4;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;padding:0 0 10px;border-bottom:1px solid #f1f3f4;}
+  td{padding:10px 6px;border-bottom:1px solid #f8f9fa;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .grocery-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .grocery-list{list-style:none;}
+  .budget-bar{height:8px;background:#f1f3f4;border-radius:99px;overflow:hidden;margin-top:12px;}
+  .budget-fill{height:100%;border-radius:99px;background:${remaining>=0?'#00C896':'#E24B4A'};}
+  .bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#9AA0A6;margin-top:5px;}
+  .footer{text-align:center;font-size:11px;color:#9AA0A6;margin-top:28px;padding-top:20px;border-top:1px solid #e8eaed;}
+  @media print{body{padding:20px;background:#fff!important;} .section{page-break-inside:avoid;} .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .budget-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+  @page{margin:20mm;size:A4;}
+</style></head><body>
+<div class="header">
+  <div class="header-eyebrow">E Pelissier Enterprise — Family Meal Planner</div>
+  <div class="header-title">Weekly Meal Plan Report</div>
+  <div class="header-sub">Week of ${now.toLocaleDateString()} · Generated ${now.toLocaleDateString()}</div>
+</div>
+<div class="summary-grid">
+  <div class="sum-box"><div class="sum-label">Weekly Budget</div><div class="sum-val navy">${f(budget)}</div></div>
+  <div class="sum-box"><div class="sum-label">Total Spent</div><div class="sum-val ${remaining>=0?'amber':'red'}">${f(totalCost)}</div></div>
+  <div class="sum-box"><div class="sum-label">${remaining>=0?'Remaining':'Over Budget'}</div><div class="sum-val ${remaining>=0?'green':'red'}">${f(Math.abs(remaining))}</div></div>
+  <div class="sum-box"><div class="sum-label">Avg. Per Meal</div><div class="sum-val navy">${totalMeals>0?f(perMeal):'—'}</div></div>
+</div>
+<div class="section">
+  <div class="section-title">📅 Weekly Meal Calendar</div>
+  <table>
+    <tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th><th style="text-align:right">Day Cost</th></tr>
+    ${calRows}
+  </table>
+  <div class="budget-bar"><div class="budget-fill" style="width:${budget>0?Math.min(100,(totalCost/budget)*100).toFixed(1):0}%;"></div></div>
+  <div class="bar-labels"><span>0</span><span>${budget>0?((totalCost/budget)*100).toFixed(0)+'% of weekly budget':''}</span><span>${f(budget)}</span></div>
+</div>
+<div class="section">
+  <div class="section-title">🛒 Grocery List</div>
+  <div class="grocery-cols">
+    <div><div style="font-size:11px;font-weight:600;color:#9AA0A6;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">From meal plan</div><ul class="grocery-list">${groceryList}</ul></div>
+    ${customGrocery.length?`<div><div style="font-size:11px;font-weight:600;color:#9AA0A6;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Custom items</div><ul class="grocery-list">${customList}</ul></div>`:''}
+  </div>
+</div>
+<div class="section">
+  <div class="section-title">📊 Meal Stats</div>
+  <table>
+    <tr><td>Meals Planned</td><td style="font-weight:600;">${totalMeals} of 21</td></tr>
+    <tr><td>Portions Per Meal</td><td style="font-weight:600;">${portions}</td></tr>
+    <tr><td>Cost Per Portion</td><td style="font-weight:600;">${totalMeals>0?f(perMeal/portions):'—'}</td></tr>
+    <tr><td>Projected Monthly Food Cost</td><td style="font-weight:600;">${f(totalCost*4.33)}</td></tr>
+    <tr><td>Budget Status</td><td style="font-weight:600;color:${remaining>=0?'#00C896':'#E24B4A'}">${remaining>=0?'Within budget ✓':'Over by '+f(Math.abs(remaining))}</td></tr>
+  </table>
+</div>
+<div class="footer">
+  Generated by the Family Meal Planner · E Pelissier Enterprise<br>
+  digital.epelissierenterprise.com/meal-planner · Your data stays private — nothing was sent or stored.
+</div>
+</body></html>`;
+
+  const win=window.open('','_blank');
+  win.document.write(reportHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
+}
 
 function showUpsellIfNeeded(){
   if(localStorage.getItem('ep_upsell_dismissed_meal')==='1') return;
