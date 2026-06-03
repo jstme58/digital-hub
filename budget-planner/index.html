@@ -575,6 +575,13 @@ body::before {
   .gauge-card { grid-template-columns: 1fr; }
   .gauge-wrap { display: flex; justify-content: center; }
 }
+
+/* ── DOWNLOAD REPORT ─────────────────────────────── */
+.download-wrap{text-align:center;margin-bottom:12px;}
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--teal);background:rgba(45,212,191,0.08);border:1.5px solid rgba(45,212,191,0.3);border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.download-btn:hover{background:rgba(45,212,191,0.15);border-color:rgba(45,212,191,0.5);transform:scale(1.02);}
+.download-btn:active{transform:scale(0.98);}
+
 </style>
 </head>
 <body>
@@ -915,6 +922,9 @@ body::before {
   </div>
 </div>
 
+  <div class="download-wrap">
+    <button class="download-btn" onclick="downloadReport()">⬇ Save Monthly Report as PDF</button>
+  </div>
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All Values</span></button>
   </div>
@@ -1355,10 +1365,10 @@ function showUpsellIfNeeded(income, remaining){
   const prompt=document.getElementById('upsell-prompt');
   if(!prompt)return;
   // show if income entered but missing other tools
-  if(income>0 && (!hasDebtTracker || !hasMealPlanner)){
+  if(income>0 && remaining>0 && (!hasDebtTracker || !hasMealPlanner)){
     prompt.style.display='block';
     const remEl=document.getElementById('upsell-remaining');
-    if(remEl) remEl.textContent=fmt(Math.max(0,remaining));
+    if(remEl&&remaining>0) remEl.textContent=fmt(remaining);
     // customize message based on what's missing
     const title=document.getElementById('upsell-title');
     const desc=document.getElementById('upsell-desc');
@@ -1374,6 +1384,129 @@ function showUpsellIfNeeded(income, remaining){
   } else {
     prompt.style.display='none';
   }
+}
+
+
+function downloadReport(){
+  const income=v('income-primary')+v('income-secondary')+v('income-other');
+  const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet');
+  const food=v('food-groceries')+v('food-dining');
+  const transport=v('trans-car')+v('trans-gas')+v('trans-insurance');
+  const family=v('family-childcare')+v('family-school')+v('family-clothing')+v('family-entertainment');
+  const savingsGoals=v('goal-savings')+v('goal-debt')+v('goal-emergency');
+  const totalExpenses=housing+food+transport+family+savingsGoals;
+  const remaining=income-totalExpenses;
+  const savingsRate=income>0?(savingsGoals/income)*100:0;
+  const now=new Date();
+  const monthStr=now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const sym=CURRENCIES[currency].symbol;
+  const f=(n)=>sym+Math.abs(n).toLocaleString(CURRENCIES[currency].locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  const rows=[
+    ['Primary Income',v('income-primary')],
+    ['Secondary Income',v('income-secondary')],
+    ['Other Income',v('income-other')],
+  ].filter(r=>r[1]>0);
+  const expRows=[
+    ['Rent / Mortgage',v('housing-rent')],['Utilities',v('housing-utilities')],['Internet',v('housing-internet')],
+    ['Groceries',v('food-groceries')],['Dining Out',v('food-dining')],
+    ['Car Payment',v('trans-car')],['Gas',v('trans-gas')],['Insurance',v('trans-insurance')],
+    ['Childcare',v('family-childcare')],['School / Education',v('family-school')],
+    ['Clothing',v('family-clothing')],['Entertainment',v('family-entertainment')],
+    ['Savings',v('goal-savings')],['Debt Payments',v('goal-debt')],['Emergency Fund',v('goal-emergency')],
+  ].filter(r=>r[1]>0);
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Budget Report — ${monthStr}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:#f8f9fa;color:#1a1a2e;padding:40px 24px;max-width:680px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#0D1F3C,#1B2F55);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(45,212,191,0.1);}
+  .header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(45,212,191,0.8);margin-bottom:8px;}
+  .header-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.55);}
+  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+  .sum-box{background:#fff;border-radius:12px;padding:18px;border:1px solid rgba(0,0,0,0.06);}
+  .sum-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;margin-bottom:6px;}
+  .sum-val{font-size:22px;font-weight:700;letter-spacing:-0.5px;}
+  .sum-val.teal{color:#1D9E75;} .sum-val.red{color:#E24B4A;} .sum-val.amber{color:#EF9F27;}
+  .section{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid rgba(0,0,0,0.06);}
+  .section-title{font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f3f4;display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;}
+  tr{border-bottom:1px solid #f8f9fa;}
+  tr:last-child{border-bottom:none;}
+  td{padding:8px 0;font-size:13px;}
+  td:last-child{text-align:right;font-weight:600;}
+  .total-row td{font-size:15px;font-weight:700;color:#0D1F3C;padding-top:14px;border-top:2px solid #e8eaed;border-bottom:none;}
+  .bar-wrap{height:6px;background:#f1f3f4;border-radius:99px;overflow:hidden;margin-top:16px;}
+  .bar-fill{height:100%;border-radius:99px;}
+  .bar-label{display:flex;justify-content:space-between;font-size:11px;color:#9AA0A6;margin-top:5px;}
+  .footer{text-align:center;font-size:11px;color:#9AA0A6;margin-top:28px;padding-top:20px;border-top:1px solid #e8eaed;}
+  .badge{display:inline-block;background:rgba(29,158,117,0.1);color:#1D9E75;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px;}
+  .badge.red{background:rgba(226,75,74,0.1);color:#E24B4A;}
+  @media print{
+  body{padding:20px;background:#fff!important;}
+  .section{page-break-inside:avoid;}
+  .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .summary-grid{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .bar-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .badge{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+@page{margin:20mm;size:A4;}
+</style></head><body>
+<div class="header">
+  <div class="header-eyebrow">E Pelissier Enterprise — Family Budget Planner</div>
+  <div class="header-title">Monthly Budget Report</div>
+  <div class="header-sub">${monthStr} · Generated ${now.toLocaleDateString()}</div>
+</div>
+<div class="summary-grid">
+  <div class="sum-box"><div class="sum-label">Total Income</div><div class="sum-val teal">${f(income)}</div></div>
+  <div class="sum-box"><div class="sum-label">Total Expenses</div><div class="sum-val amber">${f(totalExpenses)}</div></div>
+  <div class="sum-box"><div class="sum-label">${remaining>=0?'Remaining':'Over Budget'}</div><div class="sum-val ${remaining>=0?'teal':'red'}">${f(remaining)}</div></div>
+</div>
+<div class="section">
+  <div class="section-title">💵 Income</div>
+  <table>${rows.map(r=>`<tr><td>${r[0]}</td><td>${f(r[1])}</td></tr>`).join('')}
+  <tr class="total-row"><td>Total Income</td><td>${f(income)}</td></tr></table>
+</div>
+<div class="section">
+  <div class="section-title">🧾 Expenses</div>
+  <table>${expRows.map(r=>`<tr><td>${r[0]}</td><td>${f(r[1])}</td></tr>`).join('')}
+  <tr class="total-row"><td>Total Expenses</td><td>${f(totalExpenses)}</td></tr></table>
+  <div class="bar-wrap"><div class="bar-fill" style="width:${Math.min(100,(totalExpenses/income)*100).toFixed(1)}%;background:${remaining>=0?'#1D9E75':'#E24B4A'};"></div></div>
+  <div class="bar-label"><span>0%</span><span>${income>0?((totalExpenses/income)*100).toFixed(1)+'% of income':''}</span><span>100%</span></div>
+</div>
+<div class="section">
+  <div class="section-title">📊 Spending Breakdown</div>
+  <table>
+    <tr><td>🏠 Housing</td><td>${f(housing)} <span style="color:#9AA0A6;font-weight:400;font-size:11px">${income>0?'('+((housing/income)*100).toFixed(1)+'%)'  :''}</span></td></tr>
+    <tr><td>🍽️ Food</td><td>${f(food)} <span style="color:#9AA0A6;font-weight:400;font-size:11px">${income>0?'('+((food/income)*100).toFixed(1)+'%)':''}</span></td></tr>
+    <tr><td>🚗 Transport</td><td>${f(transport)} <span style="color:#9AA0A6;font-weight:400;font-size:11px">${income>0?'('+((transport/income)*100).toFixed(1)+'%)':''}</span></td></tr>
+    <tr><td>👨‍👩‍👧 Family</td><td>${f(family)} <span style="color:#9AA0A6;font-weight:400;font-size:11px">${income>0?'('+((family/income)*100).toFixed(1)+'%)':''}</span></td></tr>
+    <tr><td>💰 Savings & Goals</td><td>${f(savingsGoals)} <span style="color:#9AA0A6;font-weight:400;font-size:11px">${income>0?'('+savingsRate.toFixed(1)+'%)':''}</span></td></tr>
+  </table>
+</div>
+<div class="section">
+  <div class="section-title">💡 Summary</div>
+  <table>
+    <tr><td>Savings Rate</td><td>${savingsRate.toFixed(1)}% <span class="badge ${savingsRate>=10?'':'red'}">${savingsRate>=10?'On track':'Below 10% target'}</span></td></tr>
+    <tr><td>Housing Ratio</td><td>${income>0?((housing/income)*100).toFixed(1):0}% <span class="badge ${income>0&&(housing/income)*100<=30?'':'red'}">${income>0&&(housing/income)*100<=30?'Healthy':'Above 30%'}</span></td></tr>
+    <tr><td>Remaining / Income</td><td>${income>0?((remaining/income)*100).toFixed(1):0}%</td></tr>
+    <tr><td>Report Currency</td><td>${currency}</td></tr>
+  </table>
+</div>
+<div class="footer">
+  Generated by the Family Budget Planner · E Pelissier Enterprise<br>
+  digital.epelissierenterprise.com/budget-planner · Your data stays private — nothing was sent or stored.
+</div>
+</body></html>`;
+
+  const win=window.open('','_blank');
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
 }
 
 buildProgress();updateSubtitles();loadFromStore();calculate();
