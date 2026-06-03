@@ -934,7 +934,7 @@ body::before {
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
       <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
-      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$44.99</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$47.00</div>
       <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
     </div>
   </div>
@@ -1462,7 +1462,7 @@ function downloadReport(isSample=false){
     ['Savings',v('goal-savings')],['Debt Payments',v('goal-debt')],['Emergency Fund',v('goal-emergency')],
   ].filter(r=>r[1]>0);
 
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  let reportDoc=`<!DOCTYPE html><html><head><meta charset="UTF-8">
 <title>Budget Report — ${monthStr}</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -1555,12 +1555,12 @@ function downloadReport(isSample=false){
   if(isSample){
     const watermark='<div class="watermark">SAMPLE SAMPLE SAMPLE</div>';
     const banner=`<div class="sample-banner"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark and unlock all tools</div><a href="https://stan.store/EPelissierdigital">Get the Suite $47 →</a></div>`;
-    const bodyTag=html.indexOf('<body>')+6;
-    html=html.slice(0,bodyTag)+watermark+banner+html.slice(bodyTag);
+    const bodyTag=reportDoc.indexOf('<body>')+6;
+    reportDoc=reportDoc.slice(0,bodyTag)+watermark+banner+reportDoc.slice(bodyTag);
   }
   const win=window.open('','_blank');
   if(!win){alert('Please allow pop-ups for this site to download your report.');return;}
-  win.document.write(html);
+  win.document.write(reportDoc);
   win.document.close();
   win.focus();
   setTimeout(()=>{ win.print(); }, 600);
