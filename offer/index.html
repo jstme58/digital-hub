@@ -3,631 +3,963 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Special Offer — Women's Entrepreneurship Conference</title>
+<title>EP Akademi — Chwazi Pwogram Ou</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --navy:    #0D1B2A;
-    --navy2:   #1A2F45;
-    --orange:  #E8621A;
-    --orange2: #FF9340;
-    --green:   #1B4D35;
-    --green2:  #2E7D52;
-    --mint:    #4CAF78;
-    --gold:    #C9A84C;
-    --cream:   #FAF6EF;
-    --white:   #FFFFFF;
-  }
+:root {
+  --navy:    #0D1B2A;
+  --navy2:   #1A2F45;
+  --navy3:   #243b60;
+  --orange:  #E8621A;
+  --orange2: #FF9340;
+  --green:   #1B4D35;
+  --green2:  #2E7D52;
+  --mint:    #4CAF78;
+  --gold:    #C9A84C;
+  --gold2:   #e8c76a;
+  --purple:  #7C5CBF;
+  --purple2: #A98AE0;
+  --rose:    #C0415A;
+  --rose2:   #E8758A;
+  --cream:   #FAF6EF;
+  --white:   #FFFFFF;
+}
 
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Outfit', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+}
 
-  /* ── LANG TOGGLE ─────────────────────────────────────── */
-  .lang-bar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: flex-end; align-items: center;
-    padding: 10px 1.5rem;
-    background: rgba(13,27,42,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
+/* ── LANG TOGGLE ───────────────────────────────────────── */
+.lang-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 2rem;
+  background: rgba(13,27,42,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.lang-bar-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--orange2); letter-spacing: 0.04em;
+}
+.lang-toggle {
+  display: flex; gap: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 4px;
+}
+.lang-btn {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  padding: 5px 16px; border-radius: 100px;
+  transition: all 0.2s; color: rgba(255,255,255,0.4);
+  cursor: pointer; user-select: none;
+}
+.lang-btn.active { background: var(--orange); color: var(--white); }
 
-  .lang-toggle {
-    display: flex; align-items: center; gap: 4px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 100px;
-    padding: 4px;
-    cursor: pointer;
-  }
+/* ── LANG VISIBILITY ───────────────────────────────────── */
+[data-lang]       { display: none !important; }
+span[data-lang]   { display: none !important; }
 
-  .lang-btn {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-    padding: 5px 14px; border-radius: 100px;
-    transition: all 0.2s; color: rgba(255,255,255,0.45);
-    cursor: pointer; user-select: none;
-    font-family: 'Outfit', sans-serif;
-  }
+body.lang-ht [data-lang="ht"]      { display: block  !important; }
+body.lang-ht span[data-lang="ht"]  { display: inline !important; }
+body.lang-ht a[data-lang="ht"]     { display: block  !important; }
 
-  .lang-btn.active {
-    background: var(--orange);
-    color: var(--white);
-  }
+body.lang-en [data-lang="en"]      { display: block  !important; }
+body.lang-en span[data-lang="en"]  { display: inline !important; }
+body.lang-en a[data-lang="en"]     { display: block  !important; }
 
-  /* ── HIDE/SHOW LANG CONTENT ──────────────────────────── */
-  [data-lang="en"] { display: none !important; }
-  span[data-lang="en"] { display: none !important; }
-  body.lang-en [data-lang="en"] { display: block !important; }
-  body.lang-en span[data-lang="en"] { display: inline !important; }
-  body.lang-en [data-lang="ht"] { display: none !important; }
-  body.lang-en span[data-lang="ht"] { display: none !important; }
-  body.lang-en [data-lang="en"].flex { display: flex; }
-  body.lang-en [data-lang="ht"].flex { display: none; }
+/* ── HERO ──────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 9rem 1.5rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 20%, rgba(232,98,26,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 85% 75%, rgba(124,92,191,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 100%, rgba(27,77,53,0.18) 0%, transparent 60%);
+}
+/* Floating orbs */
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(60px); pointer-events: none; opacity: 0.18;
+}
+.orb-1 { width: 400px; height: 400px; background: var(--orange); top: -100px; left: -100px; animation: drift 18s ease-in-out infinite alternate; }
+.orb-2 { width: 300px; height: 300px; background: var(--purple); bottom: 0; right: -80px; animation: drift 14s ease-in-out infinite alternate-reverse; }
+@keyframes drift { to { transform: translate(40px, 30px); } }
 
-  [data-lang="ht"] { display: block; }
-  span[data-lang="ht"] { display: inline; }
-  [data-lang="ht"].flex { display: flex; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orange2); border: 1px solid rgba(232,98,26,0.35);
+  padding: 7px 20px; border-radius: 100px; margin-bottom: 2rem;
+  animation: fadeUp 0.5s ease both;
+}
+.dot-live {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--orange); animation: pulse 1.6s infinite; flex-shrink: 0;
+}
 
-  /* ── HERO ────────────────────────────────────────────── */
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center; padding: 8rem 1.5rem 4rem;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,98,26,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(27,77,53,0.25) 0%, transparent 60%);
-    pointer-events: none;
-  }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7.5vw, 5.8rem); font-weight: 700;
+  line-height: 1.04; letter-spacing: -0.025em; margin-bottom: 1.5rem;
+  animation: fadeUp 0.5s 0.08s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--orange2); }
 
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--orange2); border: 1px solid rgba(232,98,26,0.4);
-    padding: 6px 18px; border-radius: 100px; margin-bottom: 2rem;
-    animation: fadeUp 0.6s ease both;
-  }
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 300;
+  color: rgba(255,255,255,0.6); max-width: 520px;
+  line-height: 1.75; margin: 0 auto 2.5rem;
+  animation: fadeUp 0.5s 0.16s ease both;
+}
 
-  .hero h1 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 700;
-    line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-  .hero h1 em { font-style: italic; color: var(--orange2); }
+.hero-app-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 12px 20px;
+  font-size: 13px; color: rgba(255,255,255,0.65);
+  animation: fadeUp 0.5s 0.24s ease both;
+  margin-bottom: 1rem;
+}
+.hero-app-badge strong { color: var(--white); font-weight: 600; }
+.app-icon { font-size: 1.4rem; }
 
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 300;
-    color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.7;
-    margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.2s ease both;
-  }
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2); animation: fadeUp 0.5s 0.4s ease both;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
 
-  .hero-urgency {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: rgba(232,98,26,0.12); border: 1px solid rgba(232,98,26,0.35);
-    border-radius: 10px; padding: 12px 22px; font-size: 13px; color: var(--orange2);
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
+/* ── SECTION SHARED ────────────────────────────────────── */
+.section-wrap { padding: 6rem 1.5rem; max-width: 1160px; margin: 0 auto; }
+.section-eyebrow {
+  text-align: center; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.9rem;
+}
+.section-heading {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700;
+  color: var(--cream); line-height: 1.1; margin-bottom: 1rem;
+}
+.section-heading em { font-style: italic; color: var(--orange2); }
+.section-sub {
+  text-align: center; color: rgba(255,255,255,0.45);
+  font-size: 1rem; font-weight: 300; line-height: 1.7;
+  max-width: 520px; margin: 0 auto 4rem;
+}
 
-  .dot-pulse {
-    width: 8px; height: 8px; background: var(--orange);
-    border-radius: 50%; animation: pulse 1.5s infinite; flex-shrink: 0;
-  }
+/* ── CHALLENGE BANNER ──────────────────────────────────── */
+.challenge-section {
+  padding: 2rem 1.5rem 0;
+  max-width: 900px; margin: 0 auto;
+}
+.challenge-card {
+  background: linear-gradient(135deg, rgba(232,98,26,0.14) 0%, rgba(13,27,42,0) 100%);
+  border: 1px solid rgba(232,98,26,0.35);
+  border-radius: 20px; padding: 2.5rem 3rem;
+  display: flex; align-items: center; gap: 2.5rem;
+  position: relative; overflow: hidden;
+}
+.challenge-card::before {
+  content: '🔥'; position: absolute;
+  right: 2.5rem; top: 50%; transform: translateY(-50%);
+  font-size: 5rem; opacity: 0.08; pointer-events: none;
+}
+.challenge-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem; font-weight: 700; line-height: 1;
+  color: var(--orange2); flex-shrink: 0;
+}
+.challenge-num span { font-size: 1.4rem; font-weight: 400; display: block; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.challenge-divider { width: 1px; height: 70px; background: rgba(232,98,26,0.25); flex-shrink: 0; }
+.challenge-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem;
+}
+.challenge-text p { font-size: 0.9rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.6; max-width: 360px; margin-bottom: 1.2rem; }
+.btn-challenge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: var(--white);
+  padding: 10px 22px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; text-decoration: none;
+  transition: 0.2s; border: none; cursor: pointer;
+}
+.btn-challenge:hover { background: #d45610; }
 
-  /* ── OFFERS ──────────────────────────────────────────── */
-  .offers-section { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+/* ── PROGRAM GRID ──────────────────────────────────────── */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+}
 
-  .section-tag {
-    text-align: center; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1rem;
-  }
+/* ── PROGRAM CARD ──────────────────────────────────────── */
+.prog-card {
+  border-radius: 22px; overflow: hidden;
+  position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex; flex-direction: column;
+}
+.prog-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 32px 72px rgba(0,0,0,0.4);
+}
 
-  .section-title {
-    text-align: center; font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 600;
-    margin-bottom: 4rem; color: var(--cream);
-  }
+/* Card themes */
+.theme-amazon  { background: linear-gradient(160deg, #1A2F45 0%, #0D1B2A 100%); border: 1px solid rgba(232,98,26,0.28); }
+.theme-canva   { background: linear-gradient(160deg, #1A3028 0%, #0D1B14 100%); border: 1px solid rgba(76,175,120,0.28); }
+.theme-digital { background: linear-gradient(160deg, #231A45 0%, #0D1B2A 100%); border: 1px solid rgba(124,92,191,0.28); }
+.theme-faceless{ background: linear-gradient(160deg, #3D1A28 0%, #1B0D14 100%); border: 1px solid rgba(192,65,90,0.28); }
 
-  .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+/* Accent top bar */
+.card-bar { height: 3px; width: 100%; }
+.theme-amazon  .card-bar { background: linear-gradient(90deg, var(--orange), var(--orange2)); }
+.theme-canva   .card-bar { background: linear-gradient(90deg, var(--green2), var(--mint)); }
+.theme-digital .card-bar { background: linear-gradient(90deg, var(--purple), var(--purple2)); }
+.theme-faceless.card-bar { background: linear-gradient(90deg, var(--rose), var(--rose2)); }
+.theme-faceless > .card-bar { background: linear-gradient(90deg, var(--rose), var(--rose2)); }
 
-  .offer-card {
-    border-radius: 20px; overflow: hidden; position: relative;
-    transition: transform 0.3s ease;
-  }
-  .offer-card:hover { transform: translateY(-6px); }
+.card-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
 
-  .card-amazon { background: linear-gradient(160deg,#1A2F45 0%,#0D1B2A 100%); border: 1px solid rgba(232,98,26,0.3); }
-  .card-amazon .card-accent { background: linear-gradient(90deg,var(--orange),var(--orange2)); }
-  .card-amazon .badge { background: rgba(232,98,26,0.15); color: var(--orange2); border: 1px solid rgba(232,98,26,0.3); }
-  .card-amazon .price-color { color: var(--orange2); }
-  .card-amazon .check-bg { background: rgba(232,98,26,0.15); color: var(--orange); }
-  .card-amazon .bonus-bg { background: rgba(232,98,26,0.08); border: 1px solid rgba(232,98,26,0.2); }
-  .card-amazon .bonus-color { color: var(--orange2); }
-  .card-amazon .cta { background: linear-gradient(135deg,var(--orange) 0%,var(--orange2) 100%); color: var(--navy); }
-  .card-amazon .tag { background: rgba(232,98,26,0.1); color: rgba(255,147,64,0.9); border: 1px solid rgba(232,98,26,0.2); }
+/* Category pill */
+.card-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 100px; margin-bottom: 1.4rem; width: fit-content;
+}
+.theme-amazon  .card-pill { background: rgba(232,98,26,0.13); color: var(--orange2); border: 1px solid rgba(232,98,26,0.25); }
+.theme-canva   .card-pill { background: rgba(76,175,120,0.13); color: var(--mint); border: 1px solid rgba(76,175,120,0.25); }
+.theme-digital .card-pill { background: rgba(124,92,191,0.13); color: var(--purple2); border: 1px solid rgba(124,92,191,0.25); }
+.theme-faceless .card-pill { background: rgba(192,65,90,0.13); color: var(--rose2); border: 1px solid rgba(192,65,90,0.25); }
 
-  .card-canva { background: linear-gradient(160deg,#1A3028 0%,#0D1B14 100%); border: 1px solid rgba(76,175,120,0.3); }
-  .card-canva .card-accent { background: linear-gradient(90deg,var(--green2),var(--mint)); }
-  .card-canva .badge { background: rgba(76,175,120,0.15); color: var(--mint); border: 1px solid rgba(76,175,120,0.3); }
-  .card-canva .price-color { color: var(--mint); }
-  .card-canva .check-bg { background: rgba(76,175,120,0.15); color: var(--mint); }
-  .card-canva .bonus-bg { background: rgba(76,175,120,0.08); border: 1px solid rgba(76,175,120,0.2); }
-  .card-canva .bonus-color { color: var(--mint); }
-  .card-canva .cta { background: linear-gradient(135deg,var(--green2) 0%,var(--mint) 100%); color: #fff; }
-  .card-canva .tag { background: rgba(76,175,120,0.1); color: rgba(76,175,120,0.9); border: 1px solid rgba(76,175,120,0.2); }
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem; font-weight: 700; line-height: 1.15;
+  color: var(--cream); margin-bottom: 0.55rem;
+}
+.card-desc {
+  font-size: 13px; color: rgba(255,255,255,0.48);
+  font-weight: 300; line-height: 1.65; margin-bottom: 1.6rem;
+}
 
-  .card-accent { height: 4px; width: 100%; }
-  .card-inner { padding: 2rem; }
+/* Price */
+.card-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.3rem; }
+.card-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 700; line-height: 1;
+}
+.card-price-old { font-size: 1rem; color: rgba(255,255,255,0.25); text-decoration: line-through; }
+.card-price-note { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 300; margin-bottom: 1.6rem; }
 
-  .badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 5px 12px; border-radius: 100px; margin-bottom: 1.25rem;
-  }
+.theme-amazon  .card-price { color: var(--orange2); }
+.theme-canva   .card-price { color: var(--mint); }
+.theme-digital .card-price { color: var(--purple2); }
+.theme-faceless .card-price { color: var(--rose2); }
 
-  .card-title {
-    font-family: 'Cormorant Garamond', serif; font-size: 1.75rem;
-    font-weight: 700; line-height: 1.15; margin-bottom: 0.6rem; color: var(--cream);
-  }
+/* Divider */
+.card-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0 0 1.4rem; }
 
-  .card-sub {
-    font-size: 13px; color: rgba(255,255,255,0.5);
-    font-weight: 300; line-height: 1.6; margin-bottom: 1.5rem;
-  }
+/* Includes */
+.includes-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 0.85rem;
+}
+.includes-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.6rem; }
+.includes-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.45; }
+.check {
+  width: 17px; height: 17px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8.5px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+}
+.theme-amazon  .check { background: rgba(232,98,26,0.18); color: var(--orange); }
+.theme-canva   .check { background: rgba(76,175,120,0.18); color: var(--mint); }
+.theme-digital .check { background: rgba(124,92,191,0.18); color: var(--purple2); }
+.theme-faceless .check { background: rgba(192,65,90,0.18); color: var(--rose2); }
 
-  .price-block { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.4rem; }
-  .price-main { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 700; line-height: 1; }
-  .price-old { font-size: 1.1rem; color: rgba(255,255,255,0.3); text-decoration: line-through; }
-  .price-note { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 1.75rem; font-weight: 300; }
+/* Tags */
+.tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.4rem; }
+.tag {
+  font-size: 11px; padding: 4px 11px; border-radius: 20px; font-weight: 400;
+}
+.theme-amazon  .tag { background: rgba(232,98,26,0.09); color: rgba(255,147,64,0.85); border: 1px solid rgba(232,98,26,0.18); }
+.theme-canva   .tag { background: rgba(76,175,120,0.09); color: rgba(76,175,120,0.85); border: 1px solid rgba(76,175,120,0.18); }
+.theme-digital .tag { background: rgba(124,92,191,0.09); color: rgba(169,138,224,0.85); border: 1px solid rgba(124,92,191,0.18); }
+.theme-faceless .tag { background: rgba(192,65,90,0.09); color: rgba(232,117,138,0.85); border: 1px solid rgba(192,65,90,0.18); }
 
-  .divider-line { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 1.5rem 0; }
+/* App delivery badge */
+.app-delivery {
+  display: flex; align-items: center; gap: 9px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 11px 14px; margin-bottom: 1.3rem; font-size: 12.5px;
+}
+.app-delivery-icon { font-size: 1.2rem; flex-shrink: 0; }
+.app-delivery-text strong { display: block; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-bottom: 1px; }
+.app-delivery-text span { color: rgba(255,255,255,0.38); font-size: 11.5px; font-weight: 300; }
 
-  .includes-label {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35); margin-bottom: 0.9rem;
-  }
+/* Guarantee */
+.guarantee {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 11px 13px; margin-bottom: 1.25rem;
+}
+.guarantee-text strong { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.guarantee-text span { font-size: 11px; color: rgba(255,255,255,0.38); font-weight: 300; }
 
-  .includes-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.5rem; }
-  .includes-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.45; }
+/* CTA button */
+.card-cta {
+  display: block; width: 100%; padding: 0.95rem;
+  border-radius: 12px; font-size: 14.5px; font-weight: 600;
+  font-family: 'Outfit', sans-serif; text-align: center;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s; margin-top: auto;
+}
+.card-cta:hover { opacity: 0.86; transform: scale(0.99); }
+.theme-amazon  .card-cta { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: var(--navy); }
+.theme-canva   .card-cta { background: linear-gradient(135deg, var(--green2), var(--mint)); color: #fff; }
+.theme-digital .card-cta { background: linear-gradient(135deg, var(--purple), var(--purple2)); color: #fff; }
+.theme-faceless .card-cta { background: linear-gradient(135deg, var(--rose), var(--rose2)); color: #fff; }
 
-  .check-icon {
-    width: 18px; height: 18px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 9px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
-  }
+/* ── WHY APP SECTION ───────────────────────────────────── */
+.why-section {
+  padding: 5rem 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.why-inner { max-width: 1100px; margin: 0 auto; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.why-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px; padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+.why-card:hover { border-color: rgba(232,98,26,0.3); }
+.why-icon { font-size: 2rem; margin-bottom: 1rem; }
+.why-card h4 { font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+.why-card p { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.6; }
 
-  .bonus-box { border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 1.25rem; }
-  .bonus-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-  .bonus-items { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-  .bonus-items li { font-size: 12.5px; color: rgba(255,255,255,0.6); display: flex; gap: 7px; }
-  .bonus-items li::before { content: '+'; font-weight: 700; flex-shrink: 0; }
+/* ── FAQ ───────────────────────────────────────────────── */
+.faq-section { max-width: 720px; margin: 0 auto; padding: 6rem 1.5rem; }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+.faq-q {
+  font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.85);
+  cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; gap: 1rem; padding: 1.2rem 0; user-select: none;
+}
+.faq-arrow { color: rgba(255,255,255,0.25); font-size: 20px; transition: transform 0.2s; flex-shrink: 0; }
+.faq-a {
+  font-size: 13.5px; color: rgba(255,255,255,0.48); font-weight: 300;
+  line-height: 1.75; max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.2s;
+}
+.faq-item.open .faq-a { max-height: 250px; padding-bottom: 1.25rem; }
+.faq-item.open .faq-arrow { transform: rotate(45deg); }
 
-  .tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-  .tag { font-size: 11.5px; padding: 4px 10px; border-radius: 20px; font-weight: 400; }
+/* ── FOOTER ────────────────────────────────────────────── */
+.footer {
+  text-align: center; padding: 3rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--orange2);
+  margin-bottom: 0.75rem;
+}
+.footer p { font-size: 12px; color: rgba(255,255,255,0.22); font-weight: 300; line-height: 1.9; }
+.footer strong { color: rgba(255,255,255,0.4); font-weight: 500; }
 
-  .guarantee {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px; padding: 12px 14px; margin-bottom: 1.25rem;
-  }
-  .guarantee-icon { font-size: 22px; flex-shrink: 0; }
-  .guarantee-text strong { display: block; font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 2px; }
-  .guarantee-text span { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+/* ── ANIMATIONS ────────────────────────────────────────── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
+@keyframes pulse  { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.35;transform:scale(0.65);} }
 
-  .cta {
-    display: block; width: 100%; padding: 1rem; border-radius: 12px;
-    font-size: 15px; font-weight: 600; font-family: 'Outfit', sans-serif;
-    text-align: center; cursor: pointer; border: none; letter-spacing: 0.01em;
-    transition: opacity 0.15s, transform 0.15s; text-decoration: none;
-  }
-  .cta:hover { opacity: 0.88; transform: scale(0.99); }
-
-  /* ── COMBO ───────────────────────────────────────────── */
-  .combo-section { max-width: 700px; margin: 0 auto 5rem; padding: 0 1.5rem; }
-  .combo-card {
-    background: linear-gradient(135deg,rgba(201,168,76,0.12) 0%,rgba(201,168,76,0.04) 100%);
-    border: 1px solid rgba(201,168,76,0.4); border-radius: 20px; padding: 2.5rem; text-align: center;
-  }
-  .combo-badge {
-    display: inline-block; background: rgba(201,168,76,0.15); color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.4); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 14px;
-    border-radius: 100px; margin-bottom: 1.25rem;
-  }
-  .combo-title { font-family: 'Cormorant Garamond',serif; font-size: 2.2rem; font-weight: 700; color: var(--cream); margin-bottom: 0.75rem; line-height: 1.1; }
-  .combo-sub { font-size: 14px; color: rgba(255,255,255,0.5); font-weight: 300; margin-bottom: 2rem; line-height: 1.6; }
-  .combo-prices { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-  .combo-prices .item { text-align: center; }
-  .combo-prices .label { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
-  .combo-prices .val { font-family: 'Cormorant Garamond',serif; font-size: 1.8rem; font-weight: 700; color: rgba(255,255,255,0.4); text-decoration: line-through; }
-  .combo-prices .arrow { font-size: 1.5rem; color: rgba(255,255,255,0.2); }
-  .combo-prices .total { font-family: 'Cormorant Garamond',serif; font-size: 3rem; font-weight: 700; color: var(--gold); }
-  .combo-prices .save { font-size: 12px; color: var(--gold); margin-top: 2px; }
-  .combo-cta {
-    display: inline-block; background: linear-gradient(135deg,var(--gold) 0%,#e8c76a 100%);
-    color: var(--navy); padding: 1rem 3rem; border-radius: 12px; font-size: 16px;
-    font-weight: 700; font-family: 'Outfit',sans-serif; cursor: pointer; border: none;
-    text-decoration: none; transition: opacity 0.15s,transform 0.15s; letter-spacing: 0.01em;
-  }
-  .combo-cta:hover { opacity: 0.88; transform: scale(0.99); }
-
-  /* ── FAQ ─────────────────────────────────────────────── */
-  .faq-section { max-width: 700px; margin: 0 auto 6rem; padding: 0 1.5rem; }
-  .faq-section .section-tag { text-align: center; margin-bottom: 0.75rem; }
-  .faq-section .section-title { margin-bottom: 2.5rem; }
-  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1.25rem 0; }
-  .faq-q { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.9); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; user-select: none; }
-  .faq-arrow { color: rgba(255,255,255,0.3); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
-  .faq-a { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.2s; font-weight: 300; }
-  .faq-item.open .faq-a { max-height: 200px; padding-top: 0.75rem; }
-  .faq-item.open .faq-arrow { transform: rotate(45deg); }
-
-  /* ── FOOTER ──────────────────────────────────────────── */
-  .footer { text-align: center; padding: 2.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); }
-  .footer p { font-size: 12px; color: rgba(255,255,255,0.25); font-weight: 300; line-height: 1.8; }
-  .footer strong { color: rgba(255,255,255,0.45); font-weight: 500; }
-
-  /* ── ANIMATIONS ──────────────────────────────────────── */
-  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
-
-  /* ── RESPONSIVE ──────────────────────────────────────── */
-  @media (max-width: 700px) {
-    .offers-grid { grid-template-columns: 1fr; }
-    .price-main { font-size: 2.5rem; }
-    .combo-card { padding: 1.75rem 1.25rem; }
-    .combo-cta { padding: 1rem 2rem; }
-  }
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .programs-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .challenge-card { flex-direction: column; gap: 1.25rem; text-align: center; padding: 2rem 1.5rem; }
+  .challenge-card::before { display: none; }
+  .challenge-divider { width: 60px; height: 1px; }
+}
+@media (max-width: 560px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .lang-bar { padding: 10px 1rem; }
+  .card-body { padding: 1.5rem; }
+}
+/* Driven-result callout */
+.driven-box {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 1.25rem;
+}
+.driven-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.driven-box p { color: rgba(255,255,255,0.6); line-height: 1.55; margin: 0; font-size: 12px; font-weight: 300; }
+.driven-box strong { color: var(--gold); display: block; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; }
 </style>
 </head>
-<body>
 
-<!-- LANGUAGE BAR -->
+<body class="lang-ht">
+
+<!-- LANG BAR -->
 <div class="lang-bar">
+  <div class="lang-bar-brand">EP Akademi</div>
   <div class="lang-toggle">
     <div class="lang-btn active" id="btn-ht" onclick="setLang('ht')">Kreyòl</div>
     <div class="lang-btn" id="btn-en" onclick="setLang('en')">English</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     HERO
-════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+
   <div class="hero-eyebrow">
-    <span class="dot-pulse"></span>
-    <span data-lang="ht">Òf Espesyal Konferans — Disponib Jodi a Sèlman</span>
-    <span data-lang="en">Conference Special Offer — Today Only</span>
+    <span class="dot-live"></span>
+    <span data-lang="ht">Enskri Kounye a — Aksè Via App Mobil</span>
+    <span data-lang="en">Enroll Now — Access Via Mobile App</span>
   </div>
 
-  <h1 data-lang="ht">Ou Prè pou<br><em>Kòmanse Biznis Ou?</em></h1>
-  <h1 data-lang="en">Are You Ready to<br><em>Start Your Business?</em></h1>
+  <h1 data-lang="ht">Chwazi<br>Pwogram <em>Ou</em></h1>
+  <h1 data-lang="en">Choose<br>Your <em>Program</em></h1>
 
   <p class="hero-sub" data-lang="ht">
-    Chwazi yon chemen ki fèt pou ou — Amazon FBA oswa Canva — epi kòmanse bati revni ou ak yon gid klè, pratik, an Kreyòl.
+    Kat pwogram espesyalize + yon chalènj gratis. Aprann nan Kreyòl Ayisyen, aksede tout kontni ou nan aplikasyon EP Akademi a.
   </p>
   <p class="hero-sub" data-lang="en">
-    Choose your path — Amazon FBA or Canva — and start building your income with a clear, practical, step-by-step guide.
+    Four specialized programs + a free challenge. Learn in Haitian Creole, access all your content through the EP Akademi mobile app.
   </p>
 
-  <div class="hero-urgency">
-    <span class="dot-pulse"></span>
-    <span data-lang="ht">Pri espesyal sa yo disponib <strong style="color:#fff;margin:0 4px;">48 èdtan sèlman</strong> apre konferans lan</span>
-    <span data-lang="en">These special prices are available for <strong style="color:#fff;margin:0 4px;">48 hours only</strong> after the conference</span>
+  <div class="hero-app-badge">
+    <span class="app-icon">📱</span>
+    <span data-lang="ht"><strong>EP Akademi App</strong> — iOS ak Android · Aprann kote ou ye a</span>
+    <span data-lang="en"><strong>EP Akademi App</strong> — iOS & Android · Learn anywhere</span>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span data-lang="ht">Dekouvri</span>
+    <span data-lang="en">Explore</span>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     OFFERS
-════════════════════════════════════════════════════════ -->
-<section class="offers-section">
-  <p class="section-tag" data-lang="ht">2 Òf Espesyal</p>
-  <p class="section-tag" data-lang="en">2 Special Offers</p>
+<!-- ═══════════════════ 30-DAY CHALLENGE ═══════════════════ -->
+<div class="challenge-section" style="padding-top: 5rem;">
+  <div class="challenge-card">
+    <div class="challenge-num">30<span data-lang="ht">Jou</span><span data-lang="en">Days</span></div>
+    <div class="challenge-divider"></div>
+    <div class="challenge-text">
+      <h3 data-lang="ht">Chalènj Amazon 30 Jou — Gratis</h3>
+      <h3 data-lang="en">30-Day Amazon Challenge — Free</h3>
+      <p data-lang="ht">Pa ka deside? Kòmanse gratis. Chalènj 30 jou nou an ap ba ou yon gou reyèl de sa pwogram Amazon an kouvri — san risq, san peye.</p>
+      <p data-lang="en">Not sure yet? Start for free. Our 30-day challenge gives you a real taste of what the Amazon program covers — no risk, no payment.</p>
+      <a href="https://digital.epelissierenterprise.com/amazon-challenge/" class="btn-challenge">
+        <span data-lang="ht">Kòmanse Chalènj Gratis →</span>
+        <span data-lang="en">Start Free Challenge →</span>
+      </a>
+    </div>
+  </div>
+</div>
 
-  <h2 class="section-title" data-lang="ht">Chwazi Chemen Ou</h2>
-  <h2 class="section-title" data-lang="en">Choose Your Path</h2>
+<!-- ═══════════════════ PROGRAMS ═══════════════════ -->
+<section class="section-wrap">
+  <p class="section-eyebrow" data-lang="ht">Kat Pwogram</p>
+  <p class="section-eyebrow" data-lang="en">Four Programs</p>
 
-  <div class="offers-grid">
+  <h2 class="section-heading" data-lang="ht">Chwazi <em>Chemen Ou</em></h2>
+  <h2 class="section-heading" data-lang="en">Choose <em>Your Path</em></h2>
 
-    <!-- ── AMAZON CARD ─────────────────────────────────── -->
-    <div class="offer-card card-amazon">
-      <div class="card-accent"></div>
-      <div class="card-inner">
-        <div class="badge">Offer #1 · Amazon FBA</div>
+  <p class="section-sub" data-lang="ht">Chak pwogram ba ou yon wout klè pou bati revni anliy — depi zewo, an Kreyòl, nan app ou.</p>
+  <p class="section-sub" data-lang="en">Each program gives you a clear path to building online income — from scratch, in Creole, in your app.</p>
 
-        <h3 class="card-title" data-lang="ht">Amazon Roadmap<br>pou Debutan - (12 Me - 12 Jen 2026)</h3>
-        <h3 class="card-title" data-lang="en">Amazon Roadmap<br>for Beginners - (May 12, 2026 - June 12, 2026)</h3>
+  <div class="programs-grid">
 
-        <p class="card-sub" data-lang="ht">Kòmanse vann sou Amazon depi zewo — san eksperyans anvan, ak ti kapital.</p>
-        <p class="card-sub" data-lang="en">Start selling on Amazon from scratch — no prior experience needed, low startup capital.</p>
+    <!-- ── AMAZON ── -->
+    <div class="prog-card theme-amazon">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-pill">📦 Amazon FBA</div>
 
-        <div class="price-block">
-          <span class="price-main price-color">$597</span>
-          <span class="price-old">$997</span>
+        <h3 class="card-title" data-lang="ht">Amazon Roadmap<br>pou Debutan</h3>
+        <h3 class="card-title" data-lang="en">Amazon Roadmap<br>for Beginners</h3>
+
+        <p class="card-desc" data-lang="ht">Pwogram 3 mwa nan klas prive ak akonpayman dirèk — metòd Replenishment, Keepa, ak estrateji rezilta reyèl.</p>
+        <p class="card-desc" data-lang="en">3-month private coaching program with direct support — Replenishment method, Keepa, and real-results strategy.</p>
+
+        <div class="card-price-row">
+          <span class="card-price" style="font-size:2rem;">$697</span>
+          <span style="font-size:0.9rem; color:rgba(255,255,255,0.4); align-self:center;">/mwa</span>
         </div>
-        <p class="price-note" data-lang="ht">Ou ekonomize $400 · Pri konferans espesyal</p>
-        <p class="price-note" data-lang="en">You save $400 · Conference special price</p>
+        <p class="card-price-note" data-lang="ht">3 peman · $2,091 total · Klas prive gwoup</p>
+        <p class="card-price-note" data-lang="en">3 payments · $2,091 total · Private group coaching</p>
 
-        <hr class="divider-line">
+        <hr class="card-divider">
 
-        <p class="includes-label" data-lang="ht">Tout sa ou resevwa</p>
-        <p class="includes-label" data-lang="en">Everything included</p>
+        <p class="includes-label" data-lang="ht">Sa ou resevwa — 3 mwa</p>
+        <p class="includes-label" data-lang="en">What's included — 3 months</p>
 
         <ul class="includes-list" data-lang="ht">
-          <li><span class="check-icon check-bg">✓</span>Gid PDF 40+ paj an Kreyòl Ayisyen</li>
-          <li><span class="check-icon check-bg">✓</span>Kòman rechèch pwodwi pou vann (Jungle Scout)</li>
-          <li><span class="check-icon check-bg">✓</span>Modèl imèl pou kontakte founisè Alibaba</li>
-          <li><span class="check-icon check-bg">✓</span>Kalkil pwofi & sèy rentabilite (fèy Excel)</li>
-          <li><span class="check-icon check-bg">✓</span>Etap pou kreye yon mak prive (private label)</li>
-          <li><span class="check-icon check-bg">✓</span>Gid pou optimise lis Amazon ou</li>
-          <li><span class="check-icon check-bg">✓</span>Estrateji pou jwenn premye revizyon kliyan</li>
-          <li><span class="check-icon check-bg">✓</span>15 erè débutans dwe evite absoliman</li>
+          <li><span class="check">✓</span>Metòd Replenishment — vann pwodwi ki deja pwove</li>
+          <li><span class="check">✓</span>Maîtrise Keepa pou analiz done mache</li>
+          <li><span class="check">✓</span>Kalkil pwofi & sèy rentabilite</li>
+          <li><span class="check">✓</span>Optimizasyon lis Amazon ou</li>
+          <li><span class="check">✓</span>Akonpayman dirèk chak semèn</li>
+          <li><span class="check">✓</span>Sèsyon Zoom prive ak kouche ou</li>
         </ul>
         <ul class="includes-list" data-lang="en">
-          <li><span class="check-icon check-bg">✓</span>40+ page PDF guide (Haitian Creole & English)</li>
-          <li><span class="check-icon check-bg">✓</span>How to research winning products (Jungle Scout)</li>
-          <li><span class="check-icon check-bg">✓</span>Email templates to contact Alibaba suppliers</li>
-          <li><span class="check-icon check-bg">✓</span>Profit calculator & break-even Excel sheet</li>
-          <li><span class="check-icon check-bg">✓</span>Step-by-step private label brand creation</li>
-          <li><span class="check-icon check-bg">✓</span>Guide to optimize your Amazon listing</li>
-          <li><span class="check-icon check-bg">✓</span>Strategy to get your first customer reviews</li>
-          <li><span class="check-icon check-bg">✓</span>15 beginner mistakes to absolutely avoid</li>
+          <li><span class="check">✓</span>Replenishment method — sell already-proven products</li>
+          <li><span class="check">✓</span>Master Keepa for market data analysis</li>
+          <li><span class="check">✓</span>Profit calculator & break-even analysis</li>
+          <li><span class="check">✓</span>Amazon listing optimization</li>
+          <li><span class="check">✓</span>Direct weekly coaching support</li>
+          <li><span class="check">✓</span>Private Zoom sessions with your coach</li>
         </ul>
 
-        <div class="bonus-box bonus-bg">
-          <p class="bonus-title bonus-color" data-lang="ht">🎁 Bonus Gratis — Valè $127</p>
-          <p class="bonus-title bonus-color" data-lang="en">🎁 Free Bonus — Worth $127</p>
-          <ul class="bonus-items" data-lang="ht">
-            <li>Tablò Excel pou suiv depans & pwofi chak mwa</li>
-            <li>Lis 10 kategori pwodwi ki vann pi vit sou Amazon</li>
-            <li>Aksè nan gwoup prive WhatsApp (sipò 30 jou)</li>
-          </ul>
-          <ul class="bonus-items" data-lang="en">
-            <li>Excel tracker to monitor monthly expenses & profits</li>
-            <li>Top 10 Amazon product categories that sell fastest</li>
-            <li>Private WhatsApp support group (30-day access)</li>
-          </ul>
-        </div>
-
         <div class="tags-row" data-lang="ht">
-          <span class="tag">Débutans konplè</span>
-          <span class="tag">Kapital: $500–$2,000</span>
-          <span class="tag">Revni anliy</span>
+          <span class="tag">Klas prive gwoup</span>
+          <span class="tag">3 mwa</span>
+          <span class="tag">Driven-result</span>
         </div>
         <div class="tags-row" data-lang="en">
-          <span class="tag">Complete beginners</span>
-          <span class="tag">Capital: $500–$2,000</span>
-          <span class="tag">Online income</span>
+          <span class="tag">Private group class</span>
+          <span class="tag">3 months</span>
+          <span class="tag">Results-driven</span>
         </div>
 
-        <div class="guarantee">
-          <span class="guarantee-icon">🛡️</span>
-          <div class="guarantee-text">
-            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
-            <strong data-lang="en">7-day satisfaction guarantee</strong>
-            <span data-lang="ht">Si ou pa satisfè, ranbousman total — san kesyon poze.</span>
-            <span data-lang="en">Not satisfied? Full refund within 7 days — no questions asked.</span>
+        <div class="app-delivery">
+          <span class="app-delivery-icon">📱</span>
+          <div class="app-delivery-text">
+            <strong data-lang="ht">Aksè via EP Akademi App</strong>
+            <strong data-lang="en">Access via EP Akademi App</strong>
+            <span data-lang="ht">iOS ak Android · Aprann nan pwòp vitès ou</span>
+            <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
 
-        <a href="https://buy.stripe.com/3cI3cxfEW12s2OD211ao802" class="cta" data-lang="ht">Mwen Vle Amazon Roadmap — $597</a>
-        <a href="https://buy.stripe.com/3cI3cxfEW12s2OD211ao802" class="cta" data-lang="en">I Want the Amazon Roadmap — $597</a>
+        <div class="driven-box">
+          <span class="driven-box-icon">🎯</span>
+          <div>
+            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
+          </div>
+        </div>
+
+        <div class="guarantee">
+          <span style="font-size:1.3rem">🛡️</span>
+          <div class="guarantee-text">
+            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
+            <strong data-lang="en">7-day satisfaction guarantee</strong>
+            <span data-lang="ht">Ranbousman total si ou pa satisfè — san kesyon.</span>
+            <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
+          </div>
+        </div>
+
+        <a href="#" class="card-cta" data-lang="ht">Kòmanse Amazon Roadmap →</a>
+        <a href="#" class="card-cta" data-lang="en">Start Amazon Roadmap →</a>
       </div>
     </div>
 
-    <!-- ── CANVA CARD ──────────────────────────────────── -->
-    <div class="offer-card card-canva">
-      <div class="card-accent"></div>
-      <div class="card-inner">
-        <div class="badge">Offer #2 · Canva</div>
+    <!-- ── CANVA ── -->
+    <div class="prog-card theme-canva">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-pill">🎨 Canva</div>
 
-        <h3 class="card-title" data-lang="ht">Kòman Itilize Canva<br>pou Fè Lajan - (12 Me - 2 Jen 2026) </h3>
-        <h3 class="card-title" data-lang="en">How to Use Canva<br>to Make Money - (May 12, 2026 - June 2, 2026)</h3>
+        <h3 class="card-title" data-lang="ht">Canva pou<br>Fè Lajan</h3>
+        <h3 class="card-title" data-lang="en">Canva to<br>Make Money</h3>
 
-        <p class="card-sub" data-lang="ht">Transfòme kreyativite ou an biznis nimerik pwofitab — menm si ou pa designer.</p>
-        <p class="card-sub" data-lang="en">Turn your creativity into a profitable digital business — even if you've never designed anything before.</p>
+        <p class="card-desc" data-lang="ht">Transfòme kreyativite ou an biznis nimerik pwofitab — menm si ou pa designer.</p>
+        <p class="card-desc" data-lang="en">Turn your creativity into a profitable digital business — even with zero design experience.</p>
 
-        <div class="price-block">
-          <span class="price-main price-color">$497</span>
-          <span class="price-old">$897</span>
+        <div class="card-price-row">
+          <span class="card-price">$99</span>
+          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.97</span>
         </div>
-        <p class="price-note" data-lang="ht">Ou ekonomize $400 · Pri konferans espesyal</p>
-        <p class="price-note" data-lang="en">You save $400 · Conference special price</p>
+        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
+        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
 
-        <hr class="divider-line">
+        <hr class="card-divider">
 
-        <p class="includes-label" data-lang="ht">Tout sa ou resevwa</p>
-        <p class="includes-label" data-lang="en">Everything included</p>
+        <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
+        <p class="includes-label" data-lang="en">What's included</p>
 
         <ul class="includes-list" data-lang="ht">
-          <li><span class="check-icon check-bg">✓</span>Gid PDF 35+ paj an Kreyòl Ayisyen</li>
-          <li><span class="check-icon check-bg">✓</span>Kòman konfigire Canva Pro (gratis oswa $0)</li>
-          <li><span class="check-icon check-bg">✓</span>5 tip pwodwi nimerik ki vann pi fasil anliy</li>
-          <li><span class="check-icon check-bg">✓</span>Kòman vann sou Etsy, Gumroad & Instagram</li>
-          <li><span class="check-icon check-bg">✓</span>Sekrè pou fè dizay pwofesyonèl an 30 minit</li>
-          <li><span class="check-icon check-bg">✓</span>Estrateji mache sou rezo sosyal (gratis)</li>
-          <li><span class="check-icon check-bg">✓</span>Kòman fiye pri ou kòrèkteman pou fè pwofi</li>
-          <li><span class="check-icon check-bg">✓</span>Modèl Canva prè pou itilize touswit</li>
+          <li><span class="check">✓</span>Konfigire Canva Pro (gratis oswa $0)</li>
+          <li><span class="check">✓</span>5 tip pwodwi nimerik ki vann pi fasil</li>
+          <li><span class="check">✓</span>Kòman vann sou Etsy, Gumroad & Instagram</li>
+          <li><span class="check">✓</span>Dizay pwofesyonèl an 30 minit</li>
+          <li><span class="check">✓</span>Estrateji mache sou rezo sosyal (gratis)</li>
+          <li><span class="check">✓</span>Sèsyon Zoom prive + akonpayman dirèk</li>
         </ul>
         <ul class="includes-list" data-lang="en">
-          <li><span class="check-icon check-bg">✓</span>35+ page PDF guide (Haitian Creole & English)</li>
-          <li><span class="check-icon check-bg">✓</span>How to set up Canva Pro (free or $0 method)</li>
-          <li><span class="check-icon check-bg">✓</span>5 types of digital products that sell best online</li>
-          <li><span class="check-icon check-bg">✓</span>How to sell on Etsy, Gumroad & Instagram</li>
-          <li><span class="check-icon check-bg">✓</span>Secrets to create professional designs in 30 min</li>
-          <li><span class="check-icon check-bg">✓</span>Free social media marketing strategy</li>
-          <li><span class="check-icon check-bg">✓</span>How to price your products for maximum profit</li>
-          <li><span class="check-icon check-bg">✓</span>Ready-to-use Canva templates included</li>
+          <li><span class="check">✓</span>Set up Canva Pro (free or $0 method)</li>
+          <li><span class="check">✓</span>5 digital product types that sell best online</li>
+          <li><span class="check">✓</span>How to sell on Etsy, Gumroad & Instagram</li>
+          <li><span class="check">✓</span>Professional design in 30 minutes</li>
+          <li><span class="check">✓</span>Free social media marketing strategy</li>
+          <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
         </ul>
 
-        <div class="bonus-box bonus-bg">
-          <p class="bonus-title bonus-color" data-lang="ht">🎁 Bonus Gratis — Valè $127</p>
-          <p class="bonus-title bonus-color" data-lang="en">🎁 Free Bonus — Worth $27</p>
-          <ul class="bonus-items" data-lang="ht">
-            <li>Pack 10 modèl Canva prè pou vann sou Etsy</li>
-            <li>Lis 50 mo-kle ki atire kliyan anliy</li>
-            <li>Sesyon Q&A Zoom gratis (30 minit avèk ou)</li>
-          </ul>
-          <ul class="bonus-items" data-lang="en">
-            <li>Pack of 10 Canva templates ready to sell on Etsy</li>
-            <li>List of 50 keywords that attract online buyers</li>
-            <li>Free 30-min Zoom Q&A session with the instructor</li>
-          </ul>
-        </div>
-
         <div class="tags-row" data-lang="ht">
-          <span class="tag">Fanm kreyatif</span>
+          <span class="tag">Klas prive gwoup</span>
           <span class="tag">Kapital: $0</span>
-          <span class="tag">Revni pasif</span>
+          <span class="tag">Driven-result</span>
         </div>
         <div class="tags-row" data-lang="en">
-          <span class="tag">Creative women</span>
+          <span class="tag">Private group class</span>
           <span class="tag">Capital: $0</span>
-          <span class="tag">Passive income</span>
+          <span class="tag">Results-driven</span>
         </div>
 
-        <div class="guarantee">
-          <span class="guarantee-icon">🛡️</span>
-          <div class="guarantee-text">
-            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
-            <strong data-lang="en">7-day satisfaction guarantee</strong>
-            <span data-lang="ht">Si ou pa satisfè, ranbousman total — san kesyon poze.</span>
-            <span data-lang="en">Not satisfied? Full refund within 7 days — no questions asked.</span>
+        <div class="app-delivery">
+          <span class="app-delivery-icon">📱</span>
+          <div class="app-delivery-text">
+            <strong data-lang="ht">Aksè via EP Akademi App</strong>
+            <strong data-lang="en">Access via EP Akademi App</strong>
+            <span data-lang="ht">iOS ak Android · Aprann nan pwòp vitès ou</span>
+            <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
 
-        <a href="https://buy.stripe.com/dRmeVfcsKh1qfBp0WXao803" class="cta" data-lang="ht">Mwen Vle Aprann Canva — $497</a>
-        <a href="https://buy.stripe.com/dRmeVfcsKh1qfBp0WXao803" class="cta" data-lang="en">I Want the Canva Guide — $497</a>
+        <div class="driven-box">
+          <span class="driven-box-icon">🎯</span>
+          <div>
+            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
+          </div>
+        </div>
+
+        <div class="guarantee">
+          <span style="font-size:1.3rem">🛡️</span>
+          <div class="guarantee-text">
+            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
+            <strong data-lang="en">7-day satisfaction guarantee</strong>
+            <span data-lang="ht">Ranbousman total si ou pa satisfè — san kesyon.</span>
+            <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
+          </div>
+        </div>
+
+        <a href="#" class="card-cta" data-lang="ht">Kòmanse Pwogram Canva →</a>
+        <a href="#" class="card-cta" data-lang="en">Start Canva Program →</a>
+      </div>
+    </div>
+
+    <!-- ── DIGITAL PRODUCTS ── -->
+    <div class="prog-card theme-digital">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-pill">💻 Pwodwi Dijital</div>
+
+        <h3 class="card-title" data-lang="ht">Kreye &amp; Vann<br>Pwodwi Dijital</h3>
+        <h3 class="card-title" data-lang="en">Create &amp; Sell<br>Digital Products</h3>
+
+        <p class="card-desc" data-lang="ht">Bati yon biznis anliy ak pwodwi dijital — ebooks, templates, kours, ak plis ankò.</p>
+        <p class="card-desc" data-lang="en">Build an online business selling digital products — ebooks, templates, courses, and more.</p>
+
+        <div class="card-price-row">
+          <span class="card-price">$497</span>
+          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.99</span>
+        </div>
+        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
+        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
+
+        <hr class="card-divider">
+
+        <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
+        <p class="includes-label" data-lang="en">What's included</p>
+
+        <ul class="includes-list" data-lang="ht">
+          <li><span class="check">✓</span>Chwazi niche pwodwi dijital ou</li>
+          <li><span class="check">✓</span>Kreye pwodwi ki vann: ebook, template, kours</li>
+          <li><span class="check">✓</span>Konfigire boutik ou (Etsy, Gumroad, Shopify)</li>
+          <li><span class="check">✓</span>Estrateji pri pou maksimize pwofi</li>
+          <li><span class="check">✓</span>Otomatize livrezon pwodwi ou</li>
+          <li><span class="check">✓</span>Sèsyon Zoom prive + akonpayman dirèk</li>
+        </ul>
+        <ul class="includes-list" data-lang="en">
+          <li><span class="check">✓</span>Choose your digital product niche</li>
+          <li><span class="check">✓</span>Create sellable products: ebook, template, course</li>
+          <li><span class="check">✓</span>Set up your store (Etsy, Gumroad, Shopify)</li>
+          <li><span class="check">✓</span>Pricing strategy to maximize profit</li>
+          <li><span class="check">✓</span>Automate your product delivery</li>
+          <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
+        </ul>
+
+        <div class="tags-row" data-lang="ht">
+          <span class="tag">Klas prive gwoup</span>
+          <span class="tag">Kapital: $0</span>
+          <span class="tag">Driven-result</span>
+        </div>
+        <div class="tags-row" data-lang="en">
+          <span class="tag">Private group class</span>
+          <span class="tag">Capital: $0</span>
+          <span class="tag">Results-driven</span>
+        </div>
+
+        <div class="app-delivery">
+          <span class="app-delivery-icon">📱</span>
+          <div class="app-delivery-text">
+            <strong data-lang="ht">Aksè via EP Akademi App</strong>
+            <strong data-lang="en">Access via EP Akademi App</strong>
+            <span data-lang="ht">iOS ak Android · Aprann nan pwòp vitès ou</span>
+            <span data-lang="en">iOS & Android · Learn at your own pace</span>
+          </div>
+        </div>
+
+        <div class="driven-box">
+          <span class="driven-box-icon">🎯</span>
+          <div>
+            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
+          </div>
+        </div>
+
+        <div class="guarantee">
+          <span style="font-size:1.3rem">🛡️</span>
+          <div class="guarantee-text">
+            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
+            <strong data-lang="en">7-day satisfaction guarantee</strong>
+            <span data-lang="ht">Ranbousman total si ou pa satisfè — san kesyon.</span>
+            <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
+          </div>
+        </div>
+
+        <a href="#" class="card-cta" data-lang="ht">Kòmanse Pwodwi Dijital →</a>
+        <a href="#" class="card-cta" data-lang="en">Start Digital Products →</a>
+      </div>
+    </div>
+
+    <!-- ── FACELESS MARKETING ── -->
+    <div class="prog-card theme-faceless">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-pill">🎭 Faceless Marketing</div>
+
+        <h3 class="card-title" data-lang="ht">Faceless Marketing<br>pou Vann Anliy</h3>
+        <h3 class="card-title" data-lang="en">Faceless Marketing<br>to Sell Online</h3>
+
+        <p class="card-desc" data-lang="ht">Bati yon branch anliy pwisan san parèt nan kamera — kontni, otomatizasyon, ak vant.</p>
+        <p class="card-desc" data-lang="en">Build a powerful online brand without showing your face — content, automation, and sales.</p>
+
+        <div class="card-price-row">
+          <span class="card-price">$399</span>
+          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.99</span>
+        </div>
+        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
+        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
+
+        <hr class="card-divider">
+
+        <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
+        <p class="includes-label" data-lang="en">What's included</p>
+
+        <ul class="includes-list" data-lang="ht">
+          <li><span class="check">✓</span>Kreye kont faceless sou TikTok, Instagram, YouTube</li>
+          <li><span class="check">✓</span>Estrateji kontni ki atire kliyan otomatikman</li>
+          <li><span class="check">✓</span>Zoutil AI pou kreye videyo san kamera</li>
+          <li><span class="check">✓</span>Otomatize piblikasyon kontni ou</li>
+          <li><span class="check">✓</span>Monetize: affilye, pwodwi, sèvis</li>
+          <li><span class="check">✓</span>Sèsyon Zoom prive + akonpayman dirèk</li>
+        </ul>
+        <ul class="includes-list" data-lang="en">
+          <li><span class="check">✓</span>Create faceless accounts on TikTok, Instagram, YouTube</li>
+          <li><span class="check">✓</span>Content strategy that attracts customers automatically</li>
+          <li><span class="check">✓</span>AI tools to create videos without a camera</li>
+          <li><span class="check">✓</span>Automate your content publishing</li>
+          <li><span class="check">✓</span>Monetize: affiliate, products, services</li>
+          <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
+        </ul>
+
+        <div class="tags-row" data-lang="ht">
+          <span class="tag">Klas prive gwoup</span>
+          <span class="tag">San kamera</span>
+          <span class="tag">Driven-result</span>
+        </div>
+        <div class="tags-row" data-lang="en">
+          <span class="tag">Private group class</span>
+          <span class="tag">No camera needed</span>
+          <span class="tag">Results-driven</span>
+        </div>
+
+        <div class="app-delivery">
+          <span class="app-delivery-icon">📱</span>
+          <div class="app-delivery-text">
+            <strong data-lang="ht">Aksè via EP Akademi App</strong>
+            <strong data-lang="en">Access via EP Akademi App</strong>
+            <span data-lang="ht">iOS ak Android · Aprann nan pwòp vitès ou</span>
+            <span data-lang="en">iOS & Android · Learn at your own pace</span>
+          </div>
+        </div>
+
+        <div class="driven-box">
+          <span class="driven-box-icon">🎯</span>
+          <div>
+            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
+          </div>
+        </div>
+
+        <div class="guarantee">
+          <span style="font-size:1.3rem">🛡️</span>
+          <div class="guarantee-text">
+            <strong data-lang="ht">Garanti satisfaksyon 7 jou</strong>
+            <strong data-lang="en">7-day satisfaction guarantee</strong>
+            <span data-lang="ht">Ranbousman total si ou pa satisfè — san kesyon.</span>
+            <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
+          </div>
+        </div>
+
+        <a href="#" class="card-cta" data-lang="ht">Kòmanse Faceless Marketing →</a>
+        <a href="#" class="card-cta" data-lang="en">Start Faceless Marketing →</a>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     COMBO
-════════════════════════════════════════════════════════ -->
-<section class="combo-section">
-  <div class="combo-card">
-    <div class="combo-badge" data-lang="ht">⭐ Pakè Espesyal</div>
-    <div class="combo-badge" data-lang="en">⭐ Bundle Deal</div>
+<!-- ═══════════════════ WHY APP ═══════════════════ -->
+<section class="why-section">
+  <div class="why-inner">
+    <p class="section-eyebrow" data-lang="ht">Poukisa App la</p>
+    <p class="section-eyebrow" data-lang="en">Why the App</p>
 
-    <h2 class="combo-title" data-lang="ht">Pran Tou De &<br>Ekonomize Plis</h2>
-    <h2 class="combo-title" data-lang="en">Get Both &<br>Save Even More</h2>
+    <h2 class="section-heading" data-lang="ht">Tout Nan <em>Yon Sèl Kote</em></h2>
+    <h2 class="section-heading" data-lang="en">Everything In <em>One Place</em></h2>
 
-    <p class="combo-sub" data-lang="ht">Kòmanse sou Amazon <em>epi</em> kreye pwodwi Canva pou vann anliy — 2 sous revni, 1 pri espesyal.</p>
-    <p class="combo-sub" data-lang="en">Launch on Amazon <em>and</em> create Canva digital products to sell online — 2 income streams, 1 special price.</p>
-
-    <div class="combo-prices">
-      <div class="item">
-        <div class="label">Amazon</div>
-        <div class="val">$597</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">📱</div>
+        <h4 data-lang="ht">Aksè Kote ou Ye</h4>
+        <h4 data-lang="en">Access Anywhere</h4>
+        <p data-lang="ht">iOS ak Android. Aprann nan bis, lakay, oswa kote ou vle — san koneksyon entènèt obligatwa.</p>
+        <p data-lang="en">iOS & Android. Learn on the bus, at home, or anywhere — no constant internet required.</p>
       </div>
-      <div class="arrow">+</div>
-      <div class="item">
-        <div class="label">Canva</div>
-        <div class="val">$497</div>
+      <div class="why-card">
+        <div class="why-icon">🤖</div>
+        <h4 data-lang="ht">Kouche AI an Kreyòl</h4>
+        <h4 data-lang="en">AI Coach in Creole</h4>
+        <p data-lang="ht">Poze nenpòt kesyon sou biznis ou — kouche AI nou an reponn ou an Kreyòl Ayisyen, 24/7.</p>
+        <p data-lang="en">Ask any business question — our AI coach answers in Haitian Creole, 24/7.</p>
       </div>
-      <div class="arrow">→</div>
-      <div class="item">
-        <div class="total">$997</div>
-        <div class="save" data-lang="ht">Ou ekonomize plis pase $90 siplemantè</div>
-        <div class="save" data-lang="en">You save an extra $97</div>
+      <div class="why-card">
+        <div class="why-icon">👥</div>
+        <h4 data-lang="ht">Kominote Prive</h4>
+        <h4 data-lang="en">Private Community</h4>
+        <p data-lang="ht">Konekte ak lòt antreprenè Ayisyen. Pataje pwogrè ou, poze kesyon, resevwa sipò reyèl.</p>
+        <p data-lang="en">Connect with other Haitian entrepreneurs. Share progress, ask questions, get real support.</p>
       </div>
     </div>
-
-    <a href="https://buy.stripe.com/4gM9AV0K2eTifBp499ao805" class="combo-cta" data-lang="ht">Mwen Pran Pakè Konplè — $477</a>
-    <a href="https://buy.stripe.com/4gM9AV0K2eTifBp499ao805" class="combo-cta" data-lang="en">I Want the Full Bundle — $477</a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     FAQ
-════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════ FAQ ═══════════════════ -->
 <section class="faq-section">
-  <p class="section-tag" data-lang="ht">Kesyon Frekant</p>
-  <p class="section-tag" data-lang="en">Frequently Asked Questions</p>
+  <p class="section-eyebrow" data-lang="ht">Kesyon Frekant</p>
+  <p class="section-eyebrow" data-lang="en">FAQ</p>
 
-  <h2 class="section-title" data-lang="ht">Ou Gen Kesyon?</h2>
-  <h2 class="section-title" data-lang="en">Have Questions?</h2>
+  <h2 class="section-heading" data-lang="ht">Ou Gen <em>Kesyon?</em></h2>
+  <h2 class="section-heading" data-lang="en">Have <em>Questions?</em></h2>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span data-lang="ht">Èske gid yo an Kreyòl Ayisyen?</span>
-      <span data-lang="en">Are the guides available in English?</span>
-      <span class="faq-arrow">+</span>
+  <div style="margin-top: 2.5rem;">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-lang="ht">Kòman mwen aksede pwogram nan apre mwen peye?</span>
+        <span data-lang="en">How do I access my program after payment?</span>
+        <span class="faq-arrow">+</span>
+      </div>
+      <p class="faq-a" data-lang="ht">Ou resevwa yon imèl ak enfòmasyon koneksyon ou nan 24 èdtan. Telechaje aplikasyon EP Akademi sou iOS oswa Android, konekte, epi tout kontni pwogram ou ap disponib imedyatman.</p>
+      <p class="faq-a" data-lang="en">You'll receive a login email within 24 hours. Download the EP Akademi app on iOS or Android, log in, and all your program content will be immediately available.</p>
     </div>
-    <div class="faq-a" data-lang="ht">Wi, tout 100%. Gid yo ekri an Kreyòl Ayisyen klè ak senp pou tout moun ka konprann — pa gen tèminoloji teknik konplèks.</div>
-    <div class="faq-a" data-lang="en">Yes! Both guides are available in English and Haitian Creole. You'll receive both versions with your purchase so you can choose the language that works best for you.</div>
-  </div>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span data-lang="ht">Konbyen lajan mwen bezwen pou kòmanse Amazon?</span>
-      <span data-lang="en">How much money do I need to start on Amazon?</span>
-      <span class="faq-arrow">+</span>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-lang="ht">Eske mwen bezwen eksperyans pou kòmanse?</span>
+        <span data-lang="en">Do I need prior experience?</span>
+        <span class="faq-arrow">+</span>
+      </div>
+      <p class="faq-a" data-lang="ht">Non — tout pwogram nou yo fèt pou debutan konplè. Nou kòmanse depi baz la epi pwogrese etap pa etap.</p>
+      <p class="faq-a" data-lang="en">No — all our programs are built for complete beginners. We start from the basics and progress step by step.</p>
     </div>
-    <div class="faq-a" data-lang="ht">Minimòm rekòmande se $500–$2,000 pou premye lòt stòk ou. Men gid la eksplike kòman kòmanse ak pi piti si nesesè, epi kòman ekonomize anvan lanse.</div>
-    <div class="faq-a" data-lang="en">The recommended minimum is $500–$2,000 for your first inventory batch. The guide explains how to start smaller if needed and how to save up before launching your first product.</div>
-  </div>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span data-lang="ht">Èske mwen bezwen eksperyans Canva anvan?</span>
-      <span data-lang="en">Do I need any design experience to use Canva?</span>
-      <span class="faq-arrow">+</span>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-lang="ht">Eske mwen ka enskri nan plis pase yon pwogram?</span>
+        <span data-lang="en">Can I enroll in more than one program?</span>
+        <span class="faq-arrow">+</span>
+      </div>
+      <p class="faq-a" data-lang="ht">Wi — ou ka enskri nan plizyè pwogram ak menm kont EP Akademi ou a. Tout kontni ou ap nan app la, òganize pa pwogram.</p>
+      <p class="faq-a" data-lang="en">Yes — you can enroll in multiple programs with the same EP Akademi account. All your content will be in the app, organized by program.</p>
     </div>
-    <div class="faq-a" data-lang="ht">Absoliman non. Gid Canva a kòmanse depi zewo — ou pral aprann louvri yon kont, navige entèfas la, ak kreye premye pwodwi ou pou vann nan premye semèn.</div>
-    <div class="faq-a" data-lang="en">Absolutely not. The Canva guide starts from zero — you'll learn how to create an account, navigate the platform, and build your first sellable product within your first week.</div>
-  </div>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span data-lang="ht">Kòman mwen resevwa gid yo apre achte?</span>
-      <span data-lang="en">How do I receive the guides after purchase?</span>
-      <span class="faq-arrow">+</span>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-lang="ht">Kisa garanti 7 jou a vle di?</span>
+        <span data-lang="en">What does the 7-day guarantee mean?</span>
+        <span class="faq-arrow">+</span>
+      </div>
+      <p class="faq-a" data-lang="ht">Si ou achte epi ou pa satisfè pou nenpòt rezon nan 7 premye jou yo, voye nou yon imèl epi nou va ranbouse ou 100% — san kesyon, san atant.</p>
+      <p class="faq-a" data-lang="en">If you purchase and are unsatisfied for any reason within the first 7 days, email us and we'll refund you 100% — no questions asked, no waiting period.</p>
     </div>
-    <div class="faq-a" data-lang="ht">Ou resevwa yon lyen telechajman PDF dirèkteman nan imèl ou nan 24 èdtan apre peman konfime. Ou ka imprimen oswa li sou telefòn ou.</div>
-    <div class="faq-a" data-lang="en">You'll receive a PDF download link directly to your email within 24 hours of confirmed payment. You can print it or read it on your phone or computer — no app needed.</div>
-  </div>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span data-lang="ht">Kisa garanti 7 jou a vle di egzakteman?</span>
-      <span data-lang="en">What exactly does the 7-day guarantee mean?</span>
-      <span class="faq-arrow">+</span>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-lang="ht">Ki lang pwogram yo ye?</span>
+        <span data-lang="en">What language are the programs in?</span>
+        <span class="faq-arrow">+</span>
+      </div>
+      <p class="faq-a" data-lang="ht">Tout pwogram nou yo ansèye nan Kreyòl Ayisyen — pou Ayisyen yo ka aprann biznis anliy nan lang yo konprann pi byen an.</p>
+      <p class="faq-a" data-lang="en">All programs are taught in Haitian Creole — so Haitian entrepreneurs can learn online business in the language they understand best.</p>
     </div>
-    <div class="faq-a" data-lang="ht">Si ou achte epi ou pa satisfè pou nenpòt rezon nan 7 premye jou yo, voye nou yon imèl ak nou va ranbouse ou 100% totalman — san kesyon, san atant.</div>
-    <div class="faq-a" data-lang="en">If you purchase and are not satisfied for any reason within the first 7 days, simply email us and we will refund you 100% — no questions asked, no waiting period.</div>
+
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer class="footer">
+  <div class="footer-brand">EP Akademi</div>
   <p data-lang="ht">
-    <strong>Mouvman Fanm — Konferans Antreprenè</strong><br>
-    Tout dwa rezève · Kesyon? Kontakte nou pa imèl.<br>
-    Pri yo valid pou 48 èdtan apre konferans lan sèlman.
+    <strong>E Pelissier Enterprise · EP Enterprises LLC</strong><br>
+    Tout dwa rezève · Kesyon? <a href="mailto:contact@epelissierenterprise.com" style="color:rgba(255,255,255,0.35);">contact@epelissierenterprise.com</a><br>
+    Garanti satisfaksyon 7 jou sou tout pwogram.
   </p>
   <p data-lang="en">
-    <strong>Women's Movement — Entrepreneurship Conference</strong><br>
-    All rights reserved · Questions? Contact us by email.<br>
-    Prices valid for 48 hours after the conference only.
+    <strong>E Pelissier Enterprise · EP Enterprises LLC</strong><br>
+    All rights reserved · Questions? <a href="mailto:contact@epelissierenterprise.com" style="color:rgba(255,255,255,0.35);">contact@epelissierenterprise.com</a><br>
+    7-day satisfaction guarantee on all programs.
   </p>
 </footer>
 
 <script>
   function setLang(lang) {
-    document.body.classList.toggle('lang-en', lang === 'en');
+    document.body.className = 'lang-' + lang;
     document.getElementById('btn-ht').classList.toggle('active', lang === 'ht');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -640,5 +972,6 @@
     if (!isOpen) item.classList.add('open');
   }
 </script>
+
 </body>
 </html>
