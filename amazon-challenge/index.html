@@ -1,8 +1,512 @@
 <!DOCTYPE html>
 <html lang="ht">
 <head>
+<meta charset="UTF-8"><!DOCTYPE html>
+<html lang="ht">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Jou Amazon Challenge — Rezève Plas Ou</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:  #08111F;
+  --navy2: #0D1F3C;
+  --navy3: #162A48;
+  --gold:  #F5A623;
+  --lgold: #FDE68A;
+  --white: #FFFFFF;
+  --muted: #7A92AD;
+  --green: #10B981;
+  --red:   #EF4444;
+  --light: #F0F6FF;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Syne', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
+
+.urgency-bar {
+  background: var(--red);
+  text-align: center; padding: 10px 1rem;
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em;
+  position: sticky; top: 0; z-index: 100;
+  animation: pulse-bar 2s ease-in-out infinite;
+}
+@keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.85} }
+
+.container { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+.hero { padding: 5rem 0 3rem; text-align: center; position: relative; }
+.hero::before {
+  content: ''; position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero .kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.3);
+  color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+  padding: 6px 16px; border-radius: 99px; margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s ease both;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 12vw, 7rem);
+  line-height: 0.92; color: var(--white); margin-bottom: 1rem;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero h1 .gold { color: var(--gold); }
+.hero .sub {
+  font-size: 1.05rem; color: var(--muted);
+  max-width: 520px; margin: 0 auto 2.5rem;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.deposit-hero {
+  background: linear-gradient(135deg, var(--navy2), var(--navy3));
+  border: 1px solid rgba(245,166,35,0.35);
+  border-radius: 18px; padding: 1.8rem 2rem;
+  margin: 0 auto 2rem; max-width: 520px;
+  animation: fadeUp 0.7s 0.3s ease both;
+  position: relative; overflow: hidden;
+}
+.deposit-hero::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.1), transparent 70%);
+}
+.deposit-hero .dh-top { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem; }
+.deposit-hero .dh-tag {
+  background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.3);
+  color: var(--gold); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; padding: 4px 12px; border-radius: 99px;
+}
+.deposit-hero .dh-prices { display: flex; align-items: baseline; justify-content: center; gap: 12px; margin-bottom: 0.5rem; }
+.deposit-hero .dh-deposit { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 10vw, 5rem); color: var(--gold); line-height: 1; }
+.deposit-hero .dh-rest { font-size: 0.9rem; color: var(--muted); display: flex; flex-direction: column; text-align: left; gap: 2px; }
+.deposit-hero .dh-rest strong { color: var(--white); font-size: 1rem; }
+.deposit-hero .dh-note { font-size: 0.78rem; color: var(--muted); text-align: center; }
+.deposit-hero .dh-note span { color: var(--green); font-weight: 700; }
+
+.countdown-wrap {
+  background: var(--navy2); border: 1px solid rgba(245,166,35,0.2);
+  border-radius: 16px; padding: 1.2rem 2rem;
+  margin: 0 auto 2rem; max-width: 460px;
+  animation: fadeUp 0.7s 0.35s ease both;
+}
+.countdown-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; text-align: center; }
+.countdown { display: flex; justify-content: center; gap: 1rem; align-items: flex-start; }
+.cd-unit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.cd-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 7vw, 3.5rem);
+  color: var(--gold); line-height: 1; background: var(--navy3); border-radius: 10px;
+  width: clamp(60px, 16vw, 80px); text-align: center; padding: 5px 0;
+  border: 1px solid rgba(245,166,35,0.15);
+}
+.cd-label { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; }
+.cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(245,166,35,0.4); line-height: 1; margin-top: 5px; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+.steps::before { content: ''; position: absolute; left: 22px; top: 28px; bottom: 28px; width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(245,166,35,0.1)); }
+.step-row { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1rem 0; opacity: 0; transform: translateX(-16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.step-row.visible { opacity: 1; transform: translateX(0); }
+.step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--gold); color: var(--navy); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; }
+.step-body .step-title { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.step-body .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+.step-body .step-tag { display: inline-block; margin-top: 6px; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 99px; }
+.step-body .step-tag.gold { background: rgba(245,166,35,0.15); color: var(--gold); }
+.step-body .step-tag.green { background: rgba(16,185,129,0.15); color: var(--green); }
+
+.section { padding: 3rem 0; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 6vw, 3rem); text-align: center; margin-bottom: 0.4rem; }
+.gold-bar { width: 50px; height: 3px; background: var(--gold); border-radius: 2px; margin: 0 auto 2.5rem; }
+
+.items-list { display: flex; flex-direction: column; gap: 10px; }
+.item-row { display: flex; align-items: center; gap: 1rem; background: var(--navy2); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 0.9rem 1.2rem; transition: transform 0.2s, border-color 0.2s; }
+.item-row:hover { transform: translateX(4px); border-color: rgba(245,166,35,0.25); }
+.item-row .ico { font-size: 1.5rem; flex-shrink: 0; }
+.item-row .info { flex: 1; }
+.item-row .info .name { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+.item-row .info .desc { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+.item-row .val { font-size: 0.95rem; font-weight: 700; flex-shrink: 0; }
+.total-box { background: var(--navy3); border: 1px solid rgba(245,166,35,0.3); border-radius: 12px; padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.total-box .tl { font-size: 1rem; font-weight: 700; color: var(--muted); }
+.total-box .ta { font-size: 1.3rem; font-weight: 700; color: var(--lgold); }
+
+.bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:520px){ .bonus-grid { grid-template-columns: 1fr; } }
+.bonus-card { background: var(--navy2); border-radius: 14px; border: 0.5px solid rgba(255,255,255,0.07); padding: 1.4rem; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; transition: transform 0.2s; }
+.bonus-card:hover { transform: translateY(-3px); }
+.bonus-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.bonus-card.b1::before { background: #3B82F6; }
+.bonus-card.b2::before { background: #8B5CF6; }
+.bonus-card .b-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 99px; align-self: flex-start; }
+.bonus-card.b1 .b-tag { background: rgba(59,130,246,0.15); color: #60A5FA; }
+.bonus-card.b2 .b-tag { background: rgba(139,92,246,0.15); color: #A78BFA; }
+.bonus-card .b-ico { font-size: 2rem; }
+.bonus-card .b-title { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+.bonus-card .b-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; flex: 1; }
+.bonus-card .b-val { font-size: 0.85rem; font-weight: 700; color: var(--green); }
+
+.guarantee-big { background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03)); border: 1px solid rgba(16,185,129,0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; }
+.guarantee-big::before { content: '🛡️'; position: absolute; right: 1.5rem; top: 1.5rem; font-size: 4rem; opacity: 0.08; }
+.guarantee-big .gb-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green); margin-bottom: 0.8rem; }
+.guarantee-big .gb-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+.guarantee-big .gb-conditions { display: flex; flex-direction: column; gap: 6px; }
+.guarantee-big .gb-cond { display: flex; align-items: flex-start; gap: 8px; font-size: 0.8rem; color: var(--white); }
+.guarantee-big .gb-cond .dot { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+.cta-btn { display: block; width: 100%; background: var(--gold); color: var(--navy); font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; padding: 1.1rem 2rem; border-radius: 12px; border: none; cursor: pointer; text-decoration: none; text-align: center; box-shadow: 0 8px 30px rgba(245,166,35,0.35); transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.02em; }
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(245,166,35,0.45); }
+.stripe-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; font-size: 0.72rem; color: var(--muted); }
+
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+.faq-item { background: var(--navy2); border-radius: 12px; border: 0.5px solid rgba(255,255,255,0.06); overflow: hidden; }
+.faq-q { padding: 1rem 1.25rem; font-size: 0.88rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.faq-q .arr { color: var(--gold); transition: transform 0.25s; font-size: 1.1rem; }
+.faq-item.open .faq-q .arr { transform: rotate(90deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; font-size: 0.82rem; color: var(--muted); line-height: 1.6; padding: 0 1.25rem; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 1.25rem 1rem; }
+
+.footer { text-align: center; padding: 3rem 1rem 2rem; font-size: 0.75rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="urgency-bar">
+  ⚡ REZÈVE POU $297 Jodi a — 48 Èd Tan Sèlman · Plas limite
+</div>
+
+<div class="container">
+
+  <section class="hero">
+    <div class="kicker">🔥 Depozit Rezèvasyon — 48 Èd Tan</div>
+    <h1>30 JOU<br><span class="gold">AMAZON</span><br>CHALLENGE</h1>
+    <p class="sub">Rezève plas ou kounye a pou $297 sèlman. Ou peye rès la nan 7 jou. Si ou pa satisfè nan 14 jou — nou ranbouse ou.</p>
+
+    <div class="deposit-hero">
+      <div class="dh-top"><span class="dh-tag">💳 DEPOZIT REZÈVASYON</span></div>
+      <div class="dh-prices">
+        <div class="dh-deposit">$297</div>
+        <div class="dh-rest">
+          <strong>+ $500 rès la</strong>
+          <span>nan 7 jou</span>
+          <span>Total: $797</span>
+        </div>
+      </div>
+      <div class="dh-note"><span>✓ Garanti satisfaksyon 14 jou — oswa nou ranbouse ou</span></div>
+    </div>
+
+    <div class="countdown-wrap">
+      <div class="countdown-label">⏳ Ofri a ekspire nan</div>
+      <div class="countdown">
+        <div class="cd-unit"><div class="cd-num" id="cd-h">47</div><div class="cd-label">Èdtan</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-m">59</div><div class="cd-label">Minit</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-s">59</div><div class="cd-label">Segond</div></div>
+      </div>
+    </div>
+
+    <a href="#enskri" class="cta-btn" style="max-width:420px;margin:0 auto;">
+      ✓ Rezève Plas Mwen — $297 Jodi a →
+    </a>
+    <p style="font-size:0.75rem;color:var(--muted);margin-top:10px;">🔒 Pèman sécurisé pa Stripe · SSL Enkripte</p>
+  </section>
+
+  <section class="section fade-up">
+    <h2 class="section-title">Kijan sa <span style="color:var(--gold)">Travay</span></h2>
+    <div class="gold-bar"></div>
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Peye $297 jodi a — rezève plas ou</div>
+          <div class="step-desc">Klik sou bouton an, peye $297 pa Stripe. Aksè app EP Akademi prive ak 2 bonis yo aktive imedyatman.</div>
+          <span class="step-tag gold">Jodi a · Nan kèk minit</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Resevwa imèl konfirmasyon + enfòmasyon koneksyon app</div>
+          <div class="step-desc">Ou pral jwenn enfòmasyon koneksyon app EP Akademi ou imedyatman apre pèman an. Konekte epi jwenn aksè a tout materyèl kòmansman yo.</div>
+          <span class="step-tag green">Imedyatman</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Peye rès $500 nan 7 jou</div>
+          <div class="step-desc">Nan 7 jou ou resevwa yon lyen pou peye rès la ($500). Aksè konplè ak tout 4 modil videyo ak sesyon vivan yo aktive nan app la.</div>
+          <span class="step-tag gold">Nan 7 jou</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Kòmanse aprann epi bati biznis ou</div>
+          <div class="step-desc">Ou gen 30 jou coaching vivan, videyo, kominote app 24/24, ak sipò pèsonèl pou bati yon biznis Amazon pwofitab.</div>
+          <span class="step-tag green">30 jou konplè</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <h2 class="section-title">Sa ki <span style="color:var(--gold)">Enkli</span></h2>
+    <div class="gold-bar"></div>
+    <div class="items-list">
+      <div class="item-row">
+        <div class="ico">📖</div>
+        <div class="info"><div class="name">Gid Konplè</div><div class="desc">Tout estrateji 3P Mercury yo, step-by-step</div></div>
+        <div class="val" style="color:#60A5FA">$197</div>
+      </div>
+      <div class="item-row">
+        <div class="ico">📋</div>
+        <div class="info"><div class="name">Lis 100 ASIN</div><div class="desc">Pwodui verifye ak bon vant velocity, pare pou itilize</div></div>
+        <div class="val" style="color:#A78BFA">$297</div>
+      </div>
+      <div class="item-row">
+        <div class="ico">📞</div>
+        <div class="info"><div class="name">1 Apèl 1-an-1 avèk mwen</div><div class="desc">Sesyon estrateji pèsonèl 30 minit</div></div>
+        <div class="val" style="color:#F472B6">$197</div>
+      </div>
+      <div class="item-row">
+        <div class="ico">🎬</div>
+        <div class="info"><div class="name">4 Modil Videyo Konplè</div><div class="desc">Step-by-step, gade nenpòt ki lè, nenpòt ki kote nan app la</div></div>
+        <div class="val" style="color:#FCD34D">$397</div>
+      </div>
+      <div class="item-row">
+        <div class="ico">👥</div>
+        <div class="info"><div class="name">1 Sesyon Vivan Chak Semèn</div><div class="desc">Live coaching pandan tout 30 jou yo</div></div>
+        <div class="val" style="color:#34D399">$497</div>
+      </div>
+      <div class="item-row">
+        <div class="ico">📱</div>
+        <div class="info"><div class="name">Aksè App EP Akademi Prive</div><div class="desc">Kominote, AI Coach, videyo — tout nan yon sèl kote, 24/24</div></div>
+        <div class="val" style="color:#818CF8">$97</div>
+      </div>
+    </div>
+    <div class="total-box">
+      <span class="tl">Valè Total</span>
+      <span class="ta">$1,682</span>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <h2 class="section-title">🎁 Bonis <span style="color:var(--gold)">Gratis</span></h2>
+    <div class="gold-bar"></div>
+    <div class="bonus-grid">
+      <div class="bonus-card b1">
+        <span class="b-tag">BONIS #1</span>
+        <div class="b-ico">📋</div>
+        <div class="b-title">Lead Vault Starter List</div>
+        <div class="b-desc">20 a 30 ASIN verifye, bon velocity, pare pou baz done ou. Ekonomize dèzè rechèch.</div>
+        <div class="b-val">Vale $97 — GRATIS</div>
+      </div>
+      <div class="bonus-card b2">
+        <span class="b-tag">BONIS #2</span>
+        <div class="b-ico">⭐</div>
+        <div class="b-title">Discount Stacking Cheat Sheet</div>
+        <div class="b-desc">Tout boutik, kat kado, cashback mwen itilize — yon sèl paj, pare pou enprime.</div>
+        <div class="b-val">Vale $47 — GRATIS</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <h2 class="section-title">🛡️ Garanti <span style="color:var(--gold)">Satisfaksyon</span></h2>
+    <div class="gold-bar"></div>
+    <div class="guarantee-big">
+      <div class="gb-title">Garanti 14 Jou — Oswa Ranbousman</div>
+      <div class="gb-text">Mwen konnen sa mwen anseye a travay. Mwen tèlman konfyan ke si ou suiv pwogram nan epi ou pa satisfè pandan 14 premye jou yo, mwen pral ranbouse $297 depozit ou a — san kesyon, san pwoblèm.</div>
+      <div class="gb-conditions">
+        <div class="gb-cond"><span class="dot">✓</span><span>Patisipe nan omwen 2 sesyon vivan yo</span></div>
+        <div class="gb-cond"><span class="dot">✓</span><span>Eseye omwen yon estrateji nan pwogram nan</span></div>
+        <div class="gb-cond"><span class="dot">✓</span><span>Kontakte nou anvan 14 jou yo fin pase</span></div>
+        <div class="gb-cond" style="margin-top:8px;color:var(--muted)"><span class="dot" style="color:var(--muted)">*</span><span>Nòt: Si ou peye rès $500 la epi ou pa satisfè, nou pral diskite yon solisyon ansanm.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-up" id="enskri">
+    <h2 class="section-title">Chwazi <span style="color:var(--gold)">Opsyon Ou</span></h2>
+    <div class="gold-bar"></div>
+
+    <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-bottom:1.8rem;">
+      <span style="text-decoration:line-through;color:var(--muted);">Valè Total: $1,682</span> &nbsp;·&nbsp;
+      <span style="color:var(--green);font-weight:700;">Ou ekonomize $885 — 65% rabè</span>
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:2rem;">
+
+      <div class="plan-option" id="opt-deposit" onclick="selectOpt('deposit')" style="cursor:pointer;background:var(--navy2);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:border-color 0.2s;">
+        <div class="opt-radio" id="r-deposit" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"></div>
+        <div style="flex:1;">
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:var(--muted);margin-bottom:4px;">OPSYON 1 — DEPOZIT</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--white);">$297 <span style="font-size:0.8rem;color:var(--muted);font-weight:400;">jodi a + $500 nan 7 jou</span></div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">Total: $797 · Kòmanse piti, peye rès la apre</div>
+        </div>
+      </div>
+
+      <div class="plan-option" id="opt-split" onclick="selectOpt('split')" style="cursor:pointer;background:var(--navy2);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:border-color 0.2s;">
+        <div class="opt-radio" id="r-split" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"></div>
+        <div style="flex:1;">
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:var(--muted);margin-bottom:4px;">OPSYON 2 — PLAN PÈMAN</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--white);">2 × $447 <span style="font-size:0.8rem;color:var(--muted);font-weight:400;">· Total: $894</span></div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">1e pèman jodi a · 2e pèman nan 30 jou</div>
+        </div>
+      </div>
+
+      <div class="plan-option" id="opt-full" onclick="selectOpt('full')" style="cursor:pointer;background:var(--navy2);border:2px solid var(--gold);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:border-color 0.2s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;background:var(--gold);color:var(--navy);font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:0 0 0 8px;letter-spacing:0.08em;">🏆 PI EKONOMIK</div>
+        <div class="opt-radio" id="r-full" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;background:var(--gold);">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--navy);"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:var(--gold);margin-bottom:4px;">OPSYON 3 — PÈMAN KONPLÈ</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--gold);">$797 <span style="font-size:0.8rem;color:var(--muted);font-weight:400;">yon sèl pèman</span></div>
+          <div style="font-size:0.75rem;color:var(--green);margin-top:2px;">✓ Ekonomize $97 pou rapport plan pèman · Aksè imedya</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;">
+      <a href="https://buy.stripe.com/5kQ7sNboG4eEcpdfRRao806" class="cta-btn" id="cta-main" style="max-width:500px;display:block;margin:0 auto;">
+        ✓ Enskri Kounye a — $797 →
+      </a>
+      <div class="stripe-note" style="margin-top:10px;">
+        <span>🔒</span> Pèman sécurisé pa Stripe · Kat kredi oswa débit aksepte
+      </div>
+      <div style="margin-top:1.2rem;padding:1rem;background:var(--navy2);border-radius:10px;font-size:0.78rem;color:var(--muted);line-height:1.6;">
+        ⏰ <strong style="color:var(--white);">Rapèl:</strong> Ofri sa a disponib pou 48 èd tan sèlman. Apre sa, pòt la fèmen.
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <h2 class="section-title">Kesyon <span style="color:var(--gold)">Komen</span></h2>
+    <div class="gold-bar"></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Kisa depozit $297 a kouvri egzakteman? <span class="arr">›</span></div>
+        <div class="faq-a">Depozit $297 a rezève plas ou nan pwogram nan epi ba ou aksè imedya a app EP Akademi prive ak 2 bonis yo (Lead Vault + Cheat Sheet). Rès $500 la, ou peye nan 7 jou pou jwenn aksè konplè ak tout videyo ak sesyon vivan yo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Kijan garanti 14 jou a fonksyone? <span class="arr">›</span></div>
+        <div class="faq-a">Si ou patisipe nan omwen 2 sesyon vivan epi ou eseye estrateji yo men ou pa satisfè — kontakte nou nan app la oswa pa imèl anvan 14 jou yo fin pase. Nou ranbouse $297 depozit ou a san kesyon.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Kisa ki pase si mwen pa peye rès $500 la? <span class="arr">›</span></div>
+        <div class="faq-a">Si ou pa peye rès la nan 7 jou, aksè konplè ou (videyo ak sesyon vivan) ap mete an poz jouk pèman konfime. Aksè debaz app la pa chanje.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Èske mwen bezwen eksperyans Amazon? <span class="arr">›</span></div>
+        <div class="faq-a">Non. Pwogram nan bati depi kòmansman absoliman. Ou pral aprann tout bagay — depi jwenn pwodui rive jwenn fè pwofi reyèl.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Kijan mwen jwenn aksè app EP Akademi la? <span class="arr">›</span></div>
+        <div class="faq-a">Imedyatman apre pèman $297 ou konfime, ou resevwa yon imèl ak enfòmasyon koneksyon ou (imèl + modpas). Ou konekte nan app la menm jou a epi ou jwenn aksè a tout kontni disponib yo imedyatman.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <p>© 2026 · 30 Jou Amazon Challenge · Tout dwa rezève</p>
+  <p style="margin-top:6px;">Kesyon? Kontakte nou nan app la oswa pa imèl.</p>
+</div>
+
+<script>
+  const plans = {
+    deposit: { label: "✓ Rezève Plas Mwen — $297 Jodi a →", href: "https://buy.stripe.com/aFacN7dwOfXm9d1gVVao809" },
+    split:   { label: "✓ Kòmanse avèk $447 Jodi a →",       href: "https://buy.stripe.com/00w8wRgJ026wexl8ppao808" },
+    full:    { label: "✓ Peye Konplè — $797 →",              href: "https://buy.stripe.com/5kQ7sNboG4eEcpdfRRao806" }
+  };
+
+  function selectOpt(plan) {
+    ["deposit","split","full"].forEach(function(p) {
+      var card  = document.getElementById("opt-" + p);
+      var radio = document.getElementById("r-" + p);
+      var isSelected = (p === plan);
+      var isFull = (p === "full");
+      card.style.borderWidth = isFull ? "2px" : "1px";
+      card.style.borderStyle = "solid";
+      card.style.borderColor = isSelected ? "var(--gold)" : (isFull ? "rgba(245,166,35,0.3)" : "rgba(255,255,255,0.08)");
+      radio.style.background  = isSelected ? "var(--gold)" : "transparent";
+      radio.style.borderColor = isSelected ? "var(--gold)" : "var(--muted)";
+      radio.innerHTML = isSelected ? "<div style='width:10px;height:10px;border-radius:50%;background:var(--navy);'></div>" : "";
+    });
+    var btn = document.getElementById("cta-main");
+    btn.textContent = plans[plan].label;
+    btn.href = plans[plan].href;
+  }
+
+  selectOpt("full");
+
+  const deadline = Date.now() + 48 * 60 * 60 * 1000;
+  function updateCountdown() {
+    const diff = Math.max(0, deadline - Date.now());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    if (diff === 0) document.querySelector('.urgency-bar').textContent = '⛔ Ofri sa a fèmen. Mèsi pou tout moun ki te patisipe.';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const stepObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const steps = e.target.querySelectorAll('.step-row');
+        steps.forEach((s, i) => setTimeout(() => s.classList.add('visible'), i * 150));
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.steps').forEach(el => stepObs.observe(el));
+</script>
+</body>
+</html><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>30 Jou Amazon Challenge — Rezève Plas Ou</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
