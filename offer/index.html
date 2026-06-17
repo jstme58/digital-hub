@@ -36,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ── LANG TOGGLE ───────────────────────────────────────── */
 .lang-bar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; justify-content: space-between; align-items: center;
@@ -64,7 +63,6 @@ body {
 }
 .lang-btn.active { background: var(--orange); color: var(--white); }
 
-/* ── LANG VISIBILITY ───────────────────────────────────── */
 [data-lang]       { display: none !important; }
 span[data-lang]   { display: none !important; }
 
@@ -76,7 +74,6 @@ body.lang-en [data-lang="en"]      { display: block  !important; }
 body.lang-en span[data-lang="en"]  { display: inline !important; }
 body.lang-en a[data-lang="en"]     { display: block  !important; }
 
-/* ── HERO ──────────────────────────────────────────────── */
 .hero {
   min-height: 100vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -90,7 +87,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
     radial-gradient(ellipse 50% 60% at 85% 75%, rgba(124,92,191,0.12) 0%, transparent 60%),
     radial-gradient(ellipse 40% 40% at 50% 100%, rgba(27,77,53,0.18) 0%, transparent 60%);
 }
-/* Floating orbs */
 .hero-orb {
   position: absolute; border-radius: 50%;
   filter: blur(60px); pointer-events: none; opacity: 0.18;
@@ -110,7 +106,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   width: 7px; height: 7px; border-radius: 50%;
   background: var(--orange); animation: pulse 1.6s infinite; flex-shrink: 0;
 }
-
 .hero h1 {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3rem, 7.5vw, 5.8rem); font-weight: 700;
@@ -118,14 +113,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   animation: fadeUp 0.5s 0.08s ease both;
 }
 .hero h1 em { font-style: italic; color: var(--orange2); }
-
 .hero-sub {
   font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 300;
   color: rgba(255,255,255,0.6); max-width: 520px;
   line-height: 1.75; margin: 0 auto 2.5rem;
   animation: fadeUp 0.5s 0.16s ease both;
 }
-
 .hero-app-badge {
   display: inline-flex; align-items: center; gap: 10px;
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
@@ -136,7 +129,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 }
 .hero-app-badge strong { color: var(--white); font-weight: 600; }
 .app-icon { font-size: 1.4rem; }
-
 .hero-scroll {
   position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -150,7 +142,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 }
 @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
 
-/* ── SECTION SHARED ────────────────────────────────────── */
 .section-wrap { padding: 6rem 1.5rem; max-width: 1160px; margin: 0 auto; }
 .section-eyebrow {
   text-align: center; font-size: 10.5px; font-weight: 700;
@@ -170,11 +161,7 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   max-width: 520px; margin: 0 auto 4rem;
 }
 
-/* ── CHALLENGE BANNER ──────────────────────────────────── */
-.challenge-section {
-  padding: 2rem 1.5rem 0;
-  max-width: 900px; margin: 0 auto;
-}
+.challenge-section { padding: 2rem 1.5rem 0; max-width: 900px; margin: 0 auto; }
 .challenge-card {
   background: linear-gradient(135deg, rgba(232,98,26,0.14) 0%, rgba(13,27,42,0) 100%);
   border: 1px solid rgba(232,98,26,0.35);
@@ -208,41 +195,28 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 }
 .btn-challenge:hover { background: #d45610; }
 
-/* ── PROGRAM GRID ──────────────────────────────────────── */
-.programs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.75rem;
-}
+.programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
 
-/* ── PROGRAM CARD ──────────────────────────────────────── */
 .prog-card {
   border-radius: 22px; overflow: hidden;
   position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex; flex-direction: column;
 }
-.prog-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 32px 72px rgba(0,0,0,0.4);
-}
+.prog-card:hover { transform: translateY(-7px); box-shadow: 0 32px 72px rgba(0,0,0,0.4); }
 
-/* Card themes */
 .theme-amazon  { background: linear-gradient(160deg, #1A2F45 0%, #0D1B2A 100%); border: 1px solid rgba(232,98,26,0.28); }
 .theme-canva   { background: linear-gradient(160deg, #1A3028 0%, #0D1B14 100%); border: 1px solid rgba(76,175,120,0.28); }
 .theme-digital { background: linear-gradient(160deg, #231A45 0%, #0D1B2A 100%); border: 1px solid rgba(124,92,191,0.28); }
 .theme-faceless{ background: linear-gradient(160deg, #3D1A28 0%, #1B0D14 100%); border: 1px solid rgba(192,65,90,0.28); }
 
-/* Accent top bar */
 .card-bar { height: 3px; width: 100%; }
 .theme-amazon  .card-bar { background: linear-gradient(90deg, var(--orange), var(--orange2)); }
 .theme-canva   .card-bar { background: linear-gradient(90deg, var(--green2), var(--mint)); }
 .theme-digital .card-bar { background: linear-gradient(90deg, var(--purple), var(--purple2)); }
-.theme-faceless.card-bar { background: linear-gradient(90deg, var(--rose), var(--rose2)); }
 .theme-faceless > .card-bar { background: linear-gradient(90deg, var(--rose), var(--rose2)); }
 
 .card-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
 
-/* Category pill */
 .card-pill {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
@@ -258,12 +232,8 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   font-size: 1.65rem; font-weight: 700; line-height: 1.15;
   color: var(--cream); margin-bottom: 0.55rem;
 }
-.card-desc {
-  font-size: 13px; color: rgba(255,255,255,0.48);
-  font-weight: 300; line-height: 1.65; margin-bottom: 1.6rem;
-}
+.card-desc { font-size: 13px; color: rgba(255,255,255,0.48); font-weight: 300; line-height: 1.65; margin-bottom: 1.6rem; }
 
-/* Price */
 .card-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.3rem; }
 .card-price {
   font-family: 'Cormorant Garamond', serif;
@@ -277,56 +247,33 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 .theme-digital .card-price { color: var(--purple2); }
 .theme-faceless .card-price { color: var(--rose2); }
 
-/* Divider */
 .card-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0 0 1.4rem; }
 
-/* Includes */
-.includes-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 0.85rem;
-}
+.includes-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.85rem; }
 .includes-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.6rem; }
 .includes-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.45; }
-.check {
-  width: 17px; height: 17px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 8.5px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
-}
+.check { width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8.5px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
 .theme-amazon  .check { background: rgba(232,98,26,0.18); color: var(--orange); }
 .theme-canva   .check { background: rgba(76,175,120,0.18); color: var(--mint); }
 .theme-digital .check { background: rgba(124,92,191,0.18); color: var(--purple2); }
 .theme-faceless .check { background: rgba(192,65,90,0.18); color: var(--rose2); }
 
-/* Tags */
 .tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.4rem; }
-.tag {
-  font-size: 11px; padding: 4px 11px; border-radius: 20px; font-weight: 400;
-}
+.tag { font-size: 11px; padding: 4px 11px; border-radius: 20px; font-weight: 400; }
 .theme-amazon  .tag { background: rgba(232,98,26,0.09); color: rgba(255,147,64,0.85); border: 1px solid rgba(232,98,26,0.18); }
 .theme-canva   .tag { background: rgba(76,175,120,0.09); color: rgba(76,175,120,0.85); border: 1px solid rgba(76,175,120,0.18); }
 .theme-digital .tag { background: rgba(124,92,191,0.09); color: rgba(169,138,224,0.85); border: 1px solid rgba(124,92,191,0.18); }
 .theme-faceless .tag { background: rgba(192,65,90,0.09); color: rgba(232,117,138,0.85); border: 1px solid rgba(192,65,90,0.18); }
 
-/* App delivery badge */
-.app-delivery {
-  display: flex; align-items: center; gap: 9px;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px; padding: 11px 14px; margin-bottom: 1.3rem; font-size: 12.5px;
-}
+.app-delivery { display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 11px 14px; margin-bottom: 1.3rem; font-size: 12.5px; }
 .app-delivery-icon { font-size: 1.2rem; flex-shrink: 0; }
 .app-delivery-text strong { display: block; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-bottom: 1px; }
 .app-delivery-text span { color: rgba(255,255,255,0.38); font-size: 11.5px; font-weight: 300; }
 
-/* Guarantee */
-.guarantee {
-  display: flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; padding: 11px 13px; margin-bottom: 1.25rem;
-}
+.guarantee { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 11px 13px; margin-bottom: 1.25rem; }
 .guarantee-text strong { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); }
 .guarantee-text span { font-size: 11px; color: rgba(255,255,255,0.38); font-weight: 300; }
 
-/* CTA button */
 .card-cta {
   display: block; width: 100%; padding: 0.95rem;
   border-radius: 12px; font-size: 14.5px; font-weight: 600;
@@ -340,60 +287,31 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 .theme-digital .card-cta { background: linear-gradient(135deg, var(--purple), var(--purple2)); color: #fff; }
 .theme-faceless .card-cta { background: linear-gradient(135deg, var(--rose), var(--rose2)); color: #fff; }
 
-/* ── WHY APP SECTION ───────────────────────────────────── */
-.why-section {
-  padding: 5rem 1.5rem;
-  background: rgba(255,255,255,0.02);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
+.why-section { padding: 5rem 1.5rem; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
 .why-inner { max-width: 1100px; margin: 0 auto; }
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-.why-card {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px; padding: 1.75rem;
-  transition: border-color 0.2s;
-}
+.why-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.75rem; transition: border-color 0.2s; }
 .why-card:hover { border-color: rgba(232,98,26,0.3); }
 .why-icon { font-size: 2rem; margin-bottom: 1rem; }
 .why-card h4 { font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
 .why-card p { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.6; }
 
-/* ── FAQ ───────────────────────────────────────────────── */
 .faq-section { max-width: 720px; margin: 0 auto; padding: 6rem 1.5rem; }
 .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
-.faq-q {
-  font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.85);
-  cursor: pointer; display: flex; justify-content: space-between;
-  align-items: center; gap: 1rem; padding: 1.2rem 0; user-select: none;
-}
+.faq-q { font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.85); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 0; user-select: none; }
 .faq-arrow { color: rgba(255,255,255,0.25); font-size: 20px; transition: transform 0.2s; flex-shrink: 0; }
-.faq-a {
-  font-size: 13.5px; color: rgba(255,255,255,0.48); font-weight: 300;
-  line-height: 1.75; max-height: 0; overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.2s;
-}
+.faq-a { font-size: 13.5px; color: rgba(255,255,255,0.48); font-weight: 300; line-height: 1.75; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.2s; }
 .faq-item.open .faq-a { max-height: 250px; padding-bottom: 1.25rem; }
 .faq-item.open .faq-arrow { transform: rotate(45deg); }
 
-/* ── FOOTER ────────────────────────────────────────────── */
-.footer {
-  text-align: center; padding: 3rem 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.footer-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 700; color: var(--orange2);
-  margin-bottom: 0.75rem;
-}
+.footer { text-align: center; padding: 3rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--orange2); margin-bottom: 0.75rem; }
 .footer p { font-size: 12px; color: rgba(255,255,255,0.22); font-weight: 300; line-height: 1.9; }
 .footer strong { color: rgba(255,255,255,0.4); font-weight: 500; }
 
-/* ── ANIMATIONS ────────────────────────────────────────── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
 @keyframes pulse  { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.35;transform:scale(0.65);} }
 
-/* ── RESPONSIVE ────────────────────────────────────────── */
 @media (max-width: 800px) {
   .programs-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr 1fr; }
@@ -406,14 +324,7 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   .lang-bar { padding: 10px 1rem; }
   .card-body { padding: 1.5rem; }
 }
-/* Driven-result callout */
-.driven-box {
-  display: flex; align-items: flex-start; gap: 10px;
-  background: rgba(201,168,76,0.06);
-  border: 1px solid rgba(201,168,76,0.2);
-  border-left: 3px solid var(--gold);
-  border-radius: 10px; padding: 12px 14px; margin-bottom: 1.25rem;
-}
+.driven-box { display: flex; align-items: flex-start; gap: 10px; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold); border-radius: 10px; padding: 12px 14px; margin-bottom: 1.25rem; }
 .driven-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
 .driven-box p { color: rgba(255,255,255,0.6); line-height: 1.55; margin: 0; font-size: 12px; font-weight: 300; }
 .driven-box strong { color: var(--gold); display: block; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; font-weight: 700; }
@@ -422,7 +333,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
 
 <body class="lang-ht">
 
-<!-- LANG BAR -->
 <div class="lang-bar">
   <div class="lang-bar-brand">EP Akademi</div>
   <div class="lang-toggle">
@@ -431,34 +341,24 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   </div>
 </div>
 
-<!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-orb orb-1"></div>
   <div class="hero-orb orb-2"></div>
-
   <div class="hero-eyebrow">
     <span class="dot-live"></span>
     <span data-lang="ht">Enskri Kounye a — Aksè Via App Mobil</span>
     <span data-lang="en">Enroll Now — Access Via Mobile App</span>
   </div>
-
   <h1 data-lang="ht">Chwazi<br>Pwogram <em>Ou</em></h1>
   <h1 data-lang="en">Choose<br>Your <em>Program</em></h1>
-
-  <p class="hero-sub" data-lang="ht">
-    Kat pwogram espesyalize + yon chalènj gratis. Aprann nan Kreyòl Ayisyen, aksede tout kontni ou nan aplikasyon EP Akademi a.
-  </p>
-  <p class="hero-sub" data-lang="en">
-    Four specialized programs + a free challenge. Learn in Haitian Creole, access all your content through the EP Akademi mobile app.
-  </p>
-
+  <p class="hero-sub" data-lang="ht">Kat pwogram espesyalize + yon chalènj gratis. Aprann nan Kreyòl Ayisyen, aksede tout kontni ou nan aplikasyon EP Akademi a.</p>
+  <p class="hero-sub" data-lang="en">Four specialized programs + a free challenge. Learn in Haitian Creole, access all your content through the EP Akademi mobile app.</p>
   <div class="hero-app-badge">
     <span class="app-icon">📱</span>
     <span data-lang="ht"><strong>EP Akademi App</strong> — iOS ak Android · Aprann kote ou ye a</span>
     <span data-lang="en"><strong>EP Akademi App</strong> — iOS & Android · Learn anywhere</span>
   </div>
-
   <div class="hero-scroll">
     <div class="scroll-line"></div>
     <span data-lang="ht">Dekouvri</span>
@@ -466,7 +366,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   </div>
 </section>
 
-<!-- ═══════════════════ 30-DAY CHALLENGE ═══════════════════ -->
 <div class="challenge-section" style="padding-top: 5rem;">
   <div class="challenge-card">
     <div class="challenge-num">30<span data-lang="ht">Jou</span><span data-lang="en">Days</span></div>
@@ -484,14 +383,11 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   </div>
 </div>
 
-<!-- ═══════════════════ PROGRAMS ═══════════════════ -->
 <section class="section-wrap">
   <p class="section-eyebrow" data-lang="ht">Kat Pwogram</p>
   <p class="section-eyebrow" data-lang="en">Four Programs</p>
-
   <h2 class="section-heading" data-lang="ht">Chwazi <em>Chemen Ou</em></h2>
   <h2 class="section-heading" data-lang="en">Choose <em>Your Path</em></h2>
-
   <p class="section-sub" data-lang="ht">Chak pwogram ba ou yon wout klè pou bati revni anliy — depi zewo, an Kreyòl, nan app ou.</p>
   <p class="section-sub" data-lang="en">Each program gives you a clear path to building online income — from scratch, in Creole, in your app.</p>
 
@@ -502,25 +398,32 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <div class="card-bar"></div>
       <div class="card-body">
         <div class="card-pill">📦 Amazon FBA</div>
-
         <h3 class="card-title" data-lang="ht">Amazon Roadmap<br>pou Debutan</h3>
         <h3 class="card-title" data-lang="en">Amazon Roadmap<br>for Beginners</h3>
-
         <p class="card-desc" data-lang="ht">Pwogram 3 mwa nan klas prive ak akonpayman dirèk — metòd Replenishment, Keepa, ak estrateji rezilta reyèl.</p>
         <p class="card-desc" data-lang="en">3-month private coaching program with direct support — Replenishment method, Keepa, and real-results strategy.</p>
 
+        <!-- PRIX: 2 opsyon peman -->
         <div class="card-price-row">
-          <span class="card-price" style="font-size:2rem;">$697</span>
-          <span style="font-size:0.9rem; color:rgba(255,255,255,0.4); align-self:center;">/mwa</span>
+          <span class="card-price" style="font-size:2rem;">$999</span>
+          <span style="font-size:0.9rem; color:rgba(255,255,255,0.4); align-self:center;">.99/mwa</span>
         </div>
-        <p class="card-price-note" data-lang="ht">3 peman · $2,091 total · Klas prive gwoup</p>
-        <p class="card-price-note" data-lang="en">3 payments · $2,091 total · Private group coaching</p>
+        <p class="card-price-note" data-lang="ht">3 peman · $2,997 total · Klas prive gwoup</p>
+        <p class="card-price-note" data-lang="en">3 payments · $2,997 total · Private group coaching</p>
+
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(232,98,26,0.08);border:1px solid rgba(232,98,26,0.2);border-radius:10px;padding:11px 14px;margin-bottom:1.4rem;">
+          <span style="font-size:1.1rem;">💡</span>
+          <div>
+            <p data-lang="ht" style="font-size:11.5px;color:rgba(255,255,255,0.85);font-weight:600;margin:0;">Opsyon Peman Yon Sèl Fwa — <span style="color:var(--orange2)">$2,499.99</span></p>
+            <p data-lang="en" style="font-size:11.5px;color:rgba(255,255,255,0.85);font-weight:600;margin:0;">One-Time Payment Option — <span style="color:var(--orange2)">$2,499.99</span></p>
+            <p data-lang="ht" style="font-size:10.5px;color:rgba(255,255,255,0.4);margin:2px 0 0;font-weight:300;">Ekonomize $497 — peman konplè, aksè imedyat</p>
+            <p data-lang="en" style="font-size:10.5px;color:rgba(255,255,255,0.4);margin:2px 0 0;font-weight:300;">Save $497 — full payment, immediate access</p>
+          </div>
+        </div>
 
         <hr class="card-divider">
-
         <p class="includes-label" data-lang="ht">Sa ou resevwa — 3 mwa</p>
         <p class="includes-label" data-lang="en">What's included — 3 months</p>
-
         <ul class="includes-list" data-lang="ht">
           <li><span class="check">✓</span>Metòd Replenishment — vann pwodwi ki deja pwove</li>
           <li><span class="check">✓</span>Maîtrise Keepa pou analiz done mache</li>
@@ -537,18 +440,8 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
           <li><span class="check">✓</span>Direct weekly coaching support</li>
           <li><span class="check">✓</span>Private Zoom sessions with your coach</li>
         </ul>
-
-        <div class="tags-row" data-lang="ht">
-          <span class="tag">Klas prive gwoup</span>
-          <span class="tag">3 mwa</span>
-          <span class="tag">Driven-result</span>
-        </div>
-        <div class="tags-row" data-lang="en">
-          <span class="tag">Private group class</span>
-          <span class="tag">3 months</span>
-          <span class="tag">Results-driven</span>
-        </div>
-
+        <div class="tags-row" data-lang="ht"><span class="tag">Klas prive gwoup</span><span class="tag">3 mwa</span><span class="tag">Driven-result</span></div>
+        <div class="tags-row" data-lang="en"><span class="tag">Private group class</span><span class="tag">3 months</span><span class="tag">Results-driven</span></div>
         <div class="app-delivery">
           <span class="app-delivery-icon">📱</span>
           <div class="app-delivery-text">
@@ -558,16 +451,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
-
         <div class="driven-box">
           <span class="driven-box-icon">🎯</span>
-          <div>
-            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
-            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
-            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
-          </div>
+          <div><p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+          <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+          <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p></div>
         </div>
-
         <div class="guarantee">
           <span style="font-size:1.3rem">🛡️</span>
           <div class="guarantee-text">
@@ -577,36 +466,32 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
           </div>
         </div>
-
-        <a href="#" class="card-cta" data-lang="ht">Kòmanse Amazon Roadmap →</a>
-        <a href="#" class="card-cta" data-lang="en">Start Amazon Roadmap →</a>
+        <a href="https://buy.stripe.com/5kQ00l9gy9yY74TgVVao80a" class="card-cta" data-lang="ht" style="margin-bottom:10px;">Peye yon Sèl Fwa — $2,499.99 →</a>
+        <a href="https://buy.stripe.com/5kQ00l9gy9yY74TgVVao80a" class="card-cta" data-lang="en" style="margin-bottom:10px;">Pay Once — $2,499.99 →</a>
+        <a href="https://buy.stripe.com/7sYcN73We6mMgFt0WXao80c" style="display:block;width:100%;padding:0.75rem;border-radius:12px;font-size:13.5px;font-weight:500;font-family:Outfit,sans-serif;text-align:center;cursor:pointer;border:1px solid rgba(232,98,26,0.4);background:transparent;color:var(--orange2);text-decoration:none;transition:0.2s;" data-lang="ht">Peman Mansyèl — 3 × $999.99 →</a>
+        <a href="https://buy.stripe.com/7sYcN73We6mMgFt0WXao80c" style="display:block;width:100%;padding:0.75rem;border-radius:12px;font-size:13.5px;font-weight:500;font-family:Outfit,sans-serif;text-align:center;cursor:pointer;border:1px solid rgba(232,98,26,0.4);background:transparent;color:var(--orange2);text-decoration:none;transition:0.2s;" data-lang="en">Monthly Payment — 3 × $999.99 →</a>
       </div>
     </div>
 
-    <!-- ── CANVA ── -->
+    <!-- ── CANVA ── PRIX KORIJE: $197 -->
     <div class="prog-card theme-canva">
       <div class="card-bar"></div>
       <div class="card-body">
         <div class="card-pill">🎨 Canva</div>
-
         <h3 class="card-title" data-lang="ht">Canva pou<br>Fè Lajan</h3>
         <h3 class="card-title" data-lang="en">Canva to<br>Make Money</h3>
-
         <p class="card-desc" data-lang="ht">Transfòme kreyativite ou an biznis nimerik pwofitab — menm si ou pa designer.</p>
         <p class="card-desc" data-lang="en">Turn your creativity into a profitable digital business — even with zero design experience.</p>
 
         <div class="card-price-row">
-          <span class="card-price">$99</span>
-          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.97</span>
+          <span class="card-price">$197</span>
         </div>
-        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
-        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
+        <p class="card-price-note" data-lang="ht">Peman yon sèl fwa · Klas prive gwoup · Driven-result</p>
+        <p class="card-price-note" data-lang="en">One-time payment · Private group class · Results-driven</p>
 
         <hr class="card-divider">
-
         <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
         <p class="includes-label" data-lang="en">What's included</p>
-
         <ul class="includes-list" data-lang="ht">
           <li><span class="check">✓</span>Konfigire Canva Pro (gratis oswa $0)</li>
           <li><span class="check">✓</span>5 tip pwodwi nimerik ki vann pi fasil</li>
@@ -623,18 +508,8 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
           <li><span class="check">✓</span>Free social media marketing strategy</li>
           <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
         </ul>
-
-        <div class="tags-row" data-lang="ht">
-          <span class="tag">Klas prive gwoup</span>
-          <span class="tag">Kapital: $0</span>
-          <span class="tag">Driven-result</span>
-        </div>
-        <div class="tags-row" data-lang="en">
-          <span class="tag">Private group class</span>
-          <span class="tag">Capital: $0</span>
-          <span class="tag">Results-driven</span>
-        </div>
-
+        <div class="tags-row" data-lang="ht"><span class="tag">Klas prive gwoup</span><span class="tag">Kapital: $0</span><span class="tag">Driven-result</span></div>
+        <div class="tags-row" data-lang="en"><span class="tag">Private group class</span><span class="tag">Capital: $0</span><span class="tag">Results-driven</span></div>
         <div class="app-delivery">
           <span class="app-delivery-icon">📱</span>
           <div class="app-delivery-text">
@@ -644,16 +519,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
-
         <div class="driven-box">
           <span class="driven-box-icon">🎯</span>
-          <div>
-            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
-            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
-            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
-          </div>
+          <div><p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+          <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+          <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p></div>
         </div>
-
         <div class="guarantee">
           <span style="font-size:1.3rem">🛡️</span>
           <div class="guarantee-text">
@@ -663,36 +534,30 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
           </div>
         </div>
-
         <a href="#" class="card-cta" data-lang="ht">Kòmanse Pwogram Canva →</a>
         <a href="#" class="card-cta" data-lang="en">Start Canva Program →</a>
       </div>
     </div>
 
-    <!-- ── DIGITAL PRODUCTS ── -->
+    <!-- ── DIGITAL PRODUCTS ── PRIX KORIJE: $497 -->
     <div class="prog-card theme-digital">
       <div class="card-bar"></div>
       <div class="card-body">
         <div class="card-pill">💻 Pwodwi Dijital</div>
-
         <h3 class="card-title" data-lang="ht">Kreye &amp; Vann<br>Pwodwi Dijital</h3>
         <h3 class="card-title" data-lang="en">Create &amp; Sell<br>Digital Products</h3>
-
         <p class="card-desc" data-lang="ht">Bati yon biznis anliy ak pwodwi dijital — ebooks, templates, kours, ak plis ankò.</p>
         <p class="card-desc" data-lang="en">Build an online business selling digital products — ebooks, templates, courses, and more.</p>
 
         <div class="card-price-row">
           <span class="card-price">$497</span>
-          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.99</span>
         </div>
-        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
-        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
+        <p class="card-price-note" data-lang="ht">Peman yon sèl fwa · Klas prive gwoup · Driven-result</p>
+        <p class="card-price-note" data-lang="en">One-time payment · Private group class · Results-driven</p>
 
         <hr class="card-divider">
-
         <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
         <p class="includes-label" data-lang="en">What's included</p>
-
         <ul class="includes-list" data-lang="ht">
           <li><span class="check">✓</span>Chwazi niche pwodwi dijital ou</li>
           <li><span class="check">✓</span>Kreye pwodwi ki vann: ebook, template, kours</li>
@@ -709,18 +574,8 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
           <li><span class="check">✓</span>Automate your product delivery</li>
           <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
         </ul>
-
-        <div class="tags-row" data-lang="ht">
-          <span class="tag">Klas prive gwoup</span>
-          <span class="tag">Kapital: $0</span>
-          <span class="tag">Driven-result</span>
-        </div>
-        <div class="tags-row" data-lang="en">
-          <span class="tag">Private group class</span>
-          <span class="tag">Capital: $0</span>
-          <span class="tag">Results-driven</span>
-        </div>
-
+        <div class="tags-row" data-lang="ht"><span class="tag">Klas prive gwoup</span><span class="tag">Kapital: $0</span><span class="tag">Driven-result</span></div>
+        <div class="tags-row" data-lang="en"><span class="tag">Private group class</span><span class="tag">Capital: $0</span><span class="tag">Results-driven</span></div>
         <div class="app-delivery">
           <span class="app-delivery-icon">📱</span>
           <div class="app-delivery-text">
@@ -730,16 +585,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
-
         <div class="driven-box">
           <span class="driven-box-icon">🎯</span>
-          <div>
-            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
-            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
-            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
-          </div>
+          <div><p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+          <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+          <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p></div>
         </div>
-
         <div class="guarantee">
           <span style="font-size:1.3rem">🛡️</span>
           <div class="guarantee-text">
@@ -749,36 +600,30 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
           </div>
         </div>
-
         <a href="#" class="card-cta" data-lang="ht">Kòmanse Pwodwi Dijital →</a>
         <a href="#" class="card-cta" data-lang="en">Start Digital Products →</a>
       </div>
     </div>
 
-    <!-- ── FACELESS MARKETING ── -->
+    <!-- ── FACELESS MARKETING ── PRIX KORIJE: $397 -->
     <div class="prog-card theme-faceless">
       <div class="card-bar"></div>
       <div class="card-body">
         <div class="card-pill">🎭 Faceless Marketing</div>
-
         <h3 class="card-title" data-lang="ht">Faceless Marketing<br>pou Vann Anliy</h3>
         <h3 class="card-title" data-lang="en">Faceless Marketing<br>to Sell Online</h3>
-
         <p class="card-desc" data-lang="ht">Bati yon branch anliy pwisan san parèt nan kamera — kontni, otomatizasyon, ak vant.</p>
         <p class="card-desc" data-lang="en">Build a powerful online brand without showing your face — content, automation, and sales.</p>
 
         <div class="card-price-row">
-          <span class="card-price">$399</span>
-          <span style="font-size:1rem; color:rgba(255,255,255,0.4); align-self:center;">.99</span>
+          <span class="card-price">$397</span>
         </div>
-        <p class="card-price-note" data-lang="ht">Klas prive gwoup · Akonpayman dirèk · Driven-result</p>
-        <p class="card-price-note" data-lang="en">Private group class · Direct support · Results-driven</p>
+        <p class="card-price-note" data-lang="ht">Peman yon sèl fwa · Klas prive gwoup · Driven-result</p>
+        <p class="card-price-note" data-lang="en">One-time payment · Private group class · Results-driven</p>
 
         <hr class="card-divider">
-
         <p class="includes-label" data-lang="ht">Sa ou resevwa</p>
         <p class="includes-label" data-lang="en">What's included</p>
-
         <ul class="includes-list" data-lang="ht">
           <li><span class="check">✓</span>Kreye kont faceless sou TikTok, Instagram, YouTube</li>
           <li><span class="check">✓</span>Estrateji kontni ki atire kliyan otomatikman</li>
@@ -795,18 +640,8 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
           <li><span class="check">✓</span>Monetize: affiliate, products, services</li>
           <li><span class="check">✓</span>Private Zoom sessions + direct coaching support</li>
         </ul>
-
-        <div class="tags-row" data-lang="ht">
-          <span class="tag">Klas prive gwoup</span>
-          <span class="tag">San kamera</span>
-          <span class="tag">Driven-result</span>
-        </div>
-        <div class="tags-row" data-lang="en">
-          <span class="tag">Private group class</span>
-          <span class="tag">No camera needed</span>
-          <span class="tag">Results-driven</span>
-        </div>
-
+        <div class="tags-row" data-lang="ht"><span class="tag">Klas prive gwoup</span><span class="tag">San kamera</span><span class="tag">Driven-result</span></div>
+        <div class="tags-row" data-lang="en"><span class="tag">Private group class</span><span class="tag">No camera needed</span><span class="tag">Results-driven</span></div>
         <div class="app-delivery">
           <span class="app-delivery-icon">📱</span>
           <div class="app-delivery-text">
@@ -816,16 +651,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">iOS & Android · Learn at your own pace</span>
           </div>
         </div>
-
         <div class="driven-box">
           <span class="driven-box-icon">🎯</span>
-          <div>
-            <p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
-            <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
-            <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p>
-          </div>
+          <div><p><strong data-lang="ht">Pa sèlman gade videyo</strong><strong data-lang="en">Not just watching videos</strong>
+          <span data-lang="ht">Klas prive ak akonpayman dirèk — nou travay avèk ou jouk ou wè rezilta reyèl.</span>
+          <span data-lang="en">Private coaching with direct support — we work with you until you see real results.</span></p></div>
         </div>
-
         <div class="guarantee">
           <span style="font-size:1.3rem">🛡️</span>
           <div class="guarantee-text">
@@ -835,7 +666,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
             <span data-lang="en">Full refund if not satisfied — no questions asked.</span>
           </div>
         </div>
-
         <a href="#" class="card-cta" data-lang="ht">Kòmanse Faceless Marketing →</a>
         <a href="#" class="card-cta" data-lang="en">Start Faceless Marketing →</a>
       </div>
@@ -844,15 +674,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   </div>
 </section>
 
-<!-- ═══════════════════ WHY APP ═══════════════════ -->
 <section class="why-section">
   <div class="why-inner">
     <p class="section-eyebrow" data-lang="ht">Poukisa App la</p>
     <p class="section-eyebrow" data-lang="en">Why the App</p>
-
     <h2 class="section-heading" data-lang="ht">Tout Nan <em>Yon Sèl Kote</em></h2>
     <h2 class="section-heading" data-lang="en">Everything In <em>One Place</em></h2>
-
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon">📱</div>
@@ -879,16 +706,12 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
   </div>
 </section>
 
-<!-- ═══════════════════ FAQ ═══════════════════ -->
 <section class="faq-section">
   <p class="section-eyebrow" data-lang="ht">Kesyon Frekant</p>
   <p class="section-eyebrow" data-lang="en">FAQ</p>
-
   <h2 class="section-heading" data-lang="ht">Ou Gen <em>Kesyon?</em></h2>
   <h2 class="section-heading" data-lang="en">Have <em>Questions?</em></h2>
-
   <div style="margin-top: 2.5rem;">
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span data-lang="ht">Kòman mwen aksede pwogram nan apre mwen peye?</span>
@@ -898,7 +721,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <p class="faq-a" data-lang="ht">Ou resevwa yon imèl ak enfòmasyon koneksyon ou nan 24 èdtan. Telechaje aplikasyon EP Akademi sou iOS oswa Android, konekte, epi tout kontni pwogram ou ap disponib imedyatman.</p>
       <p class="faq-a" data-lang="en">You'll receive a login email within 24 hours. Download the EP Akademi app on iOS or Android, log in, and all your program content will be immediately available.</p>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span data-lang="ht">Eske mwen bezwen eksperyans pou kòmanse?</span>
@@ -908,7 +730,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <p class="faq-a" data-lang="ht">Non — tout pwogram nou yo fèt pou debutan konplè. Nou kòmanse depi baz la epi pwogrese etap pa etap.</p>
       <p class="faq-a" data-lang="en">No — all our programs are built for complete beginners. We start from the basics and progress step by step.</p>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span data-lang="ht">Eske mwen ka enskri nan plis pase yon pwogram?</span>
@@ -918,7 +739,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <p class="faq-a" data-lang="ht">Wi — ou ka enskri nan plizyè pwogram ak menm kont EP Akademi ou a. Tout kontni ou ap nan app la, òganize pa pwogram.</p>
       <p class="faq-a" data-lang="en">Yes — you can enroll in multiple programs with the same EP Akademi account. All your content will be in the app, organized by program.</p>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span data-lang="ht">Kisa garanti 7 jou a vle di?</span>
@@ -928,7 +748,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <p class="faq-a" data-lang="ht">Si ou achte epi ou pa satisfè pou nenpòt rezon nan 7 premye jou yo, voye nou yon imèl epi nou va ranbouse ou 100% — san kesyon, san atant.</p>
       <p class="faq-a" data-lang="en">If you purchase and are unsatisfied for any reason within the first 7 days, email us and we'll refund you 100% — no questions asked, no waiting period.</p>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span data-lang="ht">Ki lang pwogram yo ye?</span>
@@ -938,11 +757,9 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
       <p class="faq-a" data-lang="ht">Tout pwogram nou yo ansèye nan Kreyòl Ayisyen — pou Ayisyen yo ka aprann biznis anliy nan lang yo konprann pi byen an.</p>
       <p class="faq-a" data-lang="en">All programs are taught in Haitian Creole — so Haitian entrepreneurs can learn online business in the language they understand best.</p>
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer class="footer">
   <div class="footer-brand">EP Akademi</div>
   <p data-lang="ht">
@@ -964,7 +781,6 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   }
-
   function toggleFaq(el) {
     const item = el.parentElement;
     const isOpen = item.classList.contains('open');
@@ -972,6 +788,5 @@ body.lang-en a[data-lang="en"]     { display: block  !important; }
     if (!isOpen) item.classList.add('open');
   }
 </script>
-
 </body>
 </html>
