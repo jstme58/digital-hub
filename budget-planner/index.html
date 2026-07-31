@@ -794,7 +794,7 @@ body::before {
     <div class="sec-body">
       <div class="sec-body-inner">
         <div class="field">
-          <label class="field-label"><span data-i18n="primary_income">Primary Income</span></label>
+          <label class="field-label" for="income-primary"><span data-i18n="primary_income">Primary Income</span></label>
           <div class="income-row">
             <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-primary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
             <select class="freq-select" id="income-primary-freq" onchange="calculate()">
@@ -806,7 +806,7 @@ body::before {
           </div>
         </div>
         <div class="field">
-          <label class="field-label"><span data-i18n="secondary_income">Secondary Income</span></label>
+          <label class="field-label" for="income-secondary"><span data-i18n="secondary_income">Secondary Income</span></label>
           <div class="income-row">
             <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-secondary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
             <select class="freq-select" id="income-secondary-freq" onchange="calculate()">
@@ -818,7 +818,7 @@ body::before {
           </div>
         </div>
         <div class="field">
-          <label class="field-label"><span data-i18n="other_income">Other Income</span></label>
+          <label class="field-label" for="income-other"><span data-i18n="other_income">Other Income</span></label>
           <div class="income-row">
             <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-other" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
             <select class="freq-select" id="income-other-freq" onchange="calculate()">
@@ -853,9 +853,9 @@ body::before {
     </div>
     <div class="sec-body">
       <div class="sec-body-inner">
-        <div class="field"><label class="field-label"><span data-i18n="rent">Rent / Mortgage</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-rent" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="utilities">Utilities</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-utilities" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="internet">Internet</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-internet" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="housing-rent"><span data-i18n="rent">Rent / Mortgage</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-rent" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="housing-utilities"><span data-i18n="utilities">Utilities</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-utilities" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="housing-internet"><span data-i18n="internet">Internet</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-internet" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
       </div>
     </div>
   </div>
@@ -875,8 +875,8 @@ body::before {
     </div>
     <div class="sec-body">
       <div class="sec-body-inner">
-        <div class="field"><label class="field-label"><span data-i18n="groceries">Groceries</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-groceries" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="dining_out">Dining Out</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-dining" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="food-groceries"><span data-i18n="groceries">Groceries</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-groceries" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="food-dining"><span data-i18n="dining_out">Dining Out</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-dining" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
       </div>
     </div>
   </div>
@@ -896,9 +896,9 @@ body::before {
     </div>
     <div class="sec-body">
       <div class="sec-body-inner">
-        <div class="field"><label class="field-label"><span data-i18n="car_payment">Car Payment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-car" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="gas">Gas</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-gas" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="insurance">Insurance</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-insurance" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="trans-car"><span data-i18n="car_payment">Car Payment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-car" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="trans-gas"><span data-i18n="gas">Gas</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-gas" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="trans-insurance"><span data-i18n="insurance">Insurance</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-insurance" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
       </div>
     </div>
   </div>
@@ -918,10 +918,10 @@ body::before {
     </div>
     <div class="sec-body">
       <div class="sec-body-inner">
-        <div class="field"><label class="field-label"><span data-i18n="childcare">Childcare</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-childcare" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="school">School / Education</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-school" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="clothing">Clothing</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-clothing" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="entertainment">Entertainment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-entertainment" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="family-childcare"><span data-i18n="childcare">Childcare</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-childcare" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="family-school"><span data-i18n="school">School / Education</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-school" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="family-clothing"><span data-i18n="clothing">Clothing</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-clothing" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="family-entertainment"><span data-i18n="entertainment">Entertainment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-entertainment" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
       </div>
     </div>
   </div>
@@ -941,9 +941,9 @@ body::before {
     </div>
     <div class="sec-body">
       <div class="sec-body-inner">
-        <div class="field"><label class="field-label"><span data-i18n="savings">Savings</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-savings" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="debt_payments">Debt Payments</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-debt" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
-        <div class="field"><label class="field-label"><span data-i18n="emergency_fund">Emergency Fund</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-emergency" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="goal-savings"><span data-i18n="savings">Savings</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-savings" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="goal-debt"><span data-i18n="debt_payments">Debt Payments</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-debt" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div class="field"><label class="field-label" for="goal-emergency"><span data-i18n="emergency_fund">Emergency Fund</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-emergency" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
       </div>
     </div>
   </div>
@@ -1185,7 +1185,7 @@ const SEC_INPUTS={
 
 let lang='en', currency='USD', dismissed=new Set(), activeSection='sec-income';
 
-function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function v(id){return Math.max(0,parseFloat(document.getElementById(id).value)||0);}
 
 // ── INCOME PAY-FREQUENCY ────────────────────────────────────────
 const INCOME_FREQ_MULT={monthly:1,weekly:52/12,biweekly:26/12,semimonthly:2};
