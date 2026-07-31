@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Family Budget Planner — E Pelissier Enterprise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -439,6 +440,23 @@ body::before {
   background: rgba(45,212,191,0.04);
   box-shadow: 0 0 0 3px rgba(45,212,191,0.1);
 }
+.income-row { display: flex; gap: 8px; align-items: stretch; }
+.income-row .input-wrap { flex: 1; min-width: 0; }
+.freq-select {
+  flex-shrink: 0; max-width: 106px;
+  height: 50px; padding: 0 8px;
+  font-size: 11px; font-family: var(--font-body); font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px; outline: none; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.freq-select:hover { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); }
+.freq-select:focus { border-color: rgba(45,212,191,0.5); background: rgba(45,212,191,0.04); }
+.freq-select option { background: var(--navy-2); color: var(--text-primary); }
+.income-freq-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; display: none; }
+.income-freq-note.show { display: block; }
 .section-total {
   display: flex; justify-content: space-between; align-items: center;
   margin-top: 18px; padding-top: 16px;
@@ -777,20 +795,45 @@ body::before {
       <div class="sec-body-inner">
         <div class="field">
           <label class="field-label"><span data-i18n="primary_income">Primary Income</span></label>
-          <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-primary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+          <div class="income-row">
+            <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-primary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+            <select class="freq-select" id="income-primary-freq" onchange="calculate()">
+              <option value="monthly" data-i18n="freq_monthly">Monthly</option>
+              <option value="weekly" data-i18n="freq_weekly">Weekly</option>
+              <option value="biweekly" data-i18n="freq_biweekly">Biweekly</option>
+              <option value="semimonthly" data-i18n="freq_semimonthly">Semi-monthly</option>
+            </select>
+          </div>
         </div>
         <div class="field">
           <label class="field-label"><span data-i18n="secondary_income">Secondary Income</span></label>
-          <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-secondary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+          <div class="income-row">
+            <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-secondary" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+            <select class="freq-select" id="income-secondary-freq" onchange="calculate()">
+              <option value="monthly" data-i18n="freq_monthly">Monthly</option>
+              <option value="weekly" data-i18n="freq_weekly">Weekly</option>
+              <option value="biweekly" data-i18n="freq_biweekly">Biweekly</option>
+              <option value="semimonthly" data-i18n="freq_semimonthly">Semi-monthly</option>
+            </select>
+          </div>
         </div>
         <div class="field">
           <label class="field-label"><span data-i18n="other_income">Other Income</span></label>
-          <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-other" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+          <div class="income-row">
+            <div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="income-other" placeholder="0" min="0" step="0.01" oninput="calculate()"></div>
+            <select class="freq-select" id="income-other-freq" onchange="calculate()">
+              <option value="monthly" data-i18n="freq_monthly">Monthly</option>
+              <option value="weekly" data-i18n="freq_weekly">Weekly</option>
+              <option value="biweekly" data-i18n="freq_biweekly">Biweekly</option>
+              <option value="semimonthly" data-i18n="freq_semimonthly">Semi-monthly</option>
+            </select>
+          </div>
         </div>
         <div class="section-total">
           <span class="section-total-label" data-i18n="total_income">Total Income</span>
           <span class="section-total-val" id="total-income">$0.00</span>
         </div>
+        <div class="income-freq-note" id="income-freq-note" data-i18n="income_freq_note">Total Income shown is a monthly equivalent — non-monthly pay frequencies are converted automatically.</div>
       </div>
     </div>
   </div>
@@ -988,6 +1031,8 @@ const T = {
     housing:"Housing",food:"Food",transport:"Transport",family:"Family",savings:"Savings",
     s_income:"Household Income",primary_income:"Primary Income",secondary_income:"Secondary Income",
     other_income:"Other Income",
+    freq_monthly:"Monthly",freq_weekly:"Weekly",freq_biweekly:"Biweekly",freq_semimonthly:"Semi-monthly",
+    income_freq_note:"Total Income shown is a monthly equivalent — non-monthly pay frequencies are converted automatically.",
     s_housing:"Housing",rent:"Rent / Mortgage",utilities:"Utilities",internet:"Internet",
     s_food:"Food",groceries:"Groceries",dining_out:"Dining Out",
     s_transport:"Transportation",car_payment:"Car Payment",gas:"Gas",insurance:"Insurance",
@@ -1023,6 +1068,8 @@ const T = {
     housing:"Logement",food:"Alimentation",transport:"Transport",family:"Famille",savings:"Épargne",
     s_income:"Revenus du Foyer",primary_income:"Revenu Principal",secondary_income:"Revenu Secondaire",
     other_income:"Autres Revenus",
+    freq_monthly:"Mensuel",freq_weekly:"Hebdomadaire",freq_biweekly:"Bihebdomadaire",freq_semimonthly:"Bimensuel",
+    income_freq_note:"Le Revenu Total affiché est un équivalent mensuel — les fréquences de paie non mensuelles sont converties automatiquement.",
     s_housing:"Logement",rent:"Loyer / Hypothèque",utilities:"Services Publics",internet:"Internet",
     s_food:"Alimentation",groceries:"Courses",dining_out:"Restaurants",
     s_transport:"Transport",car_payment:"Paiement Voiture",gas:"Carburant",insurance:"Assurance",
@@ -1058,6 +1105,8 @@ const T = {
     housing:"Vivienda",food:"Alimentación",transport:"Transporte",family:"Familia",savings:"Ahorros",
     s_income:"Ingresos del Hogar",primary_income:"Ingreso Principal",secondary_income:"Ingreso Secundario",
     other_income:"Otros Ingresos",
+    freq_monthly:"Mensual",freq_weekly:"Semanal",freq_biweekly:"Quincenal",freq_semimonthly:"Bimensual",
+    income_freq_note:"El Ingreso Total mostrado es un equivalente mensual — las frecuencias de pago no mensuales se convierten automáticamente.",
     s_housing:"Vivienda",rent:"Alquiler / Hipoteca",utilities:"Servicios Públicos",internet:"Internet",
     s_food:"Alimentación",groceries:"Supermercado",dining_out:"Restaurantes",
     s_transport:"Transporte",car_payment:"Pago del Auto",gas:"Gasolina",insurance:"Seguro",
@@ -1093,6 +1142,8 @@ const T = {
     housing:"Moradia",food:"Alimentação",transport:"Transporte",family:"Família",savings:"Poupança",
     s_income:"Renda do Lar",primary_income:"Renda Principal",secondary_income:"Renda Secundária",
     other_income:"Outras Rendas",
+    freq_monthly:"Mensal",freq_weekly:"Semanal",freq_biweekly:"Quinzenal",freq_semimonthly:"Bimensal",
+    income_freq_note:"A Renda Total exibida é um equivalente mensal — frequências de pagamento não mensais são convertidas automaticamente.",
     s_housing:"Moradia",rent:"Aluguel / Hipoteca",utilities:"Serviços Públicos",internet:"Internet",
     s_food:"Alimentação",groceries:"Supermercado",dining_out:"Restaurantes",
     s_transport:"Transporte",car_payment:"Parcela do Carro",gas:"Combustível",insurance:"Seguro",
@@ -1135,6 +1186,11 @@ const SEC_INPUTS={
 let lang='en', currency='USD', dismissed=new Set(), activeSection='sec-income';
 
 function v(id){return parseFloat(document.getElementById(id).value)||0;}
+
+// ── INCOME PAY-FREQUENCY ────────────────────────────────────────
+const INCOME_FREQ_MULT={monthly:1,weekly:52/12,biweekly:26/12,semimonthly:2};
+function incomeFreq(id){const el=document.getElementById(id+'-freq');return el?el.value:'monthly';}
+function incomeMonthly(id){return v(id)*INCOME_FREQ_MULT[incomeFreq(id)];}
 function sym(){return CURRENCIES[currency].symbol;}
 function fmt(n,decimals=0){const c=CURRENCIES[currency];return(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:decimals,maximumFractionDigits:decimals});}
 function t(k){return T[lang][k]||T.en[k]||k;}
@@ -1300,7 +1356,10 @@ function dismissWin(id){
 }
 
 function calculate(){
-  const income=v('income-primary')+v('income-secondary')+v('income-other');
+  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other');
+  const anyNonMonthlyIncome=['income-primary','income-secondary','income-other'].some(id=>incomeFreq(id)!=='monthly');
+  const freqNote=document.getElementById('income-freq-note');
+  if(freqNote)freqNote.classList.toggle('show',anyNonMonthlyIncome);
   const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet');
   const food=v('food-groceries')+v('food-dining');
   const transport=v('trans-car')+v('trans-gas')+v('trans-insurance');
@@ -1369,12 +1428,13 @@ function calculate(){
     ep_food_monthly:food,ep_food_weekly:+(food/4.33).toFixed(2),
     ep_savings_rate:+savingsRate.toFixed(1),ep_currency:currency,ep_lang:lang});
   // save all field values
-  ['income-primary','income-secondary','income-other','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'].forEach(id=>{const el=document.getElementById(id);if(el)ssWrite({['bp_'+id]:el.value});});
+  ['income-primary','income-secondary','income-other','income-primary-freq','income-secondary-freq','income-other-freq','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'].forEach(id=>{const el=document.getElementById(id);if(el)ssWrite({['bp_'+id]:el.value});});
 
 }
 
 function resetAll(){
   document.querySelectorAll('input[type="number"]').forEach(i=>i.value='');
+  document.querySelectorAll('.freq-select').forEach(s=>s.value='monthly');
   dismissed.clear();activeSection='sec-income';Object.keys(prevVals).forEach(k=>delete prevVals[k]);
   SS.clear();
   calculate();
@@ -1389,7 +1449,7 @@ function loadFromStore(){
   const s=SS.get();
   if(s.ep_lang){document.getElementById('lang-select').value=s.ep_lang;setLang(s.ep_lang);}
   if(s.ep_currency){document.getElementById('currency-select').value=s.ep_currency;setCurrency(s.ep_currency);}
-  const fields=['income-primary','income-secondary','income-other','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'];
+  const fields=['income-primary','income-secondary','income-other','income-primary-freq','income-secondary-freq','income-other-freq','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'];
   fields.forEach(id=>{if(s['bp_'+id]!==undefined){const el=document.getElementById(id);if(el)el.value=s['bp_'+id];}});
 }
 
@@ -1434,7 +1494,7 @@ function showDownloadModal(){
 }
 
 function downloadReport(isSample=false){
-  const income=v('income-primary')+v('income-secondary')+v('income-other');
+  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other');
   const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet');
   const food=v('food-groceries')+v('food-dining');
   const transport=v('trans-car')+v('trans-gas')+v('trans-insurance');
@@ -1448,10 +1508,11 @@ function downloadReport(isSample=false){
   const sym=CURRENCIES[currency].symbol;
   const f=(n)=>sym+Math.abs(n).toLocaleString(CURRENCIES[currency].locale,{minimumFractionDigits:2,maximumFractionDigits:2});
 
+  const freqLabel={monthly:'',weekly:' (Weekly → Monthly)',biweekly:' (Biweekly → Monthly)',semimonthly:' (Semi-monthly → Monthly)'};
   const rows=[
-    ['Primary Income',v('income-primary')],
-    ['Secondary Income',v('income-secondary')],
-    ['Other Income',v('income-other')],
+    ['Primary Income'+freqLabel[incomeFreq('income-primary')],incomeMonthly('income-primary')],
+    ['Secondary Income'+freqLabel[incomeFreq('income-secondary')],incomeMonthly('income-secondary')],
+    ['Other Income'+freqLabel[incomeFreq('income-other')],incomeMonthly('income-other')],
   ].filter(r=>r[1]>0);
   const expRows=[
     ['Rent / Mortgage',v('housing-rent')],['Utilities',v('housing-utilities')],['Internet',v('housing-internet')],
