@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Financial Freedom Suite — E Pelissier Enterprise</title>
 <meta name="description" content="One complete system to budget smarter, reduce debt, plan meals, and build lasting financial confidence. Available in 4 languages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -41,6 +42,10 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
 .logo-tag{font-size:8px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;display:block;white-space:nowrap;}
 .nav-links{display:none;}
 .nav-cta-mobile{display:inline-flex;align-items:center;background:linear-gradient(135deg,var(--teal),var(--dark-teal));color:#fff;font-family:var(--font-body);font-size:12px;font-weight:700;padding:9px 16px;border-radius:99px;text-decoration:none;white-space:nowrap;}
+.nav-lang{display:flex;align-items:center;}
+.nav-lang select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-family:var(--font-body);font-size:11px;font-weight:600;padding:6px 8px;border-radius:6px;cursor:pointer;outline:none;}
+.nav-lang select:focus{border-color:var(--teal);}
+.nav-lang select option{background:var(--navy-2);color:#fff;}
 @media(min-width:768px){
   .navbar{padding:16px 32px;}
   .logo-mark{width:40px;height:40px;font-size:16px;}
@@ -216,7 +221,7 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
 .footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
 .footer-link{color:rgba(255,255,255,0.45);text-decoration:none;font-size:12px;transition:color 0.2s;}
 .footer-link:hover{color:var(--teal);}
-.footer-copy{font-size:11px;color:rgba(255,255,255,0.25);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.55);}
 .footer strong{color:var(--teal);font-weight:500;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -249,18 +254,26 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
     <div class="logo-mark">EP</div>
     <div>
       <span class="logo-name">E Pelissier Enterprise</span>
-      <span class="logo-tag">Financial Freedom Suite</span>
+      <span class="logo-tag" data-i18n="logo_tag">Financial Freedom Suite</span>
     </div>
   </a>
-  <div class="nav-links">
-    <a href="#problem" class="nav-link">Why It Works</a>
-    <a href="#whats-included" class="nav-link">What's Included</a>
-    <a href="#value" class="nav-link">Pricing</a>
-    <a href="#testimonials" class="nav-link">Reviews</a>
-    <a href="#demo" class="nav-link">Live Demo</a>
-    <a href="https://stan.store/EPelissierdigital" class="nav-link nav-cta">Get Instant Access →</a>
+  <div class="nav-lang">
+    <select id="lang-select" onchange="setLang(this.value)">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="pt">Português</option>
+    </select>
   </div>
-  <a href="https://stan.store/EPelissierdigital" class="nav-cta-mobile">Get Access →</a>
+  <div class="nav-links">
+    <a href="#problem" class="nav-link" data-i18n="nav_why">Why It Works</a>
+    <a href="#whats-included" class="nav-link" data-i18n="nav_included">What's Included</a>
+    <a href="#value" class="nav-link" data-i18n="nav_pricing">Pricing</a>
+    <a href="#testimonials" class="nav-link" data-i18n="nav_reviews">Reviews</a>
+    <a href="#demo" class="nav-link" data-i18n="nav_demo">Live Demo</a>
+    <a href="https://stan.store/EPelissierdigital" class="nav-link nav-cta" data-i18n="nav_cta">Get Instant Access →</a>
+  </div>
+  <a href="https://stan.store/EPelissierdigital" class="nav-cta-mobile" data-i18n="nav_cta_mobile">Get Access →</a>
 </nav>
 
 <!-- HERO -->
@@ -268,46 +281,46 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
   <div class="hero-glow-1"></div>
   <div class="hero-glow-2"></div>
   <div class="hero-inner">
-    <div class="hero-pill">🌎 Available in <span>English · Français · Español · Português</span></div>
+    <div class="hero-pill">🌎 <span data-i18n="hero_avail">Available in</span> <span>English · Français · Español · Português</span></div>
     <br>
-    <div class="hero-pill-2">✨ Complete Financial Wellness System</div>
-    <h1>Your <em>Financial Life,</em><br>All in One Place</h1>
-    <p class="hero-sub">Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete financial system.</p>
+    <div class="hero-pill-2">✨ <span data-i18n="hero_pill2">Complete Financial Wellness System</span></div>
+    <h1><span data-i18n="hero_h1_1">Your </span><em data-i18n="hero_h1_2">Financial Life,</em><br><span data-i18n="hero_h1_3">All in One Place</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete financial system.</p>
     <div class="hero-tools">
       <div class="hero-tool">
         <div class="hero-tool-icon">📊</div>
-        <div class="hero-tool-name">Budget Planner</div>
-        <div class="hero-tool-desc">Track income, expenses, and savings with confidence.</div>
+        <div class="hero-tool-name" data-i18n="tool_budget">Budget Planner</div>
+        <div class="hero-tool-desc" data-i18n="hero_budget_desc">Track income, expenses, and savings with confidence.</div>
       </div>
       <div class="hero-tool">
         <div class="hero-tool-icon">💳</div>
-        <div class="hero-tool-name">Debt Tracker</div>
-        <div class="hero-tool-desc">Create a clear strategy to eliminate debt faster.</div>
+        <div class="hero-tool-name" data-i18n="tool_debt">Debt Tracker</div>
+        <div class="hero-tool-desc" data-i18n="hero_debt_desc">Create a clear strategy to eliminate debt faster.</div>
       </div>
       <div class="hero-tool">
         <div class="hero-tool-icon">🥗</div>
-        <div class="hero-tool-name">Meal Planner</div>
-        <div class="hero-tool-desc">Reduce grocery spending and plan meals efficiently.</div>
+        <div class="hero-tool-name" data-i18n="tool_meal">Meal Planner</div>
+        <div class="hero-tool-desc" data-i18n="hero_meal_desc">Reduce grocery spending and plan meals efficiently.</div>
       </div>
       <div class="hero-tool">
         <div class="hero-tool-icon">❤️</div>
-        <div class="hero-tool-name">Financial Health Score</div>
-        <div class="hero-tool-desc">Measure your financial progress and stay on track.</div>
+        <div class="hero-tool-name" data-i18n="tool_health">Financial Health Score</div>
+        <div class="hero-tool-desc" data-i18n="hero_health_desc">Measure your financial progress and stay on track.</div>
       </div>
     </div>
     <div class="hero-cta-wrap" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 GET INSTANT ACCESS &nbsp;›</a>
-      <a href="#demo" style="display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,0.6);font-family:var(--font-body);font-size:13px;font-weight:500;text-decoration:none;padding:8px 20px;border-radius:99px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);transition:all 0.2s;" onmouseover="this.style.color='#2DD4BF';this.style.borderColor='rgba(45,212,191,0.4)'" onmouseout="this.style.color='rgba(255,255,255,0.6)';this.style.borderColor='rgba(255,255,255,0.15)'">▶ Try the free demo first</a>
+      <a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 <span data-i18n="cta_main">GET INSTANT ACCESS</span>&nbsp;›</a>
+      <a href="#demo" style="display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,0.6);font-family:var(--font-body);font-size:13px;font-weight:500;text-decoration:none;padding:8px 20px;border-radius:99px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);transition:all 0.2s;" onmouseover="this.style.color='#2DD4BF';this.style.borderColor='rgba(45,212,191,0.4)'" onmouseout="this.style.color='rgba(255,255,255,0.6)';this.style.borderColor='rgba(255,255,255,0.15)'">▶ <span data-i18n="hero_try_demo">Try the free demo first</span></a>
     </div>
     <div class="hero-trust">
-      <div class="trust-item">🛡️ Secure Payment</div>
-      <div class="trust-item">⚡ Instant Access</div>
-      <div class="trust-item">🔄 Lifetime Updates</div>
+      <div class="trust-item">🛡️ <span data-i18n="trust1">Secure Payment</span></div>
+      <div class="trust-item">⚡ <span data-i18n="trust2">Instant Access</span></div>
+      <div class="trust-item">🔄 <span data-i18n="trust3">Lifetime Updates</span></div>
     </div>
     <div class="hero-stars">
       <span class="stars-row">★★★★★</span>
       <span class="stars-score">4.8/5</span>
-      <span class="stars-label">Trusted by thousands of families worldwide</span>
+      <span class="stars-label" data-i18n="stars_label">Trusted by thousands of families worldwide</span>
     </div>
   </div>
   <div class="hero-divider"></div>
@@ -318,22 +331,22 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
   <div class="container">
     <div class="problem-inner">
       <div>
-        <span class="section-label">Sound Familiar?</span>
-        <h2 class="section-title">Are You Struggling<br>With Any of These?</h2>
+        <span class="section-label" data-i18n="problem_label">Sound Familiar?</span>
+        <h2 class="section-title"><span data-i18n="problem_title_1">Are You Struggling</span><br><span data-i18n="problem_title_2">With Any of These?</span></h2>
         <div class="teal-bar"></div>
         <ul class="problem-list">
-          <li class="problem-item"><div class="problem-icon">😰</div><div class="problem-text">Living paycheck to paycheck with nothing left to save</div></li>
-          <li class="problem-item"><div class="problem-icon">❓</div><div class="problem-text">Not knowing where your money actually goes each month</div></li>
-          <li class="problem-item"><div class="problem-icon">🎯</div><div class="problem-text">Struggling to save consistently and hit financial goals</div></li>
-          <li class="problem-item"><div class="problem-icon">💳</div><div class="problem-text">Feeling overwhelmed by debt that never seems to shrink</div></li>
-          <li class="problem-item"><div class="problem-icon">🛒</div><div class="problem-text">Spending too much on groceries without a clear plan</div></li>
+          <li class="problem-item"><div class="problem-icon">😰</div><div class="problem-text" data-i18n="problem_1">Living paycheck to paycheck with nothing left to save</div></li>
+          <li class="problem-item"><div class="problem-icon">❓</div><div class="problem-text" data-i18n="problem_2">Not knowing where your money actually goes each month</div></li>
+          <li class="problem-item"><div class="problem-icon">🎯</div><div class="problem-text" data-i18n="problem_3">Struggling to save consistently and hit financial goals</div></li>
+          <li class="problem-item"><div class="problem-icon">💳</div><div class="problem-text" data-i18n="problem_4">Feeling overwhelmed by debt that never seems to shrink</div></li>
+          <li class="problem-item"><div class="problem-icon">🛒</div><div class="problem-text" data-i18n="problem_5">Spending too much on groceries without a clear plan</div></li>
         </ul>
       </div>
       <div class="problem-visual">
-        <div class="pv-stat"><div class="pv-icon">📉</div><div><div class="pv-label">Average family without a budget</div><div class="pv-val">Wastes $500+/mo</div></div></div>
-        <div class="pv-stat"><div class="pv-icon">💸</div><div><div class="pv-label">Households with high-interest debt</div><div class="pv-val">Pay 3x more in interest</div></div></div>
-        <div class="pv-stat"><div class="pv-icon">🛒</div><div><div class="pv-label">Families without a meal plan</div><div class="pv-val">Overspend by $200/mo</div></div></div>
-        <div class="pv-stat"><div class="pv-icon">✅</div><div><div class="pv-label">Families with a complete system</div><div class="pv-val" style="color:var(--teal)">Save $340+/mo avg.</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">📉</div><div><div class="pv-label" data-i18n="pv_label1">Average family without a budget</div><div class="pv-val" data-i18n="pv_val1">Wastes $500+/mo</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">💸</div><div><div class="pv-label" data-i18n="pv_label2">Households with high-interest debt</div><div class="pv-val" data-i18n="pv_val2">Pay 3x more in interest</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">🛒</div><div><div class="pv-label" data-i18n="pv_label3">Families without a meal plan</div><div class="pv-val" data-i18n="pv_val3">Overspend by $200/mo</div></div></div>
+        <div class="pv-stat"><div class="pv-icon">✅</div><div><div class="pv-label" data-i18n="pv_label4">Families with a complete system</div><div class="pv-val" style="color:var(--teal)" data-i18n="pv_val4">Save $340+/mo avg.</div></div></div>
       </div>
     </div>
   </div>
@@ -342,33 +355,33 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
 <!-- SOLUTION -->
 <section class="solution-section" id="whats-included">
   <div class="container">
-    <div class="solution-badge">💎 The Solution</div>
-    <h2 class="section-title">Introducing The<br><em style="font-style:italic;background:linear-gradient(135deg,var(--teal),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Financial Freedom Suite</em></h2>
-    <p class="section-sub" style="max-width:540px;margin:12px auto 0;">One complete system to organize finances, reduce debt, save more, and gain financial confidence. All four tools work together seamlessly.</p>
+    <div class="solution-badge">💎 <span data-i18n="solution_badge">The Solution</span></div>
+    <h2 class="section-title"><span data-i18n="solution_title_1">Introducing The</span><br><em style="font-style:italic;background:linear-gradient(135deg,var(--teal),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" data-i18n="logo_tag">Financial Freedom Suite</em></h2>
+    <p class="section-sub" style="max-width:540px;margin:12px auto 0;" data-i18n="solution_sub">One complete system to organize finances, reduce debt, save more, and gain financial confidence. All four tools work together seamlessly.</p>
     <div class="teal-bar" style="margin:16px auto 0;"></div>
     <div class="solution-mockups">
       <div class="mockup-card" style="--mc-color:var(--teal)">
         <span class="mc-icon">📊</span>
-        <div class="mc-name">Budget Planner</div>
-        <div class="mc-desc">Track income, expenses, bills, and savings. See exactly where every dollar goes with a live dashboard.</div>
+        <div class="mc-name" data-i18n="tool_budget">Budget Planner</div>
+        <div class="mc-desc" data-i18n="mc_budget_desc">Track income, expenses, bills, and savings. See exactly where every dollar goes with a live dashboard.</div>
         <div class="mc-line" style="background:var(--teal);"></div>
       </div>
       <div class="mockup-card" style="--mc-color:var(--coral)">
         <span class="mc-icon">💳</span>
-        <div class="mc-name">Debt Tracker</div>
-        <div class="mc-desc">Create a clear debt payoff strategy with avalanche or snowball method. See your debt-free date.</div>
+        <div class="mc-name" data-i18n="tool_debt">Debt Tracker</div>
+        <div class="mc-desc" data-i18n="mc_debt_desc">Create a clear debt payoff strategy with avalanche or snowball method. See your debt-free date.</div>
         <div class="mc-line" style="background:var(--coral);"></div>
       </div>
       <div class="mockup-card" style="--mc-color:var(--green)">
         <span class="mc-icon">🥗</span>
-        <div class="mc-name">Meal Planner</div>
-        <div class="mc-desc">Reduce grocery spending by planning meals efficiently and auto-generating your weekly grocery list.</div>
+        <div class="mc-name" data-i18n="tool_meal">Meal Planner</div>
+        <div class="mc-desc" data-i18n="mc_meal_desc">Reduce grocery spending by planning meals efficiently and auto-generating your weekly grocery list.</div>
         <div class="mc-line" style="background:var(--green);"></div>
       </div>
       <div class="mockup-card" style="--mc-color:var(--gold)">
         <span class="mc-icon">❤️</span>
-        <div class="mc-name">Financial Health Score</div>
-        <div class="mc-desc">Measure your financial progress with a live 0–100 score across savings, debt, food, and expenses.</div>
+        <div class="mc-name" data-i18n="tool_health">Financial Health Score</div>
+        <div class="mc-desc" data-i18n="mc_health_desc">Measure your financial progress with a live 0–100 score across savings, debt, food, and expenses.</div>
         <div class="mc-line" style="background:var(--gold);"></div>
       </div>
     </div>
@@ -379,16 +392,16 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
 <!-- DEMO -->
 <section class="demo-section" id="demo">
   <div class="demo-inner">
-    <span class="section-label">Try Before You Buy</span>
-    <h2 class="section-title">See It Live — Right Here</h2>
-    <p class="section-sub" style="max-width:500px;margin:12px auto 0;">This is the actual tool. Enter your real numbers and watch it work instantly — no account needed.</p>
+    <span class="section-label" data-i18n="demo_label">Try Before You Buy</span>
+    <h2 class="section-title" data-i18n="demo_title">See It Live — Right Here</h2>
+    <p class="section-sub" style="max-width:500px;margin:12px auto 0;" data-i18n="demo_sub">This is the actual tool. Enter your real numbers and watch it work instantly — no account needed.</p>
     <div class="teal-bar"></div>
 
     <!-- Tool switcher tabs -->
     <div class="demo-tabs" style="margin-top:32px;">
-      <button class="demo-tab active" onclick="switchDemo('budget', this)">📊 Budget Planner</button>
-      <button class="demo-tab" onclick="switchDemo('debt', this)">💳 Debt Tracker</button>
-      <button class="demo-tab" onclick="switchDemo('meals', this)">🥗 Meal Planner</button>
+      <button class="demo-tab active" onclick="switchDemo('budget', this)">📊 <span data-i18n="tool_budget">Budget Planner</span></button>
+      <button class="demo-tab" onclick="switchDemo('debt', this)">💳 <span data-i18n="tool_debt">Debt Tracker</span></button>
+      <button class="demo-tab" onclick="switchDemo('meals', this)">🥗 <span data-i18n="tool_meal">Meal Planner</span></button>
     </div>
 
     <div class="demo-frame">
@@ -400,7 +413,7 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
       </div>
       <iframe class="demo-embed" id="demo-iframe" src="https://digital.epelissierenterprise.com/budget-planner/" title="Budget Planner Demo" loading="lazy"></iframe>
     </div>
-    <p class="demo-note">💡 Your data stays private — nothing is stored or sent anywhere.</p>
+    <p class="demo-note">💡 <span data-i18n="demo_note">Your data stays private — nothing is stored or sent anywhere.</span></p>
   </div>
 </section>
 
@@ -423,31 +436,31 @@ function switchDemo(tool, btn) {
 <section class="ba-section">
   <div class="container">
     <div style="text-align:center;margin-bottom:48px;">
-      <span class="section-label">The Transformation</span>
-      <h2 class="section-title">Before & After the Suite</h2>
+      <span class="section-label" data-i18n="ba_label">The Transformation</span>
+      <h2 class="section-title" data-i18n="ba_title">Before & After the Suite</h2>
       <div class="teal-bar" style="margin:16px auto 0;"></div>
     </div>
     <div class="ba-grid">
       <div class="ba-card before">
-        <div class="ba-label">😟 Before</div>
+        <div class="ba-label">😟 <span data-i18n="ba_before">Before</span></div>
         <ul class="ba-items">
-          <li class="ba-item"><div class="ba-dot">✗</div>Financial stress and anxiety every month</li>
-          <li class="ba-item"><div class="ba-dot">✗</div>Missed savings goals with no clear plan</li>
-          <li class="ba-item"><div class="ba-dot">✗</div>Debt growing with no payoff strategy</li>
-          <li class="ba-item"><div class="ba-dot">✗</div>Unorganized spending with no visibility</li>
-          <li class="ba-item"><div class="ba-dot">✗</div>Grocery overspend with no meal plan</li>
-          <li class="ba-item"><div class="ba-dot">✗</div>No idea of your actual financial health</li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b1">Financial stress and anxiety every month</span></li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b2">Missed savings goals with no clear plan</span></li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b3">Debt growing with no payoff strategy</span></li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b4">Unorganized spending with no visibility</span></li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b5">Grocery overspend with no meal plan</span></li>
+          <li class="ba-item"><div class="ba-dot">✗</div><span data-i18n="ba_b6">No idea of your actual financial health</span></li>
         </ul>
       </div>
       <div class="ba-card after">
-        <div class="ba-label">✨ After</div>
+        <div class="ba-label">✨ <span data-i18n="ba_after">After</span></div>
         <ul class="ba-items">
-          <li class="ba-item"><div class="ba-dot">✓</div>Organized finances with complete clarity</li>
-          <li class="ba-item"><div class="ba-dot">✓</div>Consistent savings hitting your goals monthly</li>
-          <li class="ba-item"><div class="ba-dot">✓</div>Clear debt payoff plan with an exact date</li>
-          <li class="ba-item"><div class="ba-dot">✓</div>Every dollar tracked and working for you</li>
-          <li class="ba-item"><div class="ba-dot">✓</div>Grocery budget under control every week</li>
-          <li class="ba-item"><div class="ba-dot">✓</div>Financial Health Score improving month over month</li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a1">Organized finances with complete clarity</span></li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a2">Consistent savings hitting your goals monthly</span></li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a3">Clear debt payoff plan with an exact date</span></li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a4">Every dollar tracked and working for you</span></li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a5">Grocery budget under control every week</span></li>
+          <li class="ba-item"><div class="ba-dot">✓</div><span data-i18n="ba_a6">Financial Health Score improving month over month</span></li>
         </ul>
       </div>
     </div>
@@ -459,35 +472,35 @@ function switchDemo(tool, btn) {
   <div class="container">
     <div class="value-inner">
       <div>
-        <span class="section-label" style="color:var(--gold-light);">Unbeatable Value</span>
-        <h2 class="section-title" style="color:#fff;">Everything You Need,<br>At One Low Price</h2>
-        <p class="section-sub" style="color:rgba(255,255,255,0.55);">Buy all four tools individually or save big with the complete suite.</p>
+        <span class="section-label" style="color:var(--gold-light);" data-i18n="value_label">Unbeatable Value</span>
+        <h2 class="section-title" style="color:#fff;"><span data-i18n="value_title_1">Everything You Need,</span><br><span data-i18n="value_title_2">At One Low Price</span></h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.55);" data-i18n="value_sub">Buy all four tools individually or save big with the complete suite.</p>
         <div class="teal-bar" style="margin-top:16px;margin-bottom:32px;"></div>
         <div class="value-stack">
-          <div class="vs-row"><span class="vs-name">📊 Budget Planner</span><span class="vs-price">$27</span></div>
-          <div class="vs-row"><span class="vs-name">💳 Debt Tracker</span><span class="vs-price">$27</span></div>
-          <div class="vs-row"><span class="vs-name">🥗 Meal Planner</span><span class="vs-price">$27</span></div>
-          <div class="vs-row"><span class="vs-name">❤️ Financial Health Score</span><span class="vs-price">$17</span></div>
-          <div class="vs-total-row"><span class="vs-total-label">Total Value</span><span class="vs-total-price">$98</span></div>
+          <div class="vs-row"><span class="vs-name">📊 <span data-i18n="tool_budget">Budget Planner</span></span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">💳 <span data-i18n="tool_debt">Debt Tracker</span></span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">🥗 <span data-i18n="tool_meal">Meal Planner</span></span><span class="vs-price">$27</span></div>
+          <div class="vs-row"><span class="vs-name">❤️ <span data-i18n="tool_health">Financial Health Score</span></span><span class="vs-price">$17</span></div>
+          <div class="vs-total-row"><span class="vs-total-label" data-i18n="value_total_label">Total Value</span><span class="vs-total-price">$98</span></div>
         </div>
       </div>
       <div class="value-box">
-        <div class="vb-label">🎁 Best Value</div>
-        <div class="vb-name">Financial Freedom Suite</div>
+        <div class="vb-label">🎁 <span data-i18n="vb_label">Best Value</span></div>
+        <div class="vb-name" data-i18n="logo_tag">Financial Freedom Suite</div>
         <ul class="vb-includes">
-          <li><div class="vb-check">✓</div>Budget Planner</li>
-          <li><div class="vb-check">✓</div>Debt Payoff Tracker</li>
-          <li><div class="vb-check">✓</div>Family Meal Planner</li>
-          <li><div class="vb-check">✓</div>Financial Health Score</li>
-          <li><div class="vb-check">✓</div>Unified Suite Dashboard</li>
-          <li><div class="vb-check">✓</div>4 Languages · 8 Currencies</li>
-          <li><div class="vb-check">✓</div>Lifetime Updates — Free Forever</li>
+          <li><div class="vb-check">✓</div><span data-i18n="tool_budget">Budget Planner</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="vb_debt">Debt Payoff Tracker</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="vb_meal">Family Meal Planner</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="tool_health">Financial Health Score</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="vb_dashboard">Unified Suite Dashboard</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="vb_langs">4 Languages · 8 Currencies</span></li>
+          <li><div class="vb-check">✓</div><span data-i18n="vb_updates">Lifetime Updates — Free Forever</span></li>
         </ul>
-        <div class="vb-save">🎉 Save 50% vs. buying separately</div>
+        <div class="vb-save">🎉 <span data-i18n="vb_save">Save 50% vs. buying separately</span></div>
         <div class="vb-price"><sup>$</sup>49.99</div>
-        <div class="vb-note">one-time payment · instant access</div>
-        <a href="https://stan.store/EPelissierdigital" class="btn-primary" style="width:100%;justify-content:center;">🔒 GET INSTANT ACCESS &nbsp;›</a>
-        <div class="vb-guarantee">✓ No subscription · No hidden fees</div>
+        <div class="vb-note" data-i18n="vb_note">one-time payment · instant access</div>
+        <a href="https://stan.store/EPelissierdigital" class="btn-primary" style="width:100%;justify-content:center;">🔒 <span data-i18n="cta_main">GET INSTANT ACCESS</span>&nbsp;›</a>
+        <div class="vb-guarantee">✓ <span data-i18n="vb_guarantee">No subscription · No hidden fees</span></div>
       </div>
     </div>
   </div>
@@ -497,25 +510,25 @@ function switchDemo(tool, btn) {
 <section class="testimonials-section" id="testimonials">
   <div class="container">
     <div class="testimonials-header">
-      <span class="section-label">Real Results</span>
-      <h2 class="section-title">What Families Are Saying</h2>
+      <span class="section-label" data-i18n="testi_label">Real Results</span>
+      <h2 class="section-title" data-i18n="testi_title">What Families Are Saying</h2>
       <div class="teal-bar"></div>
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card">
         <div class="tc-stars">★★★★★</div>
-        <p class="tc-text">"This suite helped me finally understand where my money was going every month. I found $340 in wasted spending in the first week alone."</p>
-        <div class="tc-author"><div class="tc-avatar">SM</div><div><div class="tc-name">Sarah M.</div><div class="tc-role">Mom of 3, Florida</div></div></div>
+        <p class="tc-text" data-i18n="testi1_text">"This suite helped me finally understand where my money was going every month. I found $340 in wasted spending in the first week alone."</p>
+        <div class="tc-author"><div class="tc-avatar">SM</div><div><div class="tc-name">Sarah M.</div><div class="tc-role" data-i18n="testi1_role">Mom of 3, Florida</div></div></div>
       </div>
       <div class="testimonial-card">
         <div class="tc-stars">★★★★★</div>
-        <p class="tc-text">"The Debt Tracker showed me I'll be debt-free in 18 months. I had no idea I was paying that much in interest. Complete game changer."</p>
-        <div class="tc-author"><div class="tc-avatar">JR</div><div><div class="tc-name">James R.</div><div class="tc-role">Father of 2, Texas</div></div></div>
+        <p class="tc-text" data-i18n="testi2_text">"The Debt Tracker showed me I'll be debt-free in 18 months. I had no idea I was paying that much in interest. Complete game changer."</p>
+        <div class="tc-author"><div class="tc-avatar">JR</div><div><div class="tc-name">James R.</div><div class="tc-role" data-i18n="testi2_role">Father of 2, Texas</div></div></div>
       </div>
       <div class="testimonial-card">
         <div class="tc-stars">★★★★★</div>
-        <p class="tc-text">"My husband and I now sit down every month with this suite. Money conversations went from arguments to actually exciting. We're finally on the same page."</p>
-        <div class="tc-author"><div class="tc-avatar">AL</div><div><div class="tc-name">Amara L.</div><div class="tc-role">Couple, Georgia</div></div></div>
+        <p class="tc-text" data-i18n="testi3_text">"My husband and I now sit down every month with this suite. Money conversations went from arguments to actually exciting. We're finally on the same page."</p>
+        <div class="tc-author"><div class="tc-avatar">AL</div><div><div class="tc-name">Amara L.</div><div class="tc-role" data-i18n="testi3_role">Couple, Georgia</div></div></div>
       </div>
     </div>
   </div>
@@ -525,46 +538,46 @@ function switchDemo(tool, btn) {
 <section class="tools-section">
   <div class="container">
     <div class="tools-header">
-      <span class="section-label">Individual Tools</span>
-      <h2 class="section-title">Not Ready for the Suite?</h2>
-      <p class="section-sub">Explore our individual tools — each powerful on its own.</p>
+      <span class="section-label" data-i18n="tools_label">Individual Tools</span>
+      <h2 class="section-title" data-i18n="tools_title">Not Ready for the Suite?</h2>
+      <p class="section-sub" data-i18n="tools_sub">Explore our individual tools — each powerful on its own.</p>
       <div class="teal-bar"></div>
     </div>
     <div class="tools-grid">
       <div class="tool-card">
         <div class="tc-header h-teal">
           <span class="tc-icon">📊</span>
-          <div class="tc-name">Budget Planner</div>
-          <div class="tc-tagline">Track income, expenses, and savings with a live dashboard.</div>
+          <div class="tc-name" data-i18n="tool_budget">Budget Planner</div>
+          <div class="tc-tagline" data-i18n="tc_budget_tagline">Track income, expenses, and savings with a live dashboard.</div>
         </div>
         <div class="tc-body"></div>
         <div class="tc-footer">
-          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
-          <a href="https://stan.store/EPelissierdigital" class="btn-tool teal">Learn More →</a>
+          <div><div class="tc-price">$27</div><div class="tc-price-note" data-i18n="price_onetime">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool teal" data-i18n="learn_more">Learn More →</a>
         </div>
       </div>
       <div class="tool-card">
         <div class="tc-header h-coral">
           <span class="tc-icon">💳</span>
-          <div class="tc-name">Debt Tracker</div>
-          <div class="tc-tagline">Avalanche or snowball — see your exact debt-free date.</div>
+          <div class="tc-name" data-i18n="tool_debt">Debt Tracker</div>
+          <div class="tc-tagline" data-i18n="tc_debt_tagline">Avalanche or snowball — see your exact debt-free date.</div>
         </div>
         <div class="tc-body"></div>
         <div class="tc-footer">
-          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
-          <a href="https://stan.store/EPelissierdigital" class="btn-tool coral">Learn More →</a>
+          <div><div class="tc-price">$27</div><div class="tc-price-note" data-i18n="price_onetime">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool coral" data-i18n="learn_more">Learn More →</a>
         </div>
       </div>
       <div class="tool-card">
         <div class="tc-header h-green">
           <span class="tc-icon">🥗</span>
-          <div class="tc-name">Meal Planner</div>
-          <div class="tc-tagline">Plan meals, auto-generate grocery lists, cut food spend.</div>
+          <div class="tc-name" data-i18n="tool_meal">Meal Planner</div>
+          <div class="tc-tagline" data-i18n="tc_meal_tagline">Plan meals, auto-generate grocery lists, cut food spend.</div>
         </div>
         <div class="tc-body"></div>
         <div class="tc-footer">
-          <div><div class="tc-price">$27</div><div class="tc-price-note">one-time</div></div>
-          <a href="https://stan.store/EPelissierdigital" class="btn-tool green">Learn More →</a>
+          <div><div class="tc-price">$27</div><div class="tc-price-note" data-i18n="price_onetime">one-time</div></div>
+          <a href="https://stan.store/EPelissierdigital" class="btn-tool green" data-i18n="learn_more">Learn More →</a>
         </div>
       </div>
     </div>
@@ -574,24 +587,344 @@ function switchDemo(tool, btn) {
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
-    <h2>Take Control of Your<br><em>Financial Future Today</em></h2>
-    <p>Start budgeting smarter, reducing debt, saving more money, and building lasting financial confidence — all with one complete system.</p>
-    <div class="final-cta-btn-wrap"><a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 GET INSTANT ACCESS &nbsp;›</a></div>
-    <div class="final-cta-guarantee">✓ One-time payment · Instant access · No subscription ever</div>
+    <h2><span data-i18n="final_title_1">Take Control of Your</span><br><em data-i18n="final_title_em">Financial Future Today</em></h2>
+    <p data-i18n="final_sub">Start budgeting smarter, reducing debt, saving more money, and building lasting financial confidence — all with one complete system.</p>
+    <div class="final-cta-btn-wrap"><a href="https://stan.store/EPelissierdigital" class="btn-primary">🔒 <span data-i18n="cta_main">GET INSTANT ACCESS</span>&nbsp;›</a></div>
+    <div class="final-cta-guarantee">✓ <span data-i18n="final_guarantee">One-time payment · Instant access · No subscription ever</span></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
-    <a href="https://digital.epelissierenterprise.com/budget-planner/" class="footer-link">Budget Planner</a>
-    <a href="https://digital.epelissierenterprise.com/debt-tracker/" class="footer-link">Debt Tracker</a>
-    <a href="https://digital.epelissierenterprise.com/meal-planner/" class="footer-link">Meal Planner</a>
-    <a href="https://digital.epelissierenterprise.com/suite/" class="footer-link">Suite Dashboard</a>
-    <a href="https://epelissierenterprise.com" class="footer-link">Main Site</a>
+    <a href="https://digital.epelissierenterprise.com/budget-planner/" class="footer-link" data-i18n="tool_budget">Budget Planner</a>
+    <a href="https://digital.epelissierenterprise.com/debt-tracker/" class="footer-link" data-i18n="tool_debt">Debt Tracker</a>
+    <a href="https://digital.epelissierenterprise.com/meal-planner/" class="footer-link" data-i18n="tool_meal">Meal Planner</a>
+    <a href="https://digital.epelissierenterprise.com/suite/" class="footer-link" data-i18n="footer_suite">Suite Dashboard</a>
+    <a href="https://epelissierenterprise.com" class="footer-link" data-i18n="footer_main">Main Site</a>
   </div>
-  <div class="footer-copy">© 2025 <strong>E Pelissier Enterprise</strong> · All rights reserved.</div>
+  <div class="footer-copy">© 2025 <strong>E Pelissier Enterprise</strong> · <span data-i18n="footer_copy">All rights reserved.</span></div>
 </div>
+
+<script>
+const T = {
+  en:{
+    logo_tag:"Financial Freedom Suite",
+    nav_why:"Why It Works",nav_included:"What's Included",nav_pricing:"Pricing",nav_reviews:"Reviews",nav_demo:"Live Demo",
+    nav_cta:"Get Instant Access →",nav_cta_mobile:"Get Access →",
+    hero_avail:"Available in",hero_pill2:"Complete Financial Wellness System",
+    hero_h1_1:"Your ",hero_h1_2:"Financial Life,",hero_h1_3:"All in One Place",
+    hero_sub:"Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete financial system.",
+    tool_budget:"Budget Planner",hero_budget_desc:"Track income, expenses, and savings with confidence.",
+    tool_debt:"Debt Tracker",hero_debt_desc:"Create a clear strategy to eliminate debt faster.",
+    tool_meal:"Meal Planner",hero_meal_desc:"Reduce grocery spending and plan meals efficiently.",
+    tool_health:"Financial Health Score",hero_health_desc:"Measure your financial progress and stay on track.",
+    cta_main:"GET INSTANT ACCESS",hero_try_demo:"Try the free demo first",
+    trust1:"Secure Payment",trust2:"Instant Access",trust3:"Lifetime Updates",
+    stars_label:"Trusted by thousands of families worldwide",
+    problem_label:"Sound Familiar?",problem_title_1:"Are You Struggling",problem_title_2:"With Any of These?",
+    problem_1:"Living paycheck to paycheck with nothing left to save",
+    problem_2:"Not knowing where your money actually goes each month",
+    problem_3:"Struggling to save consistently and hit financial goals",
+    problem_4:"Feeling overwhelmed by debt that never seems to shrink",
+    problem_5:"Spending too much on groceries without a clear plan",
+    pv_label1:"Average family without a budget",pv_val1:"Wastes $500+/mo",
+    pv_label2:"Households with high-interest debt",pv_val2:"Pay 3x more in interest",
+    pv_label3:"Families without a meal plan",pv_val3:"Overspend by $200/mo",
+    pv_label4:"Families with a complete system",pv_val4:"Save $340+/mo avg.",
+    solution_badge:"The Solution",solution_title_1:"Introducing The",
+    solution_sub:"One complete system to organize finances, reduce debt, save more, and gain financial confidence. All four tools work together seamlessly.",
+    mc_budget_desc:"Track income, expenses, bills, and savings. See exactly where every dollar goes with a live dashboard.",
+    mc_debt_desc:"Create a clear debt payoff strategy with avalanche or snowball method. See your debt-free date.",
+    mc_meal_desc:"Reduce grocery spending by planning meals efficiently and auto-generating your weekly grocery list.",
+    mc_health_desc:"Measure your financial progress with a live 0–100 score across savings, debt, food, and expenses.",
+    demo_label:"Try Before You Buy",demo_title:"See It Live — Right Here",
+    demo_sub:"This is the actual tool. Enter your real numbers and watch it work instantly — no account needed.",
+    demo_note:"Your data stays private — nothing is stored or sent anywhere.",
+    ba_label:"The Transformation",ba_title:"Before & After the Suite",
+    ba_before:"Before",
+    ba_b1:"Financial stress and anxiety every month",
+    ba_b2:"Missed savings goals with no clear plan",
+    ba_b3:"Debt growing with no payoff strategy",
+    ba_b4:"Unorganized spending with no visibility",
+    ba_b5:"Grocery overspend with no meal plan",
+    ba_b6:"No idea of your actual financial health",
+    ba_after:"After",
+    ba_a1:"Organized finances with complete clarity",
+    ba_a2:"Consistent savings hitting your goals monthly",
+    ba_a3:"Clear debt payoff plan with an exact date",
+    ba_a4:"Every dollar tracked and working for you",
+    ba_a5:"Grocery budget under control every week",
+    ba_a6:"Financial Health Score improving month over month",
+    value_label:"Unbeatable Value",value_title_1:"Everything You Need,",value_title_2:"At One Low Price",
+    value_sub:"Buy all four tools individually or save big with the complete suite.",
+    value_total_label:"Total Value",
+    vb_label:"Best Value",
+    vb_debt:"Debt Payoff Tracker",vb_meal:"Family Meal Planner",
+    vb_dashboard:"Unified Suite Dashboard",vb_langs:"4 Languages · 8 Currencies",
+    vb_updates:"Lifetime Updates — Free Forever",
+    vb_save:"Save 50% vs. buying separately",
+    vb_note:"one-time payment · instant access",
+    vb_guarantee:"No subscription · No hidden fees",
+    testi_label:"Real Results",testi_title:"What Families Are Saying",
+    testi1_text:"\"This suite helped me finally understand where my money was going every month. I found $340 in wasted spending in the first week alone.\"",
+    testi1_role:"Mom of 3, Florida",
+    testi2_text:"\"The Debt Tracker showed me I'll be debt-free in 18 months. I had no idea I was paying that much in interest. Complete game changer.\"",
+    testi2_role:"Father of 2, Texas",
+    testi3_text:"\"My husband and I now sit down every month with this suite. Money conversations went from arguments to actually exciting. We're finally on the same page.\"",
+    testi3_role:"Couple, Georgia",
+    tools_label:"Individual Tools",tools_title:"Not Ready for the Suite?",
+    tools_sub:"Explore our individual tools — each powerful on its own.",
+    tc_budget_tagline:"Track income, expenses, and savings with a live dashboard.",
+    tc_debt_tagline:"Avalanche or snowball — see your exact debt-free date.",
+    tc_meal_tagline:"Plan meals, auto-generate grocery lists, cut food spend.",
+    price_onetime:"one-time",learn_more:"Learn More →",
+    final_title_1:"Take Control of Your",final_title_em:"Financial Future Today",
+    final_sub:"Start budgeting smarter, reducing debt, saving more money, and building lasting financial confidence — all with one complete system.",
+    final_guarantee:"One-time payment · Instant access · No subscription ever",
+    footer_suite:"Suite Dashboard",footer_main:"Main Site",footer_copy:"All rights reserved."
+  },
+  fr:{
+    logo_tag:"Suite Liberté Financière",
+    nav_why:"Pourquoi Ça Marche",nav_included:"Ce Qui Est Inclus",nav_pricing:"Tarifs",nav_reviews:"Avis",nav_demo:"Démo Live",
+    nav_cta:"Accès Instantané →",nav_cta_mobile:"Accéder →",
+    hero_avail:"Disponible en",hero_pill2:"Système Complet de Bien-être Financier",
+    hero_h1_1:"Votre ",hero_h1_2:"Vie Financière,",hero_h1_3:"Tout en Un Seul Endroit",
+    hero_sub:"Budgétisez plus intelligemment, économisez plus, réduisez vos dettes plus vite et bâtissez une confiance financière durable avec un seul système complet.",
+    tool_budget:"Planificateur Budgétaire",hero_budget_desc:"Suivez vos revenus, dépenses et économies en toute confiance.",
+    tool_debt:"Suivi des Dettes",hero_debt_desc:"Créez une stratégie claire pour éliminer vos dettes plus rapidement.",
+    tool_meal:"Planificateur de Repas",hero_meal_desc:"Réduisez vos dépenses d'épicerie et planifiez vos repas efficacement.",
+    tool_health:"Score de Santé Financière",hero_health_desc:"Mesurez vos progrès financiers et restez sur la bonne voie.",
+    cta_main:"ACCÈS INSTANTANÉ",hero_try_demo:"Essayer la démo gratuite d'abord",
+    trust1:"Paiement Sécurisé",trust2:"Accès Instantané",trust3:"Mises à Jour à Vie",
+    stars_label:"Approuvé par des milliers de familles dans le monde",
+    problem_label:"Ça Vous Parle?",problem_title_1:"Vous Luttez",problem_title_2:"Avec Certains de Ces Problèmes?",
+    problem_1:"Vivre au jour le jour sans rien pouvoir économiser",
+    problem_2:"Ne pas savoir où va réellement votre argent chaque mois",
+    problem_3:"Avoir du mal à économiser régulièrement et à atteindre vos objectifs financiers",
+    problem_4:"Se sentir dépassé par des dettes qui ne semblent jamais diminuer",
+    problem_5:"Trop dépenser en épicerie sans plan clair",
+    pv_label1:"Famille moyenne sans budget",pv_val1:"Gaspille 500$+/mois",
+    pv_label2:"Foyers avec dettes à taux élevé",pv_val2:"Paient 3x plus d'intérêts",
+    pv_label3:"Familles sans plan de repas",pv_val3:"Dépassent de 200$/mois",
+    pv_label4:"Familles avec un système complet",pv_val4:"Économisent 340$+/mois en moyenne",
+    solution_badge:"La Solution",solution_title_1:"Découvrez La",
+    solution_sub:"Un système complet pour organiser vos finances, réduire vos dettes, économiser plus et gagner en confiance financière. Les quatre outils fonctionnent parfaitement ensemble.",
+    mc_budget_desc:"Suivez revenus, dépenses, factures et économies. Voyez exactement où va chaque dollar avec un tableau de bord en direct.",
+    mc_debt_desc:"Créez une stratégie claire de remboursement de dettes avec la méthode avalanche ou boule de neige. Voyez votre date de liberté financière.",
+    mc_meal_desc:"Réduisez vos dépenses d'épicerie en planifiant vos repas efficacement et en générant automatiquement votre liste de courses hebdomadaire.",
+    mc_health_desc:"Mesurez vos progrès financiers avec un score en direct de 0 à 100 basé sur l'épargne, les dettes, l'alimentation et les dépenses.",
+    demo_label:"Essayez Avant d'Acheter",demo_title:"Voyez-le en Direct — Ici Même",
+    demo_sub:"Voici l'outil réel. Entrez vos vrais chiffres et regardez-le fonctionner instantanément — aucun compte requis.",
+    demo_note:"Vos données restent privées — rien n'est stocké ni envoyé nulle part.",
+    ba_label:"La Transformation",ba_title:"Avant & Après la Suite",
+    ba_before:"Avant",
+    ba_b1:"Stress et anxiété financière chaque mois",
+    ba_b2:"Objectifs d'épargne manqués sans plan clair",
+    ba_b3:"Dettes qui augmentent sans stratégie de remboursement",
+    ba_b4:"Dépenses désorganisées sans visibilité",
+    ba_b5:"Dépassement d'épicerie sans plan de repas",
+    ba_b6:"Aucune idée de votre véritable santé financière",
+    ba_after:"Après",
+    ba_a1:"Finances organisées avec une clarté totale",
+    ba_a2:"Épargne constante qui atteint vos objectifs chaque mois",
+    ba_a3:"Plan de remboursement de dettes clair avec une date précise",
+    ba_a4:"Chaque dollar suivi et mis à votre service",
+    ba_a5:"Budget épicerie sous contrôle chaque semaine",
+    ba_a6:"Score de santé financière qui s'améliore mois après mois",
+    value_label:"Une Valeur Imbattable",value_title_1:"Tout Ce Dont Vous Avez Besoin,",value_title_2:"À Un Prix Imbattable",
+    value_sub:"Achetez les quatre outils individuellement ou économisez gros avec la suite complète.",
+    value_total_label:"Valeur Totale",
+    vb_label:"Meilleure Valeur",
+    vb_debt:"Suivi de Remboursement de Dettes",vb_meal:"Planificateur de Repas Familial",
+    vb_dashboard:"Tableau de Bord Unifié de la Suite",vb_langs:"4 Langues · 8 Devises",
+    vb_updates:"Mises à Jour à Vie — Gratuites Pour Toujours",
+    vb_save:"Économisez 50% par rapport à l'achat séparé",
+    vb_note:"paiement unique · accès instantané",
+    vb_guarantee:"Sans abonnement · Sans frais cachés",
+    testi_label:"Résultats Réels",testi_title:"Ce Que Disent les Familles",
+    testi1_text:"« Cette suite m'a enfin aidée à comprendre où allait mon argent chaque mois. J'ai trouvé 340$ de dépenses inutiles dès la première semaine. »",
+    testi1_role:"Maman de 3 enfants, Floride",
+    testi2_text:"« Le Suivi des Dettes m'a montré que je serai libre de dettes dans 18 mois. Je ne savais pas que je payais autant d'intérêts. Un vrai changement. »",
+    testi2_role:"Papa de 2 enfants, Texas",
+    testi3_text:"« Mon mari et moi nous asseyons maintenant chaque mois avec cette suite. Les conversations sur l'argent sont passées de disputes à un vrai plaisir. On est enfin sur la même longueur d'onde. »",
+    testi3_role:"Couple, Géorgie",
+    tools_label:"Outils Individuels",tools_title:"Pas Encore Prêt Pour la Suite?",
+    tools_sub:"Découvrez nos outils individuels — chacun puissant à lui seul.",
+    tc_budget_tagline:"Suivez revenus, dépenses et économies avec un tableau de bord en direct.",
+    tc_debt_tagline:"Avalanche ou boule de neige — voyez votre date exacte de liberté financière.",
+    tc_meal_tagline:"Planifiez vos repas, générez vos listes de courses, réduisez vos dépenses alimentaires.",
+    price_onetime:"paiement unique",learn_more:"En Savoir Plus →",
+    final_title_1:"Prenez le Contrôle de Votre",final_title_em:"Avenir Financier Dès Aujourd'hui",
+    final_sub:"Commencez à budgétiser plus intelligemment, à réduire vos dettes, à économiser plus d'argent et à bâtir une confiance financière durable — le tout avec un seul système complet.",
+    final_guarantee:"Paiement unique · Accès instantané · Sans abonnement jamais",
+    footer_suite:"Tableau de Bord de la Suite",footer_main:"Site Principal",footer_copy:"Tous droits réservés."
+  },
+  es:{
+    logo_tag:"Suite de Libertad Financiera",
+    nav_why:"Por Qué Funciona",nav_included:"Qué Incluye",nav_pricing:"Precios",nav_reviews:"Reseñas",nav_demo:"Demo en Vivo",
+    nav_cta:"Acceso Instantáneo →",nav_cta_mobile:"Acceder →",
+    hero_avail:"Disponible en",hero_pill2:"Sistema Completo de Bienestar Financiero",
+    hero_h1_1:"Tu ",hero_h1_2:"Vida Financiera,",hero_h1_3:"Todo en Un Solo Lugar",
+    hero_sub:"Presupuesta con más inteligencia, ahorra más, reduce tu deuda más rápido y construye confianza financiera duradera con un sistema financiero completo.",
+    tool_budget:"Planificador de Presupuesto",hero_budget_desc:"Controla tus ingresos, gastos y ahorros con confianza.",
+    tool_debt:"Rastreador de Deudas",hero_debt_desc:"Crea una estrategia clara para eliminar tu deuda más rápido.",
+    tool_meal:"Planificador de Comidas",hero_meal_desc:"Reduce el gasto en comestibles y planifica comidas eficientemente.",
+    tool_health:"Puntaje de Salud Financiera",hero_health_desc:"Mide tu progreso financiero y mantente en el camino correcto.",
+    cta_main:"ACCESO INSTANTÁNEO",hero_try_demo:"Probar la demo gratis primero",
+    trust1:"Pago Seguro",trust2:"Acceso Instantáneo",trust3:"Actualizaciones de Por Vida",
+    stars_label:"Confiado por miles de familias en todo el mundo",
+    problem_label:"¿Te Suena Familiar?",problem_title_1:"¿Estás Luchando",problem_title_2:"Con Alguno de Estos?",
+    problem_1:"Vivir de cheque a cheque sin nada para ahorrar",
+    problem_2:"No saber a dónde va realmente tu dinero cada mes",
+    problem_3:"Luchar por ahorrar constantemente y alcanzar tus metas financieras",
+    problem_4:"Sentirte abrumado por deudas que nunca parecen disminuir",
+    problem_5:"Gastar demasiado en comestibles sin un plan claro",
+    pv_label1:"Familia promedio sin presupuesto",pv_val1:"Desperdicia $500+/mes",
+    pv_label2:"Hogares con deudas de alto interés",pv_val2:"Pagan 3 veces más en intereses",
+    pv_label3:"Familias sin plan de comidas",pv_val3:"Se exceden por $200/mes",
+    pv_label4:"Familias con un sistema completo",pv_val4:"Ahorran $340+/mes en promedio",
+    solution_badge:"La Solución",solution_title_1:"Presentamos La",
+    solution_sub:"Un sistema completo para organizar tus finanzas, reducir deudas, ahorrar más y ganar confianza financiera. Las cuatro herramientas funcionan juntas a la perfección.",
+    mc_budget_desc:"Controla ingresos, gastos, facturas y ahorros. Ve exactamente a dónde va cada dólar con un panel en vivo.",
+    mc_debt_desc:"Crea una estrategia clara de pago de deudas con el método avalancha o bola de nieve. Ve tu fecha de libertad financiera.",
+    mc_meal_desc:"Reduce el gasto en comestibles planificando comidas eficientemente y generando automáticamente tu lista de compras semanal.",
+    mc_health_desc:"Mide tu progreso financiero con un puntaje en vivo de 0 a 100 basado en ahorros, deuda, comida y gastos.",
+    demo_label:"Pruébalo Antes de Comprar",demo_title:"Míralo en Vivo — Aquí Mismo",
+    demo_sub:"Esta es la herramienta real. Ingresa tus números reales y míralo funcionar al instante — no se necesita cuenta.",
+    demo_note:"Tus datos permanecen privados — nada se almacena ni se envía a ningún lado.",
+    ba_label:"La Transformación",ba_title:"Antes y Después de la Suite",
+    ba_before:"Antes",
+    ba_b1:"Estrés y ansiedad financiera cada mes",
+    ba_b2:"Metas de ahorro perdidas sin un plan claro",
+    ba_b3:"Deuda creciendo sin estrategia de pago",
+    ba_b4:"Gastos desorganizados sin visibilidad",
+    ba_b5:"Exceso en comestibles sin plan de comidas",
+    ba_b6:"Sin idea de tu verdadera salud financiera",
+    ba_after:"Después",
+    ba_a1:"Finanzas organizadas con total claridad",
+    ba_a2:"Ahorros constantes que alcanzan tus metas cada mes",
+    ba_a3:"Plan claro de pago de deudas con una fecha exacta",
+    ba_a4:"Cada dólar rastreado y trabajando para ti",
+    ba_a5:"Presupuesto de comestibles bajo control cada semana",
+    ba_a6:"Puntaje de salud financiera mejorando mes a mes",
+    value_label:"Valor Inigualable",value_title_1:"Todo Lo Que Necesitas,",value_title_2:"A Un Precio Bajo",
+    value_sub:"Compra las cuatro herramientas individualmente o ahorra en grande con la suite completa.",
+    value_total_label:"Valor Total",
+    vb_label:"Mejor Valor",
+    vb_debt:"Rastreador de Pago de Deudas",vb_meal:"Planificador de Comidas Familiar",
+    vb_dashboard:"Panel Unificado de la Suite",vb_langs:"4 Idiomas · 8 Monedas",
+    vb_updates:"Actualizaciones de Por Vida — Gratis Para Siempre",
+    vb_save:"Ahorra 50% frente a comprar por separado",
+    vb_note:"pago único · acceso instantáneo",
+    vb_guarantee:"Sin suscripción · Sin cargos ocultos",
+    testi_label:"Resultados Reales",testi_title:"Lo Que Dicen las Familias",
+    testi1_text:"\"Esta suite finalmente me ayudó a entender a dónde iba mi dinero cada mes. Encontré $340 en gastos desperdiciados en la primera semana.\"",
+    testi1_role:"Mamá de 3, Florida",
+    testi2_text:"\"El Rastreador de Deudas me mostró que estaré libre de deudas en 18 meses. No tenía idea de que estaba pagando tanto en intereses. Un cambio total.\"",
+    testi2_role:"Padre de 2, Texas",
+    testi3_text:"\"Mi esposo y yo ahora nos sentamos cada mes con esta suite. Las conversaciones sobre dinero pasaron de discusiones a algo realmente emocionante. Por fin estamos en la misma página.\"",
+    testi3_role:"Pareja, Georgia",
+    tools_label:"Herramientas Individuales",tools_title:"¿No Estás Listo Para la Suite?",
+    tools_sub:"Explora nuestras herramientas individuales — cada una poderosa por sí sola.",
+    tc_budget_tagline:"Controla ingresos, gastos y ahorros con un panel en vivo.",
+    tc_debt_tagline:"Avalancha o bola de nieve — ve tu fecha exacta de libertad financiera.",
+    tc_meal_tagline:"Planifica comidas, genera listas de compras automáticamente, reduce el gasto en comida.",
+    price_onetime:"pago único",learn_more:"Saber Más →",
+    final_title_1:"Toma el Control de Tu",final_title_em:"Futuro Financiero Hoy",
+    final_sub:"Comienza a presupuestar con más inteligencia, reducir deudas, ahorrar más dinero y construir confianza financiera duradera — todo con un sistema completo.",
+    final_guarantee:"Pago único · Acceso instantáneo · Sin suscripción jamás",
+    footer_suite:"Panel de la Suite",footer_main:"Sitio Principal",footer_copy:"Todos los derechos reservados."
+  },
+  pt:{
+    logo_tag:"Suite de Liberdade Financeira",
+    nav_why:"Por Que Funciona",nav_included:"O Que Está Incluído",nav_pricing:"Preços",nav_reviews:"Avaliações",nav_demo:"Demo ao Vivo",
+    nav_cta:"Acesso Instantâneo →",nav_cta_mobile:"Acessar →",
+    hero_avail:"Disponível em",hero_pill2:"Sistema Completo de Bem-Estar Financeiro",
+    hero_h1_1:"Sua ",hero_h1_2:"Vida Financeira,",hero_h1_3:"Tudo em Um Só Lugar",
+    hero_sub:"Orce com mais inteligência, economize mais, reduza dívidas mais rápido e construa confiança financeira duradoura com um sistema financeiro completo.",
+    tool_budget:"Planejador de Orçamento",hero_budget_desc:"Acompanhe renda, despesas e economias com confiança.",
+    tool_debt:"Rastreador de Dívidas",hero_debt_desc:"Crie uma estratégia clara para eliminar suas dívidas mais rápido.",
+    tool_meal:"Planejador de Refeições",hero_meal_desc:"Reduza os gastos com mercado e planeje refeições com eficiência.",
+    tool_health:"Pontuação de Saúde Financeira",hero_health_desc:"Meça seu progresso financeiro e mantenha-se no caminho certo.",
+    cta_main:"ACESSO INSTANTÂNEO",hero_try_demo:"Experimente a demo gratuita primeiro",
+    trust1:"Pagamento Seguro",trust2:"Acesso Instantâneo",trust3:"Atualizações Vitalícias",
+    stars_label:"Aprovado por milhares de famílias ao redor do mundo",
+    problem_label:"Isso Parece Familiar?",problem_title_1:"Você Está Lutando",problem_title_2:"Com Algum Destes?",
+    problem_1:"Viver de salário em salário sem nada sobrando para poupar",
+    problem_2:"Não saber para onde seu dinheiro realmente vai todo mês",
+    problem_3:"Lutar para poupar consistentemente e alcançar suas metas financeiras",
+    problem_4:"Sentir-se sobrecarregado por dívidas que nunca parecem diminuir",
+    problem_5:"Gastar demais no mercado sem um plano claro",
+    pv_label1:"Família média sem orçamento",pv_val1:"Desperdiça $500+/mês",
+    pv_label2:"Famílias com dívidas de juros altos",pv_val2:"Pagam 3x mais em juros",
+    pv_label3:"Famílias sem plano de refeições",pv_val3:"Ultrapassam $200/mês",
+    pv_label4:"Famílias com um sistema completo",pv_val4:"Economizam $340+/mês em média",
+    solution_badge:"A Solução",solution_title_1:"Apresentamos A",
+    solution_sub:"Um sistema completo para organizar suas finanças, reduzir dívidas, economizar mais e ganhar confiança financeira. As quatro ferramentas funcionam perfeitamente juntas.",
+    mc_budget_desc:"Acompanhe renda, despesas, contas e economias. Veja exatamente para onde cada real vai com um painel ao vivo.",
+    mc_debt_desc:"Crie uma estratégia clara de quitação de dívidas com o método avalanche ou bola de neve. Veja sua data de liberdade financeira.",
+    mc_meal_desc:"Reduza os gastos com mercado planejando refeições com eficiência e gerando automaticamente sua lista de compras semanal.",
+    mc_health_desc:"Meça seu progresso financeiro com uma pontuação ao vivo de 0 a 100 com base em poupança, dívidas, alimentação e despesas.",
+    demo_label:"Experimente Antes de Comprar",demo_title:"Veja ao Vivo — Bem Aqui",
+    demo_sub:"Esta é a ferramenta real. Insira seus números reais e veja funcionar instantaneamente — nenhuma conta necessária.",
+    demo_note:"Seus dados permanecem privados — nada é armazenado ou enviado para lugar nenhum.",
+    ba_label:"A Transformação",ba_title:"Antes & Depois da Suite",
+    ba_before:"Antes",
+    ba_b1:"Estresse e ansiedade financeira todo mês",
+    ba_b2:"Metas de poupança perdidas sem um plano claro",
+    ba_b3:"Dívidas crescendo sem estratégia de quitação",
+    ba_b4:"Gastos desorganizados sem visibilidade",
+    ba_b5:"Gasto excessivo no mercado sem plano de refeições",
+    ba_b6:"Nenhuma ideia da sua real saúde financeira",
+    ba_after:"Depois",
+    ba_a1:"Finanças organizadas com total clareza",
+    ba_a2:"Poupança consistente atingindo suas metas todo mês",
+    ba_a3:"Plano claro de quitação de dívidas com uma data exata",
+    ba_a4:"Cada real rastreado e trabalhando para você",
+    ba_a5:"Orçamento do mercado sob controle toda semana",
+    ba_a6:"Pontuação de saúde financeira melhorando mês a mês",
+    value_label:"Valor Imbatível",value_title_1:"Tudo o Que Você Precisa,",value_title_2:"A Um Preço Baixo",
+    value_sub:"Compre as quatro ferramentas individualmente ou economize muito com a suite completa.",
+    value_total_label:"Valor Total",
+    vb_label:"Melhor Valor",
+    vb_debt:"Rastreador de Quitação de Dívidas",vb_meal:"Planejador de Refeições Familiar",
+    vb_dashboard:"Painel Unificado da Suite",vb_langs:"4 Idiomas · 8 Moedas",
+    vb_updates:"Atualizações Vitalícias — Grátis Para Sempre",
+    vb_save:"Economize 50% em comparação com a compra separada",
+    vb_note:"pagamento único · acesso instantâneo",
+    vb_guarantee:"Sem assinatura · Sem taxas ocultas",
+    testi_label:"Resultados Reais",testi_title:"O Que as Famílias Estão Dizendo",
+    testi1_text:"\"Esta suite finalmente me ajudou a entender para onde meu dinheiro estava indo todo mês. Encontrei $340 em gastos desperdiçados só na primeira semana.\"",
+    testi1_role:"Mãe de 3, Flórida",
+    testi2_text:"\"O Rastreador de Dívidas me mostrou que estarei livre de dívidas em 18 meses. Eu não tinha ideia de que estava pagando tanto em juros. Uma virada completa.\"",
+    testi2_role:"Pai de 2, Texas",
+    testi3_text:"\"Meu marido e eu agora nos sentamos todo mês com esta suite. As conversas sobre dinheiro passaram de discussões para algo realmente empolgante. Finalmente estamos na mesma página.\"",
+    testi3_role:"Casal, Geórgia",
+    tools_label:"Ferramentas Individuais",tools_title:"Ainda Não Está Pronto Para a Suite?",
+    tools_sub:"Explore nossas ferramentas individuais — cada uma poderosa por si só.",
+    tc_budget_tagline:"Acompanhe renda, despesas e economias com um painel ao vivo.",
+    tc_debt_tagline:"Avalanche ou bola de neve — veja sua data exata de liberdade financeira.",
+    tc_meal_tagline:"Planeje refeições, gere listas de compras automaticamente, corte gastos com comida.",
+    price_onetime:"pagamento único",learn_more:"Saiba Mais →",
+    final_title_1:"Assuma o Controle do Seu",final_title_em:"Futuro Financeiro Hoje",
+    final_sub:"Comece a orçar com mais inteligência, reduzir dívidas, economizar mais dinheiro e construir confiança financeira duradoura — tudo com um sistema completo.",
+    final_guarantee:"Pagamento único · Acesso instantâneo · Sem assinatura jamais",
+    footer_suite:"Painel da Suite",footer_main:"Site Principal",footer_copy:"Todos os direitos reservados."
+  }
+};
+
+let lang = 'en';
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (T[l][k]) el.textContent = T[l][k];
+  });
+  document.documentElement.lang = l;
+}
+</script>
 
 </body>
 </html>
