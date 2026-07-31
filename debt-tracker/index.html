@@ -670,8 +670,8 @@ const T = {
     avalanche_detail:"Paying highest-interest debts first minimizes total interest paid. You save more money with this method.",
     snowball_tip:"Snowball builds momentum",
     snowball_detail:"Paying smallest balances first gives you quick wins and keeps you motivated. Great if you need psychological boosts.",
-    extra_payment_tip:"Add $100/mo extra — cut years off",
-    extra_payment_detail:"Even a small extra payment each month dramatically reduces your payoff time and interest. Try adding any amount to your highest-rate debt.",
+    extra_payment_synced_tip:"Put your Budget Planner surplus toward debt",
+    extra_payment_synced_detail:"Your Budget Planner shows money left over each month. Applying it to your highest-rate debt can cut years off your payoff time.",
     consolidation_tip:"Consider debt consolidation",
     consolidation_detail:"If you have multiple high-interest debts, consolidating them into one lower-rate loan could save you significantly.",
     highrate_tip:"Your highest-rate debt is costing the most",
@@ -708,8 +708,8 @@ const T = {
     avalanche_detail:"Payer les dettes à taux d'intérêt le plus élevé en premier minimise les intérêts totaux payés.",
     snowball_tip:"La boule de neige crée de l'élan",
     snowball_detail:"Payer les soldes les plus faibles en premier donne des victoires rapides et maintient la motivation.",
-    extra_payment_tip:"Ajoutez 100$/mois — éliminez des années",
-    extra_payment_detail:"Même un petit paiement supplémentaire réduit dramatiquement votre temps de remboursement.",
+    extra_payment_synced_tip:"Utilisez votre surplus du Planificateur Budgétaire pour vos dettes",
+    extra_payment_synced_detail:"Votre Planificateur Budgétaire indique de l'argent disponible chaque mois. L'appliquer à votre dette au taux le plus élevé peut réduire votre remboursement de plusieurs années.",
     consolidation_tip:"Envisagez la consolidation de dettes",
     consolidation_detail:"Si vous avez plusieurs dettes à taux élevé, les consolider en un seul prêt à taux inférieur pourrait vous faire économiser.",
     highrate_tip:"Votre dette au taux le plus élevé coûte le plus",
@@ -746,8 +746,8 @@ const T = {
     avalanche_detail:"Pagar las deudas con mayor tasa de interés primero minimiza el interés total pagado.",
     snowball_tip:"La bola de nieve genera impulso",
     snowball_detail:"Pagar los saldos más pequeños primero da victorias rápidas y mantiene la motivación.",
-    extra_payment_tip:"Agrega $100/mes — elimina años",
-    extra_payment_detail:"Incluso un pequeño pago adicional reduce dramáticamente tu tiempo de pago.",
+    extra_payment_synced_tip:"Usa tu excedente del Planificador de Presupuesto para tu deuda",
+    extra_payment_synced_detail:"Tu Planificador de Presupuesto muestra dinero disponible cada mes. Aplicarlo a tu deuda de mayor tasa puede reducir años de tu tiempo de pago.",
     consolidation_tip:"Considera la consolidación de deudas",
     consolidation_detail:"Si tienes múltiples deudas de alta tasa, consolidarlas podría ahorrarte significativamente.",
     highrate_tip:"Tu deuda de mayor tasa cuesta más",
@@ -784,8 +784,8 @@ const T = {
     avalanche_detail:"Pagar dívidas com maior taxa de juros primeiro minimiza o total de juros pagos.",
     snowball_tip:"Bola de neve cria impulso",
     snowball_detail:"Pagar os menores saldos primeiro dá vitórias rápidas e mantém a motivação.",
-    extra_payment_tip:"Adicione R$100/mês — elimine anos",
-    extra_payment_detail:"Mesmo um pequeno pagamento extra reduz dramaticamente seu tempo de pagamento.",
+    extra_payment_synced_tip:"Use seu excedente do Planejador de Orçamento na dívida",
+    extra_payment_synced_detail:"Seu Planejador de Orçamento mostra dinheiro sobrando todo mês. Aplicá-lo à sua dívida de maior taxa pode cortar anos do seu tempo de pagamento.",
     consolidation_tip:"Considere a consolidação de dívidas",
     consolidation_detail:"Se você tem múltiplas dívidas de alta taxa, consolidá-las pode economizar significativamente.",
     highrate_tip:"Sua dívida de maior taxa custa mais",
@@ -1151,8 +1151,16 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
   if(totalBal>5000){
     tips.push({icon:'🏦',color:'blue',txt:t('consolidation_tip'),detail:t('consolidation_detail'),tag:'Save interest',tagClass:'good'});
   }
-  tips.push({icon:'💡',color:'gold',txt:t('extra_payment_tip'),detail:t('extra_payment_detail'),tag:'High impact',tagClass:'gold-tag'});
-  tips.push({icon:'🔒',color:'green',txt:t('emergency_tip'),detail:t('emergency_detail'),tag:'Safety first',tagClass:'good'});
+  // Extra-payment & emergency-fund tips: only shown when Budget Planner has actually
+  // synced real data via the shared store — otherwise there's no signal to base them on.
+  const _s=SS.get();
+  const _hasBudgetPlanner=_s.ep_income>0;
+  if(_hasBudgetPlanner&&_s.ep_remaining>0){
+    tips.push({icon:'💡',color:'gold',txt:t('extra_payment_synced_tip'),detail:t('extra_payment_synced_detail'),tag:fmtM(_s.ep_remaining)+'/mo',tagClass:'gold-tag'});
+  }
+  if(_hasBudgetPlanner&&!(parseFloat(_s['bp_goal-emergency'])>0)){
+    tips.push({icon:'🔒',color:'green',txt:t('emergency_tip'),detail:t('emergency_detail'),tag:'Safety first',tagClass:'good'});
+  }
   tips.push({icon:'⚙️',color:'purple',txt:t('auto_tip'),detail:t('auto_detail'),tag:'Avoid fees',tagClass:'good'});
   if(maxMonth<=6){
     tips.push({icon:'🏆',color:'green',txt:t('debt_free_tip'),detail:t('debt_free_detail'),tag:'Almost there!',tagClass:'good'});
