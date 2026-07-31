@@ -1022,7 +1022,7 @@ body::before {
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
       <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
-      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$47.00</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
       <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
     </div>
   </div>
@@ -1043,7 +1043,7 @@ body::before {
     <div class="modal-feature"><span class="modal-feature-icon">🥗</span> Meal Planner included</div>
     <div class="modal-feature"><span class="modal-feature-icon">❤️</span> Financial Health Score</div>
     <div class="modal-btns">
-      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 Get the Suite — $47 →</a>
+      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 Get the Suite — $49.99 →</a>
       <button class="modal-btn-sample" onclick="document.getElementById('download-modal').style.display='none';downloadReport(true);">Download sample with watermark</button>
     </div>
     <div class="sample-note">Sample includes a SAMPLE watermark on all pages</div>
@@ -1736,7 +1736,7 @@ function downloadReport(isSample=false){
 
   if(isSample){
     const watermark='<div class="watermark">SAMPLE SAMPLE SAMPLE</div>';
-    const banner=`<div class="sample-banner"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark and unlock all tools</div><a href="https://stan.store/EPelissierdigital">Get the Suite $47 →</a></div>`;
+    const banner=`<div class="sample-banner"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark and unlock all tools</div><a href="https://stan.store/EPelissierdigital">Get the Suite $49.99 →</a></div>`;
     const bodyTag=reportDoc.indexOf('<body>')+6;
     reportDoc=reportDoc.slice(0,bodyTag)+watermark+banner+reportDoc.slice(bodyTag);
   }

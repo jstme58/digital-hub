@@ -406,7 +406,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
       <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
-      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$44.99</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
       <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
     </div>
   </div>
@@ -426,7 +426,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div class="modal-feature"><span>💳</span> Debt Tracker included</div>
     <div class="modal-feature"><span>❤️</span> Financial Health Score</div>
     <div class="modal-btns">
-      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 Get the Suite — $47 →</a>
+      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 Get the Suite — $49.99 →</a>
       <button class="modal-btn-sample" onclick="document.getElementById('download-modal').style.display='none';downloadReport(true);">Download sample with watermark</button>
     </div>
     <div class="sample-note">Sample includes a SAMPLE watermark on all pages</div>
@@ -1049,7 +1049,7 @@ function downloadReport(isSample=false){
   let finalHtml=reportHtml;
   if(isSample){
     const wm='<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-size:80px;font-weight:900;color:rgba(0,0,0,0.04);pointer-events:none;z-index:9999;white-space:nowrap;letter-spacing:8px;">SAMPLE SAMPLE SAMPLE</div>';
-    const bn='<div style="background:linear-gradient(135deg,#006644,#004d33);color:#fff;padding:14px 24px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-size:13px;"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark</div><a href=\"https://stan.store/EPelissierdigital\" style=\"color:#fff;font-weight:700;\">Get the Suite $47 →</a></div>';
+    const bn='<div style="background:linear-gradient(135deg,#006644,#004d33);color:#fff;padding:14px 24px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-size:13px;"><div><strong>📄 Sample Report</strong><br>Upgrade to remove this watermark</div><a href=\"https://stan.store/EPelissierdigital\" style=\"color:#fff;font-weight:700;\">Get the Suite $49.99 →</a></div>';
     finalHtml=finalHtml.replace('<body>','<body>'+wm+bn);
   }
   const win=window.open('','_blank');
