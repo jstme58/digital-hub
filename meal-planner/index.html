@@ -469,13 +469,14 @@ const T={
     ingredients_hint:"Ingredients detected from your meals:",
     no_meals:"No meals planned yet — add meals above to auto-generate your grocery list.",
     custom_items:"Custom Items",
-    tip1_txt:"Meal prep Sundays save 3–4 hours",tip1_detail:"Batch cooking grains, proteins, and veggies on Sunday means faster meals all week and less food waste.",tip1_tag:"3-4 hrs saved",
-    tip2_txt:"Plan before you shop — always",tip2_detail:"Families who plan meals before grocery shopping spend 25–30% less and waste significantly less food.",tip2_tag:"25% less spend",
-    tip3_txt:"Double recipes and freeze half",tip3_detail:"Making double portions and freezing half cuts your cost per meal and saves you on busy weeknights.",tip3_tag:"50% cost cut",
-    tip4_txt:"Shop the perimeter of the store",tip4_detail:"Fresh produce, meat, and dairy are on the perimeter. The interior aisles are where impulse buys happen.",tip4_tag:"Less impulse buys",
-    tip5_txt:"Use a set weekly budget",tip5_detail:"Families with a defined food budget spend an average of $150/month less than those without one.",tip5_tag:"$150/mo savings",
-    tip6_txt:"Meatless Monday saves big",tip6_detail:"Replacing one meat dinner per week with a plant-based meal saves $20–40/month per family.",tip6_tag:"$30/mo avg",
-    tip7_txt:"Buy in bulk for staples",tip7_detail:"Rice, beans, oats, pasta, and canned goods bought in bulk cost 40–60% less per serving than smaller packages.",tip7_tag:"40% cheaper",
+    tip_over_txt:"You're over budget this week",tip_over_detail:"Your planned meals add up to more than your weekly budget. Consider swapping one higher-cost meal for a cheaper option.",tip_over_tag:"over budget",
+    tip_under_txt:"You have room left in your budget",tip_under_detail:"You're comfortably under budget this week. Add a treat meal or move the difference into savings.",tip_under_tag:"left over",
+    tip_incomplete_txt:"Your week isn't fully planned yet",tip_incomplete_detail:"Fill in the remaining meal slots for a complete grocery list and an accurate weekly cost.",tip_incomplete_tag:"meals left",
+    tip_nocost_txt:"Some meals are missing a cost",tip_nocost_detail:"Add a cost to every planned meal so your weekly total and per-meal average stay accurate.",tip_nocost_tag:"need a cost",
+    tip_repeat_txt:"{name} shows up {n}× this week",tip_repeat_detail:"Buying the ingredients for a repeated meal in bulk is usually cheaper per serving.",tip_repeat_tag:"Buy in bulk",
+    tip_highcost_txt:"{name} costs much more than your other meals",tip_highcost_detail:"This meal stands out as unusually expensive next to your week's average. Double-check the cost or try a cheaper swap.",
+    tip_sparse_txt:"Your grocery list looks short for this many meals",tip_sparse_detail:"Add a bit more detail to your meal names (e.g. \"Pasta, tomato sauce, garlic\") so the auto-generated list catches every ingredient.",tip_sparse_tag:"items detected",
+    tip_ontrack_txt:"Your week is fully planned and on budget",tip_ontrack_detail:"Nice work — your meals, costs, and grocery list are all in good shape this week.",tip_ontrack_tag:"All good",
     budget_good:"On track",budget_over:"Over budget",budget_pct:"of budget used",
     meals_of:"of 21 meals",per_portion:"per portion",
     mark_done:"Done",
@@ -501,13 +502,14 @@ const T={
     ingredients_hint:"Ingrédients détectés dans vos repas:",
     no_meals:"Aucun repas planifié — ajoutez des repas ci-dessus pour générer automatiquement votre liste de courses.",
     custom_items:"Articles Personnalisés",
-    tip1_txt:"La prépa du dimanche économise 3–4 heures",tip1_detail:"Cuisiner en lot le dimanche signifie des repas plus rapides toute la semaine et moins de gaspillage alimentaire.",tip1_tag:"3-4h économisées",
-    tip2_txt:"Planifiez avant de faire les courses",tip2_detail:"Les familles qui planifient les repas avant les courses dépensent 25–30% de moins.",tip2_tag:"25% d'économies",
-    tip3_txt:"Doublez les recettes et congelez la moitié",tip3_detail:"Faire le double et congeler la moitié réduit le coût par repas et vous sauve les soirs chargés.",tip3_tag:"50% moins cher",
-    tip4_txt:"Faites le tour du périmètre du magasin",tip4_detail:"Les produits frais sont sur le périmètre. Les allées intérieures sont là où se font les achats impulsifs.",tip4_tag:"Moins d'achats impulsifs",
-    tip5_txt:"Utilisez un budget hebdomadaire fixe",tip5_detail:"Les familles avec un budget alimentaire défini dépensent en moyenne 150€/mois de moins.",tip5_tag:"150€/mois économisés",
-    tip6_txt:"Le lundi sans viande économise beaucoup",tip6_detail:"Remplacer un dîner à la viande par semaine par un repas végétal économise 20–40€/mois.",tip6_tag:"30€/mois en moyenne",
-    tip7_txt:"Achetez en vrac pour les essentiels",tip7_detail:"Le riz, les légumineuses, les flocons d'avoine achetés en vrac coûtent 40–60% moins cher par portion.",tip7_tag:"40% moins cher",
+    tip_over_txt:"Vous dépassez votre budget cette semaine",tip_over_detail:"Vos repas planifiés dépassent votre budget hebdomadaire. Essayez de remplacer un repas plus coûteux par une option moins chère.",tip_over_tag:"de dépassement",
+    tip_under_txt:"Il vous reste de la marge dans votre budget",tip_under_detail:"Vous êtes confortablement sous votre budget cette semaine. Ajoutez un repas plaisir ou mettez la différence de côté.",tip_under_tag:"restant",
+    tip_incomplete_txt:"Votre semaine n'est pas encore complète",tip_incomplete_detail:"Remplissez les repas restants pour une liste de courses complète et un coût hebdomadaire précis.",tip_incomplete_tag:"repas restants",
+    tip_nocost_txt:"Certains repas n'ont pas de coût indiqué",tip_nocost_detail:"Ajoutez un coût à chaque repas planifié pour que votre total hebdomadaire et votre moyenne par repas restent précis.",tip_nocost_tag:"sans coût",
+    tip_repeat_txt:"{name} revient {n}× cette semaine",tip_repeat_detail:"Acheter les ingrédients d'un repas répété en grande quantité coûte généralement moins cher par portion.",tip_repeat_tag:"Achetez en gros",
+    tip_highcost_txt:"{name} coûte bien plus cher que vos autres repas",tip_highcost_detail:"Ce repas se démarque comme inhabituellement cher par rapport à la moyenne de votre semaine. Vérifiez le coût ou essayez une option moins chère.",
+    tip_sparse_txt:"Votre liste de courses semble courte pour autant de repas",tip_sparse_detail:"Ajoutez un peu plus de détails à vos noms de repas (ex. « Pâtes, sauce tomate, ail ») pour que la liste automatique capte tous les ingrédients.",tip_sparse_tag:"articles détectés",
+    tip_ontrack_txt:"Votre semaine est complète et dans le budget",tip_ontrack_detail:"Bien joué — vos repas, coûts et liste de courses sont tous en bon état cette semaine.",tip_ontrack_tag:"Tout est bon",
     budget_good:"Dans les limites",budget_over:"Dépassement",budget_pct:"du budget utilisé",
     meals_of:"sur 21 repas",per_portion:"par portion",mark_done:"Fait",
   },
@@ -532,13 +534,14 @@ const T={
     ingredients_hint:"Ingredientes detectados en tus comidas:",
     no_meals:"Sin comidas planificadas — agrega comidas arriba para generar automáticamente tu lista de compras.",
     custom_items:"Artículos Personalizados",
-    tip1_txt:"Prepara comidas los domingos — ahorra 3-4 horas",tip1_detail:"Cocinar en lote los domingos significa comidas más rápidas toda la semana y menos desperdicio.",tip1_tag:"3-4 horas ahorradas",
-    tip2_txt:"Planifica antes de ir al supermercado",tip2_detail:"Las familias que planifican comidas antes de las compras gastan 25–30% menos.",tip2_tag:"25% menos gasto",
-    tip3_txt:"Duplica recetas y congela la mitad",tip3_detail:"Hacer el doble y congelar la mitad reduce el costo por comida y te salva las noches ocupadas.",tip3_tag:"50% más barato",
-    tip4_txt:"Recorre el perímetro del supermercado",tip4_detail:"Los productos frescos están en el perímetro. Los pasillos interiores son donde ocurren las compras impulsivas.",tip4_tag:"Menos compras impulsivas",
-    tip5_txt:"Usa un presupuesto semanal fijo",tip5_detail:"Las familias con un presupuesto alimentario definido gastan en promedio $150/mes menos.",tip5_tag:"$150/mes ahorrados",
-    tip6_txt:"Lunes sin carne ahorra mucho",tip6_detail:"Reemplazar una cena de carne por semana por una comida vegetal ahorra $20–40/mes.",tip6_tag:"$30/mes promedio",
-    tip7_txt:"Compra a granel para básicos",tip7_detail:"Arroz, frijoles, avena, pasta comprados a granel cuestan 40–60% menos por porción.",tip7_tag:"40% más barato",
+    tip_over_txt:"Estás sobre presupuesto esta semana",tip_over_detail:"Tus comidas planificadas suman más que tu presupuesto semanal. Considera cambiar una comida más cara por una opción más económica.",tip_over_tag:"sobre presupuesto",
+    tip_under_txt:"Te queda margen en tu presupuesto",tip_under_detail:"Estás cómodamente por debajo de tu presupuesto esta semana. Agrega una comida especial o mueve la diferencia a tus ahorros.",tip_under_tag:"disponible",
+    tip_incomplete_txt:"Tu semana aún no está completamente planificada",tip_incomplete_detail:"Completa las comidas restantes para una lista de compras completa y un costo semanal preciso.",tip_incomplete_tag:"comidas faltantes",
+    tip_nocost_txt:"Algunas comidas no tienen costo indicado",tip_nocost_detail:"Agrega un costo a cada comida planificada para que tu total semanal y tu promedio por comida sean precisos.",tip_nocost_tag:"sin costo",
+    tip_repeat_txt:"{name} se repite {n}× esta semana",tip_repeat_detail:"Comprar los ingredientes de una comida repetida al por mayor suele ser más barato por porción.",tip_repeat_tag:"Compra al por mayor",
+    tip_highcost_txt:"{name} cuesta mucho más que tus otras comidas",tip_highcost_detail:"Esta comida destaca como inusualmente cara frente al promedio de tu semana. Verifica el costo o prueba una opción más económica.",
+    tip_sparse_txt:"Tu lista de compras parece corta para tantas comidas",tip_sparse_detail:"Agrega un poco más de detalle a los nombres de tus comidas (ej. \"Pasta, salsa de tomate, ajo\") para que la lista automática detecte todos los ingredientes.",tip_sparse_tag:"artículos detectados",
+    tip_ontrack_txt:"Tu semana está completa y dentro del presupuesto",tip_ontrack_detail:"Buen trabajo — tus comidas, costos y lista de compras están en buena forma esta semana.",tip_ontrack_tag:"Todo bien",
     budget_good:"En camino",budget_over:"Excedido",budget_pct:"del presupuesto usado",
     meals_of:"de 21 comidas",per_portion:"por porción",mark_done:"Hecho",
   },
@@ -563,13 +566,14 @@ const T={
     ingredients_hint:"Ingredientes detectados nas suas refeições:",
     no_meals:"Sem refeições planejadas — adicione refeições acima para gerar automaticamente sua lista de compras.",
     custom_items:"Itens Personalizados",
-    tip1_txt:"Preparo de domingo economiza 3-4 horas",tip1_detail:"Cozinhar em lote no domingo significa refeições mais rápidas durante a semana e menos desperdício.",tip1_tag:"3-4h economizadas",
-    tip2_txt:"Planeje antes de ir ao mercado",tip2_detail:"Famílias que planejam refeições antes das compras gastam 25–30% menos.",tip2_tag:"25% de economia",
-    tip3_txt:"Duplique receitas e congele a metade",tip3_detail:"Fazer o dobro e congelar a metade reduz o custo por refeição e salva as noites ocupadas.",tip3_tag:"50% mais barato",
-    tip4_txt:"Percorra o perímetro do supermercado",tip4_detail:"Produtos frescos ficam no perímetro. Os corredores internos são onde acontecem as compras por impulso.",tip4_tag:"Menos compras impulsivas",
-    tip5_txt:"Use um orçamento semanal fixo",tip5_detail:"Famílias com orçamento alimentar definido gastam em média R$150/mês a menos.",tip5_tag:"R$150/mês economizados",
-    tip6_txt:"Segunda sem carne economiza bastante",tip6_detail:"Substituir um jantar de carne por semana por uma refeição vegetal economiza R$20–40/mês.",tip6_tag:"R$30/mês em média",
-    tip7_txt:"Compre a granel para itens básicos",tip7_detail:"Arroz, feijão, aveia, macarrão comprados a granel custam 40–60% menos por porção.",tip7_tag:"40% mais barato",
+    tip_over_txt:"Você está acima do orçamento esta semana",tip_over_detail:"Suas refeições planejadas somam mais que seu orçamento semanal. Considere trocar uma refeição mais cara por uma opção mais barata.",tip_over_tag:"acima do orçamento",
+    tip_under_txt:"Ainda sobra espaço no seu orçamento",tip_under_detail:"Você está confortavelmente abaixo do orçamento esta semana. Adicione uma refeição especial ou guarde a diferença.",tip_under_tag:"sobrando",
+    tip_incomplete_txt:"Sua semana ainda não está totalmente planejada",tip_incomplete_detail:"Preencha as refeições restantes para uma lista de compras completa e um custo semanal preciso.",tip_incomplete_tag:"refeições faltando",
+    tip_nocost_txt:"Algumas refeições estão sem custo informado",tip_nocost_detail:"Adicione um custo a cada refeição planejada para que seu total semanal e sua média por refeição fiquem precisos.",tip_nocost_tag:"sem custo",
+    tip_repeat_txt:"{name} se repete {n}× esta semana",tip_repeat_detail:"Comprar os ingredientes de uma refeição repetida a granel costuma ser mais barato por porção.",tip_repeat_tag:"Compre a granel",
+    tip_highcost_txt:"{name} custa muito mais que suas outras refeições",tip_highcost_detail:"Esta refeição se destaca como incomumente cara em relação à média da sua semana. Verifique o custo ou tente uma opção mais barata.",
+    tip_sparse_txt:"Sua lista de compras parece curta para tantas refeições",tip_sparse_detail:"Adicione mais detalhes aos nomes das suas refeições (ex. \"Macarrão, molho de tomate, alho\") para que a lista automática capte todos os ingredientes.",tip_sparse_tag:"itens detectados",
+    tip_ontrack_txt:"Sua semana está completa e dentro do orçamento",tip_ontrack_detail:"Muito bem — suas refeições, custos e lista de compras estão em boa forma esta semana.",tip_ontrack_tag:"Tudo certo",
     budget_good:"No caminho certo",budget_over:"Acima do orçamento",budget_pct:"do orçamento usado",
     meals_of:"de 21 refeições",per_portion:"por porção",mark_done:"Feito",
   }
@@ -762,16 +766,68 @@ function removeCustomItem(i){
 // ── TIPS ─────────────────────────────────────────────────────
 function renderTips(){
   const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
-  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
-  const tips=[
-    {ico:'🥦',color:'green',txt:t('tip2_txt'),detail:t('tip2_detail'),tag:t('tip2_tag'),tagClass:'good'},
-    {ico:'🍳',color:'gold',txt:t('tip1_txt'),detail:t('tip1_detail'),tag:t('tip1_tag'),tagClass:'gold'},
-    {ico:'🧊',color:'blue',txt:t('tip3_txt'),detail:t('tip3_detail'),tag:t('tip3_tag'),tagClass:'good'},
-    {ico:'🌿',color:'green',txt:t('tip6_txt'),detail:t('tip6_detail'),tag:t('tip6_tag'),tagClass:'gold'},
-    {ico:'🛒',color:'gold',txt:t('tip4_txt'),detail:t('tip4_detail'),tag:t('tip4_tag'),tagClass:'warn'},
-    {ico:'💰',color:'green',txt:t('tip5_txt'),detail:t('tip5_detail'),tag:t('tip5_tag'),tagClass:'good'},
-    {ico:'📦',color:'blue',txt:t('tip7_txt'),detail:t('tip7_detail'),tag:t('tip7_tag'),tagClass:'good'},
-  ];
+
+  // Build a flat list of every meal actually entered this week
+  const allMeals=[];
+  weekData.forEach(d=>{
+    MEAL_TYPES.forEach(type=>{
+      const m=d.meals[type];
+      if(m.name.trim()){
+        const cost=parseFloat(m.cost)||0;
+        allMeals.push({day:d.day,type,name:m.name.trim(),cost,hasCost:m.cost!==''&&cost>0});
+      }
+    });
+  });
+  const totalSlots=7*MEAL_TYPES.length;
+  const filledSlots=allMeals.length;
+  const totalCost=allMeals.reduce((s,m)=>s+m.cost,0);
+  const mealsWithCost=allMeals.filter(m=>m.hasCost);
+  const avgCost=mealsWithCost.length?mealsWithCost.reduce((s,m)=>s+m.cost,0)/mealsWithCost.length:0;
+  const groceryCount=extractIngredients().length+customGrocery.length;
+
+  const tips=[];
+
+  // 1. Over budget
+  if(budget>0&&totalCost>budget){
+    tips.push({ico:'⚠️',color:'coral',txt:t('tip_over_txt'),detail:t('tip_over_detail'),tag:fmt(totalCost-budget,2)+' '+t('tip_over_tag'),tagClass:'warn'});
+  }
+  // 2. Comfortably under budget (30%+ left, with at least one meal planned)
+  else if(budget>0&&filledSlots>0&&(budget-totalCost)>budget*0.3){
+    tips.push({ico:'💰',color:'green',txt:t('tip_under_txt'),detail:t('tip_under_detail'),tag:fmt(budget-totalCost,2)+' '+t('tip_under_tag'),tagClass:'good'});
+  }
+  // 3. Week not fully planned
+  if(filledSlots<totalSlots){
+    tips.push({ico:'📅',color:'gold',txt:t('tip_incomplete_txt'),detail:t('tip_incomplete_detail'),tag:(totalSlots-filledSlots)+' '+t('tip_incomplete_tag'),tagClass:'gold'});
+  }
+  // 4. Meals entered without a cost
+  const missingCost=allMeals.filter(m=>!m.hasCost).length;
+  if(missingCost>0){
+    tips.push({ico:'🧾',color:'blue',txt:t('tip_nocost_txt'),detail:t('tip_nocost_detail'),tag:missingCost+' '+t('tip_nocost_tag'),tagClass:'warn'});
+  }
+  // 5. Same meal repeated — bulk-buy opportunity
+  const nameCounts={};
+  allMeals.forEach(m=>{const key=m.name.toLowerCase();nameCounts[key]=(nameCounts[key]||0)+1;});
+  const repeated=Object.entries(nameCounts).filter(([,c])=>c>=2).sort((a,b)=>b[1]-a[1])[0];
+  if(repeated){
+    const displayName=allMeals.find(m=>m.name.toLowerCase()===repeated[0]).name;
+    tips.push({ico:'📦',color:'purple',txt:t('tip_repeat_txt').replace('{name}',displayName).replace('{n}',repeated[1]),detail:t('tip_repeat_detail'),tag:t('tip_repeat_tag'),tagClass:'good'});
+  }
+  // 6. A single meal costs far more than the week's average
+  if(mealsWithCost.length>=4){
+    const maxMeal=mealsWithCost.reduce((max,m)=>m.cost>max.cost?m:max,mealsWithCost[0]);
+    if(maxMeal.cost>avgCost*2.5&&maxMeal.cost>avgCost+10){
+      tips.push({ico:'🔍',color:'coral',txt:t('tip_highcost_txt').replace('{name}',maxMeal.name),detail:t('tip_highcost_detail'),tag:fmt(maxMeal.cost,2),tagClass:'warn'});
+    }
+  }
+  // 7. Grocery list looks thin for how many meals are planned
+  if(filledSlots>=5&&groceryCount>0&&groceryCount<filledSlots){
+    tips.push({ico:'🥕',color:'green',txt:t('tip_sparse_txt'),detail:t('tip_sparse_detail'),tag:groceryCount+' '+t('tip_sparse_tag'),tagClass:'gold'});
+  }
+  // Fallback: nothing flagged — week is on track
+  if(tips.length===0&&filledSlots>0){
+    tips.push({ico:'✅',color:'green',txt:t('tip_ontrack_txt'),detail:t('tip_ontrack_detail'),tag:t('tip_ontrack_tag'),tagClass:'good'});
+  }
+
   document.getElementById('tips-badge').textContent=tips.length;
   document.getElementById('tips-body').innerHTML=`<div class="tip-list">${tips.map(tip=>`
     <div class="tip-item">
