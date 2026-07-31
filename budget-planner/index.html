@@ -457,6 +457,39 @@ body::before {
 .freq-select option { background: var(--navy-2); color: var(--text-primary); }
 .income-freq-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; display: none; }
 .income-freq-note.show { display: block; }
+
+.custom-field-row { display: flex; gap: 8px; align-items: flex-end; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); }
+.custom-field-inputs { flex: 1.3; min-width: 0; }
+.custom-field-amount { flex: 1; min-width: 0; }
+.field-label-sm { display: block; font-size: 10px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.custom-label-input {
+  width: 100%; height: 50px; padding: 0 14px;
+  font-size: 14px; font-family: var(--font-body); font-weight: 400;
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px; outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.custom-label-input::placeholder { color: rgba(255,255,255,0.2); }
+.custom-label-input:hover { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); }
+.custom-label-input:focus { border-color: rgba(45,212,191,0.5); background: rgba(45,212,191,0.04); box-shadow: 0 0 0 3px rgba(45,212,191,0.1); }
+.custom-remove-btn {
+  flex-shrink: 0; width: 50px; height: 50px;
+  border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04); color: var(--text-muted);
+  font-size: 14px; cursor: pointer; transition: all 0.2s;
+}
+.custom-remove-btn:hover { border-color: rgba(255,107,107,0.4); color: var(--red); background: rgba(255,107,107,0.06); }
+.add-field-btn {
+  width: 100%; margin-top: 14px; padding: 13px;
+  border-radius: 12px; border: 1.5px dashed rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.02); color: var(--teal);
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.add-field-btn:hover { border-color: rgba(45,212,191,0.4); background: rgba(45,212,191,0.06); }
 .section-total {
   display: flex; justify-content: space-between; align-items: center;
   margin-top: 18px; padding-top: 16px;
@@ -829,6 +862,8 @@ body::before {
             </select>
           </div>
         </div>
+        <div id="custom-income-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('income')">+ <span data-i18n="add_field">Add Item</span></button>
         <div class="section-total">
           <span class="section-total-label" data-i18n="total_income">Total Income</span>
           <span class="section-total-val" id="total-income">$0.00</span>
@@ -856,6 +891,8 @@ body::before {
         <div class="field"><label class="field-label" for="housing-rent"><span data-i18n="rent">Rent / Mortgage</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-rent" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="housing-utilities"><span data-i18n="utilities">Utilities</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-utilities" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="housing-internet"><span data-i18n="internet">Internet</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="housing-internet" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div id="custom-housing-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('housing')">+ <span data-i18n="add_field">Add Item</span></button>
       </div>
     </div>
   </div>
@@ -877,6 +914,8 @@ body::before {
       <div class="sec-body-inner">
         <div class="field"><label class="field-label" for="food-groceries"><span data-i18n="groceries">Groceries</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-groceries" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="food-dining"><span data-i18n="dining_out">Dining Out</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="food-dining" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div id="custom-food-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('food')">+ <span data-i18n="add_field">Add Item</span></button>
       </div>
     </div>
   </div>
@@ -899,6 +938,8 @@ body::before {
         <div class="field"><label class="field-label" for="trans-car"><span data-i18n="car_payment">Car Payment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-car" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="trans-gas"><span data-i18n="gas">Gas</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-gas" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="trans-insurance"><span data-i18n="insurance">Insurance</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="trans-insurance" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div id="custom-transport-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('transport')">+ <span data-i18n="add_field">Add Item</span></button>
       </div>
     </div>
   </div>
@@ -922,6 +963,8 @@ body::before {
         <div class="field"><label class="field-label" for="family-school"><span data-i18n="school">School / Education</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-school" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="family-clothing"><span data-i18n="clothing">Clothing</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-clothing" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="family-entertainment"><span data-i18n="entertainment">Entertainment</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="family-entertainment" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div id="custom-family-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('family')">+ <span data-i18n="add_field">Add Item</span></button>
       </div>
     </div>
   </div>
@@ -944,6 +987,8 @@ body::before {
         <div class="field"><label class="field-label" for="goal-savings"><span data-i18n="savings">Savings</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-savings" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="goal-debt"><span data-i18n="debt_payments">Debt Payments</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-debt" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
         <div class="field"><label class="field-label" for="goal-emergency"><span data-i18n="emergency_fund">Emergency Fund</span></label><div class="input-wrap"><span class="input-pfx currency-symbol">$</span><input type="number" class="field-input" id="goal-emergency" placeholder="0" min="0" step="0.01" oninput="calculate()"></div></div>
+        <div id="custom-goals-container"></div>
+        <button type="button" class="add-field-btn" onclick="addCustomField('goals')">+ <span data-i18n="add_field">Add Item</span></button>
       </div>
     </div>
   </div>
@@ -1033,6 +1078,7 @@ const T = {
     other_income:"Other Income",
     freq_monthly:"Monthly",freq_weekly:"Weekly",freq_biweekly:"Biweekly",freq_semimonthly:"Semi-monthly",
     income_freq_note:"Total Income shown is a monthly equivalent — non-monthly pay frequencies are converted automatically.",
+    add_field:"Add Item",custom_label_caption:"Custom item",custom_amount_caption:"Amount",custom_label_placeholder:"e.g. Freelance income",
     s_housing:"Housing",rent:"Rent / Mortgage",utilities:"Utilities",internet:"Internet",
     s_food:"Food",groceries:"Groceries",dining_out:"Dining Out",
     s_transport:"Transportation",car_payment:"Car Payment",gas:"Gas",insurance:"Insurance",
@@ -1070,6 +1116,7 @@ const T = {
     other_income:"Autres Revenus",
     freq_monthly:"Mensuel",freq_weekly:"Hebdomadaire",freq_biweekly:"Bihebdomadaire",freq_semimonthly:"Bimensuel",
     income_freq_note:"Le Revenu Total affiché est un équivalent mensuel — les fréquences de paie non mensuelles sont converties automatiquement.",
+    add_field:"Ajouter un Élément",custom_label_caption:"Élément personnalisé",custom_amount_caption:"Montant",custom_label_placeholder:"ex. Revenu freelance",
     s_housing:"Logement",rent:"Loyer / Hypothèque",utilities:"Services Publics",internet:"Internet",
     s_food:"Alimentation",groceries:"Courses",dining_out:"Restaurants",
     s_transport:"Transport",car_payment:"Paiement Voiture",gas:"Carburant",insurance:"Assurance",
@@ -1107,6 +1154,7 @@ const T = {
     other_income:"Otros Ingresos",
     freq_monthly:"Mensual",freq_weekly:"Semanal",freq_biweekly:"Quincenal",freq_semimonthly:"Bimensual",
     income_freq_note:"El Ingreso Total mostrado es un equivalente mensual — las frecuencias de pago no mensuales se convierten automáticamente.",
+    add_field:"Agregar Elemento",custom_label_caption:"Elemento personalizado",custom_amount_caption:"Monto",custom_label_placeholder:"ej. Ingreso freelance",
     s_housing:"Vivienda",rent:"Alquiler / Hipoteca",utilities:"Servicios Públicos",internet:"Internet",
     s_food:"Alimentación",groceries:"Supermercado",dining_out:"Restaurantes",
     s_transport:"Transporte",car_payment:"Pago del Auto",gas:"Gasolina",insurance:"Seguro",
@@ -1144,6 +1192,7 @@ const T = {
     other_income:"Outras Rendas",
     freq_monthly:"Mensal",freq_weekly:"Semanal",freq_biweekly:"Quinzenal",freq_semimonthly:"Bimensal",
     income_freq_note:"A Renda Total exibida é um equivalente mensal — frequências de pagamento não mensais são convertidas automaticamente.",
+    add_field:"Adicionar Item",custom_label_caption:"Item personalizado",custom_amount_caption:"Valor",custom_label_placeholder:"ex. Renda freelance",
     s_housing:"Moradia",rent:"Aluguel / Hipoteca",utilities:"Serviços Públicos",internet:"Internet",
     s_food:"Alimentação",groceries:"Supermercado",dining_out:"Restaurantes",
     s_transport:"Transporte",car_payment:"Parcela do Carro",gas:"Combustível",insurance:"Seguro",
@@ -1191,6 +1240,70 @@ function v(id){return Math.max(0,parseFloat(document.getElementById(id).value)||
 const INCOME_FREQ_MULT={monthly:1,weekly:52/12,biweekly:26/12,semimonthly:2};
 function incomeFreq(id){const el=document.getElementById(id+'-freq');return el?el.value:'monthly';}
 function incomeMonthly(id){return v(id)*INCOME_FREQ_MULT[incomeFreq(id)];}
+
+// ── DYNAMIC CUSTOM FIELDS ────────────────────────────────────────
+const CUSTOM_SECTIONS=['income','housing','food','transport','family','goals'];
+let customFields={income:[],housing:[],food:[],transport:[],family:[],goals:[]};
+let customFieldIdCounter=0;
+
+function escHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function customFieldMonthly(section,f){
+  const raw=Math.max(0,parseFloat(f.amount)||0);
+  return section==='income'?raw*INCOME_FREQ_MULT[f.frequency||'monthly']:raw;
+}
+function customFieldsTotal(section){
+  return customFields[section].reduce((s,f)=>s+customFieldMonthly(section,f),0);
+}
+function customIncomeHasNonMonthly(){
+  return customFields.income.some(f=>(f.frequency||'monthly')!=='monthly');
+}
+
+function addCustomField(section){
+  customFields[section].push({id:'cf'+(++customFieldIdCounter),label:'',amount:'',frequency:'monthly'});
+  renderCustomFields(section);
+  calculate();
+}
+function removeCustomField(section,id){
+  customFields[section]=customFields[section].filter(f=>f.id!==id);
+  renderCustomFields(section);
+  calculate();
+}
+function updateCustomField(section,id,key,value){
+  const f=customFields[section].find(x=>x.id===id);
+  if(f)f[key]=value;
+  calculate();
+}
+
+function renderCustomFields(section){
+  const container=document.getElementById('custom-'+section+'-container');
+  if(!container)return;
+  container.innerHTML=customFields[section].map(f=>{
+    const labelId=f.id+'-label',amountId=f.id+'-amount',freqId=f.id+'-freq';
+    const freqSelect=section==='income'?`
+      <select class="freq-select" id="${freqId}" onchange="updateCustomField('${section}','${f.id}','frequency',this.value)">
+        <option value="monthly"${f.frequency==='monthly'?' selected':''} data-i18n="freq_monthly">Monthly</option>
+        <option value="weekly"${f.frequency==='weekly'?' selected':''} data-i18n="freq_weekly">Weekly</option>
+        <option value="biweekly"${f.frequency==='biweekly'?' selected':''} data-i18n="freq_biweekly">Biweekly</option>
+        <option value="semimonthly"${f.frequency==='semimonthly'?' selected':''} data-i18n="freq_semimonthly">Semi-monthly</option>
+      </select>`:'';
+    return `<div class="custom-field-row">
+      <div class="custom-field-inputs">
+        <label class="field-label-sm" for="${labelId}" data-i18n="custom_label_caption">Custom item</label>
+        <input type="text" class="custom-label-input" id="${labelId}" placeholder="${t('custom_label_placeholder')}" value="${escHtml(f.label)}" oninput="updateCustomField('${section}','${f.id}','label',this.value)">
+      </div>
+      <div class="custom-field-amount">
+        <label class="field-label-sm" for="${amountId}" data-i18n="custom_amount_caption">Amount</label>
+        <div class="income-row">
+          <div class="input-wrap"><span class="input-pfx currency-symbol">${sym()}</span><input type="number" class="field-input" id="${amountId}" placeholder="0" min="0" step="0.01" value="${escHtml(f.amount)}" oninput="updateCustomField('${section}','${f.id}','amount',this.value)"></div>
+          ${freqSelect}
+        </div>
+      </div>
+      <button type="button" class="custom-remove-btn" onclick="removeCustomField('${section}','${f.id}')" aria-label="Remove">✕</button>
+    </div>`;
+  }).join('');
+}
+function renderAllCustomFields(){CUSTOM_SECTIONS.forEach(renderCustomFields);}
 function sym(){return CURRENCIES[currency].symbol;}
 function fmt(n,decimals=0){const c=CURRENCIES[currency];return(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:decimals,maximumFractionDigits:decimals});}
 function t(k){return T[lang][k]||T.en[k]||k;}
@@ -1356,15 +1469,15 @@ function dismissWin(id){
 }
 
 function calculate(){
-  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other');
-  const anyNonMonthlyIncome=['income-primary','income-secondary','income-other'].some(id=>incomeFreq(id)!=='monthly');
+  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other')+customFieldsTotal('income');
+  const anyNonMonthlyIncome=['income-primary','income-secondary','income-other'].some(id=>incomeFreq(id)!=='monthly')||customIncomeHasNonMonthly();
   const freqNote=document.getElementById('income-freq-note');
   if(freqNote)freqNote.classList.toggle('show',anyNonMonthlyIncome);
-  const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet');
-  const food=v('food-groceries')+v('food-dining');
-  const transport=v('trans-car')+v('trans-gas')+v('trans-insurance');
-  const family=v('family-childcare')+v('family-school')+v('family-clothing')+v('family-entertainment');
-  const savingsGoals=v('goal-savings')+v('goal-debt')+v('goal-emergency');
+  const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet')+customFieldsTotal('housing');
+  const food=v('food-groceries')+v('food-dining')+customFieldsTotal('food');
+  const transport=v('trans-car')+v('trans-gas')+v('trans-insurance')+customFieldsTotal('transport');
+  const family=v('family-childcare')+v('family-school')+v('family-clothing')+v('family-entertainment')+customFieldsTotal('family');
+  const savingsGoals=v('goal-savings')+v('goal-debt')+v('goal-emergency')+customFieldsTotal('goals');
   const totalExpenses=housing+food+transport+family+savingsGoals;
   const remaining=income-totalExpenses;
   const savingsRate=income>0?(savingsGoals/income)*100:0;
@@ -1435,6 +1548,8 @@ function calculate(){
 function resetAll(){
   document.querySelectorAll('input[type="number"]').forEach(i=>i.value='');
   document.querySelectorAll('.freq-select').forEach(s=>s.value='monthly');
+  CUSTOM_SECTIONS.forEach(s=>customFields[s]=[]);
+  renderAllCustomFields();
   dismissed.clear();activeSection='sec-income';Object.keys(prevVals).forEach(k=>delete prevVals[k]);
   SS.clear();
   calculate();
@@ -1494,12 +1609,12 @@ function showDownloadModal(){
 }
 
 function downloadReport(isSample=false){
-  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other');
-  const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet');
-  const food=v('food-groceries')+v('food-dining');
-  const transport=v('trans-car')+v('trans-gas')+v('trans-insurance');
-  const family=v('family-childcare')+v('family-school')+v('family-clothing')+v('family-entertainment');
-  const savingsGoals=v('goal-savings')+v('goal-debt')+v('goal-emergency');
+  const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other')+customFieldsTotal('income');
+  const housing=v('housing-rent')+v('housing-utilities')+v('housing-internet')+customFieldsTotal('housing');
+  const food=v('food-groceries')+v('food-dining')+customFieldsTotal('food');
+  const transport=v('trans-car')+v('trans-gas')+v('trans-insurance')+customFieldsTotal('transport');
+  const family=v('family-childcare')+v('family-school')+v('family-clothing')+v('family-entertainment')+customFieldsTotal('family');
+  const savingsGoals=v('goal-savings')+v('goal-debt')+v('goal-emergency')+customFieldsTotal('goals');
   const totalExpenses=housing+food+transport+family+savingsGoals;
   const remaining=income-totalExpenses;
   const savingsRate=income>0?(savingsGoals/income)*100:0;
@@ -1513,14 +1628,20 @@ function downloadReport(isSample=false){
     ['Primary Income'+freqLabel[incomeFreq('income-primary')],incomeMonthly('income-primary')],
     ['Secondary Income'+freqLabel[incomeFreq('income-secondary')],incomeMonthly('income-secondary')],
     ['Other Income'+freqLabel[incomeFreq('income-other')],incomeMonthly('income-other')],
+    ...customFields.income.map(cf=>[(cf.label||'Custom Income')+freqLabel[cf.frequency||'monthly'],customFieldMonthly('income',cf)]),
   ].filter(r=>r[1]>0);
   const expRows=[
     ['Rent / Mortgage',v('housing-rent')],['Utilities',v('housing-utilities')],['Internet',v('housing-internet')],
+    ...customFields.housing.map(cf=>[cf.label||'Custom Housing',customFieldMonthly('housing',cf)]),
     ['Groceries',v('food-groceries')],['Dining Out',v('food-dining')],
+    ...customFields.food.map(cf=>[cf.label||'Custom Food',customFieldMonthly('food',cf)]),
     ['Car Payment',v('trans-car')],['Gas',v('trans-gas')],['Insurance',v('trans-insurance')],
+    ...customFields.transport.map(cf=>[cf.label||'Custom Transport',customFieldMonthly('transport',cf)]),
     ['Childcare',v('family-childcare')],['School / Education',v('family-school')],
     ['Clothing',v('family-clothing')],['Entertainment',v('family-entertainment')],
+    ...customFields.family.map(cf=>[cf.label||'Custom Family',customFieldMonthly('family',cf)]),
     ['Savings',v('goal-savings')],['Debt Payments',v('goal-debt')],['Emergency Fund',v('goal-emergency')],
+    ...customFields.goals.map(cf=>[cf.label||'Custom Goal',customFieldMonthly('goals',cf)]),
   ].filter(r=>r[1]>0);
 
   let reportDoc=`<!DOCTYPE html><html><head><meta charset="UTF-8">
