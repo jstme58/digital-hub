@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Meal Planner — E Pelissier Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1F3C; --navy-2: #142647; --navy-3: #1B2F55;
+  --green: #00C896; --green-dim: rgba(0,200,150,0.12); --green-glow: rgba(0,200,150,0.25);
+  --green-dark: #009970;
+  --lime: #A8E063; --lime-dim: rgba(168,224,99,0.12);
+  --teal: #2DD4BF; --teal-dim: rgba(45,212,191,0.1);
+  --gold: #C9A84C; --gold-light: #F0D58A;
+  --coral: #FF6B6B; --coral-dim: rgba(255,107,107,0.12);
+  --amber: #FFB347; --amber-dim: rgba(255,179,71,0.12);
+  --blue: #74B9FF; --blue-dim: rgba(116,185,255,0.12);
+  --purple: #A29BFE; --purple-dim: rgba(162,155,254,0.12);
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.30);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --card-bg: rgba(255,255,255,0.04);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease-smooth: cubic-bezier(0.4,0,0.2,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--navy); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-size:200px; opacity:0.4; }
+.orb { position:fixed; border-radius:50%; pointer-events:none; z-index:0; filter:blur(80px); opacity:0.28; }
+.orb-1 { width:500px; height:500px; background:radial-gradient(circle,rgba(0,200,150,0.35),transparent 70%); top:-150px; right:-150px; }
+.orb-2 { width:380px; height:380px; background:radial-gradient(circle,rgba(201,168,76,0.2),transparent 70%); bottom:20%; left:-100px; }
+.orb-3 { width:280px; height:280px; background:radial-gradient(circle,rgba(168,224,99,0.18),transparent 70%); bottom:-80px; right:15%; }
+
+/* TOP BAR */
+.top-bar { position:relative; z-index:10; background:rgba(13,31,60,0.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:10px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.brand-mark { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
+.brand-dot { width:6px; height:6px; border-radius:50%; background:var(--green); display:inline-block; }
+.controls { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.ctrl-group { display:flex; align-items:center; gap:6px; }
+.ctrl-group label { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.ctrl-group select { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-primary); font-family:var(--font-body); font-size:12px; font-weight:500; padding:5px 10px; border-radius:8px; cursor:pointer; outline:none; transition:border-color 0.2s; }
+.ctrl-group select:focus { border-color:var(--green); }
+.ctrl-group select option { background:var(--navy-2); }
+.ctrl-divider { width:1px; height:20px; background:var(--border); }
+
+/* HERO */
+.hero { position:relative; z-index:1; padding:52px 24px 40px; text-align:center; }
+.hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:18px; padding:6px 16px; border:1px solid rgba(0,200,150,0.25); border-radius:99px; background:rgba(0,200,150,0.06); }
+.hero-eyebrow::before { content:'✦'; font-size:8px; }
+.hero h1 { font-family:var(--font-display); font-size:clamp(28px,5vw,48px); font-weight:700; color:var(--text-primary); line-height:1.1; letter-spacing:-1px; margin-bottom:14px; }
+.hero h1 em { font-style:italic; background:linear-gradient(135deg,var(--green),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:15px; font-weight:300; color:var(--text-secondary); max-width:420px; margin:0 auto; line-height:1.7; }
+.hero-line { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--green),transparent); margin:24px auto 0; }
+
+/* STICKY DASH */
+.sticky-dash { position:sticky; top:0; z-index:50; background:rgba(13,31,60,0.92); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); padding:12px 20px 0; transition:box-shadow 0.3s; }
+.sticky-dash.scrolled { box-shadow:0 4px 40px rgba(0,0,0,0.4); }
+.dash-inner { max-width:860px; margin:0 auto; }
+.summary-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+.sum-card { border-radius:14px; padding:14px 14px 12px; border:1px solid var(--border); background:var(--card-bg); position:relative; overflow:hidden; transition:border-color 0.3s,background 0.3s; }
+.sum-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent); pointer-events:none; }
+.sum-card.good { border-color:rgba(0,200,150,0.3); background:rgba(0,200,150,0.06); }
+.sum-card.warn { border-color:rgba(255,179,71,0.3); background:rgba(255,179,71,0.06); }
+.sc-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.sc-label { font-size:9px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+.sc-icon { font-size:13px; opacity:0.7; }
+.sc-value { font-family:var(--font-display); font-size:clamp(14px,3vw,20px); font-weight:700; color:var(--text-primary); letter-spacing:-0.5px; line-height:1; }
+.sum-card.good .sc-value { color:var(--green); }
+.sum-card.warn .sc-value { color:var(--amber); }
+.sc-sub { font-size:10px; color:var(--text-muted); margin-top:4px; }
+
+/* WEEK NAV */
+.week-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.week-label { font-family:var(--font-display); font-size:14px; font-weight:600; color:var(--text-primary); }
+.week-btn { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-secondary); font-size:14px; width:30px; height:30px; border-radius:8px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+.week-btn:hover { border-color:var(--green); color:var(--green); }
+
+/* DAY STRIP */
+.day-strip { display:flex; gap:6px; margin-bottom:10px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px; }
+.day-strip::-webkit-scrollbar { display:none; }
+.day-pill { flex-shrink:0; padding:6px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card-bg); cursor:pointer; transition:all 0.2s; text-align:center; }
+.day-pill.active { border-color:rgba(0,200,150,0.4); background:rgba(0,200,150,0.1); }
+.day-pill:hover:not(.active) { border-color:var(--border-hover); }
+.dp-day { font-size:9px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; display:block; }
+.day-pill.active .dp-day { color:var(--green); }
+.dp-meals { font-size:10px; color:var(--text-muted); display:block; margin-top:2px; }
+.day-pill.has-meals .dp-meals { color:var(--green); }
+
+/* CONTAINER */
+.container { max-width:860px; margin:0 auto; padding:24px 16px 140px; position:relative; z-index:1; }
+
+/* WEEK BUDGET BAR */
+.budget-bar-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:20px 22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.budget-bar-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.4),transparent); }
+.bb-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.bb-title { font-size:13px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.8px; }
+.bb-amounts { display:flex; align-items:baseline; gap:6px; }
+.bb-spent { font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--text-primary); }
+.bb-total { font-size:13px; color:var(--text-muted); }
+.bb-track { height:8px; background:rgba(255,255,255,0.06); border-radius:99px; overflow:hidden; margin-bottom:8px; }
+.bb-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--green),var(--lime)); transition:width 0.5s var(--ease-smooth); box-shadow:0 0 10px rgba(0,200,150,0.3); }
+.bb-fill.over { background:linear-gradient(90deg,var(--amber),var(--coral)); box-shadow:0 0 10px rgba(255,107,107,0.3); }
+.bb-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); }
+.bb-input-row { display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.05); }
+.bb-input-label { font-size:11px; color:var(--text-secondary); white-space:nowrap; }
+.bb-input-wrap { position:relative; flex:1; max-width:160px; }
+.bb-pfx { position:absolute; left:10px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--text-muted); pointer-events:none; }
+.bb-input { width:100%; height:38px; padding:0 12px 0 26px; font-size:14px; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s,box-shadow 0.2s; -moz-appearance:textfield; }
+.bb-input::-webkit-inner-spin-button,.bb-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+.bb-input:focus { border-color:rgba(0,200,150,0.5); box-shadow:0 0 0 3px rgba(0,200,150,0.1); }
+.bb-portions-label { font-size:11px; color:var(--text-secondary); white-space:nowrap; }
+.bb-portions-input { width:60px; height:38px; padding:0 10px; font-size:14px; text-align:center; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s; -moz-appearance:textfield; }
+.bb-portions-input:focus { border-color:rgba(0,200,150,0.5); }
+
+/* CARD HEADING */
+.card-heading { font-family:var(--font-display); font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.ch-icon { width:30px; height:30px; border-radius:9px; background:var(--green-dim); border:1px solid rgba(0,200,150,0.2); display:flex; align-items:center; justify-content:center; font-size:14px; }
+
+/* MEAL GRID */
+.meal-grid-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.meal-grid-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.3),transparent); }
+.day-meals-grid { display:grid; grid-template-columns:1fr; gap:10px; }
+@media (min-width:600px) { .day-meals-grid { grid-template-columns:repeat(3,1fr); } }
+.meal-slot { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:14px; transition:all 0.2s; position:relative; }
+.meal-slot.has-meal { border-color:rgba(0,200,150,0.2); }
+.meal-slot:hover { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.12); }
+.meal-slot-type { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.meal-slot-type-dot { width:5px; height:5px; border-radius:50%; background:var(--green); }
+.meal-name-input { width:100%; background:none; border:none; outline:none; font-family:var(--font-body); font-size:13px; font-weight:500; color:var(--text-primary); padding:0; resize:none; line-height:1.4; }
+.meal-name-input::placeholder { color:rgba(255,255,255,0.2); }
+.meal-cost-row { display:flex; align-items:center; gap:6px; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05); }
+.meal-cost-pfx { font-size:11px; color:var(--text-muted); }
+.meal-cost-input { flex:1; background:none; border:none; outline:none; font-family:var(--font-body); font-size:12px; color:var(--text-secondary); -moz-appearance:textfield; width:60px; }
+.meal-cost-input::-webkit-inner-spin-button,.meal-cost-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+.meal-cost-input::placeholder { color:rgba(255,255,255,0.15); }
+.meal-per-person { font-size:10px; color:var(--text-muted); margin-left:auto; }
+.meal-clear-btn { position:absolute; top:8px; right:8px; background:none; border:none; color:var(--text-muted); font-size:12px; cursor:pointer; opacity:0; transition:opacity 0.2s; padding:2px 5px; border-radius:5px; }
+.meal-slot:hover .meal-clear-btn { opacity:0.6; }
+.meal-clear-btn:hover { opacity:1 !important; color:var(--coral); }
+
+/* WEEK VIEW */
+.week-view-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.week-view-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(168,224,99,0.3),transparent); }
+.week-table { width:100%; border-collapse:collapse; }
+.week-table th { font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; padding:0 8px 12px; text-align:left; }
+.week-table th:first-child { width:80px; }
+.week-table td { padding:6px 8px; vertical-align:middle; border-top:1px solid rgba(255,255,255,0.04); }
+.wt-meal-type { font-size:11px; color:var(--text-muted); display:flex; align-items:center; gap:5px; }
+.wt-cell { font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; }
+.wt-cell.filled { color:var(--text-primary); }
+.wt-cell.empty { color:rgba(255,255,255,0.12); font-style:italic; }
+.wt-day-head { font-size:11px; font-weight:600; color:var(--text-secondary); }
+.wt-today { color:var(--green) !important; }
+
+/* GROCERY LIST */
+.grocery-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+.grocery-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent); }
+.grocery-section { margin-bottom:18px; }
+.grocery-section-title { font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.grocery-items { display:flex; flex-direction:column; gap:6px; }
+.grocery-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; transition:all 0.2s; cursor:pointer; }
+.grocery-item.checked { opacity:0.45; }
+.grocery-item.checked .gi-name { text-decoration:line-through; color:var(--text-muted); }
+.gi-check { width:18px; height:18px; border-radius:5px; border:1.5px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; transition:all 0.2s; }
+.grocery-item.checked .gi-check { background:var(--green); border-color:var(--green); }
+.gi-name { font-size:13px; color:var(--text-primary); flex:1; }
+.gi-add-row { display:flex; gap:8px; margin-top:10px; }
+.gi-add-input { flex:1; height:38px; padding:0 12px; font-size:13px; font-family:var(--font-body); color:var(--text-primary); background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; outline:none; transition:border-color 0.2s; }
+.gi-add-input::placeholder { color:rgba(255,255,255,0.2); }
+.gi-add-input:focus { border-color:rgba(0,200,150,0.5); }
+.gi-add-btn { height:38px; padding:0 16px; background:rgba(0,200,150,0.12); border:1px solid rgba(0,200,150,0.25); color:var(--green); font-family:var(--font-body); font-size:13px; font-weight:500; border-radius:10px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+.gi-add-btn:hover { background:rgba(0,200,150,0.2); }
+.grocery-empty { text-align:center; padding:20px; color:var(--text-muted); font-size:13px; }
+
+/* TIPS */
+.tips-card { background:rgba(201,168,76,0.03); border:1px solid rgba(201,168,76,0.18); border-radius:20px; padding:22px; margin-bottom:14px; position:relative; overflow:hidden; }
+/* ── HEALTH SCORE LOCK + SUITE UPSELL ────────────────── */
+.health-lock-card { border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; background: rgba(201,168,76,0.03); padding: 22px 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.health-lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent); }
+.health-lock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.health-lock-icon { font-size: 18px; }
+.health-lock-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.suite-only-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--gold-light); background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.3); padding: 3px 10px; border-radius: 99px; }
+.health-lock-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+.suite-upsell-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+.suite-upsell-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; flex: 1; min-width: 200px; }
+.suite-upsell-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--navy); background: linear-gradient(135deg, var(--gold-light), var(--gold)); padding: 9px 18px; border-radius: 99px; text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.suite-upsell-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.3); }
+.tips-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent); }
+.tips-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.tips-title { font-family:var(--font-display); font-size:16px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:10px; }
+.tips-badge { font-size:10px; font-weight:600; color:var(--navy); background:var(--green); padding:2px 9px; border-radius:99px; }
+.tips-sub { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
+.tip-list { display:flex; flex-direction:column; gap:9px; }
+.tip-item { display:flex; align-items:flex-start; gap:12px; padding:13px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02); transition:all 0.2s; }
+.tip-item:hover { background:rgba(255,255,255,0.05); transform:translateX(2px); }
+.tip-ico { width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.tip-ico.green { background:var(--green-dim); }
+.tip-ico.gold { background:var(--amber-dim); }
+.tip-ico.blue { background:var(--blue-dim); }
+.tip-ico.coral { background:var(--coral-dim); }
+.tip-ico.purple { background:var(--purple-dim); }
+.tip-txt { font-size:13px; font-weight:500; color:var(--text-primary); margin-bottom:2px; line-height:1.4; }
+.tip-detail { font-size:11px; color:var(--text-secondary); line-height:1.5; }
+.tip-tag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap; flex-shrink:0; align-self:center; }
+.tip-tag.good { color:var(--green); background:rgba(0,200,150,0.1); border:1px solid rgba(0,200,150,0.2); }
+.tip-tag.gold { color:var(--gold); background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); }
+.tip-tag.warn { color:var(--amber); background:var(--amber-dim); border:1px solid rgba(255,179,71,0.25); }
+
+/* RESET + FAB + FOOTER */
+.reset-wrap { text-align:center; margin:28px 0; }
+.reset-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:500; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:99px; cursor:pointer; transition:all 0.2s; }
+.reset-btn:hover { color:var(--coral); border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.06); }
+
+.save-wrap { text-align:center; margin:28px 0 0; }
+.save-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--green); background:rgba(0,200,150,0.08); border:1px solid rgba(0,200,150,0.25); border-radius:99px; cursor:pointer; transition:all 0.2s; }
+.save-btn:hover { background:rgba(0,200,150,0.14); border-color:rgba(0,200,150,0.4); }
+.save-note { font-size:11px; color:var(--text-muted); margin-top:10px; line-height:1.5; max-width:340px; margin-left:auto; margin-right:auto; }
+.restore-banner { display:none; align-items:center; gap:12px; flex-wrap:wrap; background:rgba(0,200,150,0.06); border:1px solid rgba(0,200,150,0.25); border-radius:16px; padding:16px 20px; margin-bottom:16px; }
+.restore-banner.show { display:flex; }
+.restore-text { flex:1; min-width:180px; font-size:13px; color:var(--text-primary); }
+.restore-btns { display:flex; gap:8px; }
+.restore-btn-yes { background:var(--green); color:var(--navy,#0D1F3C); border:none; padding:8px 16px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--font-body); }
+.restore-btn-no { background:none; border:1px solid rgba(255,255,255,0.15); color:var(--text-muted); padding:8px 16px; border-radius:99px; font-size:12px; cursor:pointer; font-family:var(--font-body); }
+.fab { position:fixed; bottom:28px; right:20px; z-index:200; background:linear-gradient(135deg,var(--green-dark),#006644); color:#fff; border:none; cursor:pointer; padding:13px 18px; border-radius:99px; font-family:var(--font-body); font-size:13px; font-weight:600; box-shadow:0 4px 24px rgba(0,200,150,0.3),0 2px 8px rgba(0,0,0,0.3); display:none; align-items:center; gap:8px; transition:transform 0.2s; }
+.fab:active { transform:scale(0.97); }
+.fab-num { background:rgba(255,255,255,0.2); font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; min-width:20px; text-align:center; }
+@media (max-width:767px) { .fab { display:flex; } }
+.footer { background:rgba(13,31,60,0.8); border-top:1px solid var(--border); text-align:center; padding:22px 20px; color:var(--text-muted); font-size:12px; position:relative; z-index:1; }
+.footer strong { color:var(--green); font-weight:500; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.hero { animation:fadeUp 0.7s ease both; }
+.budget-bar-card { animation:fadeUp 0.7s 0.1s ease both; }
+.meal-grid-card { animation:fadeUp 0.7s 0.15s ease both; }
+
+/* ── DOWNLOAD REPORT ─────────────────────────────── */
+.download-wrap{text-align:center;margin-bottom:12px;}
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--green);background:rgba(0,200,150,0.08);border:1.5px solid rgba(0,200,150,0.3);border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.lock-icon{font-size:12px;}
+.download-btn:hover{background:rgba(0,200,150,0.15);border-color:rgba(0,200,150,0.5);transform:scale(1.02);}
+.download-btn:active{transform:scale(0.98);}
+
+
+/* ── UPSELL MODAL ────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-box{background:var(--navy-2);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:32px 28px;max-width:400px;width:100%;position:relative;overflow:hidden;}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.6),transparent);}
+.modal-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px;}
+.modal-sub{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:20px;}
+.modal-feature{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-secondary);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.modal-feature:last-of-type{border-bottom:none;margin-bottom:20px;}
+.modal-btns{display:flex;flex-direction:column;gap:10px;}
+.modal-btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--green-dark),#004d33);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:700;padding:14px 24px;border-radius:99px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;}
+.modal-btn-primary:hover{transform:translateY(-1px);}
+.modal-btn-sample{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 24px;border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.modal-btn-sample:hover{border-color:rgba(255,255,255,0.25);color:var(--text-secondary);}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;}
+.sample-note{font-size:10px;color:var(--text-muted);text-align:center;margin-top:8px;}
+
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="brand-mark"><span class="brand-dot"></span><span data-i18n="brand">E Pelissier Enterprise</span></div>
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>🌍</label>
+      <select id="lang-select" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
+    </div>
+    <div class="ctrl-divider"></div>
+    <div class="ctrl-group">
+      <label>💱</label>
+      <select id="currency-select" onchange="setCurrency(this.value)">
+        <option value="USD">$ USD</option>
+        <option value="CAD">$ CAD</option>
+        <option value="GBP">£ GBP</option>
+        <option value="EUR">€ EUR</option>
+        <option value="BRL">R$ BRL</option>
+        <option value="MXN">$ MXN</option>
+        <option value="CHF">Fr CHF</option>
+        <option value="AUD">A$ AUD</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow" data-i18n="eyebrow">Family Meal Tool</div>
+  <h1><em data-i18n="hero_em">Plan</em> <span data-i18n="hero_rest">Smarter Meals,<br>Save Every Week</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Plan your week, track your food budget, generate your grocery list — and watch the savings add up.</p>
+  <div class="hero-line"></div>
+</div>
+
+<!-- STICKY DASH -->
+<div class="sticky-dash" id="sticky-dash">
+  <div class="dash-inner">
+    <div class="summary-row">
+      <div class="sum-card good">
+        <div class="sc-top"><span class="sc-label" data-i18n="weekly_budget">Weekly Budget</span><span class="sc-icon">🛒</span></div>
+        <div class="sc-value" id="val-budget">$0</div>
+        <div class="sc-sub" id="sub-budget">—</div>
+      </div>
+      <div class="sum-card" id="card-spent">
+        <div class="sc-top"><span class="sc-label" data-i18n="meals_planned">Meals Planned</span><span class="sc-icon">🍽️</span></div>
+        <div class="sc-value" id="val-meals">0</div>
+        <div class="sc-sub" id="sub-meals">—</div>
+      </div>
+      <div class="sum-card" id="card-remaining">
+        <div class="sc-top"><span class="sc-label" data-i18n="cost_per_meal">Per Meal</span><span class="sc-icon">💰</span></div>
+        <div class="sc-value" id="val-per-meal">$0</div>
+        <div class="sc-sub" id="sub-per-meal">—</div>
+      </div>
+    </div>
+    <!-- DAY STRIP -->
+    <div class="day-strip" id="day-strip"></div>
+  </div>
+</div>
+
+<!-- CONTAINER -->
+
+<!-- BUDGET SYNC BANNER -->
+<div id="budget-sync-banner" style="display:none;background:rgba(0,200,150,0.07);border:1px solid rgba(0,200,150,0.2);border-radius:14px;padding:12px 18px;margin:0 auto 16px;max-width:860px;position:relative;z-index:1;align-items:center;gap:10px;flex-wrap:wrap;">
+  <span style="font-size:14px;">🔗</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;">Your Budget Planner food budget:</span>
+  <strong class="bsb-val" style="color:var(--green);font-size:14px;font-weight:700;"></strong>
+  <button class="bsb-btn" style="background:rgba(0,200,150,0.15);border:1px solid rgba(0,200,150,0.3);color:var(--green);font-family:var(--font-body);font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;cursor:pointer;">Apply →</button>
+  <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;padding:0 4px;">✕</button>
+</div>
+
+<div class="container">
+
+  <!-- RESTORE SAVED DATA -->
+  <div class="restore-banner" id="restore-banner">
+    <span class="restore-text" data-i18n="restore_prompt_text">We found a meal plan saved on this device. Restore it?</span>
+    <div class="restore-btns">
+      <button class="restore-btn-yes" onclick="restoreSavedData()" data-i18n="restore_yes">Restore</button>
+      <button class="restore-btn-no" onclick="dismissRestoreBanner()" data-i18n="restore_dismiss">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- BUDGET BAR -->
+  <div class="budget-bar-card">
+    <div class="bb-head">
+      <span class="bb-title" data-i18n="food_budget">Weekly Food Budget</span>
+      <div class="bb-amounts">
+        <span class="bb-spent" id="bb-spent">$0</span>
+        <span class="bb-total" id="bb-total">/ $0</span>
+      </div>
+    </div>
+    <div class="bb-track"><div class="bb-fill" id="bb-fill" style="width:0%"></div></div>
+    <div class="bb-labels">
+      <span data-i18n="spent">Spent</span>
+      <span id="bb-remaining-lbl">$0 remaining</span>
+    </div>
+    <div class="bb-input-row">
+      <span class="bb-input-label" data-i18n="weekly_budget_label">Weekly budget:</span>
+      <div class="bb-input-wrap">
+        <span class="bb-pfx currency-symbol">$</span>
+        <input type="number" class="bb-input" id="weekly-budget" placeholder="200" min="0" step="1" value="200" oninput="updateBudget()">
+      </div>
+      <span class="bb-portions-label" data-i18n="portions_label">Portions per meal:</span>
+      <input type="number" class="bb-portions-input" id="portions" placeholder="4" min="1" max="20" value="4" oninput="renderAll()">
+    </div>
+  </div>
+
+  <!-- MEAL PLANNER GRID -->
+  <div class="meal-grid-card">
+    <div class="card-heading"><div class="ch-icon">📅</div><span id="day-heading" data-i18n="plan_for">Plan for Monday</span></div>
+    <div class="day-meals-grid" id="meal-grid"></div>
+  </div>
+
+  <!-- WEEK OVERVIEW TABLE -->
+  <div class="week-view-card">
+    <div class="card-heading"><div class="ch-icon" style="background:var(--lime-dim);border-color:rgba(168,224,99,0.2);">📊</div><span data-i18n="week_overview">Week at a Glance</span></div>
+    <div style="overflow-x:auto;">
+      <table class="week-table" id="week-table">
+        <thead><tr id="week-table-head"></tr></thead>
+        <tbody id="week-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROCERY LIST -->
+  <div class="grocery-card" id="grocery-anchor">
+    <div class="card-heading"><div class="ch-icon" style="background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.2);">🛒</div><span data-i18n="grocery_list">Grocery List</span></div>
+    <div id="grocery-auto"></div>
+    <div class="grocery-section">
+      <div class="grocery-section-title">➕ <span data-i18n="add_item">Add Custom Item</span></div>
+      <div class="gi-add-row">
+        <input type="text" class="gi-add-input" id="gi-input" placeholder="e.g. Olive oil, pasta..." onkeydown="if(event.key==='Enter')addGroceryItem()">
+        <button class="gi-add-btn" onclick="addGroceryItem()" data-i18n="add_btn">+ Add</button>
+      </div>
+    </div>
+    <div id="grocery-custom"></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips-card" id="tips-anchor">
+    <div class="tips-head">
+      <div class="tips-title">💡 <span data-i18n="tips_title">Meal Planning Tips</span></div>
+      <span class="tips-badge" id="tips-badge"></span>
+    </div>
+    <div class="tips-sub" data-i18n="tips_sub">Smart strategies to cut your grocery bill</div>
+    <div id="tips-body"></div>
+  </div>
+
+  <!-- FINANCIAL HEALTH SCORE (always locked in individual tools) -->
+  <div class="health-lock-card">
+    <div class="health-lock-header">
+      <span class="health-lock-icon">❤️</span>
+      <span class="health-lock-title" data-i18n="tool_health">Financial Health Score</span>
+      <span class="suite-only-pill">🔒 <span data-i18n="suite_only_label">Suite only</span></span>
+    </div>
+    <p class="health-lock-desc" data-i18n="health_locked_desc">See your full 0–100 score across savings, debt and spending.</p>
+    <div class="suite-upsell-row" id="suite-upsell-row">
+      <span class="suite-upsell-text" data-i18n="suite_upsell_text">Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.</span>
+      <a href="../index.html#value" class="suite-upsell-btn" data-i18n="suite_upsell_btn">See the suite →</a>
+    </div>
+  </div>
+
+
+<!-- UPSELL PROMPT -->
+<div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(0,200,150,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
+  <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:28px;flex-shrink:0;">🏠</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Not sure what your food budget should be?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;">The <strong style="color:var(--green);">Budget Planner</strong> calculates your exact food budget based on your income and all other expenses — then sends it here automatically so you always plan within your means.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--green-dark),#004d33);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_meal','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
+      </div>
+      <button onclick="claimSuiteOwnership()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;cursor:pointer;padding:2px 0;">Already own the Suite?</button>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+    </div>
+  </div>
+</div>
+
+  <div class="download-wrap">
+    <button class="download-btn" id="download-btn" onclick="showDownloadModal()">⬇ <span class="lock-icon" id="download-lock" style="display:none;">🔒</span> <span data-i18n="download_pdf_btn">Download Meal Plan as PDF</span></button>
+  </div>
+
+<!-- UPGRADE MODAL (demo mode only — shown instead of the real download/save action) -->
+<div class="modal-overlay" id="upgrade-modal" style="display:none;" onclick="if(event.target===this)closeUpgradeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeUpgradeModal()">✕</button>
+    <div class="modal-title" data-i18n="upgrade_modal_title">Your meal plan is ready</div>
+    <div class="modal-sub" data-i18n="upgrade_modal_body">Get the full Meal Planner to download this report and save your progress anytime.</div>
+    <div class="modal-btns">
+      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 <span data-i18n="upgrade_modal_cta">Get full access — $27.99</span></a>
+      <button class="modal-btn-sample" onclick="closeUpgradeModal()" data-i18n="upgrade_modal_later">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<div class="save-wrap">
+  <button class="save-btn" id="save-device-btn" onclick="saveToDevice()">💾 <span class="lock-icon" id="save-lock" style="display:none;">🔒</span> <span data-i18n="save_device_btn">Save on This Device</span></button>
+  <div class="save-note" data-i18n="save_device_note">Saves your meal plan in this browser only — nothing is sent anywhere.</div>
+</div>
+
+<div class="reset-wrap">
+    <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
+  </div>
+</div>
+
+<button class="fab" id="fab" onclick="document.getElementById('grocery-anchor').scrollIntoView({behavior:'smooth'})">
+  🛒 <span data-i18n="grocery_list">Grocery List</span>
+  <span class="fab-num" id="fab-num">0</span>
+</button>
+
+<div class="footer"><span data-i18n="footer">Eat well, spend less — </span><strong>E Pelissier Enterprise</strong></div>
+
+<script>
+// This copy is the public repo/demo build — Download and Save stay locked behind
+// an upgrade modal. Paid delivery copies (IS_DEMO=false, generated by
+// scripts/build-delivery.js) unlock both with full functionality.
+const IS_DEMO = false;
+const T={
+  en:{
+    brand:"E Pelissier Enterprise",eyebrow:"Family Meal Tool",
+    hero_em:"Plan",hero_rest:"Smarter Meals,\nSave Every Week",
+    hero_sub:"Plan your week, track your food budget, generate your grocery list — and watch the savings add up.",
+    weekly_budget:"Weekly Budget",meals_planned:"Meals Planned",cost_per_meal:"Per Meal",
+    food_budget:"Weekly Food Budget",spent:"Spent",
+    weekly_budget_label:"Weekly budget:",portions_label:"Portions per meal:",
+    plan_for:"Plan for",week_overview:"Week at a Glance",
+    grocery_list:"Grocery List",add_item:"Add Custom Item",add_btn:"+ Add",
+    tips_title:"Meal Planning Tips",tips_sub:"Smart strategies to cut your grocery bill",
+    reset:"Reset Week",footer:"Eat well, spend less — ",
+    breakfast:"Breakfast",lunch:"Lunch",dinner:"Dinner",
+    days:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    days_short:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    meal_placeholder:["Oatmeal, eggs...","Salad, sandwich...","Pasta, chicken..."],
+    cost_placeholder:"Cost",
+    per_person:"/ person",
+    remaining:"remaining",over_budget:"over budget",
+    grocery_from_meals:"From Your Meal Plan",
+    ingredients_hint:"Ingredients detected from your meals:",
+    no_meals:"No meals planned yet — add meals above to auto-generate your grocery list.",
+    custom_items:"Custom Items",
+    tip_over_txt:"You're over budget this week",tip_over_detail:"Your planned meals add up to more than your weekly budget. Consider swapping one higher-cost meal for a cheaper option.",tip_over_tag:"over budget",
+    tip_under_txt:"You have room left in your budget",tip_under_detail:"You're comfortably under budget this week. Add a treat meal or move the difference into savings.",tip_under_tag:"left over",
+    tip_incomplete_txt:"Your week isn't fully planned yet",tip_incomplete_detail:"Fill in the remaining meal slots for a complete grocery list and an accurate weekly cost.",tip_incomplete_tag:"meals left",
+    tip_nocost_txt:"Some meals are missing a cost",tip_nocost_detail:"Add a cost to every planned meal so your weekly total and per-meal average stay accurate.",tip_nocost_tag:"need a cost",
+    tip_repeat_txt:"{name} shows up {n}× this week",tip_repeat_detail:"Buying the ingredients for a repeated meal in bulk is usually cheaper per serving.",tip_repeat_tag:"Buy in bulk",
+    tip_highcost_txt:"{name} costs much more than your other meals",tip_highcost_detail:"This meal stands out as unusually expensive next to your week's average. Double-check the cost or try a cheaper swap.",
+    tip_sparse_txt:"Your grocery list looks short for this many meals",tip_sparse_detail:"Add a bit more detail to your meal names (e.g. \"Pasta, tomato sauce, garlic\") so the auto-generated list catches every ingredient.",tip_sparse_tag:"items detected",
+    tip_ontrack_txt:"Your week is fully planned and on budget",tip_ontrack_detail:"Nice work — your meals, costs, and grocery list are all in good shape this week.",tip_ontrack_tag:"All good",
+    budget_good:"On track",budget_over:"Over budget",budget_pct:"of budget used",
+    meals_of:"of 21 meals",per_portion:"per portion",
+    mark_done:"Done",
+    save_device_btn:"Save on This Device",save_device_note:"Saves your meal plan in this browser only — nothing is sent anywhere.",
+    saved_confirm:"Saved!",restore_prompt_text:"We found a meal plan saved on this device. Restore it?",
+    restore_yes:"Restore",restore_dismiss:"Dismiss",
+    download_pdf_btn:"Download Meal Plan as PDF",
+    upgrade_modal_title:"Your meal plan is ready",upgrade_modal_body:"Get the full Meal Planner to download this report and save your progress anytime.",
+    upgrade_modal_cta:"Get full access — $27.99",upgrade_modal_later:"Maybe later",
+    tool_health:"Financial Health Score",
+    suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
+    suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
+  },
+  fr:{
+    brand:"E Pelissier Enterprise",eyebrow:"Outil Repas Familial",
+    hero_em:"Planifiez",hero_rest:"des Repas Intelligents,\nÉconomisez Chaque Semaine",
+    hero_sub:"Planifiez votre semaine, suivez votre budget alimentaire, générez votre liste de courses.",
+    weekly_budget:"Budget Hebdo",meals_planned:"Repas Planifiés",cost_per_meal:"Par Repas",
+    food_budget:"Budget Alimentaire Hebdomadaire",spent:"Dépensé",
+    weekly_budget_label:"Budget hebdomadaire:",portions_label:"Portions par repas:",
+    plan_for:"Planifier pour",week_overview:"La Semaine en un Coup d'Œil",
+    grocery_list:"Liste de Courses",add_item:"Ajouter un Article",add_btn:"+ Ajouter",
+    tips_title:"Conseils Repas",tips_sub:"Stratégies pour réduire votre facture d'épicerie",
+    reset:"Réinitialiser la Semaine",footer:"Bien manger, dépenser moins — ",
+    breakfast:"Petit-déjeuner",lunch:"Déjeuner",dinner:"Dîner",
+    days:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],
+    days_short:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
+    meal_placeholder:["Porridge, œufs...","Salade, sandwich...","Pâtes, poulet..."],
+    cost_placeholder:"Coût",per_person:"/ pers.",
+    remaining:"restant",over_budget:"dépassement",
+    grocery_from_meals:"De Votre Plan de Repas",
+    ingredients_hint:"Ingrédients détectés dans vos repas:",
+    no_meals:"Aucun repas planifié — ajoutez des repas ci-dessus pour générer automatiquement votre liste de courses.",
+    custom_items:"Articles Personnalisés",
+    tip_over_txt:"Vous dépassez votre budget cette semaine",tip_over_detail:"Vos repas planifiés dépassent votre budget hebdomadaire. Essayez de remplacer un repas plus coûteux par une option moins chère.",tip_over_tag:"de dépassement",
+    tip_under_txt:"Il vous reste de la marge dans votre budget",tip_under_detail:"Vous êtes confortablement sous votre budget cette semaine. Ajoutez un repas plaisir ou mettez la différence de côté.",tip_under_tag:"restant",
+    tip_incomplete_txt:"Votre semaine n'est pas encore complète",tip_incomplete_detail:"Remplissez les repas restants pour une liste de courses complète et un coût hebdomadaire précis.",tip_incomplete_tag:"repas restants",
+    tip_nocost_txt:"Certains repas n'ont pas de coût indiqué",tip_nocost_detail:"Ajoutez un coût à chaque repas planifié pour que votre total hebdomadaire et votre moyenne par repas restent précis.",tip_nocost_tag:"sans coût",
+    tip_repeat_txt:"{name} revient {n}× cette semaine",tip_repeat_detail:"Acheter les ingrédients d'un repas répété en grande quantité coûte généralement moins cher par portion.",tip_repeat_tag:"Achetez en gros",
+    tip_highcost_txt:"{name} coûte bien plus cher que vos autres repas",tip_highcost_detail:"Ce repas se démarque comme inhabituellement cher par rapport à la moyenne de votre semaine. Vérifiez le coût ou essayez une option moins chère.",
+    tip_sparse_txt:"Votre liste de courses semble courte pour autant de repas",tip_sparse_detail:"Ajoutez un peu plus de détails à vos noms de repas (ex. « Pâtes, sauce tomate, ail ») pour que la liste automatique capte tous les ingrédients.",tip_sparse_tag:"articles détectés",
+    tip_ontrack_txt:"Votre semaine est complète et dans le budget",tip_ontrack_detail:"Bien joué — vos repas, coûts et liste de courses sont tous en bon état cette semaine.",tip_ontrack_tag:"Tout est bon",
+    budget_good:"Dans les limites",budget_over:"Dépassement",budget_pct:"du budget utilisé",
+    meals_of:"sur 21 repas",per_portion:"par portion",mark_done:"Fait",
+    save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre votre plan de repas dans ce navigateur uniquement — rien n'est envoyé nulle part.",
+    saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé un plan de repas enregistré sur cet appareil. Le restaurer ?",
+    restore_yes:"Restaurer",restore_dismiss:"Ignorer",
+    download_pdf_btn:"Télécharger le Plan de Repas en PDF",
+    upgrade_modal_title:"Votre plan de repas est prêt",upgrade_modal_body:"Obtenez le Planificateur de Repas complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
+    upgrade_modal_cta:"Débloquer l'accès complet — 27,99 $",upgrade_modal_later:"Plus tard",
+    tool_health:"Score de Santé Financière",
+    suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
+    suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
+  },
+  es:{
+    brand:"E Pelissier Enterprise",eyebrow:"Herramienta Comidas Familiares",
+    hero_em:"Planifica",hero_rest:"Comidas Inteligentes,\nAhorra Cada Semana",
+    hero_sub:"Planifica tu semana, rastrea tu presupuesto de comida, genera tu lista de compras.",
+    weekly_budget:"Presupuesto Semanal",meals_planned:"Comidas Planificadas",cost_per_meal:"Por Comida",
+    food_budget:"Presupuesto Semanal de Comida",spent:"Gastado",
+    weekly_budget_label:"Presupuesto semanal:",portions_label:"Porciones por comida:",
+    plan_for:"Planificar para",week_overview:"La Semana de un Vistazo",
+    grocery_list:"Lista de Compras",add_item:"Agregar Artículo",add_btn:"+ Agregar",
+    tips_title:"Consejos de Planificación",tips_sub:"Estrategias para reducir tu factura de supermercado",
+    reset:"Reiniciar Semana",footer:"Come bien, gasta menos — ",
+    breakfast:"Desayuno",lunch:"Almuerzo",dinner:"Cena",
+    days:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    days_short:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+    meal_placeholder:["Avena, huevos...","Ensalada, sándwich...","Pasta, pollo..."],
+    cost_placeholder:"Costo",per_person:"/ pers.",
+    remaining:"restante",over_budget:"excedido",
+    grocery_from_meals:"De Tu Plan de Comidas",
+    ingredients_hint:"Ingredientes detectados en tus comidas:",
+    no_meals:"Sin comidas planificadas — agrega comidas arriba para generar automáticamente tu lista de compras.",
+    custom_items:"Artículos Personalizados",
+    tip_over_txt:"Estás sobre presupuesto esta semana",tip_over_detail:"Tus comidas planificadas suman más que tu presupuesto semanal. Considera cambiar una comida más cara por una opción más económica.",tip_over_tag:"sobre presupuesto",
+    tip_under_txt:"Te queda margen en tu presupuesto",tip_under_detail:"Estás cómodamente por debajo de tu presupuesto esta semana. Agrega una comida especial o mueve la diferencia a tus ahorros.",tip_under_tag:"disponible",
+    tip_incomplete_txt:"Tu semana aún no está completamente planificada",tip_incomplete_detail:"Completa las comidas restantes para una lista de compras completa y un costo semanal preciso.",tip_incomplete_tag:"comidas faltantes",
+    tip_nocost_txt:"Algunas comidas no tienen costo indicado",tip_nocost_detail:"Agrega un costo a cada comida planificada para que tu total semanal y tu promedio por comida sean precisos.",tip_nocost_tag:"sin costo",
+    tip_repeat_txt:"{name} se repite {n}× esta semana",tip_repeat_detail:"Comprar los ingredientes de una comida repetida al por mayor suele ser más barato por porción.",tip_repeat_tag:"Compra al por mayor",
+    tip_highcost_txt:"{name} cuesta mucho más que tus otras comidas",tip_highcost_detail:"Esta comida destaca como inusualmente cara frente al promedio de tu semana. Verifica el costo o prueba una opción más económica.",
+    tip_sparse_txt:"Tu lista de compras parece corta para tantas comidas",tip_sparse_detail:"Agrega un poco más de detalle a los nombres de tus comidas (ej. \"Pasta, salsa de tomate, ajo\") para que la lista automática detecte todos los ingredientes.",tip_sparse_tag:"artículos detectados",
+    tip_ontrack_txt:"Tu semana está completa y dentro del presupuesto",tip_ontrack_detail:"Buen trabajo — tus comidas, costos y lista de compras están en buena forma esta semana.",tip_ontrack_tag:"Todo bien",
+    budget_good:"En camino",budget_over:"Excedido",budget_pct:"del presupuesto usado",
+    meals_of:"de 21 comidas",per_portion:"por porción",mark_done:"Hecho",
+    save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tu plan de comidas solo en este navegador — no se envía nada a ningún lado.",
+    saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos un plan de comidas guardado en este dispositivo. ¿Restaurarlo?",
+    restore_yes:"Restaurar",restore_dismiss:"Descartar",
+    download_pdf_btn:"Descargar Plan de Comidas en PDF",
+    upgrade_modal_title:"Tu plan de comidas está listo",upgrade_modal_body:"Obtén el Planificador de Comidas completo para descargar este reporte y guardar tu progreso en cualquier momento.",
+    upgrade_modal_cta:"Obtener acceso completo — $27.99",upgrade_modal_later:"Más tarde",
+    tool_health:"Puntaje de Salud Financiera",
+    suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
+    suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
+  },
+  pt:{
+    brand:"E Pelissier Enterprise",eyebrow:"Ferramenta Refeições Familiares",
+    hero_em:"Planeje",hero_rest:"Refeições Inteligentes,\nEconomize Toda Semana",
+    hero_sub:"Planeje sua semana, acompanhe seu orçamento alimentar, gere sua lista de compras.",
+    weekly_budget:"Orçamento Semanal",meals_planned:"Refeições Planejadas",cost_per_meal:"Por Refeição",
+    food_budget:"Orçamento Semanal de Alimentação",spent:"Gasto",
+    weekly_budget_label:"Orçamento semanal:",portions_label:"Porções por refeição:",
+    plan_for:"Planejar para",week_overview:"A Semana em um Relance",
+    grocery_list:"Lista de Compras",add_item:"Adicionar Item",add_btn:"+ Adicionar",
+    tips_title:"Dicas de Planejamento",tips_sub:"Estratégias para reduzir sua conta de supermercado",
+    reset:"Redefinir Semana",footer:"Coma bem, gaste menos — ",
+    breakfast:"Café da Manhã",lunch:"Almoço",dinner:"Jantar",
+    days:["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],
+    days_short:["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"],
+    meal_placeholder:["Aveia, ovos...","Salada, sanduíche...","Macarrão, frango..."],
+    cost_placeholder:"Custo",per_person:"/ pessoa",
+    remaining:"restante",over_budget:"acima do orçamento",
+    grocery_from_meals:"Do Seu Plano de Refeições",
+    ingredients_hint:"Ingredientes detectados nas suas refeições:",
+    no_meals:"Sem refeições planejadas — adicione refeições acima para gerar automaticamente sua lista de compras.",
+    custom_items:"Itens Personalizados",
+    tip_over_txt:"Você está acima do orçamento esta semana",tip_over_detail:"Suas refeições planejadas somam mais que seu orçamento semanal. Considere trocar uma refeição mais cara por uma opção mais barata.",tip_over_tag:"acima do orçamento",
+    tip_under_txt:"Ainda sobra espaço no seu orçamento",tip_under_detail:"Você está confortavelmente abaixo do orçamento esta semana. Adicione uma refeição especial ou guarde a diferença.",tip_under_tag:"sobrando",
+    tip_incomplete_txt:"Sua semana ainda não está totalmente planejada",tip_incomplete_detail:"Preencha as refeições restantes para uma lista de compras completa e um custo semanal preciso.",tip_incomplete_tag:"refeições faltando",
+    tip_nocost_txt:"Algumas refeições estão sem custo informado",tip_nocost_detail:"Adicione um custo a cada refeição planejada para que seu total semanal e sua média por refeição fiquem precisos.",tip_nocost_tag:"sem custo",
+    tip_repeat_txt:"{name} se repete {n}× esta semana",tip_repeat_detail:"Comprar os ingredientes de uma refeição repetida a granel costuma ser mais barato por porção.",tip_repeat_tag:"Compre a granel",
+    tip_highcost_txt:"{name} custa muito mais que suas outras refeições",tip_highcost_detail:"Esta refeição se destaca como incomumente cara em relação à média da sua semana. Verifique o custo ou tente uma opção mais barata.",
+    tip_sparse_txt:"Sua lista de compras parece curta para tantas refeições",tip_sparse_detail:"Adicione mais detalhes aos nomes das suas refeições (ex. \"Macarrão, molho de tomate, alho\") para que a lista automática capte todos os ingredientes.",tip_sparse_tag:"itens detectados",
+    tip_ontrack_txt:"Sua semana está completa e dentro do orçamento",tip_ontrack_detail:"Muito bem — suas refeições, custos e lista de compras estão em boa forma esta semana.",tip_ontrack_tag:"Tudo certo",
+    budget_good:"No caminho certo",budget_over:"Acima do orçamento",budget_pct:"do orçamento usado",
+    meals_of:"de 21 refeições",per_portion:"por porção",mark_done:"Feito",
+    save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva seu plano de refeições apenas neste navegador — nada é enviado para lugar nenhum.",
+    saved_confirm:"Salvo!",restore_prompt_text:"Encontramos um plano de refeições salvo neste dispositivo. Restaurá-lo?",
+    restore_yes:"Restaurar",restore_dismiss:"Dispensar",
+    download_pdf_btn:"Baixar Plano de Refeições em PDF",
+    upgrade_modal_title:"Seu plano de refeições está pronto",upgrade_modal_body:"Obtenha o Planejador de Refeições completo para baixar este relatório e salvar seu progresso a qualquer momento.",
+    upgrade_modal_cta:"Obter acesso completo — $27.99",upgrade_modal_later:"Talvez depois",
+    tool_health:"Pontuação de Saúde Financeira",
+    suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
+    suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
+  }
+};
+
+const CURRENCIES={USD:{symbol:'$',locale:'en-US'},CAD:{symbol:'$',locale:'en-CA'},GBP:{symbol:'£',locale:'en-GB'},EUR:{symbol:'€',locale:'de-DE'},BRL:{symbol:'R$',locale:'pt-BR'},MXN:{symbol:'$',locale:'es-MX'},CHF:{symbol:'Fr',locale:'de-CH'},AUD:{symbol:'A$',locale:'en-AU'}};
+const MEAL_TYPES=['breakfast','lunch','dinner'];
+
+let lang='en', currency='USD';
+let activeDay=0;
+let weekData=Array.from({length:7},(_,i)=>({
+  day:i,
+  meals:{
+    breakfast:{name:'',cost:''},
+    lunch:{name:'',cost:''},
+    dinner:{name:'',cost:''}
+  }
+}));
+let customGrocery=[];
+let groceryChecked={};
+
+function t(k){return T[lang][k]||T.en[k]||k;}
+function sym(){return CURRENCIES[currency].symbol;}
+function fmt(n,dec=0){const c=CURRENCIES[currency];return c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
+  document.documentElement.lang=l;
+  renderAll();
+}
+function setCurrency(c){
+  currency=c;
+  document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  renderAll();
+}
+function updateBudget(){ renderAll(); }
+
+// ── DAY STRIP ────────────────────────────────────────────────
+function renderDayStrip(){
+  const strip=document.getElementById('day-strip');
+  const days=t('days_short');
+  strip.innerHTML=weekData.map((d,i)=>{
+    const mealCount=Object.values(d.meals).filter(m=>m.name.trim()).length;
+    const cls=(i===activeDay?'active ':'')+(mealCount>0?'has-meals':'');
+    return `<div class="day-pill ${cls}" onclick="setActiveDay(${i})">
+      <span class="dp-day">${days[i]}</span>
+      <span class="dp-meals">${mealCount>0?mealCount+' 🍽️':'—'}</span>
+    </div>`;
+  }).join('');
+}
+
+function setActiveDay(i){
+  activeDay=i;
+  renderAll();
+}
+
+// ── MEAL GRID ────────────────────────────────────────────────
+function renderMealGrid(){
+  const grid=document.getElementById('meal-grid');
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const dayData=weekData[activeDay];
+  const dayName=t('days')[activeDay];
+  document.getElementById('day-heading').textContent=t('plan_for')+' '+dayName;
+
+  grid.innerHTML=MEAL_TYPES.map((type,i)=>{
+    const meal=dayData.meals[type];
+    const cost=parseFloat(meal.cost)||0;
+    const perPerson=portions>0?cost/portions:0;
+    const hasMeal=meal.name.trim().length>0;
+    return `<div class="meal-slot ${hasMeal?'has-meal':''}">
+      <div class="meal-slot-type"><span class="meal-slot-type-dot"></span>${t(type)}</div>
+      <textarea class="meal-name-input" rows="2" placeholder="${t('meal_placeholder')[i]}"
+        oninput="updateMeal(${activeDay},'${type}','name',this.value)">${meal.name}</textarea>
+      <div class="meal-cost-row">
+        <span class="meal-cost-pfx currency-symbol">${sym()}</span>
+        <input type="number" class="meal-cost-input" placeholder="${t('cost_placeholder')}" value="${meal.cost}" min="0" step="0.01"
+          oninput="updateMeal(${activeDay},'${type}','cost',this.value)">
+        <span class="meal-per-person">${perPerson>0?fmt(perPerson,2)+t('per_person'):''}</span>
+      </div>
+      ${hasMeal?`<button class="meal-clear-btn" onclick="clearMeal(${activeDay},'${type}')">✕</button>`:''}
+    </div>`;
+  }).join('');
+}
+
+function updateMeal(dayIdx,type,field,value){
+  weekData[dayIdx].meals[type][field]=value;
+  renderAll();
+}
+
+function clearMeal(dayIdx,type){
+  weekData[dayIdx].meals[type]={name:'',cost:''};
+  renderAll();
+}
+
+// ── WEEK TABLE ───────────────────────────────────────────────
+function renderWeekTable(){
+  const head=document.getElementById('week-table-head');
+  const body=document.getElementById('week-table-body');
+  const days=t('days_short');
+  head.innerHTML='<th></th>'+days.map((d,i)=>`<th><span class="wt-day-head ${i===activeDay?'wt-today':''}">${d}</span></th>`).join('');
+  body.innerHTML=MEAL_TYPES.map(type=>`
+    <tr>
+      <td><span class="wt-meal-type">${t(type)}</span></td>
+      ${weekData.map((d,i)=>{
+        const name=d.meals[type].name.trim();
+        return `<td><span class="wt-cell ${name?'filled':'empty'}" onclick="setActiveDay(${i})">${name||'—'}</span></td>`;
+      }).join('')}
+    </tr>`).join('');
+}
+
+// ── GROCERY LIST ─────────────────────────────────────────────
+function extractIngredients(){
+  const words=[];
+  const stopWords=new Set(['and','or','with','the','a','an','of','in','on','for','to','some','fresh','sliced','diced','chopped','cooked','baked','grilled','steamed','fried','homemade','my','our','e','g','etc']);
+  weekData.forEach(d=>{
+    Object.values(d.meals).forEach(m=>{
+      if(!m.name.trim())return;
+      m.name.split(/[,\n\/\+\&]+/).forEach(part=>{
+        const clean=part.trim().toLowerCase().replace(/[^a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ0-9 ]/g,'').trim();
+        if(clean.length>2&&!stopWords.has(clean))words.push(clean.charAt(0).toUpperCase()+clean.slice(1));
+      });
+    });
+  });
+  return [...new Set(words)];
+}
+
+function renderGroceryList(){
+  const autoDiv=document.getElementById('grocery-auto');
+  const customDiv=document.getElementById('grocery-custom');
+  const ingredients=extractIngredients();
+  const fabNum=document.getElementById('fab-num');
+
+  if(ingredients.length===0){
+    autoDiv.innerHTML=`<div class="grocery-section"><div class="grocery-section-title">🥗 ${t('grocery_from_meals')}</div><div class="grocery-empty">${t('no_meals')}</div></div>`;
+  } else {
+    autoDiv.innerHTML=`<div class="grocery-section">
+      <div class="grocery-section-title">🥗 ${t('grocery_from_meals')}</div>
+      <div class="grocery-items">${ingredients.map((item,i)=>{
+        const key='auto_'+i+'_'+item;
+        const checked=groceryChecked[key]||false;
+        return `<div class="grocery-item ${checked?'checked':''}" onclick="toggleGrocery('${key}',this)">
+          <div class="gi-check">${checked?'✓':''}</div>
+          <span class="gi-name">${item}</span>
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  }
+
+  if(customGrocery.length>0){
+    customDiv.innerHTML=`<div class="grocery-section">
+      <div class="grocery-section-title">📝 ${t('custom_items')}</div>
+      <div class="grocery-items">${customGrocery.map((item,i)=>{
+        const key='custom_'+i;
+        const checked=groceryChecked[key]||false;
+        return `<div class="grocery-item ${checked?'checked':''}" onclick="toggleGrocery('${key}',this)">
+          <div class="gi-check">${checked?'✓':''}</div>
+          <span class="gi-name">${item}</span>
+          <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;padding:2px 6px;" onclick="event.stopPropagation();removeCustomItem(${i})">✕</button>
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  } else { customDiv.innerHTML=''; }
+
+  const total=ingredients.length+customGrocery.length;
+  fabNum.textContent=total;
+}
+
+function toggleGrocery(key,el){
+  groceryChecked[key]=!groceryChecked[key];
+  el.classList.toggle('checked',groceryChecked[key]);
+  const check=el.querySelector('.gi-check');
+  if(check)check.textContent=groceryChecked[key]?'✓':'';
+}
+
+function addGroceryItem(){
+  const input=document.getElementById('gi-input');
+  const val=input.value.trim();
+  if(!val)return;
+  customGrocery.push(val);
+  input.value='';
+  renderGroceryList();
+}
+
+function removeCustomItem(i){
+  customGrocery.splice(i,1);
+  renderGroceryList();
+}
+
+// ── TIPS ─────────────────────────────────────────────────────
+function renderTips(){
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+
+  // Build a flat list of every meal actually entered this week
+  const allMeals=[];
+  weekData.forEach(d=>{
+    MEAL_TYPES.forEach(type=>{
+      const m=d.meals[type];
+      if(m.name.trim()){
+        const cost=parseFloat(m.cost)||0;
+        allMeals.push({day:d.day,type,name:m.name.trim(),cost,hasCost:m.cost!==''&&cost>0});
+      }
+    });
+  });
+  const totalSlots=7*MEAL_TYPES.length;
+  const filledSlots=allMeals.length;
+  const totalCost=allMeals.reduce((s,m)=>s+m.cost,0);
+  const mealsWithCost=allMeals.filter(m=>m.hasCost);
+  const avgCost=mealsWithCost.length?mealsWithCost.reduce((s,m)=>s+m.cost,0)/mealsWithCost.length:0;
+  const groceryCount=extractIngredients().length+customGrocery.length;
+
+  const tips=[];
+
+  // 1. Over budget
+  if(budget>0&&totalCost>budget){
+    tips.push({ico:'⚠️',color:'coral',txt:t('tip_over_txt'),detail:t('tip_over_detail'),tag:fmt(totalCost-budget,2)+' '+t('tip_over_tag'),tagClass:'warn'});
+  }
+  // 2. Comfortably under budget (30%+ left, with at least one meal planned)
+  else if(budget>0&&filledSlots>0&&(budget-totalCost)>budget*0.3){
+    tips.push({ico:'💰',color:'green',txt:t('tip_under_txt'),detail:t('tip_under_detail'),tag:fmt(budget-totalCost,2)+' '+t('tip_under_tag'),tagClass:'good'});
+  }
+  // 3. Week not fully planned
+  if(filledSlots<totalSlots){
+    tips.push({ico:'📅',color:'gold',txt:t('tip_incomplete_txt'),detail:t('tip_incomplete_detail'),tag:(totalSlots-filledSlots)+' '+t('tip_incomplete_tag'),tagClass:'gold'});
+  }
+  // 4. Meals entered without a cost
+  const missingCost=allMeals.filter(m=>!m.hasCost).length;
+  if(missingCost>0){
+    tips.push({ico:'🧾',color:'blue',txt:t('tip_nocost_txt'),detail:t('tip_nocost_detail'),tag:missingCost+' '+t('tip_nocost_tag'),tagClass:'warn'});
+  }
+  // 5. Same meal repeated — bulk-buy opportunity
+  const nameCounts={};
+  allMeals.forEach(m=>{const key=m.name.toLowerCase();nameCounts[key]=(nameCounts[key]||0)+1;});
+  const repeated=Object.entries(nameCounts).filter(([,c])=>c>=2).sort((a,b)=>b[1]-a[1])[0];
+  if(repeated){
+    const displayName=allMeals.find(m=>m.name.toLowerCase()===repeated[0]).name;
+    tips.push({ico:'📦',color:'purple',txt:t('tip_repeat_txt').replace('{name}',displayName).replace('{n}',repeated[1]),detail:t('tip_repeat_detail'),tag:t('tip_repeat_tag'),tagClass:'good'});
+  }
+  // 6. A single meal costs far more than the week's average
+  if(mealsWithCost.length>=4){
+    const maxMeal=mealsWithCost.reduce((max,m)=>m.cost>max.cost?m:max,mealsWithCost[0]);
+    if(maxMeal.cost>avgCost*2.5&&maxMeal.cost>avgCost+10){
+      tips.push({ico:'🔍',color:'coral',txt:t('tip_highcost_txt').replace('{name}',maxMeal.name),detail:t('tip_highcost_detail'),tag:fmt(maxMeal.cost,2),tagClass:'warn'});
+    }
+  }
+  // 7. Grocery list looks thin for how many meals are planned
+  if(filledSlots>=5&&groceryCount>0&&groceryCount<filledSlots){
+    tips.push({ico:'🥕',color:'green',txt:t('tip_sparse_txt'),detail:t('tip_sparse_detail'),tag:groceryCount+' '+t('tip_sparse_tag'),tagClass:'gold'});
+  }
+  // Fallback: nothing flagged — week is on track
+  if(tips.length===0&&filledSlots>0){
+    tips.push({ico:'✅',color:'green',txt:t('tip_ontrack_txt'),detail:t('tip_ontrack_detail'),tag:t('tip_ontrack_tag'),tagClass:'good'});
+  }
+
+  document.getElementById('tips-badge').textContent=tips.length;
+  document.getElementById('tips-body').innerHTML=`<div class="tip-list">${tips.map(tip=>`
+    <div class="tip-item">
+      <div class="tip-ico ${tip.color}">${tip.ico}</div>
+      <div>
+        <div class="tip-txt">${tip.txt}</div>
+        <div class="tip-detail">${tip.detail}</div>
+      </div>
+      <div class="tip-tag ${tip.tagClass}">${tip.tag}</div>
+    </div>`).join('')}</div>`;
+}
+
+// ── RENDER ALL ───────────────────────────────────────────────
+function renderAll(){
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
+  const totalMeals=weekData.reduce((s,d)=>s+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  const remaining=budget-totalCost;
+  const pct=budget>0?Math.min(100,(totalCost/budget)*100):0;
+  const perMeal=totalMeals>0?totalCost/totalMeals:0;
+
+  // summary
+  document.getElementById('val-budget').textContent=fmt(budget);
+  document.getElementById('val-meals').textContent=totalMeals;
+  document.getElementById('val-per-meal').textContent=totalMeals>0?fmt(perMeal,2):'—';
+  document.getElementById('sub-budget').textContent=pct.toFixed(0)+'% '+t('budget_pct');
+  document.getElementById('sub-meals').textContent=totalMeals+' '+t('meals_of');
+  document.getElementById('sub-per-meal').textContent=totalMeals>0?(fmt(perMeal/portions,2)+t('per_portion')):'—';
+
+  // budget bar
+  document.getElementById('bb-spent').textContent=fmt(totalCost,2);
+  document.getElementById('bb-total').textContent='/ '+fmt(budget,2);
+  const fill=document.getElementById('bb-fill');
+  fill.style.width=pct+'%';
+  fill.classList.toggle('over',pct>100);
+  const remCard=document.getElementById('card-remaining');
+  remCard.classList.toggle('warn',pct>90);
+  document.getElementById('bb-remaining-lbl').textContent=remaining>=0?fmt(remaining,2)+' '+t('remaining'):fmt(Math.abs(remaining),2)+' '+t('over_budget');
+  document.getElementById('val-budget').textContent=fmt(budget);
+
+  renderDayStrip();
+  renderMealGrid();
+  renderWeekTable();
+  renderGroceryList();
+  renderTips();
+  showUpsellIfNeeded();
+
+  // ── save to shared store ──
+  const _budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const _portions=parseInt(document.getElementById('portions').value)||4;
+  ssWrite({ep_meal_spend:totalCost,mp_weekly_budget:_budget,mp_portions:_portions,
+    mp_weekData:JSON.stringify(weekData),mp_customGrocery:JSON.stringify(customGrocery),
+    ep_currency:currency,ep_lang:lang});
+
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('sticky-dash').classList.toggle('scrolled',window.scrollY>10);
+},{passive:true});
+
+function resetAll(){
+  SS.clear();
+  weekData=Array.from({length:7},(_,i)=>({day:i,meals:{breakfast:{name:'',cost:''},lunch:{name:'',cost:''},dinner:{name:'',cost:''}}}));
+  customGrocery=[];groceryChecked={};activeDay=0;
+  document.getElementById('weekly-budget').value='200';
+  document.getElementById('portions').value='4';
+  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+  hideRestoreBanner();
+  renderAll();
+}
+
+// ── SAVE ON THIS DEVICE (opt-in, explicit action only) ────────
+const SAVE_KEY='ep_meal_save_v1';
+
+function saveToDevice(){
+  if(IS_DEMO){ showUpgradeModal(); return; }
+  doSaveToDevice();
+}
+function doSaveToDevice(){
+  const data={
+    weekData:JSON.parse(JSON.stringify(weekData)),
+    customGrocery:JSON.parse(JSON.stringify(customGrocery)),
+    groceryChecked:JSON.parse(JSON.stringify(groceryChecked)),
+    weeklyBudget:document.getElementById('weekly-budget').value,
+    portions:document.getElementById('portions').value,
+    savedAt:Date.now()
+  };
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+    const btn=document.getElementById('save-device-btn');
+    if(btn){
+      const original=btn.innerHTML;
+      btn.innerHTML='✓ '+t('saved_confirm');
+      setTimeout(()=>{btn.innerHTML=original;},1800);
+    }
+  }catch(e){}
+}
+
+function hideRestoreBanner(){
+  const b=document.getElementById('restore-banner');
+  if(b)b.classList.remove('show');
+}
+function dismissRestoreBanner(){ hideRestoreBanner(); }
+
+function checkForSavedData(){
+  try{
+    if(localStorage.getItem(SAVE_KEY)){
+      const b=document.getElementById('restore-banner');
+      if(b)b.classList.add('show');
+    }
+  }catch(e){}
+}
+
+function restoreSavedData(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(data.weekData)weekData=data.weekData;
+    if(data.customGrocery)customGrocery=data.customGrocery;
+    if(data.groceryChecked)groceryChecked=data.groceryChecked;
+    if(data.weeklyBudget!==undefined)document.getElementById('weekly-budget').value=data.weeklyBudget;
+    if(data.portions!==undefined)document.getElementById('portions').value=data.portions;
+    hideRestoreBanner();
+    renderAll();
+  }catch(e){}
+}
+
+
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={KEY:'ep_suite_v1',get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},set(data){try{const d={...this.get(),...data};localStorage.setItem(this.KEY,JSON.stringify(d))}catch(e){}},clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}};
+function ssRead(key,fb=0){const v=SS.get()[key];return v!==undefined?v:fb;}
+function ssWrite(data){SS.set(data);}
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang){document.getElementById('lang-select').value=s.ep_lang;setLang(s.ep_lang);}
+  if(s.ep_currency){document.getElementById('currency-select').value=s.ep_currency;setCurrency(s.ep_currency);}
+  if(s.ep_food_weekly&&s.ep_food_weekly>0){
+    document.getElementById('weekly-budget').value=Math.round(s.ep_food_weekly);
+  }
+  if(s.mp_portions){document.getElementById('portions').value=s.mp_portions;}
+  if(s.mp_weekData){
+    try{ weekData=JSON.parse(s.mp_weekData); }catch(e){}
+  }
+  if(s.mp_customGrocery){
+    try{ customGrocery=JSON.parse(s.mp_customGrocery); }catch(e){}
+  }
+}
+
+function checkBudgetSync(){
+  const s=SS.get();
+  const foodWeekly=s.ep_food_weekly||0;
+  const banner=document.getElementById('budget-sync-banner');
+  if(banner&&foodWeekly>0){
+    const c=CURRENCIES[currency];
+    banner.style.display='flex';
+    banner.querySelector('.bsb-val').textContent=c.symbol+Math.round(foodWeekly)+'/wk';
+    banner.querySelector('.bsb-btn').onclick=()=>{
+      document.getElementById('weekly-budget').value=Math.round(foodWeekly);
+      renderAll();
+      banner.style.display='none';
+    };
+  }
+}
+
+
+
+
+function showDownloadModal(){
+  if(!IS_DEMO){ downloadReport(false); }
+  else { showUpgradeModal(); }
+}
+function showUpgradeModal(){
+  const m=document.getElementById('upgrade-modal');
+  if(m)m.style.display='flex';
+}
+function closeUpgradeModal(){
+  const m=document.getElementById('upgrade-modal');
+  if(m)m.style.display='none';
+}
+function initLockUI(){
+  if(!IS_DEMO)return;
+  const dl=document.getElementById('download-lock'), sl=document.getElementById('save-lock');
+  if(dl)dl.style.display='inline';
+  if(sl)sl.style.display='inline';
+}
+
+function downloadReport(isSample=false){
+  const now=new Date();
+  const monthStr=now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const c=CURRENCIES[currency];
+  const f=(n)=>c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
+  const portions=parseInt(document.getElementById('portions').value)||4;
+  const totalCost=weekData.reduce((s,d)=>s+Object.values(d.meals).reduce((ms,m)=>ms+(parseFloat(m.cost)||0),0),0);
+  const totalMeals=weekData.reduce((s,d)=>s+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  const remaining=budget-totalCost;
+  const perMeal=totalMeals>0?totalCost/totalMeals:0;
+  const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  const mealTypes=["Breakfast","Lunch","Dinner"];
+
+  const calRows=weekData.map((d,i)=>{
+    const dayCost=Object.values(d.meals).reduce((s,m)=>s+(parseFloat(m.cost)||0),0);
+    return `<tr>
+      <td style="font-weight:600;color:#0D1F3C;">${days[i]}</td>
+      <td>${d.meals.breakfast.name||'—'}</td>
+      <td>${d.meals.lunch.name||'—'}</td>
+      <td>${d.meals.dinner.name||'—'}</td>
+      <td style="text-align:right;font-weight:600;">${dayCost>0?f(dayCost):'—'}</td>
+    </tr>`;
+  }).join('');
+
+  const ingredients=extractIngredients();
+  const groceryList=ingredients.length?ingredients.map(item=>`<li style="padding:4px 0;border-bottom:1px solid #f8f9fa;font-size:13px;">☐ ${item}</li>`).join(''):'<li style="color:#9AA0A6;font-size:13px;">No ingredients detected</li>';
+  const customList=customGrocery.length?customGrocery.map(item=>`<li style="padding:4px 0;border-bottom:1px solid #f8f9fa;font-size:13px;">☐ ${item}</li>`).join(''):'';
+
+  const reportHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Meal Plan — ${monthStr}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:system-ui,sans-serif;background:#f8f9fa;color:#1a1a2e;padding:40px 24px;max-width:760px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#0a1f0f,#0d2b15);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(0,200,150,0.12);}
+  .header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(0,200,150,0.8);margin-bottom:8px;}
+  .header-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.55);}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+  .sum-box{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.06);}
+  .sum-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;margin-bottom:6px;}
+  .sum-val{font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+  .sum-val.green{color:#00C896;} .sum-val.red{color:#E24B4A;} .sum-val.amber{color:#EF9F27;} .sum-val.navy{color:#0D1F3C;}
+  .section{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid rgba(0,0,0,0.06);}
+  .section-title{font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f3f4;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;padding:0 0 10px;border-bottom:1px solid #f1f3f4;}
+  td{padding:10px 6px;border-bottom:1px solid #f8f9fa;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .grocery-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .grocery-list{list-style:none;}
+  .budget-bar{height:8px;background:#f1f3f4;border-radius:99px;overflow:hidden;margin-top:12px;}
+  .budget-fill{height:100%;border-radius:99px;background:${remaining>=0?'#00C896':'#E24B4A'};}
+  .bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#9AA0A6;margin-top:5px;}
+  .footer{text-align:center;font-size:11px;color:#9AA0A6;margin-top:28px;padding-top:20px;border-top:1px solid #e8eaed;}
+  @media print{body{padding:20px;background:#fff!important;} .section{page-break-inside:avoid;} .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .budget-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+  @page{margin:20mm;size:A4;}
+</style></head><body>
+<div class="header">
+  <div class="header-eyebrow">E Pelissier Enterprise — Family Meal Planner</div>
+  <div class="header-title">Weekly Meal Plan Report</div>
+  <div class="header-sub">Week of ${now.toLocaleDateString()} · Generated ${now.toLocaleDateString()}</div>
+</div>
+<div class="summary-grid">
+  <div class="sum-box"><div class="sum-label">Weekly Budget</div><div class="sum-val navy">${f(budget)}</div></div>
+  <div class="sum-box"><div class="sum-label">Total Spent</div><div class="sum-val ${remaining>=0?'amber':'red'}">${f(totalCost)}</div></div>
+  <div class="sum-box"><div class="sum-label">${remaining>=0?'Remaining':'Over Budget'}</div><div class="sum-val ${remaining>=0?'green':'red'}">${f(Math.abs(remaining))}</div></div>
+  <div class="sum-box"><div class="sum-label">Avg. Per Meal</div><div class="sum-val navy">${totalMeals>0?f(perMeal):'—'}</div></div>
+</div>
+<div class="section">
+  <div class="section-title">📅 Weekly Meal Calendar</div>
+  <table>
+    <tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th><th style="text-align:right">Day Cost</th></tr>
+    ${calRows}
+  </table>
+  <div class="budget-bar"><div class="budget-fill" style="width:${budget>0?Math.min(100,(totalCost/budget)*100).toFixed(1):0}%;"></div></div>
+  <div class="bar-labels"><span>0</span><span>${budget>0?((totalCost/budget)*100).toFixed(0)+'% of weekly budget':''}</span><span>${f(budget)}</span></div>
+</div>
+<div class="section">
+  <div class="section-title">🛒 Grocery List</div>
+  <div class="grocery-cols">
+    <div><div style="font-size:11px;font-weight:600;color:#9AA0A6;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">From meal plan</div><ul class="grocery-list">${groceryList}</ul></div>
+    ${customGrocery.length?`<div><div style="font-size:11px;font-weight:600;color:#9AA0A6;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Custom items</div><ul class="grocery-list">${customList}</ul></div>`:''}
+  </div>
+</div>
+<div class="section">
+  <div class="section-title">📊 Meal Stats</div>
+  <table>
+    <tr><td>Meals Planned</td><td style="font-weight:600;">${totalMeals} of 21</td></tr>
+    <tr><td>Portions Per Meal</td><td style="font-weight:600;">${portions}</td></tr>
+    <tr><td>Cost Per Portion</td><td style="font-weight:600;">${totalMeals>0?f(perMeal/portions):'—'}</td></tr>
+    <tr><td>Projected Monthly Food Cost</td><td style="font-weight:600;">${f(totalCost*4.33)}</td></tr>
+    <tr><td>Budget Status</td><td style="font-weight:600;color:${remaining>=0?'#00C896':'#E24B4A'}">${remaining>=0?'Within budget ✓':'Over by '+f(Math.abs(remaining))}</td></tr>
+  </table>
+</div>
+<div class="footer">
+  Generated by the Family Meal Planner · E Pelissier Enterprise<br>
+  digital.epelissierenterprise.com/meal-planner · Your data stays private — nothing was sent or stored.
+</div>
+</body></html>`;
+
+  const finalHtml=reportHtml;
+  const win=window.open('','_blank');
+  win.document.write(finalHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
+}
+
+// ── SUITE OWNERSHIP ──────────────────────────────────────────
+function ownsFullSuite(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('ref')==='suite'){
+    localStorage.setItem('ep_has_suite','true');
+    return true;
+  }
+  return localStorage.getItem('ep_has_suite')==='true';
+}
+function initSuiteUpsellPanel(){
+  const row=document.getElementById('suite-upsell-row');
+  if(row)row.style.display=ownsFullSuite()?'none':'flex';
+}
+function claimSuiteOwnership(){
+  localStorage.setItem('ep_has_suite','true');
+  const prompt=document.getElementById('upsell-prompt');
+  if(prompt)prompt.style.display='none';
+}
+
+function showUpsellIfNeeded(){
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt)return;
+  if(ownsFullSuite()){ prompt.style.display='none'; return; }
+  if(localStorage.getItem('ep_upsell_dismissed_meal')==='1') return;
+  const s=SS.get();
+  const hasBudgetPlanner=s.ep_income>0;
+  const totalMeals=weekData.reduce((sum,d)=>sum+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
+  if(totalMeals>0 && !hasBudgetPlanner){
+    prompt.style.display='block';
+  } else {
+    prompt.style.display='none';
+  }
+}
+
+
+// Init
+loadFromStore();
+renderAll();
+checkBudgetSync();
+checkForSavedData();
+initLockUI();
+initSuiteUpsellPanel();
+</script>
+</body>
+</html>

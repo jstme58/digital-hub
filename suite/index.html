@@ -654,9 +654,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
-    <a href="/budget-planner/?ref=suite" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
-    <a href="/meal-planner/?ref=suite" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
-    <a href="/debt-tracker/?ref=suite" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
+    <a href="/budget-planner/?ref=suite" class="footer-link" id="footer-link-budget" data-i18n="tool1_name">Budget Planner</a>
+    <a href="/meal-planner/?ref=suite" class="footer-link" id="footer-link-meals" data-i18n="tool2_name">Meal Planner</a>
+    <a href="/debt-tracker/?ref=suite" class="footer-link" id="footer-link-debt" data-i18n="tool3_name">Debt Tracker</a>
     <a href="https://epelissierenterprise.com" class="footer-link">epelissierenterprise.com</a>
   </div>
   <span data-i18n="footer">Your complete family finance suite — </span><strong>E Pelissier Enterprise</strong>
@@ -790,6 +790,15 @@ const TOOL_PATHS={
   meals:'/meal-planner/',
   debt:'/debt-tracker/'
 };
+// Paid copies (no watermark/lock, IS_DEMO=false) — confirmed Suite owners only
+const TOOL_PATHS_PAID={
+  budget:'/paid/budget-planner/',
+  meals:'/paid/meal-planner/',
+  debt:'/paid/debt-tracker/'
+};
+function hasPaidAccess(){
+  try{ return localStorage.getItem('ep_has_suite')==='true'; }catch(e){ return false; }
+}
 
 let lang='en', currency='USD';
 
@@ -813,12 +822,23 @@ function openTool(tool){
   const expenses=parseFloat(document.getElementById('qe-expenses').value)||0;
   const remaining=income-expenses;
 
-  let url=TOOL_PATHS[tool];
-  const params=['ref=suite'];
+  const paid=hasPaidAccess();
+  let url=paid?TOOL_PATHS_PAID[tool]:TOOL_PATHS[tool];
+  const params=paid?[]:['ref=suite'];
   if(tool==='meals'&&food>0) params.push('budget='+Math.round(food));
   if(tool==='debt'&&remaining>0) params.push('extra='+Math.round(remaining));
   if(params.length) url+='?'+params.join('&');
   window.location.href=url;
+}
+
+function updateFooterLinks(){
+  const paid=hasPaidAccess();
+  const map={budget:'footer-link-budget',meals:'footer-link-meals',debt:'footer-link-debt'};
+  Object.keys(map).forEach(tool=>{
+    const el=document.getElementById(map[tool]);
+    if(!el)return;
+    el.href=paid?TOOL_PATHS_PAID[tool]:TOOL_PATHS[tool]+'?ref=suite';
+  });
 }
 
 function syncAll(){
@@ -973,6 +993,7 @@ function showLastSync(s){
 }
 
 loadFromStore();
+updateFooterLinks();
 
 </script>
 </body>

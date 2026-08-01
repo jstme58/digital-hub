@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debt Payoff Tracker — E Pelissier Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1F3C; --navy-2: #142647; --navy-3: #1B2F55;
+  --coral: #FF6B6B; --coral-dim: rgba(255,107,107,0.15); --coral-glow: rgba(255,107,107,0.25);
+  --coral-dark: #cc4444;
+  --teal: #2DD4BF; --teal-dim: rgba(45,212,191,0.12);
+  --gold: #C9A84C; --gold-light: #F0D58A;
+  --green: #55EFC4; --green-dim: rgba(85,239,196,0.12);
+  --amber: #FFB347; --amber-dim: rgba(255,179,71,0.15);
+  --purple: #A29BFE; --purple-dim: rgba(162,155,254,0.15);
+  --blue: #74B9FF; --blue-dim: rgba(116,185,255,0.15);
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.30);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --card-bg: rgba(255,255,255,0.04);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --ease-smooth: cubic-bezier(0.4,0,0.2,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--navy); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px; opacity: 0.4;
+}
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); opacity: 0.3; }
+.orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,107,107,0.35), transparent 70%); top: -150px; right: -150px; }
+.orb-2 { width: 380px; height: 380px; background: radial-gradient(circle, rgba(201,168,76,0.2), transparent 70%); bottom: 20%; left: -100px; }
+.orb-3 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(45,212,191,0.15), transparent 70%); bottom: -80px; right: 15%; }
+
+/* TOP BAR */
+.top-bar {
+  position: relative; z-index: 10;
+  background: rgba(13,31,60,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.brand-mark { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+.brand-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); display: inline-block; }
+.controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ctrl-group { display: flex; align-items: center; gap: 6px; }
+.ctrl-group label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.ctrl-group select { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--font-body); font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 8px; cursor: pointer; outline: none; transition: border-color 0.2s; }
+.ctrl-group select:focus { border-color: var(--coral); }
+.ctrl-group select option { background: var(--navy-2); }
+.ctrl-divider { width: 1px; height: 20px; background: var(--border); }
+
+/* HERO */
+.hero { position: relative; z-index: 1; padding: 52px 24px 40px; text-align: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--coral); margin-bottom: 18px; padding: 6px 16px; border: 1px solid rgba(255,107,107,0.25); border-radius: 99px; background: rgba(255,107,107,0.06); }
+.hero-eyebrow::before { content: '✦'; font-size: 8px; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(28px,5vw,48px); font-weight: 700; color: var(--text-primary); line-height: 1.1; letter-spacing: -1px; margin-bottom: 14px; }
+.hero h1 em { font-style: italic; background: linear-gradient(135deg, var(--coral), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: 15px; font-weight: 300; color: var(--text-secondary); max-width: 420px; margin: 0 auto; line-height: 1.7; }
+.hero-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--coral), transparent); margin: 24px auto 0; }
+
+/* STICKY DASH */
+.sticky-dash { position: sticky; top: 0; z-index: 50; background: rgba(13,31,60,0.92); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); padding: 12px 20px 0; transition: box-shadow 0.3s; }
+.sticky-dash.scrolled { box-shadow: 0 4px 40px rgba(0,0,0,0.4); }
+.dash-inner { max-width: 820px; margin: 0 auto; }
+.summary-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+.sum-card { border-radius: 14px; padding: 14px 14px 12px; border: 1px solid var(--border); background: var(--card-bg); position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s; }
+.sum-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(255,255,255,0.03),transparent); pointer-events: none; }
+.sum-card.danger { border-color: rgba(255,107,107,0.35); background: rgba(255,107,107,0.07); }
+.sum-card.good { border-color: rgba(85,239,196,0.3); background: rgba(85,239,196,0.06); }
+.sc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.sc-label { font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.sc-icon { font-size: 13px; opacity: 0.7; }
+.sc-value { font-family: var(--font-display); font-size: clamp(15px,3vw,21px); font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1; }
+.sum-card.danger .sc-value { color: var(--coral); }
+.sum-card.good .sc-value { color: var(--green); }
+.sc-sub { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+
+/* METHOD TOGGLE */
+.method-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.method-btn { flex: 1; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-secondary); font-family: var(--font-body); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; }
+.method-btn.active { border-color: rgba(255,107,107,0.4); background: rgba(255,107,107,0.1); color: var(--coral); }
+.method-btn:hover:not(.active) { border-color: var(--border-hover); color: var(--text-primary); }
+
+/* PROGRESS TRACK */
+.prog-wrap { padding: 0 2px 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.prog-wrap::-webkit-scrollbar { display: none; }
+.prog-track { display: flex; align-items: flex-start; gap: 0; min-width: max-content; }
+.prog-debt { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; padding: 0 5px; cursor: pointer; }
+.prog-node { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); transition: all 0.3s var(--ease-spring); color: var(--text-muted); }
+.prog-debt.paid .prog-node { background: rgba(85,239,196,0.2); border-color: var(--green); color: var(--green); box-shadow: 0 0 10px rgba(85,239,196,0.3); }
+.prog-debt.active-d .prog-node { background: var(--coral); border-color: var(--coral); color: white; box-shadow: 0 0 14px rgba(255,107,107,0.4); transform: scale(1.1); }
+.prog-debt-lbl { font-size: 7px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; max-width: 52px; overflow: hidden; text-overflow: ellipsis; }
+.prog-debt.paid .prog-debt-lbl { color: var(--green); }
+.prog-debt.active-d .prog-debt-lbl { color: var(--coral); }
+.prog-connector { width: 18px; height: 1px; background: rgba(255,255,255,0.08); align-self: flex-start; margin-top: 11px; flex-shrink: 0; transition: background 0.4s; }
+.prog-connector.paid { background: rgba(85,239,196,0.4); }
+
+/* COLOR STRIP */
+.color-strip { display: flex; gap: 2px; height: 3px; margin: 0 2px 12px; border-radius: 99px; overflow: hidden; }
+.cs-seg { border-radius: 99px; height: 100%; transition: width 0.6s var(--ease-smooth); min-width: 0; }
+
+/* CONTAINER */
+.container { max-width: 820px; margin: 0 auto; padding: 24px 16px 140px; position: relative; z-index: 1; }
+
+/* OVERVIEW CARD */
+.overview-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.overview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg,transparent,rgba(255,107,107,0.5),transparent); }
+.ov-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+@media (min-width: 500px) { .ov-grid { grid-template-columns: repeat(4,1fr); } }
+.ov-stat { text-align: center; padding: 14px 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; }
+.ov-stat-val { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; display: block; }
+.ov-stat-val.coral { color: var(--coral); }
+.ov-stat-val.green { color: var(--green); }
+.ov-stat-val.gold { color: var(--gold); }
+.ov-stat-val.teal { color: var(--teal); }
+.ov-stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; display: block; }
+
+/* CARD HEADING */
+.card-heading { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.ch-icon { width: 30px; height: 30px; border-radius: 9px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.2); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+
+/* DEBT CARDS */
+.debt-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.debt-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 18px; overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.debt-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--debt-color, var(--coral)); opacity: 0.7; }
+.debt-card.paid-off { opacity: 0.5; }
+.debt-card.paid-off::after { content: '✓ PAID OFF'; position: absolute; top: 12px; right: 14px; font-size: 9px; font-weight: 700; color: var(--green); letter-spacing: 1px; background: rgba(85,239,196,0.1); border: 1px solid rgba(85,239,196,0.3); padding: 3px 8px; border-radius: 99px; }
+.debt-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px 0 20px; }
+.debt-header-l { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.debt-emoji { font-size: 20px; flex-shrink: 0; }
+.debt-name-wrap { flex: 1; min-width: 0; }
+.debt-name { font-size: 14px; font-weight: 600; color: var(--text-primary); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.debt-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+.debt-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.debt-action-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 4px 8px; border-radius: 7px; cursor: pointer; transition: all 0.2s; font-family: var(--font-body); }
+.debt-action-btn:hover { border-color: var(--coral); color: var(--coral); }
+.debt-action-btn.del:hover { border-color: rgba(255,107,107,0.5); background: rgba(255,107,107,0.08); }
+
+/* PROGRESS BAR */
+.debt-progress-wrap { padding: 12px 18px 6px 20px; }
+.debt-progress-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
+.debt-progress-fill { height: 100%; border-radius: 99px; background: var(--debt-color, var(--coral)); transition: width 0.6s var(--ease-smooth); width: 0%; box-shadow: 0 0 8px var(--debt-color, var(--coral)); }
+.debt-progress-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); }
+.debt-progress-labels span:last-child { color: var(--text-secondary); }
+
+/* DEBT FIELDS */
+.debt-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 18px 18px 20px; }
+@media (min-width: 500px) { .debt-fields { grid-template-columns: repeat(4,1fr); } }
+.df { }
+.df-label { font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; display: block; }
+.df-input-wrap { position: relative; }
+.df-pfx { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--text-muted); pointer-events: none; z-index: 1; transition: color 0.2s; }
+.df-input-wrap:focus-within .df-pfx { color: var(--coral); }
+.df-sfx { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--text-muted); pointer-events: none; }
+.df-input {
+  width: 100%; height: 40px;
+  padding: 0 28px 0 26px;
+  font-size: 13px; font-family: var(--font-body); font-weight: 400;
+  color: var(--text-primary); background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1); border-radius: 10px;
+  outline: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  -moz-appearance: textfield;
+}
+.df-input::-webkit-inner-spin-button, .df-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.df-input::placeholder { color: rgba(255,255,255,0.2); }
+.df-input:focus { border-color: rgba(255,107,107,0.5); background: rgba(255,107,107,0.04); box-shadow: 0 0 0 3px rgba(255,107,107,0.08); }
+.df-name-input { width: 100%; height: 40px; padding: 0 12px; font-size: 13px; font-family: var(--font-body); color: var(--text-primary); background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 10px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.df-name-input::placeholder { color: rgba(255,255,255,0.2); }
+.df-name-input:focus { border-color: rgba(255,107,107,0.5); box-shadow: 0 0 0 3px rgba(255,107,107,0.08); }
+.df-name-col { grid-column: span 2; }
+@media (min-width: 500px) { .df-name-col { grid-column: span 1; } }
+
+/* ADD DEBT BUTTON */
+.add-debt-btn {
+  width: 100%; padding: 16px; border-radius: 16px;
+  border: 1.5px dashed rgba(255,107,107,0.25);
+  background: rgba(255,107,107,0.03);
+  color: var(--coral); font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.add-debt-btn:hover { background: rgba(255,107,107,0.07); border-color: rgba(255,107,107,0.4); }
+
+/* PAYOFF TIMELINE */
+.timeline-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.timeline-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent); }
+.timeline-list { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.tl-item:last-child { border-bottom: none; }
+.tl-dot-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 20px; }
+.tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--debt-tl-color, var(--coral)); flex-shrink: 0; box-shadow: 0 0 8px var(--debt-tl-color, var(--coral)); }
+.tl-line { width: 1px; flex: 1; min-height: 20px; background: rgba(255,255,255,0.07); margin-top: 4px; }
+.tl-item:last-child .tl-line { display: none; }
+.tl-body { flex: 1; }
+.tl-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.tl-detail { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+.tl-right { text-align: right; flex-shrink: 0; }
+.tl-date { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--gold); }
+.tl-interest { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.tl-empty { text-align: center; padding: 28px; color: var(--text-muted); font-size: 13px; line-height: 1.7; }
+.tl-empty-icon { font-size: 28px; display: block; margin-bottom: 8px; opacity: 0.5; }
+
+/* TIPS CARD */
+.tips-card { background: rgba(201,168,76,0.03); border: 1px solid rgba(201,168,76,0.18); border-radius: 20px; padding: 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+/* ── HEALTH SCORE LOCK + SUITE UPSELL ────────────────── */
+.health-lock-card { border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; background: rgba(201,168,76,0.03); padding: 22px 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.health-lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent); }
+.health-lock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.health-lock-icon { font-size: 18px; }
+.health-lock-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.suite-only-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--gold-light); background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.3); padding: 3px 10px; border-radius: 99px; }
+.health-lock-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+.suite-upsell-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+.suite-upsell-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; flex: 1; min-width: 200px; }
+.suite-upsell-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--navy); background: linear-gradient(135deg, var(--gold-light), var(--gold)); padding: 9px 18px; border-radius: 99px; text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.suite-upsell-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.3); }
+.tips-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent); }
+.tip-list { display: flex; flex-direction: column; gap: 9px; }
+.tip-item { display: flex; align-items: flex-start; gap: 12px; padding: 13px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); transition: all 0.2s; }
+.tip-item:hover { background: rgba(255,255,255,0.05); transform: translateX(2px); }
+.tip-ico { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.tip-ico.coral { background: var(--coral-dim); }
+.tip-ico.green { background: var(--green-dim); }
+.tip-ico.gold { background: var(--amber-dim); }
+.tip-ico.blue { background: var(--blue-dim); }
+.tip-ico.purple { background: var(--purple-dim); }
+.tip-txt { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; line-height: 1.4; }
+.tip-detail { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+.tip-tag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 99px; white-space: nowrap; flex-shrink: 0; align-self: center; }
+.tip-tag.good { color: var(--green); background: rgba(85,239,196,0.1); border: 1px solid rgba(85,239,196,0.2); }
+.tip-tag.warn { color: var(--coral); background: var(--coral-dim); border: 1px solid rgba(255,107,107,0.25); }
+.tip-tag.gold-tag { color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); }
+.tips-badge { font-size: 10px; font-weight: 600; color: var(--navy); background: var(--coral); padding: 2px 9px; border-radius: 99px; }
+.tips-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.tips-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+.tips-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.tips-empty { text-align: center; padding: 24px; color: var(--text-muted); font-size: 13px; }
+
+/* RESET + FAB + FOOTER */
+.reset-wrap { text-align: center; margin: 28px 0; }
+.reset-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--text-muted); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; cursor: pointer; transition: all 0.2s; }
+.reset-btn:hover { color: var(--coral); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.06); }
+
+.save-wrap { text-align: center; margin: 28px 0 0; }
+.save-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--coral); background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.25); border-radius: 99px; cursor: pointer; transition: all 0.2s; }
+.save-btn:hover { background: rgba(255,107,107,0.14); border-color: rgba(255,107,107,0.4); }
+.save-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; max-width: 340px; margin-left: auto; margin-right: auto; }
+.restore-banner { display: none; align-items: center; gap: 12px; flex-wrap: wrap; background: rgba(255,107,107,0.06); border: 1px solid rgba(255,107,107,0.25); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; }
+.restore-banner.show { display: flex; }
+.restore-text { flex: 1; min-width: 180px; font-size: 13px; color: var(--text-primary); }
+.restore-btns { display: flex; gap: 8px; }
+.restore-btn-yes { background: var(--coral); color: #fff; border: none; padding: 8px 16px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font-body); }
+.restore-btn-no { background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--text-muted); padding: 8px 16px; border-radius: 99px; font-size: 12px; cursor: pointer; font-family: var(--font-body); }
+.fab { position: fixed; bottom: 28px; right: 20px; z-index: 200; background: linear-gradient(135deg, var(--coral-dark), #a03030); color: #fff; border: none; cursor: pointer; padding: 13px 18px; border-radius: 99px; font-family: var(--font-body); font-size: 13px; font-weight: 600; box-shadow: 0 4px 24px rgba(255,107,107,0.3), 0 2px 8px rgba(0,0,0,0.3); display: none; align-items: center; gap: 8px; transition: transform 0.2s; }
+.fab:active { transform: scale(0.97); }
+.fab-num { background: rgba(255,255,255,0.2); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 99px; min-width: 20px; text-align: center; }
+@media (max-width: 767px) { .fab { display: flex; } }
+.footer { background: rgba(13,31,60,0.8); border-top: 1px solid var(--border); text-align: center; padding: 22px 20px; color: var(--text-muted); font-size: 12px; position: relative; z-index: 1; }
+.footer strong { color: var(--coral); font-weight: 500; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideIn { from{opacity:0;transform:translateY(-10px) scale(0.98)} to{opacity:1;transform:translateY(0) scale(1)} }
+.hero { animation: fadeUp 0.7s ease both; }
+.overview-card { animation: fadeUp 0.7s 0.1s ease both; }
+.timeline-card { animation: fadeUp 0.7s 0.15s ease both; }
+.debt-card { animation: slideIn 0.35s ease both; }
+
+/* ── DOWNLOAD REPORT ─────────────────────────────── */
+.download-wrap{text-align:center;margin-bottom:12px;}
+.download-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--coral);background:rgba(255,107,107,0.08);border:1.5px solid rgba(255,107,107,0.3);border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.lock-icon{font-size:12px;}
+.download-btn:hover{background:rgba(255,107,107,0.15);border-color:rgba(255,107,107,0.5);transform:scale(1.02);}
+.download-btn:active{transform:scale(0.98);}
+
+
+/* ── UPSELL MODAL ────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-box{background:var(--navy-2);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:32px 28px;max-width:400px;width:100%;position:relative;overflow:hidden;}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.6),transparent);}
+.modal-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px;}
+.modal-sub{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:20px;}
+.modal-feature{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-secondary);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.modal-feature:last-of-type{border-bottom:none;margin-bottom:20px;}
+.modal-btns{display:flex;flex-direction:column;gap:10px;}
+.modal-btn-primary{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#cc4444,#8B0000);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:700;padding:14px 24px;border-radius:99px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;}
+.modal-btn-primary:hover{transform:translateY(-1px);}
+.modal-btn-sample{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 24px;border-radius:99px;cursor:pointer;transition:all 0.2s;}
+.modal-btn-sample:hover{border-color:rgba(255,255,255,0.25);color:var(--text-secondary);}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;}
+.sample-note{font-size:10px;color:var(--text-muted);text-align:center;margin-top:8px;}
+
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="brand-mark"><span class="brand-dot"></span><span data-i18n="brand">E Pelissier Enterprise</span></div>
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>🌍</label>
+      <select id="lang-select" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+      </select>
+    </div>
+    <div class="ctrl-divider"></div>
+    <div class="ctrl-group">
+      <label>💱</label>
+      <select id="currency-select" onchange="setCurrency(this.value)">
+        <option value="USD">$ USD</option>
+        <option value="CAD">$ CAD</option>
+        <option value="GBP">£ GBP</option>
+        <option value="EUR">€ EUR</option>
+        <option value="BRL">R$ BRL</option>
+        <option value="MXN">$ MXN</option>
+        <option value="CHF">Fr CHF</option>
+        <option value="AUD">A$ AUD</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow" data-i18n="eyebrow">Debt Freedom Tool</div>
+  <h1><em data-i18n="hero_h1_em">Crush</em> <span data-i18n="hero_h1_rest">Your Debt,<br>Reclaim Your Life</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Avalanche or snowball — see exactly when you'll be debt-free and how much interest you'll save.</p>
+  <div class="hero-line"></div>
+</div>
+
+<!-- STICKY DASH -->
+<div class="sticky-dash" id="sticky-dash">
+  <div class="dash-inner">
+    <div class="summary-row">
+      <div class="sum-card danger" id="card-total-debt">
+        <div class="sc-top"><span class="sc-label" data-i18n="total_debt">Total Debt</span><span class="sc-icon">💳</span></div>
+        <div class="sc-value" id="val-total-debt">$0</div>
+        <div class="sc-sub" id="sub-total-debt">—</div>
+      </div>
+      <div class="sum-card" id="card-monthly">
+        <div class="sc-top"><span class="sc-label" data-i18n="monthly_payment">Monthly</span><span class="sc-icon">📅</span></div>
+        <div class="sc-value" id="val-monthly">$0</div>
+        <div class="sc-sub" id="sub-monthly">—</div>
+      </div>
+      <div class="sum-card good" id="card-interest-saved">
+        <div class="sc-top"><span class="sc-label" data-i18n="interest_saved">Int. Saved</span><span class="sc-icon">💰</span></div>
+        <div class="sc-value" id="val-interest-saved">$0</div>
+        <div class="sc-sub" id="sub-interest">—</div>
+      </div>
+    </div>
+    <!-- METHOD -->
+    <div class="method-row">
+      <button class="method-btn active" id="btn-avalanche" onclick="setMethod('avalanche')" data-i18n="avalanche">⚡ Avalanche (Highest Rate First)</button>
+      <button class="method-btn" id="btn-snowball" onclick="setMethod('snowball')" data-i18n="snowball">❄️ Snowball (Smallest Balance First)</button>
+    </div>
+    <!-- PROGRESS -->
+    <div class="prog-wrap"><div class="prog-track" id="prog-track"></div></div>
+    <!-- COLOR STRIP -->
+    <div class="color-strip" id="color-strip"></div>
+  </div>
+</div>
+
+<!-- CONTAINER -->
+<!-- BUDGET SYNC BANNER -->
+<div id="budget-sync-banner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:14px;padding:12px 18px;margin:0 auto 16px;max-width:820px;position:relative;z-index:1;align-items:center;gap:12px;flex-wrap:wrap;">
+  <span style="font-size:14px;">💡</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;">Your Budget Planner shows</span>
+  <strong class="bsb-val" style="color:var(--coral);font-size:14px;font-weight:700;"></strong>
+  <span style="font-size:13px;color:rgba(255,255,255,0.55);">available as extra debt payment each month</span>
+  <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;padding:0 4px;">✕</button>
+</div>
+<div class="container">
+
+  <!-- RESTORE SAVED DATA -->
+  <div class="restore-banner" id="restore-banner">
+    <span class="restore-text" data-i18n="restore_prompt_text">We found debts saved on this device. Restore them?</span>
+    <div class="restore-btns">
+      <button class="restore-btn-yes" onclick="restoreSavedData()" data-i18n="restore_yes">Restore</button>
+      <button class="restore-btn-no" onclick="dismissRestoreBanner()" data-i18n="restore_dismiss">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="overview-card">
+    <div class="card-heading"><div class="ch-icon">📊</div><span data-i18n="overview_title">Debt Overview</span></div>
+    <div class="ov-grid">
+      <div class="ov-stat">
+        <span class="ov-stat-val coral" id="ov-debts">0</span>
+        <span class="ov-stat-lbl" data-i18n="ov_debts">Debts</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-stat-val gold" id="ov-payoff-date">—</span>
+        <span class="ov-stat-lbl" data-i18n="ov_payoff">Debt-Free Date</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-stat-val teal" id="ov-total-interest">$0</span>
+        <span class="ov-stat-lbl" data-i18n="ov_total_interest">Total Interest</span>
+      </div>
+      <div class="ov-stat">
+        <span class="ov-stat-val green" id="ov-months">—</span>
+        <span class="ov-stat-lbl" data-i18n="ov_months">Months to Freedom</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEBT LIST -->
+  <div class="card-heading" style="margin-bottom:12px;"><div class="ch-icon">💳</div><span data-i18n="your_debts">Your Debts</span></div>
+  <div class="debt-list" id="debt-list"></div>
+  <button class="add-debt-btn" onclick="addDebt()" id="add-btn">+ <span data-i18n="add_debt">Add a Debt</span></button>
+
+  <!-- PAYOFF TIMELINE -->
+  <div class="timeline-card">
+    <div class="card-heading"><div class="ch-icon" style="background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.2);">📅</div><span data-i18n="payoff_timeline">Payoff Timeline</span></div>
+    <div id="timeline-body"><div class="tl-empty"><span class="tl-empty-icon">🎯</span><span data-i18n="timeline_empty">Add your debts above to see your personalized payoff timeline.</span></div></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips-card" id="tips-anchor">
+    <div class="tips-head">
+      <div class="tips-title">💡 <span data-i18n="tips_title">Smart Strategies</span></div>
+      <span class="tips-badge" id="tips-badge" style="display:none"></span>
+    </div>
+    <div class="tips-sub" data-i18n="tips_sub">Personalized advice based on your debt profile</div>
+    <div id="tips-body"><div class="tips-empty" data-i18n="tips_empty">Add your debts to get personalized payoff strategies.</div></div>
+  </div>
+
+  <!-- FINANCIAL HEALTH SCORE (always locked in individual tools) -->
+  <div class="health-lock-card">
+    <div class="health-lock-header">
+      <span class="health-lock-icon">❤️</span>
+      <span class="health-lock-title" data-i18n="tool_health">Financial Health Score</span>
+      <span class="suite-only-pill">🔒 <span data-i18n="suite_only_label">Suite only</span></span>
+    </div>
+    <p class="health-lock-desc" data-i18n="health_locked_desc">See your full 0–100 score across savings, debt and spending.</p>
+    <div class="suite-upsell-row" id="suite-upsell-row">
+      <span class="suite-upsell-text" data-i18n="suite_upsell_text">Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.</span>
+      <a href="../index.html#value" class="suite-upsell-btn" data-i18n="suite_upsell_btn">See the suite →</a>
+    </div>
+  </div>
+
+  <!-- UPSELL PROMPT -->
+<div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(255,107,107,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
+  <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:28px;flex-shrink:0;">💡</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Know how much extra you can pay each month?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;">The <strong style="color:var(--coral);">Budget Planner</strong> calculates exactly how much money you have left after expenses — so you know the perfect extra payment amount to crush your debt faster.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#cc4444,#8B0000);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_debt','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
+      </div>
+      <button onclick="claimSuiteOwnership()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;cursor:pointer;padding:2px 0;">Already own the Suite?</button>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+    </div>
+  </div>
+</div>
+  <div class="download-wrap">
+    <button class="download-btn" id="download-btn" onclick="showDownloadModal()">⬇ <span class="lock-icon" id="download-lock" style="display:none;">🔒</span> <span data-i18n="download_pdf_btn">Download Debt Report as PDF</span></button>
+  </div>
+
+<!-- UPGRADE MODAL (demo mode only — shown instead of the real download/save action) -->
+<div class="modal-overlay" id="upgrade-modal" style="display:none;" onclick="if(event.target===this)closeUpgradeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeUpgradeModal()">✕</button>
+    <div class="modal-title" data-i18n="upgrade_modal_title">Your debt payoff plan is ready</div>
+    <div class="modal-sub" data-i18n="upgrade_modal_body">Get the full Debt Tracker to download this report and save your progress anytime.</div>
+    <div class="modal-btns">
+      <a href="https://stan.store/EPelissierdigital" class="modal-btn-primary">🔒 <span data-i18n="upgrade_modal_cta">Get full access — $39.99</span></a>
+      <button class="modal-btn-sample" onclick="closeUpgradeModal()" data-i18n="upgrade_modal_later">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<div class="save-wrap">
+  <button class="save-btn" id="save-device-btn" onclick="saveToDevice()">💾 <span class="lock-icon" id="save-lock" style="display:none;">🔒</span> <span data-i18n="save_device_btn">Save on This Device</span></button>
+  <div class="save-note" data-i18n="save_device_note">Saves your debts in this browser only — nothing is sent anywhere.</div>
+</div>
+
+<div class="reset-wrap">
+    <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All</span></button>
+  </div>
+</div>
+
+<button class="fab" id="fab" onclick="document.getElementById('tips-anchor').scrollIntoView({behavior:'smooth'})">
+  💡 <span data-i18n="tips_title">Smart Tips</span>
+  <span class="fab-num" id="fab-num">0</span>
+</button>
+
+<div class="footer"><span data-i18n="footer">Your path to financial freedom — </span><strong>E Pelissier Enterprise</strong></div>
+
+<script>
+// This copy is the public repo/demo build — Download and Save stay locked behind
+// an upgrade modal. Paid delivery copies (IS_DEMO=false, generated by
+// scripts/build-delivery.js) unlock both with full functionality.
+const IS_DEMO = false;
+
+// ── SHARED STORE ─────────────────────────────────────────────
+const SS={
+  KEY:'ep_suite_v1',
+  get(){try{return JSON.parse(localStorage.getItem(this.KEY)||'{}')}catch(e){return{}}},
+  set(d){try{localStorage.setItem(this.KEY,JSON.stringify({...this.get(),...d}))}catch(e){}},
+  clear(){try{localStorage.removeItem(this.KEY)}catch(e){}}
+};
+
+function loadFromStore(){
+  const s=SS.get();
+  if(s.ep_lang){const el=document.getElementById('lang-select');if(el)el.value=s.ep_lang;lang=s.ep_lang;}
+  if(s.ep_currency){const el=document.getElementById('currency-select');if(el)el.value=s.ep_currency;currency=s.ep_currency;}
+  if(s.ep_debts&&s.ep_debts.length){
+    debts=s.ep_debts;
+    debtIdCounter=Math.max(...debts.map(d=>d.id),0);
+    renderDebtList();
+  }
+}
+
+function saveToStore(){
+  const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+  SS.set({ep_total_debt:totalDebt,ep_debts:JSON.parse(JSON.stringify(debts)),ep_currency:currency,ep_lang:lang});
+}
+
+function checkBudgetSync(){
+  if(localStorage.getItem('ep_sync_dismissed_debt')==='1') return;
+  const s=SS.get();
+  const remaining=s.ep_remaining||0;
+  const banner=document.getElementById('budget-sync-banner');
+  if(banner&&remaining>50){
+    banner.style.display='flex';
+    const val=banner.querySelector('.bsb-val');
+    if(val) val.textContent=fmtM(remaining)+'/mo';
+  }
+}
+
+
+
+function showDownloadModal(){
+  if(!IS_DEMO){ downloadReport(false); }
+  else { showUpgradeModal(); }
+}
+function showUpgradeModal(){
+  const m=document.getElementById('upgrade-modal');
+  if(m)m.style.display='flex';
+}
+function closeUpgradeModal(){
+  const m=document.getElementById('upgrade-modal');
+  if(m)m.style.display='none';
+}
+function initLockUI(){
+  if(!IS_DEMO)return;
+  const dl=document.getElementById('download-lock'), sl=document.getElementById('save-lock');
+  if(dl)dl.style.display='inline';
+  if(sl)sl.style.display='inline';
+}
+
+function downloadReport(isSample=false){
+  const now=new Date();
+  const monthStr=now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const c=CURRENCIES[currency];
+  const f=(n)=>(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+  const totalMin=debts.reduce((s,d)=>s+(parseFloat(d.minPayment)||0),0);
+  const result=calcPayoff();
+
+  let debtRows='';
+  let timelineRows='';
+  let summaryInterest='—';
+  let summaryDate='—';
+  let summaryMonths='—';
+  let interestSaved='—';
+
+  if(result){
+    const{balances,totalInterest,maxMonth,interestSaved:iSaved,activeDebts}=result;
+    summaryInterest=f(totalInterest);
+    interestSaved=f(iSaved);
+    summaryMonths=maxMonth<600?maxMonth+' months':'50+ years';
+    if(maxMonth<600){
+      const fd=new Date(now.getFullYear(),now.getMonth()+maxMonth,1);
+      summaryDate=fd.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    }
+    debtRows=activeDebts.map((d,i)=>{
+      const b=balances.find(x=>x.id===d.id);
+      const pct=d.balance>0?((d.balance-(b?b.remaining:0))/d.balance*100).toFixed(1):0;
+      const mo=b?b.payoffMonth:0;
+      const pd=mo&&mo<600?new Date(now.getFullYear(),now.getMonth()+mo,1).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'—';
+      return `<tr>
+        <td>${d.emoji||'💳'} ${d.name||'Debt '+(i+1)}</td>
+        <td>${f(d.balance)}</td>
+        <td>${d.rate}%</td>
+        <td>${f(d.minPayment)}/mo</td>
+        <td>${b?f(b.totalInterest):'—'}</td>
+        <td>${pd}</td>
+        <td><div style="background:#f1f3f4;border-radius:99px;height:6px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:${d.color};border-radius:99px;"></div></div><span style="font-size:11px;color:#9AA0A6;">${pct}% paid</span></td>
+      </tr>`;
+    }).join('');
+  } else {
+    debtRows=debts.map((d,i)=>`<tr>
+      <td>${d.emoji||'💳'} ${d.name||'Debt '+(i+1)}</td>
+      <td>${f(parseFloat(d.balance)||0)}</td>
+      <td>${d.rate}%</td>
+      <td>${f(parseFloat(d.minPayment)||0)}/mo</td>
+      <td>—</td><td>—</td>
+      <td><div style="background:#f1f3f4;border-radius:99px;height:6px;"></div></td>
+    </tr>`).join('');
+  }
+
+  const reportHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Debt Report — ${monthStr}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:system-ui,sans-serif;background:#f8f9fa;color:#1a1a2e;padding:40px 24px;max-width:760px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#1a0808,#2d1010);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,107,107,0.1);}
+  .header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,107,107,0.8);margin-bottom:8px;}
+  .header-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.55);}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+  .sum-box{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.06);}
+  .sum-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;margin-bottom:6px;}
+  .sum-val{font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+  .sum-val.red{color:#E24B4A;} .sum-val.teal{color:#1D9E75;} .sum-val.amber{color:#EF9F27;} .sum-val.blue{color:#378ADD;}
+  .section{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;border:1px solid rgba(0,0,0,0.06);}
+  .section-title{font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f3f4;}
+  .method-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;margin-left:8px;}
+  .badge-avalanche{background:rgba(255,107,107,0.1);color:#E24B4A;}
+  .badge-snowball{background:rgba(116,185,255,0.1);color:#378ADD;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#9AA0A6;padding:0 0 10px;border-bottom:1px solid #f1f3f4;}
+  td{padding:10px 0;border-bottom:1px solid #f8f9fa;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .footer{text-align:center;font-size:11px;color:#9AA0A6;margin-top:28px;padding-top:20px;border-top:1px solid #e8eaed;}
+  @media print{body{padding:20px;background:#fff!important;} .section{page-break-inside:avoid;} .header{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .summary-grid{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+  @page{margin:20mm;size:A4;}
+</style></head><body>
+<div class="header">
+  <div class="header-eyebrow">E Pelissier Enterprise — Debt Payoff Tracker</div>
+  <div class="header-title">Debt Payoff Report</div>
+  <div class="header-sub">${monthStr} · Generated ${now.toLocaleDateString()}</div>
+</div>
+<div class="summary-grid">
+  <div class="sum-box"><div class="sum-label">Total Debt</div><div class="sum-val red">${f(totalDebt)}</div></div>
+  <div class="sum-box"><div class="sum-label">Monthly Min.</div><div class="sum-val amber">${f(totalMin)}/mo</div></div>
+  <div class="sum-box"><div class="sum-label">Total Interest</div><div class="sum-val red">${summaryInterest}</div></div>
+  <div class="sum-box"><div class="sum-label">Interest Saved</div><div class="sum-val teal">${interestSaved}</div></div>
+</div>
+<div class="section">
+  <div class="section-title">📅 Payoff Summary
+    <span class="method-badge ${method==='avalanche'?'badge-avalanche':'badge-snowball'}">${method==='avalanche'?'⚡ Avalanche':'❄️ Snowball'}</span>
+  </div>
+  <table><tr><th>Stat</th><th>Value</th></tr>
+    <tr><td>Debt-Free Date</td><td><strong>${summaryDate}</strong></td></tr>
+    <tr><td>Months to Freedom</td><td>${summaryMonths}</td></tr>
+    <tr><td>Number of Debts</td><td>${debts.length}</td></tr>
+    <tr><td>Total Monthly Minimum</td><td>${f(totalMin)}/mo</td></tr>
+    <tr><td>Interest Saved vs Min. Only</td><td style="color:#1D9E75;font-weight:600;">${interestSaved}</td></tr>
+  </table>
+</div>
+<div class="section">
+  <div class="section-title">💳 Debt Details</div>
+  <table>
+    <tr><th>Debt</th><th>Balance</th><th>APR</th><th>Min. Payment</th><th>Interest</th><th>Payoff Date</th><th>Progress</th></tr>
+    ${debtRows}
+  </table>
+</div>
+<div class="footer">
+  Generated by the Debt Payoff Tracker · E Pelissier Enterprise<br>
+  digital.epelissierenterprise.com/debt-tracker · Your data stays private — nothing was sent or stored.
+</div>
+</body></html>`;
+
+  const finalHtml=reportHtml;
+  const win=window.open('','_blank');
+  win.document.write(finalHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
+}
+
+// ── SUITE OWNERSHIP ──────────────────────────────────────────
+function ownsFullSuite(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('ref')==='suite'){
+    localStorage.setItem('ep_has_suite','true');
+    return true;
+  }
+  return localStorage.getItem('ep_has_suite')==='true';
+}
+function initSuiteUpsellPanel(){
+  const row=document.getElementById('suite-upsell-row');
+  if(row)row.style.display=ownsFullSuite()?'none':'flex';
+}
+function claimSuiteOwnership(){
+  localStorage.setItem('ep_has_suite','true');
+  const prompt=document.getElementById('upsell-prompt');
+  if(prompt)prompt.style.display='none';
+}
+
+function showUpsellIfNeeded(){
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt) return;
+  if(ownsFullSuite()){ prompt.style.display='none'; return; }
+  if(localStorage.getItem('ep_upsell_dismissed_debt')==='1') return;
+  const s=SS.get();
+  const hasBudgetPlanner=s.ep_income>0;
+  prompt.style.display=(debts.length>0 && !hasBudgetPlanner)?'block':'none';
+}
+
+// ── TRANSLATIONS ────────────────────────────────────────────
+const T = {
+  en:{
+    brand:"E Pelissier Enterprise", eyebrow:"Debt Freedom Tool",
+    hero_h1_em:"Crush", hero_h1_rest:"Your Debt,\nReclaim Your Life",
+    hero_sub:"Avalanche or snowball — see exactly when you'll be debt-free and how much interest you'll save.",
+    total_debt:"Total Debt", monthly_payment:"Monthly", interest_saved:"Int. Saved",
+    avalanche:"⚡ Avalanche (Highest Rate First)", snowball:"❄️ Snowball (Smallest Balance First)",
+    overview_title:"Debt Overview", ov_debts:"Debts", ov_payoff:"Debt-Free Date",
+    ov_total_interest:"Total Interest", ov_months:"Months to Freedom",
+    your_debts:"Your Debts", add_debt:"Add a Debt",
+    payoff_timeline:"Payoff Timeline", timeline_empty:"Add your debts above to see your personalized payoff timeline.",
+    tips_title:"Smart Strategies", tips_sub:"Personalized advice based on your debt profile",
+    tips_empty:"Add your debts to get personalized payoff strategies.",
+    reset:"Reset All", footer:"Your path to financial freedom — ",
+    debt_name:"Debt Name", balance:"Balance", rate:"Rate %", min_payment:"Min Payment",
+    n_debts:"debts", paid_off:"Paid off!", debt_free:"Debt-free!",
+    months_away:"months away", interest_paid:"interest paid",
+    avalanche_tip:"Avalanche saves the most money",
+    avalanche_detail:"Paying highest-interest debts first minimizes total interest paid. You save more money with this method.",
+    snowball_tip:"Snowball builds momentum",
+    snowball_detail:"Paying smallest balances first gives you quick wins and keeps you motivated. Great if you need psychological boosts.",
+    extra_payment_synced_tip:"Put your Budget Planner surplus toward debt",
+    extra_payment_synced_detail:"Your Budget Planner shows money left over each month. Applying it to your highest-rate debt can cut years off your payoff time.",
+    consolidation_tip:"Consider debt consolidation",
+    consolidation_detail:"If you have multiple high-interest debts, consolidating them into one lower-rate loan could save you significantly.",
+    highrate_tip:"Your highest-rate debt is costing the most",
+    highrate_detail:"Focus extra payments here first (avalanche method). The interest compounds daily and is your biggest financial drain.",
+    emergency_tip:"Don't forget an emergency fund",
+    emergency_detail:"While paying debt, keep at least $1,000 in savings. Without it, one emergency puts you right back into debt.",
+    auto_tip:"Automate your minimum payments",
+    auto_detail:"Set up auto-pay for every debt minimum to avoid late fees. One missed payment can trigger penalty rates that derail your plan.",
+    debt_free_tip:"You're almost debt-free!",
+    debt_free_detail:"You have less than 6 months to go. Stay the course — the finish line is in sight!",
+    removing:"Remove",
+    int_saved_vs:"saved vs. min only",
+    months_label:"mo",
+    payoff_on:"Payoff:",
+    tip_count_label: "tips",
+    save_device_btn:"Save on This Device",save_device_note:"Saves your debts in this browser only — nothing is sent anywhere.",
+    saved_confirm:"Saved!",restore_prompt_text:"We found debts saved on this device. Restore them?",
+    restore_yes:"Restore",restore_dismiss:"Dismiss",
+    download_pdf_btn:"Download Debt Report as PDF",
+    upgrade_modal_title:"Your debt payoff plan is ready",upgrade_modal_body:"Get the full Debt Tracker to download this report and save your progress anytime.",
+    upgrade_modal_cta:"Get full access — $39.99",upgrade_modal_later:"Maybe later",
+    tool_health:"Financial Health Score",
+    suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
+    suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
+  },
+  fr:{
+    brand:"E Pelissier Enterprise", eyebrow:"Outil Liberté Financière",
+    hero_h1_em:"Éliminez", hero_h1_rest:"Vos Dettes,\nReprenez Votre Vie",
+    hero_sub:"Avalanche ou boule de neige — voyez exactement quand vous serez libre de dettes.",
+    total_debt:"Dette Totale", monthly_payment:"Mensuel", interest_saved:"Int. Économisés",
+    avalanche:"⚡ Avalanche (Taux le plus élevé d'abord)", snowball:"❄️ Boule de Neige (Solde le plus faible d'abord)",
+    overview_title:"Aperçu des Dettes", ov_debts:"Dettes", ov_payoff:"Date de Liberté",
+    ov_total_interest:"Intérêts Totaux", ov_months:"Mois jusqu'à la Liberté",
+    your_debts:"Vos Dettes", add_debt:"Ajouter une Dette",
+    payoff_timeline:"Calendrier de Remboursement", timeline_empty:"Ajoutez vos dettes pour voir votre calendrier personnalisé.",
+    tips_title:"Stratégies Intelligentes", tips_sub:"Conseils personnalisés basés sur votre profil de dettes",
+    tips_empty:"Ajoutez vos dettes pour obtenir des stratégies personnalisées.",
+    reset:"Tout Réinitialiser", footer:"Votre chemin vers la liberté financière — ",
+    debt_name:"Nom de la Dette", balance:"Solde", rate:"Taux %", min_payment:"Paiement Min.",
+    n_debts:"dettes", paid_off:"Remboursé!", debt_free:"Libre de dettes!",
+    months_away:"mois restants", interest_paid:"intérêts payés",
+    avalanche_tip:"L'avalanche économise le plus d'argent",
+    avalanche_detail:"Payer les dettes à taux d'intérêt le plus élevé en premier minimise les intérêts totaux payés.",
+    snowball_tip:"La boule de neige crée de l'élan",
+    snowball_detail:"Payer les soldes les plus faibles en premier donne des victoires rapides et maintient la motivation.",
+    extra_payment_synced_tip:"Utilisez votre surplus du Planificateur Budgétaire pour vos dettes",
+    extra_payment_synced_detail:"Votre Planificateur Budgétaire indique de l'argent disponible chaque mois. L'appliquer à votre dette au taux le plus élevé peut réduire votre remboursement de plusieurs années.",
+    consolidation_tip:"Envisagez la consolidation de dettes",
+    consolidation_detail:"Si vous avez plusieurs dettes à taux élevé, les consolider en un seul prêt à taux inférieur pourrait vous faire économiser.",
+    highrate_tip:"Votre dette au taux le plus élevé coûte le plus",
+    highrate_detail:"Concentrez les paiements supplémentaires ici en premier. Les intérêts se composent quotidiennement.",
+    emergency_tip:"N'oubliez pas un fonds d'urgence",
+    emergency_detail:"Pendant le remboursement, gardez au moins 1 000$ en épargne pour éviter de vous réendetter.",
+    auto_tip:"Automatisez vos paiements minimums",
+    auto_detail:"Configurez le prélèvement automatique pour chaque dette afin d'éviter les pénalités.",
+    debt_free_tip:"Vous êtes presque libre de dettes!",
+    debt_free_detail:"Il vous reste moins de 6 mois. Tenez bon — la ligne d'arrivée est en vue!",
+    removing:"Supprimer",
+    int_saved_vs:"économisés vs. min seulement",
+    months_label:"mo",
+    payoff_on:"Remboursement:",
+    tip_count_label:"conseils",
+    save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre vos dettes dans ce navigateur uniquement — rien n'est envoyé nulle part.",
+    saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé des dettes enregistrées sur cet appareil. Les restaurer ?",
+    restore_yes:"Restaurer",restore_dismiss:"Ignorer",
+    download_pdf_btn:"Télécharger le Rapport de Dettes en PDF",
+    upgrade_modal_title:"Votre plan de remboursement est prêt",upgrade_modal_body:"Obtenez le Suivi des Dettes complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
+    upgrade_modal_cta:"Débloquer l'accès complet — 39,99 $",upgrade_modal_later:"Plus tard",
+    tool_health:"Score de Santé Financière",
+    suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
+    suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
+  },
+  es:{
+    brand:"E Pelissier Enterprise", eyebrow:"Herramienta Libertad Financiera",
+    hero_h1_em:"Aplasta", hero_h1_rest:"Tus Deudas,\nRecupera Tu Vida",
+    hero_sub:"Avalancha o bola de nieve — ve exactamente cuándo estarás libre de deudas.",
+    total_debt:"Deuda Total", monthly_payment:"Mensual", interest_saved:"Int. Ahorrado",
+    avalanche:"⚡ Avalancha (Mayor Tasa Primero)", snowball:"❄️ Bola de Nieve (Menor Saldo Primero)",
+    overview_title:"Resumen de Deudas", ov_debts:"Deudas", ov_payoff:"Fecha Libre de Deudas",
+    ov_total_interest:"Interés Total", ov_months:"Meses para la Libertad",
+    your_debts:"Tus Deudas", add_debt:"Agregar una Deuda",
+    payoff_timeline:"Línea de Tiempo de Pago", timeline_empty:"Agrega tus deudas para ver tu línea de tiempo personalizada.",
+    tips_title:"Estrategias Inteligentes", tips_sub:"Consejos personalizados basados en tu perfil de deudas",
+    tips_empty:"Agrega tus deudas para obtener estrategias personalizadas.",
+    reset:"Reiniciar Todo", footer:"Tu camino hacia la libertad financiera — ",
+    debt_name:"Nombre de la Deuda", balance:"Saldo", rate:"Tasa %", min_payment:"Pago Mín.",
+    n_debts:"deudas", paid_off:"¡Pagado!", debt_free:"¡Libre de deudas!",
+    months_away:"meses restantes", interest_paid:"interés pagado",
+    avalanche_tip:"La avalancha ahorra más dinero",
+    avalanche_detail:"Pagar las deudas con mayor tasa de interés primero minimiza el interés total pagado.",
+    snowball_tip:"La bola de nieve genera impulso",
+    snowball_detail:"Pagar los saldos más pequeños primero da victorias rápidas y mantiene la motivación.",
+    extra_payment_synced_tip:"Usa tu excedente del Planificador de Presupuesto para tu deuda",
+    extra_payment_synced_detail:"Tu Planificador de Presupuesto muestra dinero disponible cada mes. Aplicarlo a tu deuda de mayor tasa puede reducir años de tu tiempo de pago.",
+    consolidation_tip:"Considera la consolidación de deudas",
+    consolidation_detail:"Si tienes múltiples deudas de alta tasa, consolidarlas podría ahorrarte significativamente.",
+    highrate_tip:"Tu deuda de mayor tasa cuesta más",
+    highrate_detail:"Enfoca los pagos adicionales aquí primero. El interés se compone diariamente.",
+    emergency_tip:"No olvides un fondo de emergencia",
+    emergency_detail:"Mientras pagas deudas, mantén al menos $1,000 en ahorros para evitar volver a endeudarte.",
+    auto_tip:"Automatiza tus pagos mínimos",
+    auto_detail:"Configura débito automático para cada deuda para evitar cargos por mora.",
+    debt_free_tip:"¡Casi estás libre de deudas!",
+    debt_free_detail:"Te quedan menos de 6 meses. ¡La meta está cerca!",
+    removing:"Eliminar",
+    int_saved_vs:"ahorrado vs. solo mínimo",
+    months_label:"mes",
+    payoff_on:"Pago:",
+    tip_count_label:"consejos",
+    save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tus deudas solo en este navegador — no se envía nada a ningún lado.",
+    saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos deudas guardadas en este dispositivo. ¿Restaurarlas?",
+    restore_yes:"Restaurar",restore_dismiss:"Descartar",
+    download_pdf_btn:"Descargar Reporte de Deudas en PDF",
+    upgrade_modal_title:"Tu plan de pago de deudas está listo",upgrade_modal_body:"Obtén el Rastreador de Deudas completo para descargar este reporte y guardar tu progreso en cualquier momento.",
+    upgrade_modal_cta:"Obtener acceso completo — $39.99",upgrade_modal_later:"Más tarde",
+    tool_health:"Puntaje de Salud Financiera",
+    suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
+    suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
+  },
+  pt:{
+    brand:"E Pelissier Enterprise", eyebrow:"Ferramenta Liberdade Financeira",
+    hero_h1_em:"Elimine", hero_h1_rest:"Suas Dívidas,\nRetome Sua Vida",
+    hero_sub:"Avalanche ou bola de neve — veja exatamente quando ficará livre de dívidas.",
+    total_debt:"Dívida Total", monthly_payment:"Mensal", interest_saved:"Juros Economizados",
+    avalanche:"⚡ Avalanche (Maior Taxa Primeiro)", snowball:"❄️ Bola de Neve (Menor Saldo Primeiro)",
+    overview_title:"Visão Geral das Dívidas", ov_debts:"Dívidas", ov_payoff:"Data de Liberdade",
+    ov_total_interest:"Juros Totais", ov_months:"Meses para a Liberdade",
+    your_debts:"Suas Dívidas", add_debt:"Adicionar uma Dívida",
+    payoff_timeline:"Cronograma de Pagamento", timeline_empty:"Adicione suas dívidas para ver seu cronograma personalizado.",
+    tips_title:"Estratégias Inteligentes", tips_sub:"Conselhos personalizados baseados no seu perfil de dívidas",
+    tips_empty:"Adicione suas dívidas para obter estratégias personalizadas.",
+    reset:"Redefinir Tudo", footer:"Seu caminho para a liberdade financeira — ",
+    debt_name:"Nome da Dívida", balance:"Saldo", rate:"Taxa %", min_payment:"Pagamento Mín.",
+    n_debts:"dívidas", paid_off:"Pago!", debt_free:"Livre de dívidas!",
+    months_away:"meses restantes", interest_paid:"juros pagos",
+    avalanche_tip:"Avalanche economiza mais dinheiro",
+    avalanche_detail:"Pagar dívidas com maior taxa de juros primeiro minimiza o total de juros pagos.",
+    snowball_tip:"Bola de neve cria impulso",
+    snowball_detail:"Pagar os menores saldos primeiro dá vitórias rápidas e mantém a motivação.",
+    extra_payment_synced_tip:"Use seu excedente do Planejador de Orçamento na dívida",
+    extra_payment_synced_detail:"Seu Planejador de Orçamento mostra dinheiro sobrando todo mês. Aplicá-lo à sua dívida de maior taxa pode cortar anos do seu tempo de pagamento.",
+    consolidation_tip:"Considere a consolidação de dívidas",
+    consolidation_detail:"Se você tem múltiplas dívidas de alta taxa, consolidá-las pode economizar significativamente.",
+    highrate_tip:"Sua dívida de maior taxa custa mais",
+    highrate_detail:"Foque os pagamentos extras aqui primeiro. Os juros se acumulam diariamente.",
+    emergency_tip:"Não esqueça um fundo de emergência",
+    emergency_detail:"Enquanto paga dívidas, mantenha pelo menos R$1.000 em poupança para evitar se reendividar.",
+    auto_tip:"Automatize seus pagamentos mínimos",
+    auto_detail:"Configure débito automático para cada dívida para evitar multas por atraso.",
+    debt_free_tip:"Você está quase livre de dívidas!",
+    debt_free_detail:"Faltam menos de 6 meses. Continue — a linha de chegada está próxima!",
+    removing:"Remover",
+    int_saved_vs:"economizado vs. só mínimo",
+    months_label:"mes",
+    payoff_on:"Pagamento:",
+    tip_count_label:"dicas",
+    save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva suas dívidas apenas neste navegador — nada é enviado para lugar nenhum.",
+    saved_confirm:"Salvo!",restore_prompt_text:"Encontramos dívidas salvas neste dispositivo. Restaurá-las?",
+    restore_yes:"Restaurar",restore_dismiss:"Dispensar",
+    download_pdf_btn:"Baixar Relatório de Dívidas em PDF",
+    upgrade_modal_title:"Seu plano de quitação de dívidas está pronto",upgrade_modal_body:"Obtenha o Rastreador de Dívidas completo para baixar este relatório e salvar seu progresso a qualquer momento.",
+    upgrade_modal_cta:"Obter acesso completo — $39.99",upgrade_modal_later:"Talvez depois",
+    tool_health:"Pontuação de Saúde Financeira",
+    suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
+    suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
+  }
+};
+
+const CURRENCIES={USD:{symbol:'$',locale:'en-US'},CAD:{symbol:'$',locale:'en-CA'},GBP:{symbol:'£',locale:'en-GB'},EUR:{symbol:'€',locale:'de-DE'},BRL:{symbol:'R$',locale:'pt-BR'},MXN:{symbol:'$',locale:'es-MX'},CHF:{symbol:'Fr',locale:'de-CH'},AUD:{symbol:'A$',locale:'en-AU'}};
+const DEBT_COLORS=['#FF6B6B','#FFB347','#74B9FF','#A29BFE','#55EFC4','#FD79A8','#FDCB6E','#6C5CE7'];
+const DEBT_EMOJIS=['💳','🏠','🚗','🎓','🏥','💊','🛍️','📱'];
+
+let lang='en', currency='USD', method='avalanche';
+let debts=[];
+let debtIdCounter=0;
+
+function t(k){return T[lang][k]||T.en[k]||k;}
+function sym(){return CURRENCIES[currency].symbol;}
+function fmt(n,dec=0){const c=CURRENCIES[currency];return(n<0?'-':'')+c.symbol+Math.abs(n).toLocaleString(c.locale,{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+function fmtM(n){return fmt(n,0);}
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(T[l][k])el.textContent=T[l][k];
+  });
+  document.documentElement.lang=l;
+  renderAll();
+}
+function setCurrency(c){
+  currency=c;
+  document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  renderAll();
+}
+function setMethod(m){
+  method=m;
+  document.getElementById('btn-avalanche').classList.toggle('active',m==='avalanche');
+  document.getElementById('btn-snowball').classList.toggle('active',m==='snowball');
+  renderAll();
+}
+
+// ── DEBT MANAGEMENT ──────────────────────────────────────────
+function addDebt(name='',balance='',rate='',minPayment=''){
+  const id=++debtIdCounter;
+  const colorIdx=(debts.length)%DEBT_COLORS.length;
+  const emojiIdx=(debts.length)%DEBT_EMOJIS.length;
+  debts.push({id,name,balance,rate,minPayment,color:DEBT_COLORS[colorIdx],emoji:DEBT_EMOJIS[emojiIdx]});
+  renderDebtList();
+  renderAll();
+  // scroll to new debt
+  setTimeout(()=>{
+    const el=document.getElementById('debt-card-'+id);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },100);
+}
+
+function removeDebt(id){
+  debts=debts.filter(d=>d.id!==id);
+  renderDebtList();
+  renderAll();
+}
+
+function updateDebt(id,field,value){
+  const d=debts.find(x=>x.id===id);
+  if(d)d[field]=value;
+  renderAll();
+}
+
+function getDebtVal(id,field){
+  const d=debts.find(x=>x.id===id);
+  if(!d)return 0;
+  return parseFloat(d[field])||0;
+}
+
+// ── RENDER DEBT LIST ─────────────────────────────────────────
+function renderDebtList(){
+  const list=document.getElementById('debt-list');
+  if(!debts.length){
+    list.innerHTML='';
+    return;
+  }
+  list.innerHTML=debts.map((d,i)=>{
+    const bal=parseFloat(d.balance)||0;
+    const rate=parseFloat(d.rate)||0;
+    const minP=parseFloat(d.minPayment)||0;
+    const paidPct=0; // calculated later
+    return `
+    <div class="debt-card" id="debt-card-${d.id}" style="--debt-color:${d.color}">
+      <div class="debt-header">
+        <div class="debt-header-l">
+          <span class="debt-emoji">${d.emoji}</span>
+          <div class="debt-name-wrap">
+            <input class="df-name-input" placeholder="${t('debt_name')}" value="${d.name}"
+              oninput="updateDebt(${d.id},'name',this.value)" style="background:none;border:none;box-shadow:none;padding:0;height:auto;font-size:14px;font-weight:600;color:var(--text-primary);">
+            <span class="debt-meta" id="debt-meta-${d.id}">${rate>0?rate+'% APR':''} ${minP>0?'· Min '+fmtM(minP)+'/mo':''}</span>
+          </div>
+        </div>
+        <div class="debt-actions">
+          <button class="debt-action-btn del" onclick="removeDebt(${d.id})">✕</button>
+        </div>
+      </div>
+      <div class="debt-progress-wrap">
+        <div class="debt-progress-track">
+          <div class="debt-progress-fill" id="debt-fill-${d.id}" style="background:${d.color};box-shadow:0 0 8px ${d.color}"></div>
+        </div>
+        <div class="debt-progress-labels">
+          <span id="debt-paid-${d.id}">$0 paid</span>
+          <span id="debt-remaining-${d.id}">${bal>0?fmtM(bal)+' remaining':'—'}</span>
+        </div>
+      </div>
+      <div class="debt-fields">
+        <div class="df df-name-col" style="display:none"></div>
+        <div class="df">
+          <span class="df-label">${t('balance')}</span>
+          <div class="df-input-wrap">
+            <span class="df-pfx currency-symbol">${sym()}</span>
+            <input type="number" class="df-input" value="${d.balance}" placeholder="0" min="0" step="0.01"
+              oninput="updateDebt(${d.id},'balance',this.value);renderAll()">
+          </div>
+        </div>
+        <div class="df">
+          <span class="df-label">${t('rate')}</span>
+          <div class="df-input-wrap">
+            <span class="df-pfx" style="left:8px">%</span>
+            <input type="number" class="df-input" style="padding-left:24px" value="${d.rate}" placeholder="0.0" min="0" max="100" step="0.1"
+              oninput="updateDebt(${d.id},'rate',this.value);renderAll()">
+          </div>
+        </div>
+        <div class="df">
+          <span class="df-label">${t('min_payment')}</span>
+          <div class="df-input-wrap">
+            <span class="df-pfx currency-symbol">${sym()}</span>
+            <input type="number" class="df-input" value="${d.minPayment}" placeholder="0" min="0" step="0.01"
+              oninput="updateDebt(${d.id},'minPayment',this.value);renderAll()">
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── PAYOFF CALCULATION ───────────────────────────────────────
+function calcPayoff(){
+  const activeDebts=debts.map(d=>({
+    id:d.id, name:d.name||('Debt '+d.id), color:d.color, emoji:d.emoji,
+    balance:parseFloat(d.balance)||0,
+    rate:parseFloat(d.rate)||0,
+    minPayment:parseFloat(d.minPayment)||0
+  })).filter(d=>d.balance>0&&d.minPayment>0);
+
+  if(!activeDebts.length)return null;
+
+  const totalMin=activeDebts.reduce((s,d)=>s+d.minPayment,0);
+
+  // Sort by method
+  let sorted=[...activeDebts];
+  if(method==='avalanche') sorted.sort((a,b)=>b.rate-a.rate);
+  else sorted.sort((a,b)=>a.balance-b.balance);
+
+  // Simulate payoff
+  let balances=sorted.map(d=>({...d,remaining:d.balance,totalInterest:0,monthsPaid:0,paid:false}));
+  let month=0;
+  const maxMonths=600;
+  let freed=0; // extra money freed up as debts paid
+
+  while(balances.some(b=>!b.paid)&&month<maxMonths){
+    month++;
+    // accrue interest
+    balances.forEach(b=>{
+      if(!b.paid){ b.remaining+=b.remaining*(b.rate/100/12); b.totalInterest+=b.remaining*(b.rate/100/12)/(1+(b.rate/100/12)); }
+    });
+    // pay minimums first
+    let extraBudget=freed;
+    balances.forEach(b=>{
+      if(!b.paid){
+        const pay=Math.min(b.remaining,b.minPayment);
+        b.remaining-=pay;
+        if(b.remaining<=0.01){b.remaining=0;if(!b.paid){b.paid=true;b.payoffMonth=month;freed+=b.minPayment;}}
+      }
+    });
+    // apply extra to focus debt (first unpaid in sorted order)
+    const focus=balances.find(b=>!b.paid);
+    if(focus&&extraBudget>0){
+      focus.remaining=Math.max(0,focus.remaining-extraBudget);
+      if(focus.remaining<=0.01){focus.remaining=0;if(!focus.paid){focus.paid=true;focus.payoffMonth=month;freed+=focus.minPayment;}}
+    }
+  }
+
+  const totalInterest=balances.reduce((s,b)=>s+b.totalInterest,0);
+  const maxMonth=Math.max(...balances.map(b=>b.payoffMonth||month));
+
+  // calc interest savings vs min only
+  let minOnlyInterest=0;
+  activeDebts.forEach(d=>{
+    if(d.rate>0&&d.minPayment>0){
+      let bal=d.balance, mo=0, ti=0;
+      while(bal>0.01&&mo<600){
+        const i=bal*(d.rate/100/12);
+        ti+=i; bal+=i; const pay=Math.min(bal,d.minPayment); bal-=pay; mo++;
+      }
+      minOnlyInterest+=ti;
+    }
+  });
+  const interestSaved=Math.max(0,minOnlyInterest-totalInterest);
+
+  return {balances,totalMin,totalInterest,maxMonth,interestSaved,activeDebts};
+}
+
+// ── RENDER ALL ───────────────────────────────────────────────
+function renderAll(){
+  const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+  const totalMin=debts.reduce((s,d)=>s+(parseFloat(d.minPayment)||0),0);
+
+  // summary cards
+  document.getElementById('val-total-debt').textContent=fmtM(totalDebt);
+  document.getElementById('val-monthly').textContent=fmtM(totalMin);
+  document.getElementById('sub-total-debt').textContent=debts.length+' '+(debts.length===1?T[lang].n_debts.replace(/s$/,''):T[lang].n_debts);
+
+  const result=calcPayoff();
+
+  if(result){
+    const{balances,totalMin:tm,totalInterest,maxMonth,interestSaved,activeDebts}=result;
+    document.getElementById('val-interest-saved').textContent=fmtM(interestSaved);
+    document.getElementById('sub-interest').textContent=t('int_saved_vs');
+
+    // overview stats
+    document.getElementById('ov-debts').textContent=activeDebts.length;
+    document.getElementById('ov-total-interest').textContent=fmtM(totalInterest);
+
+    if(maxMonth<600){
+      const now=new Date();
+      const freeDate=new Date(now.getFullYear(),now.getMonth()+maxMonth,1);
+      document.getElementById('ov-payoff-date').textContent=freeDate.toLocaleDateString(lang==='en'?'en-US':lang==='fr'?'fr-FR':lang==='es'?'es-ES':'pt-BR',{month:'short',year:'numeric'});
+      document.getElementById('ov-months').textContent=maxMonth+' '+t('months_label');
+      document.getElementById('sub-monthly').textContent=maxMonth+' '+t('months_away');
+    } else {
+      document.getElementById('ov-payoff-date').textContent='50+ yrs';
+      document.getElementById('ov-months').textContent='50+ yrs';
+      document.getElementById('sub-monthly').textContent='increase payments';
+    }
+
+    // progress bars per debt
+    balances.forEach(b=>{
+      const orig=activeDebts.find(d=>d.id===b.id);
+      if(!orig)return;
+      const pct=orig.balance>0?Math.min(100,((orig.balance-b.remaining)/orig.balance)*100):0;
+      const fill=document.getElementById('debt-fill-'+b.id);
+      if(fill)fill.style.width=pct+'%';
+      const paidEl=document.getElementById('debt-paid-'+b.id);
+      if(paidEl)paidEl.textContent=fmtM(orig.balance-b.remaining)+' paid';
+      const remEl=document.getElementById('debt-remaining-'+b.id);
+      if(remEl)remEl.textContent=b.remaining>0?fmtM(b.remaining)+' remaining':t('paid_off');
+      const metaEl=document.getElementById('debt-meta-'+b.id);
+      if(metaEl)metaEl.textContent=(orig.rate>0?orig.rate+'% APR':'')+(orig.minPayment>0?' · Min '+fmtM(orig.minPayment)+'/mo':'');
+    });
+
+    // color strip
+    const strip=document.getElementById('color-strip');
+    if(strip&&totalDebt>0){
+      strip.innerHTML=balances.map(b=>{
+        const orig=activeDebts.find(d=>d.id===b.id);
+        if(!orig)return '';
+        const pct=(orig.balance/totalDebt)*100;
+        return `<div class="cs-seg" style="background:${b.color};width:${pct}%;opacity:${b.remaining>0?1:0.3}"></div>`;
+      }).join('');
+    }
+
+    // progress track
+    renderProgressTrack(balances,activeDebts);
+    renderTimeline(balances,activeDebts,maxMonth);
+    renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth);
+  } else {
+    document.getElementById('val-interest-saved').textContent='$0';
+    document.getElementById('ov-debts').textContent='0';
+    document.getElementById('ov-payoff-date').textContent='—';
+    document.getElementById('ov-total-interest').textContent='$0';
+    document.getElementById('ov-months').textContent='—';
+    document.getElementById('sub-monthly').textContent='—';
+    document.getElementById('sub-interest').textContent='—';
+    document.getElementById('color-strip').innerHTML='';
+    document.getElementById('prog-track').innerHTML='';
+    document.getElementById('timeline-body').innerHTML=`<div class="tl-empty"><span class="tl-empty-icon">🎯</span>${t('timeline_empty')}</div>`;
+    document.getElementById('tips-body').innerHTML=`<div class="tips-empty">${t('tips_empty')}</div>`;
+    document.getElementById('tips-badge').style.display='none';
+    document.getElementById('fab-num').textContent='0';
+  }
+  saveToStore();
+  showUpsellIfNeeded();
+}
+
+function renderProgressTrack(balances,activeDebts){
+  const track=document.getElementById('prog-track');
+  if(!track)return;
+  let html='';
+  balances.forEach((b,i)=>{
+    const orig=activeDebts.find(d=>d.id===b.id);
+    if(!orig)return;
+    const isPaid=b.remaining<=0.01;
+    const cls=isPaid?'paid':'';
+    html+=`<div class="prog-debt ${cls}" onclick="document.getElementById('debt-card-${b.id}')?.scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="prog-node" style="${isPaid?'':'color:'+b.color+';border-color:'+b.color+'40'}">${isPaid?'✓':orig.emoji}</div>
+      <div class="prog-debt-lbl">${orig.name||'Debt '+orig.id}</div>
+    </div>`;
+    if(i<balances.length-1)html+=`<div class="prog-connector ${isPaid?'paid':''}"></div>`;
+  });
+  track.innerHTML=html;
+}
+
+function renderTimeline(balances,activeDebts,maxMonth){
+  const body=document.getElementById('timeline-body');
+  const now=new Date();
+  // sort by payoff month
+  const sorted=[...balances].sort((a,b)=>(a.payoffMonth||999)-(b.payoffMonth||999));
+  if(!sorted.length){body.innerHTML=`<div class="tl-empty"><span class="tl-empty-icon">🎯</span>${t('timeline_empty')}</div>`;return;}
+  body.innerHTML='<div class="timeline-list">'+sorted.map((b,i)=>{
+    const orig=activeDebts.find(d=>d.id===b.id);
+    if(!orig)return '';
+    const mo=b.payoffMonth||maxMonth;
+    const payoffDate=new Date(now.getFullYear(),now.getMonth()+mo,1);
+    const dateStr=mo<600?payoffDate.toLocaleDateString(lang==='en'?'en-US':lang==='fr'?'fr-FR':lang==='es'?'es-ES':'pt-BR',{month:'long',year:'numeric'}):'50+ years';
+    return `<div class="tl-item">
+      <div class="tl-dot-col">
+        <div class="tl-dot" style="--debt-tl-color:${b.color};background:${b.color};box-shadow:0 0 8px ${b.color}"></div>
+        ${i<sorted.length-1?'<div class="tl-line"></div>':''}
+      </div>
+      <div class="tl-body">
+        <div class="tl-name">${orig.emoji} ${orig.name||'Debt '+orig.id}</div>
+        <div class="tl-detail">${fmtM(orig.balance)} · ${orig.rate}% APR · ${mo} ${t('months_label')} ${t('months_away')}</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-date">${dateStr}</div>
+        <div class="tl-interest">${fmtM(b.totalInterest)} ${t('interest_paid')}</div>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
+  const tips=[];
+  const highRateDebt=activeDebts.reduce((max,d)=>d.rate>max.rate?d:max,activeDebts[0]);
+  const totalBal=activeDebts.reduce((s,d)=>s+d.balance,0);
+
+  if(method==='avalanche'&&interestSaved>100){
+    tips.push({icon:'⚡',color:'coral',txt:t('avalanche_tip'),detail:t('avalanche_detail'),tag:fmtM(interestSaved)+' saved',tagClass:'good'});
+  }
+  if(method==='snowball'){
+    tips.push({icon:'❄️',color:'blue',txt:t('snowball_tip'),detail:t('snowball_detail'),tag:'Motivation boost',tagClass:'gold-tag'});
+  }
+  if(highRateDebt&&highRateDebt.rate>15){
+    tips.push({icon:'🎯',color:'coral',txt:t('highrate_tip'),detail:t('highrate_detail')+' ('+highRateDebt.name+' @ '+highRateDebt.rate+'%)',tag:highRateDebt.rate+'% APR',tagClass:'warn'});
+  }
+  if(totalBal>5000){
+    tips.push({icon:'🏦',color:'blue',txt:t('consolidation_tip'),detail:t('consolidation_detail'),tag:'Save interest',tagClass:'good'});
+  }
+  // Extra-payment & emergency-fund tips: only shown when Budget Planner has actually
+  // synced real data via the shared store — otherwise there's no signal to base them on.
+  const _s=SS.get();
+  const _hasBudgetPlanner=_s.ep_income>0;
+  if(_hasBudgetPlanner&&_s.ep_remaining>0){
+    tips.push({icon:'💡',color:'gold',txt:t('extra_payment_synced_tip'),detail:t('extra_payment_synced_detail'),tag:fmtM(_s.ep_remaining)+'/mo',tagClass:'gold-tag'});
+  }
+  if(_hasBudgetPlanner&&!(parseFloat(_s['bp_goal-emergency'])>0)){
+    tips.push({icon:'🔒',color:'green',txt:t('emergency_tip'),detail:t('emergency_detail'),tag:'Safety first',tagClass:'good'});
+  }
+  tips.push({icon:'⚙️',color:'purple',txt:t('auto_tip'),detail:t('auto_detail'),tag:'Avoid fees',tagClass:'good'});
+  if(maxMonth<=6){
+    tips.push({icon:'🏆',color:'green',txt:t('debt_free_tip'),detail:t('debt_free_detail'),tag:'Almost there!',tagClass:'good'});
+  }
+
+  const badge=document.getElementById('tips-badge');
+  const fabNum=document.getElementById('fab-num');
+  badge.style.display='inline';
+  badge.textContent=tips.length+' '+t('tip_count_label');
+  fabNum.textContent=tips.length;
+
+  document.getElementById('tips-body').innerHTML=`<div class="tip-list">${tips.map(tip=>`
+    <div class="tip-item">
+      <div class="tip-ico ${tip.color}">${tip.icon}</div>
+      <div class="qw-body">
+        <div class="tip-txt">${tip.txt}</div>
+        <div class="tip-detail">${tip.detail}</div>
+      </div>
+      <div class="tip-tag ${tip.tagClass}">${tip.tag}</div>
+    </div>`).join('')}</div>`;
+}
+
+function resetAll(){
+  debts=[];debtIdCounter=0;
+  document.getElementById('debt-list').innerHTML='';
+  SS.clear();
+  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+  hideRestoreBanner();
+  renderAll();
+}
+
+// ── SAVE ON THIS DEVICE (opt-in, explicit action only) ────────
+const SAVE_KEY='ep_debt_save_v1';
+
+function saveToDevice(){
+  if(IS_DEMO){ showUpgradeModal(); return; }
+  doSaveToDevice();
+}
+function doSaveToDevice(){
+  const data={debts:JSON.parse(JSON.stringify(debts)),method,debtIdCounter,savedAt:Date.now()};
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+    const btn=document.getElementById('save-device-btn');
+    if(btn){
+      const original=btn.innerHTML;
+      btn.innerHTML='✓ '+t('saved_confirm');
+      setTimeout(()=>{btn.innerHTML=original;},1800);
+    }
+  }catch(e){}
+}
+
+function hideRestoreBanner(){
+  const b=document.getElementById('restore-banner');
+  if(b)b.classList.remove('show');
+}
+function dismissRestoreBanner(){ hideRestoreBanner(); }
+
+function checkForSavedData(){
+  try{
+    if(localStorage.getItem(SAVE_KEY)){
+      const b=document.getElementById('restore-banner');
+      if(b)b.classList.add('show');
+    }
+  }catch(e){}
+}
+
+function restoreSavedData(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(data.debts){
+      debts=data.debts;
+      debtIdCounter=data.debtIdCounter||Math.max(0,...debts.map(d=>d.id||0));
+    }
+    if(data.method){
+      method=data.method;
+      document.getElementById('btn-avalanche').classList.toggle('active',method==='avalanche');
+      document.getElementById('btn-snowball').classList.toggle('active',method==='snowball');
+    }
+    renderDebtList();
+    hideRestoreBanner();
+    renderAll();
+  }catch(e){}
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('sticky-dash').classList.toggle('scrolled',window.scrollY>10);
+},{passive:true});
+
+// ── INIT ──────────────────────────────────────────────────────
+const _s=SS.get();
+if(_s.ep_debts&&_s.ep_debts.length){
+  loadFromStore();
+  renderAll();
+} else {
+  addDebt('Credit Card','4500','22.99','120');
+  addDebt('Car Loan','12000','6.5','280');
+  renderAll();
+}
+checkBudgetSync();
+checkForSavedData();
+initLockUI();
+initSuiteUpsellPanel();
+</script>
+</body>
+</html>
