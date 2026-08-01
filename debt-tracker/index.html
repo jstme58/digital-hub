@@ -456,7 +456,7 @@ body::before {
   </div>
 </div>
   <div class="download-wrap">
-    <button class="download-btn" onclick="showDownloadModal()">⬇ Save Debt Report as PDF</button>
+    <button class="download-btn" onclick="showDownloadModal()">⬇ <span data-i18n="download_pdf_btn">Download Debt Report as PDF</span></button>
   </div>
 
 <div class="modal-overlay" id="download-modal" style="display:none;">
@@ -736,6 +736,7 @@ const T = {
     save_device_btn:"Save on This Device",save_device_note:"Saves your debts in this browser only — nothing is sent anywhere.",
     saved_confirm:"Saved!",restore_prompt_text:"We found debts saved on this device. Restore them?",
     restore_yes:"Restore",restore_dismiss:"Dismiss",
+    download_pdf_btn:"Download Debt Report as PDF",
   },
   fr:{
     brand:"E Pelissier Enterprise", eyebrow:"Outil Liberté Financière",
@@ -777,6 +778,7 @@ const T = {
     save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre vos dettes dans ce navigateur uniquement — rien n'est envoyé nulle part.",
     saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé des dettes enregistrées sur cet appareil. Les restaurer ?",
     restore_yes:"Restaurer",restore_dismiss:"Ignorer",
+    download_pdf_btn:"Télécharger le Rapport de Dettes en PDF",
   },
   es:{
     brand:"E Pelissier Enterprise", eyebrow:"Herramienta Libertad Financiera",
@@ -818,6 +820,7 @@ const T = {
     save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tus deudas solo en este navegador — no se envía nada a ningún lado.",
     saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos deudas guardadas en este dispositivo. ¿Restaurarlas?",
     restore_yes:"Restaurar",restore_dismiss:"Descartar",
+    download_pdf_btn:"Descargar Reporte de Deudas en PDF",
   },
   pt:{
     brand:"E Pelissier Enterprise", eyebrow:"Ferramenta Liberdade Financeira",
@@ -859,6 +862,7 @@ const T = {
     save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva suas dívidas apenas neste navegador — nada é enviado para lugar nenhum.",
     saved_confirm:"Salvo!",restore_prompt_text:"Encontramos dívidas salvas neste dispositivo. Restaurá-las?",
     restore_yes:"Restaurar",restore_dismiss:"Dispensar",
+    download_pdf_btn:"Baixar Relatório de Dívidas em PDF",
   }
 };
 

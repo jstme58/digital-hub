@@ -434,7 +434,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 </div>
 
   <div class="download-wrap">
-    <button class="download-btn" onclick="showDownloadModal()">⬇ Save Meal Plan as PDF</button>
+    <button class="download-btn" onclick="showDownloadModal()">⬇ <span data-i18n="download_pdf_btn">Download Meal Plan as PDF</span></button>
   </div>
 
 <div class="modal-overlay" id="download-modal" style="display:none;">
@@ -512,6 +512,7 @@ const T={
     save_device_btn:"Save on This Device",save_device_note:"Saves your meal plan in this browser only — nothing is sent anywhere.",
     saved_confirm:"Saved!",restore_prompt_text:"We found a meal plan saved on this device. Restore it?",
     restore_yes:"Restore",restore_dismiss:"Dismiss",
+    download_pdf_btn:"Download Meal Plan as PDF",
   },
   fr:{
     brand:"E Pelissier Enterprise",eyebrow:"Outil Repas Familial",
@@ -547,6 +548,7 @@ const T={
     save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre votre plan de repas dans ce navigateur uniquement — rien n'est envoyé nulle part.",
     saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé un plan de repas enregistré sur cet appareil. Le restaurer ?",
     restore_yes:"Restaurer",restore_dismiss:"Ignorer",
+    download_pdf_btn:"Télécharger le Plan de Repas en PDF",
   },
   es:{
     brand:"E Pelissier Enterprise",eyebrow:"Herramienta Comidas Familiares",
@@ -582,6 +584,7 @@ const T={
     save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tu plan de comidas solo en este navegador — no se envía nada a ningún lado.",
     saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos un plan de comidas guardado en este dispositivo. ¿Restaurarlo?",
     restore_yes:"Restaurar",restore_dismiss:"Descartar",
+    download_pdf_btn:"Descargar Plan de Comidas en PDF",
   },
   pt:{
     brand:"E Pelissier Enterprise",eyebrow:"Ferramenta Refeições Familiares",
@@ -617,6 +620,7 @@ const T={
     save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva seu plano de refeições apenas neste navegador — nada é enviado para lugar nenhum.",
     saved_confirm:"Salvo!",restore_prompt_text:"Encontramos um plano de refeições salvo neste dispositivo. Restaurá-lo?",
     restore_yes:"Restaurar",restore_dismiss:"Dispensar",
+    download_pdf_btn:"Baixar Plano de Refeições em PDF",
   }
 };
 
