@@ -148,6 +148,7 @@ body{font-family:var(--font-body);background:#fff;color:var(--text-dark);-webkit
 .vs-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;}
 .vs-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:8px;}
 .vs-price{font-family:var(--font-display);font-size:16px;font-weight:700;color:rgba(255,255,255,0.4);text-decoration:line-through;}
+.vs-bonus-tag{font-size:11px;font-weight:400;font-style:italic;color:var(--gold-light);text-decoration:none;}
 .vs-total-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;}
 .vs-total-label{font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.8px;}
 .vs-total-price{font-family:var(--font-display);font-size:18px;font-weight:700;color:rgba(255,255,255,0.3);text-decoration:line-through;}
@@ -480,7 +481,7 @@ function switchDemo(tool, btn) {
           <div class="vs-row"><span class="vs-name">📊 <span data-i18n="tool_budget">Budget Planner</span></span><span class="vs-price">$29.99</span></div>
           <div class="vs-row"><span class="vs-name">💳 <span data-i18n="tool_debt">Debt Tracker</span></span><span class="vs-price">$39.99</span></div>
           <div class="vs-row"><span class="vs-name">🥗 <span data-i18n="tool_meal">Meal Planner</span></span><span class="vs-price">$27.99</span></div>
-          <div class="vs-row"><span class="vs-name">❤️ <span data-i18n="tool_health">Financial Health Score</span></span><span class="vs-price">$17</span></div>
+          <div class="vs-row"><span class="vs-name">❤️ <span data-i18n="tool_health">Financial Health Score</span> <span class="vs-bonus-tag" data-i18n="health_bonus_tag">(Suite bonus)</span></span><span class="vs-price" data-i18n="health_bonus_price">$17 value</span></div>
           <div class="vs-total-row"><span class="vs-total-label" data-i18n="value_total_label">Total Value</span><span class="vs-total-price">$115</span></div>
         </div>
       </div>
@@ -496,7 +497,7 @@ function switchDemo(tool, btn) {
           <li><div class="vb-check">✓</div><span data-i18n="vb_langs">4 Languages · 8 Currencies</span></li>
           <li><div class="vb-check">✓</div><span data-i18n="vb_updates">Lifetime Updates — Free Forever</span></li>
         </ul>
-        <div class="vb-save">🎉 <span data-i18n="vb_save">Save 50% vs. buying separately</span></div>
+        <div class="vb-save">🎉 <span data-i18n="vb_save">Save 56% vs. buying separately</span></div>
         <div class="vb-price"><sup>$</sup>49.99</div>
         <div class="vb-note" data-i18n="vb_note">one-time payment · instant access</div>
         <a href="https://stan.store/EPelissierdigital" class="btn-primary" style="width:100%;justify-content:center;">🔒 <span data-i18n="cta_main">GET INSTANT ACCESS</span>&nbsp;›</a>
@@ -663,7 +664,8 @@ const T = {
     vb_debt:"Debt Payoff Tracker",vb_meal:"Family Meal Planner",
     vb_dashboard:"Unified Suite Dashboard",vb_langs:"4 Languages · 8 Currencies",
     vb_updates:"Lifetime Updates — Free Forever",
-    vb_save:"Save 50% vs. buying separately",
+    vb_save:"Save 56% vs. buying separately",
+    health_bonus_tag:"(Suite bonus)",health_bonus_price:"$17 value",
     vb_note:"one-time payment · instant access",
     vb_guarantee:"No subscription · No hidden fees",
     testi_label:"Real Results",testi_title:"What Families Are Saying",
@@ -739,7 +741,8 @@ const T = {
     vb_debt:"Suivi de Remboursement de Dettes",vb_meal:"Planificateur de Repas Familial",
     vb_dashboard:"Tableau de Bord Unifié de la Suite",vb_langs:"4 Langues · 8 Devises",
     vb_updates:"Mises à Jour à Vie — Gratuites Pour Toujours",
-    vb_save:"Économisez 50% par rapport à l'achat séparé",
+    vb_save:"Économisez 56% par rapport à l'achat séparé",
+    health_bonus_tag:"(Bonus Suite)",health_bonus_price:"17$ de valeur",
     vb_note:"paiement unique · accès instantané",
     vb_guarantee:"Sans abonnement · Sans frais cachés",
     testi_label:"Résultats Réels",testi_title:"Ce Que Disent les Familles",
@@ -815,7 +818,8 @@ const T = {
     vb_debt:"Rastreador de Pago de Deudas",vb_meal:"Planificador de Comidas Familiar",
     vb_dashboard:"Panel Unificado de la Suite",vb_langs:"4 Idiomas · 8 Monedas",
     vb_updates:"Actualizaciones de Por Vida — Gratis Para Siempre",
-    vb_save:"Ahorra 50% frente a comprar por separado",
+    vb_save:"Ahorra 56% frente a comprar por separado",
+    health_bonus_tag:"(Bono de la Suite)",health_bonus_price:"Valor de $17",
     vb_note:"pago único · acceso instantáneo",
     vb_guarantee:"Sin suscripción · Sin cargos ocultos",
     testi_label:"Resultados Reales",testi_title:"Lo Que Dicen las Familias",
@@ -891,7 +895,8 @@ const T = {
     vb_debt:"Rastreador de Quitação de Dívidas",vb_meal:"Planejador de Refeições Familiar",
     vb_dashboard:"Painel Unificado da Suite",vb_langs:"4 Idiomas · 8 Moedas",
     vb_updates:"Atualizações Vitalícias — Grátis Para Sempre",
-    vb_save:"Economize 50% em comparação com a compra separada",
+    vb_save:"Economize 56% em comparação com a compra separada",
+    health_bonus_tag:"(Bônus da Suite)",health_bonus_price:"Valor de $17",
     vb_note:"pagamento único · acesso instantâneo",
     vb_guarantee:"Sem assinatura · Sem taxas ocultas",
     testi_label:"Resultados Reais",testi_title:"O Que as Famílias Estão Dizendo",
