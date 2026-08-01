@@ -402,6 +402,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
         <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--green-dark),#004d33);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
         <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_meal','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
       </div>
+      <button onclick="claimSuiteOwnership()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;cursor:pointer;padding:2px 0;">Already own the Suite?</button>
     </div>
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
@@ -1062,12 +1063,28 @@ function downloadReport(isSample=false){
   setTimeout(()=>{ win.print(); }, 600);
 }
 
+// ── SUITE OWNERSHIP ──────────────────────────────────────────
+function ownsFullSuite(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('ref')==='suite'){
+    localStorage.setItem('ep_has_suite','true');
+    return true;
+  }
+  return localStorage.getItem('ep_has_suite')==='true';
+}
+function claimSuiteOwnership(){
+  localStorage.setItem('ep_has_suite','true');
+  const prompt=document.getElementById('upsell-prompt');
+  if(prompt)prompt.style.display='none';
+}
+
 function showUpsellIfNeeded(){
+  const prompt=document.getElementById('upsell-prompt');
+  if(!prompt)return;
+  if(ownsFullSuite()){ prompt.style.display='none'; return; }
   if(localStorage.getItem('ep_upsell_dismissed_meal')==='1') return;
   const s=SS.get();
   const hasBudgetPlanner=s.ep_income>0;
-  const prompt=document.getElementById('upsell-prompt');
-  if(!prompt)return;
   const totalMeals=weekData.reduce((sum,d)=>sum+Object.values(d.meals).filter(m=>m.name.trim()).length,0);
   if(totalMeals>0 && !hasBudgetPlanner){
     prompt.style.display='block';

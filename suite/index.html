@@ -654,9 +654,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
-    <a href="/budget-planner/" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
-    <a href="/meal-planner/" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
-    <a href="/debt-tracker/" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
+    <a href="/budget-planner/?ref=suite" class="footer-link" data-i18n="tool1_name">Budget Planner</a>
+    <a href="/meal-planner/?ref=suite" class="footer-link" data-i18n="tool2_name">Meal Planner</a>
+    <a href="/debt-tracker/?ref=suite" class="footer-link" data-i18n="tool3_name">Debt Tracker</a>
     <a href="https://epelissierenterprise.com" class="footer-link">epelissierenterprise.com</a>
   </div>
   <span data-i18n="footer">Your complete family finance suite — </span><strong>E Pelissier Enterprise</strong>
@@ -814,7 +814,7 @@ function openTool(tool){
   const remaining=income-expenses;
 
   let url=TOOL_PATHS[tool];
-  const params=[];
+  const params=['ref=suite'];
   if(tool==='meals'&&food>0) params.push('budget='+Math.round(food));
   if(tool==='debt'&&remaining>0) params.push('extra='+Math.round(remaining));
   if(params.length) url+='?'+params.join('&');
