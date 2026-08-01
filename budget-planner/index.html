@@ -502,6 +502,19 @@ body::before {
   color: var(--teal); letter-spacing: -0.3px;
 }
 
+/* ── HEALTH SCORE LOCK + SUITE UPSELL ────────────────── */
+.health-lock-card { border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; background: rgba(201,168,76,0.03); padding: 22px 24px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.health-lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent); }
+.health-lock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.health-lock-icon { font-size: 18px; }
+.health-lock-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.suite-only-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--gold-light); background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.3); padding: 3px 10px; border-radius: 99px; }
+.health-lock-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+.suite-upsell-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+.suite-upsell-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; flex: 1; min-width: 200px; }
+.suite-upsell-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--navy); background: linear-gradient(135deg, var(--gold-light), var(--gold)); padding: 9px 18px; border-radius: 99px; text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.suite-upsell-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.3); }
+
 /* ── QUICK WINS ────────────────────────────────────── */
 .qw-card {
   border: 1px solid rgba(201,168,76,0.2);
@@ -1035,7 +1048,21 @@ body::before {
     </div>
   </div>
 
-  
+  <!-- FINANCIAL HEALTH SCORE (always locked in individual tools) -->
+  <div class="health-lock-card">
+    <div class="health-lock-header">
+      <span class="health-lock-icon">❤️</span>
+      <span class="health-lock-title" data-i18n="tool_health">Financial Health Score</span>
+      <span class="suite-only-pill">🔒 <span data-i18n="suite_only_label">Suite only</span></span>
+    </div>
+    <p class="health-lock-desc" data-i18n="health_locked_desc">See your full 0–100 score across savings, debt and spending.</p>
+    <div class="suite-upsell-row" id="suite-upsell-row">
+      <span class="suite-upsell-text" data-i18n="suite_upsell_text">Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.</span>
+      <a href="../index.html#value" class="suite-upsell-btn" data-i18n="suite_upsell_btn">See the suite →</a>
+    </div>
+  </div>
+
+
 <!-- UPSELL PROMPT -->
 <div id="upsell-prompt" style="display:none;background:linear-gradient(135deg,rgba(45,212,191,0.06),rgba(201,168,76,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden;">
   <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent);"></div>
@@ -1130,6 +1157,9 @@ const T = {
     download_pdf_btn:"Download Monthly Report as PDF",
     upgrade_modal_title:"Your budget is ready",upgrade_modal_body:"Get the full Budget Planner to download this report and save your progress anytime.",
     upgrade_modal_cta:"Get full access — $29.99",upgrade_modal_later:"Maybe later",
+    tool_health:"Financial Health Score",
+    suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
+    suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
     footer:"Start fresh each month — ",
     under_budget:"Under budget ✓",over_budget:"Over budget",on_track:"On track",
     tap_expand:"Tap to expand",
@@ -1174,6 +1204,9 @@ const T = {
     download_pdf_btn:"Télécharger le Rapport Mensuel en PDF",
     upgrade_modal_title:"Votre budget est prêt",upgrade_modal_body:"Obtenez le Planificateur Budgétaire complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
     upgrade_modal_cta:"Débloquer l'accès complet — 29,99 $",upgrade_modal_later:"Plus tard",
+    tool_health:"Score de Santé Financière",
+    suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
+    suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
     footer:"Commencez frais chaque mois — ",
     under_budget:"Sous budget ✓",over_budget:"Dépassement",on_track:"En bonne voie",
     tap_expand:"Appuyer pour ouvrir",
@@ -1218,6 +1251,9 @@ const T = {
     download_pdf_btn:"Descargar Reporte Mensual en PDF",
     upgrade_modal_title:"Tu presupuesto está listo",upgrade_modal_body:"Obtén el Planificador de Presupuesto completo para descargar este reporte y guardar tu progreso en cualquier momento.",
     upgrade_modal_cta:"Obtener acceso completo — $29.99",upgrade_modal_later:"Más tarde",
+    tool_health:"Puntaje de Salud Financiera",
+    suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
+    suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
     footer:"Comienza de nuevo cada mes — ",
     under_budget:"Bajo presupuesto ✓",over_budget:"Excedido",on_track:"En camino",
     tap_expand:"Toca para expandir",
@@ -1262,6 +1298,9 @@ const T = {
     download_pdf_btn:"Baixar Relatório Mensal em PDF",
     upgrade_modal_title:"Seu orçamento está pronto",upgrade_modal_body:"Obtenha o Planejador de Orçamento completo para baixar este relatório e salvar seu progresso a qualquer momento.",
     upgrade_modal_cta:"Obter acesso completo — $29.99",upgrade_modal_later:"Talvez depois",
+    tool_health:"Pontuação de Saúde Financeira",
+    suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
+    suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
     footer:"Comece de novo a cada mês — ",
     under_budget:"Dentro do orçamento ✓",over_budget:"Acima do orçamento",on_track:"No caminho certo",
     tap_expand:"Toque para expandir",
@@ -1697,6 +1736,10 @@ function ownsFullSuite(){
   }
   return localStorage.getItem('ep_has_suite')==='true';
 }
+function initSuiteUpsellPanel(){
+  const row=document.getElementById('suite-upsell-row');
+  if(row)row.style.display=ownsFullSuite()?'none':'flex';
+}
 function claimSuiteOwnership(){
   localStorage.setItem('ep_has_suite','true');
   const prompt=document.getElementById('upsell-prompt');
@@ -1888,7 +1931,7 @@ function downloadReport(isSample=false){
   setTimeout(()=>{ win.print(); }, 600);
 }
 
-buildProgress();updateSubtitles();loadFromStore();calculate();checkForSavedData();initLockUI();
+buildProgress();updateSubtitles();loadFromStore();calculate();checkForSavedData();initLockUI();initSuiteUpsellPanel();
 </script>
 </body>
 </html>
