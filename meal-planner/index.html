@@ -205,6 +205,17 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 .reset-wrap { text-align:center; margin:28px 0; }
 .reset-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:500; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:99px; cursor:pointer; transition:all 0.2s; }
 .reset-btn:hover { color:var(--coral); border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.06); }
+
+.save-wrap { text-align:center; margin:28px 0 0; }
+.save-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--green); background:rgba(0,200,150,0.08); border:1px solid rgba(0,200,150,0.25); border-radius:99px; cursor:pointer; transition:all 0.2s; }
+.save-btn:hover { background:rgba(0,200,150,0.14); border-color:rgba(0,200,150,0.4); }
+.save-note { font-size:11px; color:var(--text-muted); margin-top:10px; line-height:1.5; max-width:340px; margin-left:auto; margin-right:auto; }
+.restore-banner { display:none; align-items:center; gap:12px; flex-wrap:wrap; background:rgba(0,200,150,0.06); border:1px solid rgba(0,200,150,0.25); border-radius:16px; padding:16px 20px; margin-bottom:16px; }
+.restore-banner.show { display:flex; }
+.restore-text { flex:1; min-width:180px; font-size:13px; color:var(--text-primary); }
+.restore-btns { display:flex; gap:8px; }
+.restore-btn-yes { background:var(--green); color:var(--navy,#0D1F3C); border:none; padding:8px 16px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--font-body); }
+.restore-btn-no { background:none; border:1px solid rgba(255,255,255,0.15); color:var(--text-muted); padding:8px 16px; border-radius:99px; font-size:12px; cursor:pointer; font-family:var(--font-body); }
 .fab { position:fixed; bottom:28px; right:20px; z-index:200; background:linear-gradient(135deg,var(--green-dark),#006644); color:#fff; border:none; cursor:pointer; padding:13px 18px; border-radius:99px; font-family:var(--font-body); font-size:13px; font-weight:600; box-shadow:0 4px 24px rgba(0,200,150,0.3),0 2px 8px rgba(0,0,0,0.3); display:none; align-items:center; gap:8px; transition:transform 0.2s; }
 .fab:active { transform:scale(0.97); }
 .fab-num { background:rgba(255,255,255,0.2); font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; min-width:20px; text-align:center; }
@@ -323,6 +334,15 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 
 <div class="container">
 
+  <!-- RESTORE SAVED DATA -->
+  <div class="restore-banner" id="restore-banner">
+    <span class="restore-text" data-i18n="restore_prompt_text">We found a meal plan saved on this device. Restore it?</span>
+    <div class="restore-btns">
+      <button class="restore-btn-yes" onclick="restoreSavedData()" data-i18n="restore_yes">Restore</button>
+      <button class="restore-btn-no" onclick="dismissRestoreBanner()" data-i18n="restore_dismiss">Dismiss</button>
+    </div>
+  </div>
+
   <!-- BUDGET BAR -->
   <div class="budget-bar-card">
     <div class="bb-head">
@@ -434,6 +454,11 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   </div>
 </div>
 
+<div class="save-wrap">
+  <button class="save-btn" id="save-device-btn" onclick="saveToDevice()">💾 <span data-i18n="save_device_btn">Save on This Device</span></button>
+  <div class="save-note" data-i18n="save_device_note">Saves your meal plan in this browser only — nothing is sent anywhere.</div>
+</div>
+
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
   </div>
@@ -484,6 +509,9 @@ const T={
     budget_good:"On track",budget_over:"Over budget",budget_pct:"of budget used",
     meals_of:"of 21 meals",per_portion:"per portion",
     mark_done:"Done",
+    save_device_btn:"Save on This Device",save_device_note:"Saves your meal plan in this browser only — nothing is sent anywhere.",
+    saved_confirm:"Saved!",restore_prompt_text:"We found a meal plan saved on this device. Restore it?",
+    restore_yes:"Restore",restore_dismiss:"Dismiss",
   },
   fr:{
     brand:"E Pelissier Enterprise",eyebrow:"Outil Repas Familial",
@@ -516,6 +544,9 @@ const T={
     tip_ontrack_txt:"Votre semaine est complète et dans le budget",tip_ontrack_detail:"Bien joué — vos repas, coûts et liste de courses sont tous en bon état cette semaine.",tip_ontrack_tag:"Tout est bon",
     budget_good:"Dans les limites",budget_over:"Dépassement",budget_pct:"du budget utilisé",
     meals_of:"sur 21 repas",per_portion:"par portion",mark_done:"Fait",
+    save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre votre plan de repas dans ce navigateur uniquement — rien n'est envoyé nulle part.",
+    saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé un plan de repas enregistré sur cet appareil. Le restaurer ?",
+    restore_yes:"Restaurer",restore_dismiss:"Ignorer",
   },
   es:{
     brand:"E Pelissier Enterprise",eyebrow:"Herramienta Comidas Familiares",
@@ -548,6 +579,9 @@ const T={
     tip_ontrack_txt:"Tu semana está completa y dentro del presupuesto",tip_ontrack_detail:"Buen trabajo — tus comidas, costos y lista de compras están en buena forma esta semana.",tip_ontrack_tag:"Todo bien",
     budget_good:"En camino",budget_over:"Excedido",budget_pct:"del presupuesto usado",
     meals_of:"de 21 comidas",per_portion:"por porción",mark_done:"Hecho",
+    save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tu plan de comidas solo en este navegador — no se envía nada a ningún lado.",
+    saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos un plan de comidas guardado en este dispositivo. ¿Restaurarlo?",
+    restore_yes:"Restaurar",restore_dismiss:"Descartar",
   },
   pt:{
     brand:"E Pelissier Enterprise",eyebrow:"Ferramenta Refeições Familiares",
@@ -580,6 +614,9 @@ const T={
     tip_ontrack_txt:"Sua semana está completa e dentro do orçamento",tip_ontrack_detail:"Muito bem — suas refeições, custos e lista de compras estão em boa forma esta semana.",tip_ontrack_tag:"Tudo certo",
     budget_good:"No caminho certo",budget_over:"Acima do orçamento",budget_pct:"do orçamento usado",
     meals_of:"de 21 refeições",per_portion:"por porção",mark_done:"Feito",
+    save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva seu plano de refeições apenas neste navegador — nada é enviado para lugar nenhum.",
+    saved_confirm:"Salvo!",restore_prompt_text:"Encontramos um plano de refeições salvo neste dispositivo. Restaurá-lo?",
+    restore_yes:"Restaurar",restore_dismiss:"Dispensar",
   }
 };
 
@@ -899,7 +936,62 @@ function resetAll(){
   customGrocery=[];groceryChecked={};activeDay=0;
   document.getElementById('weekly-budget').value='200';
   document.getElementById('portions').value='4';
+  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+  hideRestoreBanner();
   renderAll();
+}
+
+// ── SAVE ON THIS DEVICE (opt-in, explicit action only) ────────
+const SAVE_KEY='ep_meal_save_v1';
+
+function saveToDevice(){
+  const data={
+    weekData:JSON.parse(JSON.stringify(weekData)),
+    customGrocery:JSON.parse(JSON.stringify(customGrocery)),
+    groceryChecked:JSON.parse(JSON.stringify(groceryChecked)),
+    weeklyBudget:document.getElementById('weekly-budget').value,
+    portions:document.getElementById('portions').value,
+    savedAt:Date.now()
+  };
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+    const btn=document.getElementById('save-device-btn');
+    if(btn){
+      const original=btn.innerHTML;
+      btn.innerHTML='✓ '+t('saved_confirm');
+      setTimeout(()=>{btn.innerHTML=original;},1800);
+    }
+  }catch(e){}
+}
+
+function hideRestoreBanner(){
+  const b=document.getElementById('restore-banner');
+  if(b)b.classList.remove('show');
+}
+function dismissRestoreBanner(){ hideRestoreBanner(); }
+
+function checkForSavedData(){
+  try{
+    if(localStorage.getItem(SAVE_KEY)){
+      const b=document.getElementById('restore-banner');
+      if(b)b.classList.add('show');
+    }
+  }catch(e){}
+}
+
+function restoreSavedData(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(data.weekData)weekData=data.weekData;
+    if(data.customGrocery)customGrocery=data.customGrocery;
+    if(data.groceryChecked)groceryChecked=data.groceryChecked;
+    if(data.weeklyBudget!==undefined)document.getElementById('weekly-budget').value=data.weeklyBudget;
+    if(data.portions!==undefined)document.getElementById('portions').value=data.portions;
+    hideRestoreBanner();
+    renderAll();
+  }catch(e){}
 }
 
 
@@ -1098,6 +1190,7 @@ function showUpsellIfNeeded(){
 loadFromStore();
 renderAll();
 checkBudgetSync();
+checkForSavedData();
 </script>
 </body>
 </html>
