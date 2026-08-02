@@ -836,12 +836,14 @@ function openTool(tool){
   const expenses=parseFloat(document.getElementById('qe-expenses').value)||0;
   const remaining=income-expenses;
 
+  // Persist the numbers the Smart Handoffs panel promises to send, via the
+  // same shared store meal-planner/debt-tracker already read from on load.
+  if(tool==='meals'&&food>0) ssWrite({ep_food_weekly:food});
+  if(tool==='debt'&&remaining>0) ssWrite({ep_remaining:Math.max(0,remaining)});
+
   const paid=hasPaidAccess();
   let url=paid?TOOL_PATHS_PAID[tool]:TOOL_PATHS[tool];
-  const params=paid?[]:['ref=suite'];
-  if(tool==='meals'&&food>0) params.push('budget='+Math.round(food));
-  if(tool==='debt'&&remaining>0) params.push('extra='+Math.round(remaining));
-  if(params.length) url+='?'+params.join('&');
+  if(!paid) url+='?ref=suite';
   window.location.href=url;
 }
 
