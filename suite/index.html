@@ -799,6 +799,20 @@ const TOOL_PATHS_PAID={
 function hasPaidAccess(){
   try{ return localStorage.getItem('ep_has_suite')==='true'; }catch(e){ return false; }
 }
+// The ONLY place in the codebase that sets ep_has_suite=true. Stan
+// Store's Suite bundle "Redirect to URL" should point here with
+// ?purchased=1 so a real purchase — not navigation — is what grants
+// paid access. The param is stripped immediately so it can't linger,
+// get bookmarked, or get shared with the flag still attached.
+function confirmPurchaseFromURL(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('purchased')!=='1') return;
+  try{ localStorage.setItem('ep_has_suite','true'); }catch(e){}
+  params.delete('purchased');
+  const query=params.toString();
+  const cleanUrl=window.location.pathname+(query?'?'+query:'')+window.location.hash;
+  history.replaceState(null,'',cleanUrl);
+}
 
 let lang='en', currency='USD';
 
@@ -992,6 +1006,7 @@ function showLastSync(s){
   }
 }
 
+confirmPurchaseFromURL();
 loadFromStore();
 updateFooterLinks();
 
