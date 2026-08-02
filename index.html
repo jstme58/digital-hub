@@ -604,7 +604,7 @@ function switchDemo(tool, btn) {
     <a href="https://digital.epelissierenterprise.com/suite/" class="footer-link" data-i18n="footer_suite">Suite Dashboard</a>
     <a href="https://epelissierenterprise.com" class="footer-link" data-i18n="footer_main">Main Site</a>
   </div>
-  <div class="footer-copy">© 2025 <strong>E Pelissier Enterprise</strong> · <span data-i18n="footer_copy">All rights reserved.</span></div>
+  <div class="footer-copy">© <span id="footer-year">2026</span> <strong>EP Enterprises LLC</strong>. <span data-i18n="footer_copy">All rights reserved.</span></div>
 </div>
 
 <script>
@@ -929,6 +929,8 @@ function setLang(l) {
   });
   document.documentElement.lang = l;
 }
+
+document.getElementById('footer-year').textContent = new Date().getFullYear();
 </script>
 
 </body>
