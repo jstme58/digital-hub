@@ -381,36 +381,36 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 
     <!-- Suite pill -->
     <div class="hero-suite-pill">
-      💎 Complete Financial Wellness System
+      💎 <span data-i18n="hero_pill">Complete Financial Wellness System</span>
     </div>
 
     <!-- Headline -->
-    <h1>Your <em>Financial Life,</em><br>All in One Place</h1>
+    <h1><span data-i18n="hero_h1_1">Your </span><em data-i18n="hero_h1_2">Financial Life,</em><br><span data-i18n="hero_h1_3">All in One Place</span></h1>
 
     <!-- Subheadline -->
-    <p class="hero-sub">Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete family finance system.</p>
+    <p class="hero-sub" data-i18n="hero_sub">Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete family finance system.</p>
 
     <!-- Tool icons -->
     <div class="hero-tools">
       <div class="hero-tool" onclick="openTool('budget')">
         <div class="hero-tool-icon">📊</div>
-        <div class="hero-tool-name">Budget Planner</div>
-        <div class="hero-tool-desc">Track income, expenses, and savings with confidence.</div>
+        <div class="hero-tool-name" data-i18n="tool_budget">Budget Planner</div>
+        <div class="hero-tool-desc" data-i18n="hero_budget_desc">Track income, expenses, and savings with confidence.</div>
       </div>
       <div class="hero-tool" onclick="openTool('debt')">
         <div class="hero-tool-icon">💳</div>
-        <div class="hero-tool-name">Debt Tracker</div>
-        <div class="hero-tool-desc">Create a clear strategy to eliminate debt faster.</div>
+        <div class="hero-tool-name" data-i18n="tool_debt">Debt Tracker</div>
+        <div class="hero-tool-desc" data-i18n="hero_debt_desc">Create a clear strategy to eliminate debt faster.</div>
       </div>
       <div class="hero-tool" onclick="openTool('meals')">
         <div class="hero-tool-icon">🥗</div>
-        <div class="hero-tool-name">Meal Planner</div>
-        <div class="hero-tool-desc">Reduce grocery spending and plan meals efficiently.</div>
+        <div class="hero-tool-name" data-i18n="tool_meal">Meal Planner</div>
+        <div class="hero-tool-desc" data-i18n="hero_meal_desc">Reduce grocery spending and plan meals efficiently.</div>
       </div>
       <div class="hero-tool" onclick="document.getElementById('qe-income').scrollIntoView({behavior:'smooth'})">
         <div class="hero-tool-icon">❤️</div>
-        <div class="hero-tool-name">Financial Health Score</div>
-        <div class="hero-tool-desc">Measure your financial progress and stay on track.</div>
+        <div class="hero-tool-name" data-i18n="tool_health">Financial Health Score</div>
+        <div class="hero-tool-desc" data-i18n="hero_health_desc">Measure your financial progress and stay on track.</div>
       </div>
     </div>
 
@@ -418,23 +418,23 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div class="hero-cta-wrap">
       <a href="https://stan.store/EPelissierdigital" class="hero-cta-btn">
         <span class="hero-cta-icon">🔒</span>
-        GET INSTANT ACCESS
+        <span data-i18n="cta_main">GET INSTANT ACCESS</span>
         <span>›</span>
       </a>
     </div>
 
     <!-- Trust -->
     <div class="hero-trust">
-      <div class="trust-item"><span class="trust-icon">🛡️</span> Secure Payment</div>
-      <div class="trust-item"><span class="trust-icon">⚡</span> Instant Access</div>
-      <div class="trust-item"><span class="trust-icon">🔄</span> Lifetime Updates</div>
+      <div class="trust-item"><span class="trust-icon">🛡️</span> <span data-i18n="trust1">Secure Payment</span></div>
+      <div class="trust-item"><span class="trust-icon">⚡</span> <span data-i18n="trust2">Instant Access</span></div>
+      <div class="trust-item"><span class="trust-icon">🔄</span> <span data-i18n="trust3">Lifetime Updates</span></div>
     </div>
 
     <!-- Stars -->
     <div class="hero-stars">
       <span class="stars-row">★★★★★</span>
       <span class="stars-score">4.8/5</span>
-      <span class="stars-label">Trusted by thousands of families worldwide</span>
+      <span class="stars-label" data-i18n="hero_trust_label">Trusted by thousands of families worldwide</span>
     </div>
 
   </div>
@@ -665,9 +665,16 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 <script>
 const T={
   en:{
-    eyebrow:"✦ Complete Family Finance Suite",
-    hero_em:"Financial Life,",hero_rest:"All in One Place",
-    hero_sub:"Three powerful tools working together — budget smarter, crush debt faster, and plan meals that save money every week.",
+    hero_pill:"Complete Financial Wellness System",
+    hero_h1_1:"Your ",hero_h1_2:"Financial Life,",hero_h1_3:"All in One Place",
+    hero_sub:"Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete family finance system.",
+    tool_budget:"Budget Planner",hero_budget_desc:"Track income, expenses, and savings with confidence.",
+    tool_debt:"Debt Tracker",hero_debt_desc:"Create a clear strategy to eliminate debt faster.",
+    tool_meal:"Meal Planner",hero_meal_desc:"Reduce grocery spending and plan meals efficiently.",
+    tool_health:"Financial Health Score",hero_health_desc:"Measure your financial progress and stay on track.",
+    cta_main:"GET INSTANT ACCESS",
+    trust1:"Secure Payment",trust2:"Instant Access",trust3:"Lifetime Updates",
+    hero_trust_label:"Trusted by thousands of families worldwide",
     ms_income:"Monthly Income",ms_income_sub:"from budget planner",
     ms_debt:"Total Debt",ms_food:"Weekly Food",ms_remaining:"Free Money",ms_remaining_sub:"after all expenses",
     qe_title:"⚡ Quick Numbers",qe_sub:"Enter your key figures here — they'll flow into all three tools automatically",
@@ -694,9 +701,16 @@ const T={
     ms_debt_sub_months:"months to debt-free",ms_food_pct:"of monthly income",
   },
   fr:{
-    eyebrow:"✦ Suite Finance Familiale Complète",
-    hero_em:"Vie Financière,",hero_rest:"Tout en Un Seul Endroit",
-    hero_sub:"Trois outils puissants travaillant ensemble — budgétisez mieux, éliminez les dettes plus vite, planifiez des repas qui économisent chaque semaine.",
+    hero_pill:"Système Complet de Bien-être Financier",
+    hero_h1_1:"Votre ",hero_h1_2:"Vie Financière,",hero_h1_3:"Tout en Un Seul Endroit",
+    hero_sub:"Budgétisez plus intelligemment, économisez plus, réduisez vos dettes plus vite et bâtissez une confiance financière durable avec un système financier familial complet.",
+    tool_budget:"Planificateur Budgétaire",hero_budget_desc:"Suivez vos revenus, dépenses et économies en toute confiance.",
+    tool_debt:"Suivi des Dettes",hero_debt_desc:"Créez une stratégie claire pour éliminer vos dettes plus rapidement.",
+    tool_meal:"Planificateur de Repas",hero_meal_desc:"Réduisez vos dépenses d'épicerie et planifiez vos repas efficacement.",
+    tool_health:"Score de Santé Financière",hero_health_desc:"Mesurez vos progrès financiers et restez sur la bonne voie.",
+    cta_main:"ACCÈS INSTANTANÉ",
+    trust1:"Paiement Sécurisé",trust2:"Accès Instantané",trust3:"Mises à Jour à Vie",
+    hero_trust_label:"Approuvé par des milliers de familles dans le monde",
     ms_income:"Revenus Mensuels",ms_income_sub:"du planificateur budgétaire",
     ms_debt:"Dette Totale",ms_food:"Alimentation Hebdo",ms_remaining:"Argent Libre",ms_remaining_sub:"après toutes les dépenses",
     qe_title:"⚡ Chiffres Clés",qe_sub:"Entrez vos chiffres ici — ils seront transmis automatiquement aux trois outils",
@@ -723,9 +737,16 @@ const T={
     ms_debt_sub_months:"mois jusqu'à liberté",ms_food_pct:"des revenus mensuels",
   },
   es:{
-    eyebrow:"✦ Suite Financiera Familiar Completa",
-    hero_em:"Vida Financiera,",hero_rest:"Todo en Un Solo Lugar",
-    hero_sub:"Tres herramientas poderosas trabajando juntas — presupuesta mejor, aplasta deudas más rápido, planifica comidas que ahorran dinero.",
+    hero_pill:"Sistema Completo de Bienestar Financiero",
+    hero_h1_1:"Tu ",hero_h1_2:"Vida Financiera,",hero_h1_3:"Todo en Un Solo Lugar",
+    hero_sub:"Presupuesta con más inteligencia, ahorra más, reduce tu deuda más rápido y construye confianza financiera duradera con un sistema financiero familiar completo.",
+    tool_budget:"Planificador de Presupuesto",hero_budget_desc:"Controla tus ingresos, gastos y ahorros con confianza.",
+    tool_debt:"Rastreador de Deudas",hero_debt_desc:"Crea una estrategia clara para eliminar tu deuda más rápido.",
+    tool_meal:"Planificador de Comidas",hero_meal_desc:"Reduce el gasto en comestibles y planifica comidas eficientemente.",
+    tool_health:"Puntaje de Salud Financiera",hero_health_desc:"Mide tu progreso financiero y mantente en el camino correcto.",
+    cta_main:"ACCESO INSTANTÁNEO",
+    trust1:"Pago Seguro",trust2:"Acceso Instantáneo",trust3:"Actualizaciones de Por Vida",
+    hero_trust_label:"Con la confianza de miles de familias en todo el mundo",
     ms_income:"Ingresos Mensuales",ms_income_sub:"del planificador de presupuesto",
     ms_debt:"Deuda Total",ms_food:"Comida Semanal",ms_remaining:"Dinero Libre",ms_remaining_sub:"después de todos los gastos",
     qe_title:"⚡ Números Clave",qe_sub:"Ingresa tus cifras clave aquí — fluirán automáticamente a las tres herramientas",
@@ -752,9 +773,16 @@ const T={
     ms_debt_sub_months:"meses hasta libertad",ms_food_pct:"de ingresos mensuales",
   },
   pt:{
-    eyebrow:"✦ Suite Financeira Familiar Completa",
-    hero_em:"Vida Financeira,",hero_rest:"Tudo em Um Só Lugar",
-    hero_sub:"Três ferramentas poderosas trabalhando juntas — orce melhor, elimine dívidas mais rápido, planeje refeições que economizam dinheiro.",
+    hero_pill:"Sistema Completo de Bem-Estar Financeiro",
+    hero_h1_1:"Sua ",hero_h1_2:"Vida Financeira,",hero_h1_3:"Tudo em Um Só Lugar",
+    hero_sub:"Orce com mais inteligência, economize mais, reduza dívidas mais rápido e construa confiança financeira duradoura com um sistema financeiro familiar completo.",
+    tool_budget:"Planejador de Orçamento",hero_budget_desc:"Acompanhe renda, despesas e economias com confiança.",
+    tool_debt:"Rastreador de Dívidas",hero_debt_desc:"Crie uma estratégia clara para eliminar suas dívidas mais rápido.",
+    tool_meal:"Planejador de Refeições",hero_meal_desc:"Reduza os gastos com mercado e planeje refeições com eficiência.",
+    tool_health:"Pontuação de Saúde Financeira",hero_health_desc:"Meça seu progresso financeiro e mantenha-se no caminho certo.",
+    cta_main:"ACESSO INSTANTÂNEO",
+    trust1:"Pagamento Seguro",trust2:"Acesso Instantâneo",trust3:"Atualizações Vitalícias",
+    hero_trust_label:"Aprovado por milhares de famílias em todo o mundo",
     ms_income:"Renda Mensal",ms_income_sub:"do planejador de orçamento",
     ms_debt:"Dívida Total",ms_food:"Alimentação Semanal",ms_remaining:"Dinheiro Livre",ms_remaining_sub:"após todas as despesas",
     qe_title:"⚡ Números Chave",qe_sub:"Insira seus números aqui — eles fluirão automaticamente para as três ferramentas",
