@@ -462,6 +462,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 
   <div class="download-wrap">
     <button class="download-btn" id="download-btn" onclick="showDownloadModal()">⬇ <span class="lock-icon" id="download-lock" style="display:none;">🔒</span> <span data-i18n="download_pdf_btn">Download Meal Plan as PDF</span></button>
+    <div id="popup-blocked-msg" style="display:none;margin:10px auto 0;max-width:420px;background:var(--amber-dim);border:1px solid rgba(255,179,71,0.35);border-radius:12px;padding:10px 16px;font-family:var(--font-body);font-size:12.5px;color:var(--text-primary);text-align:center;line-height:1.5;" data-i18n="popup_blocked_msg">⚠️ Your browser blocked the popup. Please allow popups for this site, then try again.</div>
   </div>
 
 <!-- UPGRADE MODAL (demo mode only — shown instead of the real download/save action) -->
@@ -537,6 +538,7 @@ const T={
     saved_confirm:"Saved!",restore_prompt_text:"We found a meal plan saved on this device. Restore it?",
     restore_yes:"Restore",restore_dismiss:"Dismiss",
     download_pdf_btn:"Download Meal Plan as PDF",
+    popup_blocked_msg:"⚠️ Your browser blocked the popup. Please allow popups for this site, then try again.",
     upgrade_modal_title:"Your meal plan is ready",upgrade_modal_body:"Get the full Meal Planner to download this report and save your progress anytime.",
     upgrade_modal_cta:"Get full access — $27.99",upgrade_modal_later:"Maybe later",
     tool_health:"Financial Health Score",
@@ -578,6 +580,7 @@ const T={
     saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé un plan de repas enregistré sur cet appareil. Le restaurer ?",
     restore_yes:"Restaurer",restore_dismiss:"Ignorer",
     download_pdf_btn:"Télécharger le Plan de Repas en PDF",
+    popup_blocked_msg:"⚠️ Votre navigateur a bloqué la fenêtre pop-up. Veuillez autoriser les pop-ups pour ce site, puis réessayez.",
     upgrade_modal_title:"Votre plan de repas est prêt",upgrade_modal_body:"Obtenez le Planificateur de Repas complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
     upgrade_modal_cta:"Débloquer l'accès complet — 27,99 $",upgrade_modal_later:"Plus tard",
     tool_health:"Score de Santé Financière",
@@ -619,6 +622,7 @@ const T={
     saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos un plan de comidas guardado en este dispositivo. ¿Restaurarlo?",
     restore_yes:"Restaurar",restore_dismiss:"Descartar",
     download_pdf_btn:"Descargar Plan de Comidas en PDF",
+    popup_blocked_msg:"⚠️ Tu navegador bloqueó la ventana emergente. Permite las ventanas emergentes para este sitio y vuelve a intentarlo.",
     upgrade_modal_title:"Tu plan de comidas está listo",upgrade_modal_body:"Obtén el Planificador de Comidas completo para descargar este reporte y guardar tu progreso en cualquier momento.",
     upgrade_modal_cta:"Obtener acceso completo — $27.99",upgrade_modal_later:"Más tarde",
     tool_health:"Puntaje de Salud Financiera",
@@ -660,6 +664,7 @@ const T={
     saved_confirm:"Salvo!",restore_prompt_text:"Encontramos um plano de refeições salvo neste dispositivo. Restaurá-lo?",
     restore_yes:"Restaurar",restore_dismiss:"Dispensar",
     download_pdf_btn:"Baixar Plano de Refeições em PDF",
+    popup_blocked_msg:"⚠️ Seu navegador bloqueou o pop-up. Permita pop-ups para este site e tente novamente.",
     upgrade_modal_title:"Seu plano de refeições está pronto",upgrade_modal_body:"Obtenha o Planejador de Refeições completo para baixar este relatório e salvar seu progresso a qualquer momento.",
     upgrade_modal_cta:"Obter acesso completo — $27.99",upgrade_modal_later:"Talvez depois",
     tool_health:"Pontuação de Saúde Financeira",
@@ -1099,6 +1104,14 @@ function closeUpgradeModal(){
   const m=document.getElementById('upgrade-modal');
   if(m)m.style.display='none';
 }
+let popupMsgTimer=null;
+function showPopupBlockedMsg(){
+  const el=document.getElementById('popup-blocked-msg');
+  if(!el)return;
+  el.style.display='block';
+  clearTimeout(popupMsgTimer);
+  popupMsgTimer=setTimeout(()=>{ el.style.display='none'; },6000);
+}
 function initLockUI(){
   if(!IS_DEMO)return;
   const dl=document.getElementById('download-lock'), sl=document.getElementById('save-lock');
@@ -1210,6 +1223,7 @@ function downloadReport(isSample=false){
 
   const finalHtml=reportHtml;
   const win=window.open('','_blank');
+  if(!win){showPopupBlockedMsg();return;}
   win.document.write(finalHtml);
   win.document.close();
   win.focus();
