@@ -1075,7 +1075,7 @@ body::before {
         <a href="https://stan.store/EPelissierdigital" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--teal-dim),#0B7A6E);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(45,212,191,0.2);" id="upsell-cta">Get the Complete Bundle →</a>
         <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;transition:all 0.2s;" id="upsell-dismiss">Maybe later</button>
       </div>
-      <button onclick="claimSuiteOwnership()" style="margin-top:10px;background:none;border:none;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;cursor:pointer;padding:2px 0;">Already own the Suite?</button>
+      <a href="../suite/index.html" style="display:inline-block;margin-top:10px;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;">Already own the Suite?</a>
     </div>
     <div style="text-align:right;flex-shrink:0;">
       <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
@@ -1728,27 +1728,28 @@ function loadFromStore(){
 
 
 // ── SUITE OWNERSHIP ──────────────────────────────────────────
+// ep_has_suite is only ever set by suite/index.html's ?purchased=1
+// handler (real purchase confirmation). ?ref=suite here is display-only:
+// it means "arrived from the Suite dashboard", not "owns the Suite" —
+// it must never write to ep_has_suite.
 function ownsFullSuite(){
-  const params=new URLSearchParams(window.location.search);
-  if(params.get('ref')==='suite'){
-    localStorage.setItem('ep_has_suite','true');
-    return true;
-  }
   return localStorage.getItem('ep_has_suite')==='true';
+}
+function arrivedFromSuite(){
+  const params=new URLSearchParams(window.location.search);
+  return params.get('ref')==='suite';
+}
+function shouldHideSuiteUpsell(){
+  return ownsFullSuite()||arrivedFromSuite();
 }
 function initSuiteUpsellPanel(){
   const row=document.getElementById('suite-upsell-row');
-  if(row)row.style.display=ownsFullSuite()?'none':'flex';
-}
-function claimSuiteOwnership(){
-  localStorage.setItem('ep_has_suite','true');
-  const prompt=document.getElementById('upsell-prompt');
-  if(prompt)prompt.style.display='none';
+  if(row)row.style.display=shouldHideSuiteUpsell()?'none':'flex';
 }
 
 function showUpsellIfNeeded(income, remaining){
   const prompt0=document.getElementById('upsell-prompt');
-  if(ownsFullSuite()){ if(prompt0)prompt0.style.display='none'; return; }
+  if(shouldHideSuiteUpsell()){ if(prompt0)prompt0.style.display='none'; return; }
   if(localStorage.getItem('ep_upsell_dismissed')==='1') return;
   const s=SS.get();
   const hasDebtTracker=s.ep_total_debt>0||s.ep_debts;
