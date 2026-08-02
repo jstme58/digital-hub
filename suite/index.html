@@ -289,6 +289,17 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 }
 .hero-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(45,212,191,0.45); }
 .hero-cta-icon { font-size: 18px; }
+/* DASHBOARD LOCK (non-owners) */
+.dash-lock-wrap { max-width: 640px; margin: 0 auto 48px; padding: 0 20px; position: relative; z-index: 1; }
+.dash-lock-card { border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; background: rgba(201,168,76,0.04); padding: 32px 28px; position: relative; overflow: hidden; text-align: center; }
+.dash-lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent); }
+.dash-lock-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.dash-lock-icon { font-size: 22px; }
+.dash-lock-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text-primary); }
+.suite-only-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--gold-light); background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.3); padding: 3px 10px; border-radius: 99px; }
+.dash-lock-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.dash-lock-cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 700; color: var(--navy); background: linear-gradient(135deg, var(--gold-light), var(--gold)); padding: 14px 32px; border-radius: 99px; text-decoration: none; transition: all 0.2s; }
+.dash-lock-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
 /* TRUST ROW */
 .hero-trust {
   display: flex; align-items: center; justify-content: center;
@@ -415,8 +426,8 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     </div>
 
     <!-- CTA -->
-    <div class="hero-cta-wrap">
-      <a href="https://stan.store/EPelissierdigital" class="hero-cta-btn">
+    <div class="hero-cta-wrap" id="hero-cta-wrap">
+      <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" class="hero-cta-btn">
         <span class="hero-cta-icon">🔒</span>
         <span data-i18n="cta_main">GET INSTANT ACCESS</span>
         <span>›</span>
@@ -440,6 +451,24 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   </div>
   <div class="hero-divider"></div>
 </div>
+
+<!-- DASHBOARD LOCK (shown to non-owners in place of the live dashboard) -->
+<div class="dash-lock-wrap" id="dashboard-locked" style="display:none;">
+  <div class="dash-lock-card">
+    <div class="dash-lock-header">
+      <span class="dash-lock-icon">🔒</span>
+      <span class="dash-lock-title" data-i18n="dash_locked_title">Unlock Your Full Suite Dashboard</span>
+      <span class="suite-only-pill">🔒 <span data-i18n="suite_only_label">Suite only</span></span>
+    </div>
+    <p class="dash-lock-desc" data-i18n="dash_locked_desc">The live Quick Numbers calculators, Smart Handoffs, and your Financial Health Score are part of the full Suite. Get instant access to start using them.</p>
+    <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" class="dash-lock-cta">
+      <span data-i18n="dash_locked_cta">Get full access — $49.99</span> →
+    </a>
+  </div>
+</div>
+
+<!-- DASHBOARD CONTENT (fully functional, confirmed Suite owners only) -->
+<div id="dashboard-content">
 
 <!-- MASTER SUMMARY -->
 
@@ -651,6 +680,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   </div>
 </div>
 
+</div>
+<!-- /DASHBOARD CONTENT -->
+
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
@@ -666,6 +698,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 const T={
   en:{
     hero_pill:"Complete Financial Wellness System",
+    dash_locked_title:"Unlock Your Full Suite Dashboard",
+    dash_locked_desc:"The live Quick Numbers calculators, Smart Handoffs, and your Financial Health Score are part of the full Suite. Get instant access to start using them.",
+    dash_locked_cta:"Get full access — $49.99",suite_only_label:"Suite only",
     hero_h1_1:"Your ",hero_h1_2:"Financial Life,",hero_h1_3:"All in One Place",
     hero_sub:"Budget smarter, save more, reduce debt faster, and build lasting financial confidence with one complete family finance system.",
     tool_budget:"Budget Planner",hero_budget_desc:"Track income, expenses, and savings with confidence.",
@@ -702,6 +737,9 @@ const T={
   },
   fr:{
     hero_pill:"Système Complet de Bien-être Financier",
+    dash_locked_title:"Débloquez Votre Tableau de Bord Complet",
+    dash_locked_desc:"Les calculatrices Chiffres Rapides en direct, les Transferts Intelligents et votre Score de Santé Financière font partie de la Suite complète. Obtenez un accès instantané pour commencer à les utiliser.",
+    dash_locked_cta:"Débloquer l'accès complet — 49,99 $",suite_only_label:"Suite uniquement",
     hero_h1_1:"Votre ",hero_h1_2:"Vie Financière,",hero_h1_3:"Tout en Un Seul Endroit",
     hero_sub:"Budgétisez plus intelligemment, économisez plus, réduisez vos dettes plus vite et bâtissez une confiance financière durable avec un système financier familial complet.",
     tool_budget:"Planificateur Budgétaire",hero_budget_desc:"Suivez vos revenus, dépenses et économies en toute confiance.",
@@ -738,6 +776,9 @@ const T={
   },
   es:{
     hero_pill:"Sistema Completo de Bienestar Financiero",
+    dash_locked_title:"Desbloquea Tu Panel Completo de la Suite",
+    dash_locked_desc:"Las calculadoras de Números Rápidos en vivo, las Transferencias Inteligentes y tu Puntaje de Salud Financiera son parte de la Suite completa. Obtén acceso instantáneo para empezar a usarlas.",
+    dash_locked_cta:"Obtener acceso completo — $49.99",suite_only_label:"Solo en la Suite",
     hero_h1_1:"Tu ",hero_h1_2:"Vida Financiera,",hero_h1_3:"Todo en Un Solo Lugar",
     hero_sub:"Presupuesta con más inteligencia, ahorra más, reduce tu deuda más rápido y construye confianza financiera duradera con un sistema financiero familiar completo.",
     tool_budget:"Planificador de Presupuesto",hero_budget_desc:"Controla tus ingresos, gastos y ahorros con confianza.",
@@ -774,6 +815,9 @@ const T={
   },
   pt:{
     hero_pill:"Sistema Completo de Bem-Estar Financeiro",
+    dash_locked_title:"Desbloqueie Seu Painel Completo da Suite",
+    dash_locked_desc:"As calculadoras de Números Rápidos ao vivo, as Transferências Inteligentes e sua Pontuação de Saúde Financeira fazem parte da Suite completa. Obtenha acesso instantâneo para começar a usá-las.",
+    dash_locked_cta:"Obter acesso completo — $49,99",suite_only_label:"Somente na Suite",
     hero_h1_1:"Sua ",hero_h1_2:"Vida Financeira,",hero_h1_3:"Tudo em Um Só Lugar",
     hero_sub:"Orce com mais inteligência, economize mais, reduza dívidas mais rápido e construa confiança financeira duradoura com um sistema financeiro familiar completo.",
     tool_budget:"Planejador de Orçamento",hero_budget_desc:"Acompanhe renda, despesas e economias com confiança.",
@@ -826,6 +870,15 @@ const TOOL_PATHS_PAID={
 };
 function hasPaidAccess(){
   try{ return localStorage.getItem('ep_has_suite')==='true'; }catch(e){ return false; }
+}
+function applyAccessGate(){
+  const owned=hasPaidAccess();
+  const content=document.getElementById('dashboard-content');
+  const locked=document.getElementById('dashboard-locked');
+  const heroCta=document.getElementById('hero-cta-wrap');
+  if(content) content.style.display=owned?'':'none';
+  if(locked) locked.style.display=owned?'none':'block';
+  if(heroCta) heroCta.style.display=owned?'none':'';
 }
 // The ONLY place in the codebase that sets ep_has_suite=true. Stan
 // Store's Suite bundle "Redirect to URL" should point here with
@@ -1037,6 +1090,7 @@ function showLastSync(s){
 }
 
 confirmPurchaseFromURL();
+applyAccessGate();
 loadFromStore();
 updateFooterLinks();
 
