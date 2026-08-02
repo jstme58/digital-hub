@@ -423,8 +423,8 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div id="tips-body"></div>
   </div>
 
-  <!-- FINANCIAL HEALTH SCORE (always locked in individual tools) -->
-  <div class="health-lock-card">
+  <!-- FINANCIAL HEALTH SCORE (auto-unlocks for confirmed Suite owners) -->
+  <div class="health-lock-card" style="cursor:pointer;" onclick="handleHealthLockClick(event)">
     <div class="health-lock-header">
       <span class="health-lock-icon">❤️</span>
       <span class="health-lock-title" data-i18n="tool_health">Financial Health Score</span>
@@ -475,6 +475,18 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
     <div class="modal-btns">
       <a href="https://stan.store/EPelissierdigital" target="_blank" rel="noopener" class="modal-btn-primary">🔒 <span data-i18n="upgrade_modal_cta">Get full access — $27.99</span></a>
       <button class="modal-btn-sample" onclick="closeUpgradeModal()" data-i18n="upgrade_modal_later">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="health-upgrade-modal" style="display:none;" onclick="if(event.target===this)closeHealthUpgradeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeHealthUpgradeModal()">✕</button>
+    <div class="modal-title" data-i18n="health_modal_title">Unlock Your Financial Health Score</div>
+    <div class="modal-sub" data-i18n="suite_upsell_text">Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.</div>
+    <div class="modal-btns">
+      <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" class="modal-btn-primary">🔒 <span data-i18n="health_modal_cta">Get full access — $49.99</span></a>
+      <button class="modal-btn-sample" onclick="closeHealthUpgradeModal()" data-i18n="upgrade_modal_later">Maybe later</button>
     </div>
   </div>
 </div>
@@ -543,6 +555,7 @@ const T={
     upgrade_modal_title:"Your meal plan is ready",upgrade_modal_body:"Get the full Meal Planner to download this report and save your progress anytime.",
     upgrade_modal_cta:"Get full access — $27.99",upgrade_modal_later:"Maybe later",
     tool_health:"Financial Health Score",
+    health_modal_title:"Unlock Your Financial Health Score",health_modal_cta:"Get full access — $49.99",
     suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
     suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
   },
@@ -585,6 +598,7 @@ const T={
     upgrade_modal_title:"Votre plan de repas est prêt",upgrade_modal_body:"Obtenez le Planificateur de Repas complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
     upgrade_modal_cta:"Débloquer l'accès complet — 27,99 $",upgrade_modal_later:"Plus tard",
     tool_health:"Score de Santé Financière",
+    health_modal_title:"Débloquez Votre Score de Santé Financière",health_modal_cta:"Débloquer l'accès complet — 49,99 $",
     suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
     suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
   },
@@ -627,6 +641,7 @@ const T={
     upgrade_modal_title:"Tu plan de comidas está listo",upgrade_modal_body:"Obtén el Planificador de Comidas completo para descargar este reporte y guardar tu progreso en cualquier momento.",
     upgrade_modal_cta:"Obtener acceso completo — $27.99",upgrade_modal_later:"Más tarde",
     tool_health:"Puntaje de Salud Financiera",
+    health_modal_title:"Desbloquea Tu Puntaje de Salud Financiera",health_modal_cta:"Obtener acceso completo — $49.99",
     suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
     suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
   },
@@ -669,6 +684,7 @@ const T={
     upgrade_modal_title:"Seu plano de refeições está pronto",upgrade_modal_body:"Obtenha o Planejador de Refeições completo para baixar este relatório e salvar seu progresso a qualquer momento.",
     upgrade_modal_cta:"Obter acesso completo — $27.99",upgrade_modal_later:"Talvez depois",
     tool_health:"Pontuação de Saúde Financeira",
+    health_modal_title:"Desbloqueie Sua Pontuação de Saúde Financeira",health_modal_cta:"Obter acesso completo — $49,99",
     suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
     suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
   }
@@ -1250,6 +1266,23 @@ function initSuiteUpsellPanel(){
   const row=document.getElementById('suite-upsell-row');
   if(row)row.style.display=shouldHideSuiteUpsell()?'none':'flex';
 }
+function applyHealthLockState(){
+  const pill=document.querySelector('.health-lock-card .suite-only-pill');
+  if(pill) pill.style.display=ownsFullSuite()?'none':'';
+}
+function handleHealthLockClick(event){
+  if(event.target.closest('.suite-upsell-row')) return;
+  if(ownsFullSuite()){ window.location.href='../suite/index.html'; }
+  else { showHealthUpgradeModal(); }
+}
+function showHealthUpgradeModal(){
+  const m=document.getElementById('health-upgrade-modal');
+  if(m)m.style.display='flex';
+}
+function closeHealthUpgradeModal(){
+  const m=document.getElementById('health-upgrade-modal');
+  if(m)m.style.display='none';
+}
 
 function showUpsellIfNeeded(){
   const prompt=document.getElementById('upsell-prompt');
@@ -1274,6 +1307,7 @@ checkBudgetSync();
 checkForSavedData();
 initLockUI();
 initSuiteUpsellPanel();
+applyHealthLockState();
 </script>
 </body>
 </html>
