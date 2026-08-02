@@ -891,7 +891,7 @@ function syncAll(){
   document.getElementById('hi-food-weekly').textContent=fmt(weeklyFood)+'/wk';
   document.getElementById('hi-remaining-val').textContent=fmt(Math.max(0,remaining));
   document.getElementById('hi-extra-payment').textContent=fmt(Math.max(0,remaining))+'/mo';
-  const combined=Math.max(0,remaining)+(food>0?food*0.25:0);
+  const combined=Math.max(0,remaining)+(foodMonthly>0?foodMonthly*0.25:0);
   document.getElementById('hi-savings-val').textContent=fmt(combined);
   if(debt>0&&combined>0){
     const mos=Math.ceil(debt/combined);
