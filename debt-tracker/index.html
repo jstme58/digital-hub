@@ -1179,6 +1179,7 @@ function calcPayoff(){
 
 // ── RENDER ALL ───────────────────────────────────────────────
 function renderAll(){
+  renderDebtList();
   const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
   const totalMin=debts.reduce((s,d)=>s+(parseFloat(d.minPayment)||0),0);
 
