@@ -817,6 +817,7 @@ const T = {
     auto_tip:"Automate your minimum payments",
     auto_detail:"Set up auto-pay for every debt minimum to avoid late fees. One missed payment can trigger penalty rates that derail your plan.",
     tag_save_interest:"Save interest",tag_safety_first:"Safety first",tag_avoid_fees:"Avoid fees",
+    tag_motivation_boost:"Motivation boost",tag_almost_there:"Almost there!",
     bsb_prefix:"Your Budget Planner shows",bsb_suffix:"available as extra debt payment each month",
     debt_free_tip:"You're almost debt-free!",
     debt_free_detail:"You have less than 6 months to go. Stay the course — the finish line is in sight!",
@@ -876,6 +877,7 @@ const T = {
     auto_tip:"Automatisez vos paiements minimums",
     auto_detail:"Configurez le prélèvement automatique pour chaque dette afin d'éviter les pénalités.",
     tag_save_interest:"Économisez des intérêts",tag_safety_first:"Sécurité d'abord",tag_avoid_fees:"Évitez les frais",
+    tag_motivation_boost:"Coup de motivation",tag_almost_there:"Presque arrivé !",
     bsb_prefix:"Votre Planificateur Budgétaire indique",bsb_suffix:"disponible comme paiement de dette supplémentaire chaque mois",
     debt_free_tip:"Vous êtes presque libre de dettes!",
     debt_free_detail:"Il vous reste moins de 6 mois. Tenez bon — la ligne d'arrivée est en vue!",
@@ -935,6 +937,7 @@ const T = {
     auto_tip:"Automatiza tus pagos mínimos",
     auto_detail:"Configura débito automático para cada deuda para evitar cargos por mora.",
     tag_save_interest:"Ahorra intereses",tag_safety_first:"Seguridad primero",tag_avoid_fees:"Evita cargos",
+    tag_motivation_boost:"Impulso de motivación",tag_almost_there:"¡Casi lo logras!",
     bsb_prefix:"Tu Planificador de Presupuesto muestra",bsb_suffix:"disponible como pago extra de deuda cada mes",
     debt_free_tip:"¡Casi estás libre de deudas!",
     debt_free_detail:"Te quedan menos de 6 meses. ¡La meta está cerca!",
@@ -994,6 +997,7 @@ const T = {
     auto_tip:"Automatize seus pagamentos mínimos",
     auto_detail:"Configure débito automático para cada dívida para evitar multas por atraso.",
     tag_save_interest:"Economize juros",tag_safety_first:"Segurança primeiro",tag_avoid_fees:"Evite taxas",
+    tag_motivation_boost:"Impulso de motivação",tag_almost_there:"Quase lá!",
     bsb_prefix:"Seu Planejador de Orçamento mostra",bsb_suffix:"disponível como pagamento extra de dívida por mês",
     debt_free_tip:"Você está quase livre de dívidas!",
     debt_free_detail:"Faltam menos de 6 meses. Continue — a linha de chegada está próxima!",
@@ -1368,7 +1372,7 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
     tips.push({icon:'⚡',color:'coral',txt:t('avalanche_tip'),detail:t('avalanche_detail'),tag:fmtM(interestSaved)+' saved',tagClass:'good'});
   }
   if(method==='snowball'){
-    tips.push({icon:'❄️',color:'blue',txt:t('snowball_tip'),detail:t('snowball_detail'),tag:'Motivation boost',tagClass:'gold-tag'});
+    tips.push({icon:'❄️',color:'blue',txt:t('snowball_tip'),detail:t('snowball_detail'),tag:t('tag_motivation_boost'),tagClass:'gold-tag'});
   }
   if(highRateDebt&&highRateDebt.rate>15){
     tips.push({icon:'🎯',color:'coral',txt:t('highrate_tip'),detail:t('highrate_detail')+' ('+highRateDebt.name+' @ '+highRateDebt.rate+'%)',tag:highRateDebt.rate+'% APR',tagClass:'warn'});
@@ -1388,7 +1392,7 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
   }
   tips.push({icon:'⚙️',color:'purple',txt:t('auto_tip'),detail:t('auto_detail'),tag:t('tag_avoid_fees'),tagClass:'good'});
   if(maxMonth<=6){
-    tips.push({icon:'🏆',color:'green',txt:t('debt_free_tip'),detail:t('debt_free_detail'),tag:'Almost there!',tagClass:'good'});
+    tips.push({icon:'🏆',color:'green',txt:t('debt_free_tip'),detail:t('debt_free_detail'),tag:t('tag_almost_there'),tagClass:'good'});
   }
 
   const badge=document.getElementById('tips-badge');
