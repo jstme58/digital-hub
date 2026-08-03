@@ -158,6 +158,10 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 
 /* HEALTH SCORE */
 .health-wrap { max-width:900px; margin:0 auto; padding:0 20px 36px; position:relative; z-index:1; }
+.save-wrap { text-align:center; max-width:900px; margin:0 auto 36px; padding:0 20px; position:relative; z-index:1; }
+.save-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--teal); background:rgba(45,212,191,0.08); border:1px solid rgba(45,212,191,0.25); border-radius:99px; cursor:pointer; transition:all 0.2s; margin:0 6px 10px; }
+.save-btn:hover { background:rgba(45,212,191,0.14); border-color:rgba(45,212,191,0.4); }
+.save-note { font-size:11px; color:var(--text-muted); margin-top:6px; line-height:1.5; max-width:420px; margin-left:auto; margin-right:auto; }
 .health-card { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:24px; position:relative; overflow:hidden; }
 .health-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,200,150,0.4),transparent); }
 .health-score-row { display:flex; align-items:center; gap:24px; margin-bottom:20px; }
@@ -680,6 +684,13 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   </div>
 </div>
 
+<div class="save-wrap" id="export-import-wrap">
+  <button class="save-btn" id="export-data-btn" onclick="exportMyData()">⬇️ <span data-i18n="export_data_btn">Export My Data</span></button>
+  <button class="save-btn" id="import-data-btn" onclick="document.getElementById('import-file-input').click()">⬆️ <span data-i18n="import_data_btn">Import My Data</span></button>
+  <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(event)">
+  <div class="save-note" data-i18n="export_import_note">Download a file with your Budget Planner, Debt Tracker, and Meal Planner numbers so you can carry them to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.</div>
+</div>
+
 </div>
 <!-- /DASHBOARD CONTENT -->
 
@@ -736,6 +747,9 @@ const T={
     ms_debt_sub_months:"months to debt-free",ms_food_pct:"of monthly income",
     flow_wk_budget_suffix:"/wk budget",flow_total_suffix:" total",mo_suffix:" mo",
     synced_from:"Synced from:",data_saved_device:"Data saved on this device",
+    export_data_btn:"Export My Data",import_data_btn:"Import My Data",
+    export_import_note:"Download a file with your Budget Planner, Debt Tracker, and Meal Planner numbers so you can carry them to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.",
+    import_success:"Imported!",import_error:"Couldn't read that file",
   },
   fr:{
     hero_pill:"Système Complet de Bien-être Financier",
@@ -777,6 +791,9 @@ const T={
     ms_debt_sub_months:"mois jusqu'à liberté",ms_food_pct:"des revenus mensuels",
     flow_wk_budget_suffix:"/sem budget",flow_total_suffix:" au total",mo_suffix:" mois",
     synced_from:"Synchronisé depuis :",data_saved_device:"Données enregistrées sur cet appareil",
+    export_data_btn:"Exporter Mes Données",import_data_btn:"Importer Mes Données",
+    export_import_note:"Téléchargez un fichier avec vos chiffres du Planificateur Budgétaire, du Suivi des Dettes et du Planificateur de Repas pour les transférer vous-même vers un autre appareil ou navigateur — pas de compte, pas de sauvegarde cloud. Il vous appartient ; nous ne le voyons jamais.",
+    import_success:"Importé !",import_error:"Impossible de lire ce fichier",
   },
   es:{
     hero_pill:"Sistema Completo de Bienestar Financiero",
@@ -818,6 +835,9 @@ const T={
     ms_debt_sub_months:"meses hasta libertad",ms_food_pct:"de ingresos mensuales",
     flow_wk_budget_suffix:"/sem presupuesto",flow_total_suffix:" total",mo_suffix:" meses",
     synced_from:"Sincronizado desde:",data_saved_device:"Datos guardados en este dispositivo",
+    export_data_btn:"Exportar Mis Datos",import_data_btn:"Importar Mis Datos",
+    export_import_note:"Descarga un archivo con tus números del Planificador de Presupuesto, Rastreador de Deudas y Planificador de Comidas para llevarlos tú mismo a otro dispositivo o navegador — sin cuenta, sin respaldo en la nube. Es tuyo; nosotros nunca lo vemos.",
+    import_success:"¡Importado!",import_error:"No se pudo leer ese archivo",
   },
   pt:{
     hero_pill:"Sistema Completo de Bem-Estar Financeiro",
@@ -859,6 +879,9 @@ const T={
     ms_debt_sub_months:"meses até liberdade",ms_food_pct:"da renda mensal",
     flow_wk_budget_suffix:"/sem orçamento",flow_total_suffix:" total",mo_suffix:" meses",
     synced_from:"Sincronizado de:",data_saved_device:"Dados salvos neste dispositivo",
+    export_data_btn:"Exportar Meus Dados",import_data_btn:"Importar Meus Dados",
+    export_import_note:"Baixe um arquivo com seus números do Planejador de Orçamento, Rastreador de Dívidas e Planejador de Refeições para levá-los você mesmo para outro dispositivo ou navegador — sem conta, sem backup na nuvem. É seu para guardar; nunca o vemos.",
+    import_success:"Importado!",import_error:"Não foi possível ler esse arquivo",
   }
 };
 
@@ -1102,6 +1125,184 @@ function showLastSync(s){
     if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push(t('tool_meal')+' ✓');
     banner.querySelector('.sync-tools').textContent=parts.join(' · ');
   }
+}
+
+// ── EXPORT / IMPORT (manual cross-device portability) ──────────
+// Combined export: bundles all 3 individual tools' own "Save on This
+// Device" data plus shared display prefs into one file, since this
+// dashboard is the one place a Suite owner sees their whole picture.
+// Each tool's own Export/Import buttons still work independently and
+// use this exact same per-tool file shape.
+function isPlainObject(v){ return v!==null && typeof v==='object' && !Array.isArray(v); }
+
+const BUDGET_SAVE_FIELD_IDS=['income-primary','income-secondary','income-other','income-primary-freq','income-secondary-freq','income-other-freq','housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment','goal-savings','goal-debt','goal-emergency'];
+const BUDGET_CUSTOM_SECTIONS=['income','housing','food','transport','family','goals'];
+const DEBT_COLORS=['#FF6B6B','#FFB347','#74B9FF','#A29BFE','#55EFC4','#FD79A8','#FDCB6E','#6C5CE7'];
+const DEBT_EMOJIS=['💳','🏠','🚗','🎓','🏥','💊','🛍️','📱'];
+const MEAL_TYPES=['breakfast','lunch','dinner'];
+
+function cleanBudgetSave(rawSave){
+  if(!isPlainObject(rawSave)||!isPlainObject(rawSave.fields))return null;
+  const cleanFields={};
+  BUDGET_SAVE_FIELD_IDS.forEach(id=>{
+    const v=rawSave.fields[id];
+    if(typeof v==='string'||typeof v==='number') cleanFields[id]=String(v);
+  });
+  const cleanCustomFields={};
+  BUDGET_CUSTOM_SECTIONS.forEach(section=>{
+    const arr=Array.isArray(rawSave.customFields&&rawSave.customFields[section])?rawSave.customFields[section]:[];
+    cleanCustomFields[section]=arr.filter(isPlainObject).slice(0,50).map((f,i)=>({
+      id:typeof f.id==='string'&&/^cf\d+$/.test(f.id)?f.id:('cf'+(i+1)),
+      label:typeof f.label==='string'?f.label.slice(0,120):'',
+      amount:(typeof f.amount==='string'||typeof f.amount==='number')?String(f.amount):'',
+      frequency:['monthly','weekly','biweekly','annual'].includes(f.frequency)?f.frequency:'monthly'
+    }));
+  });
+  return {fields:cleanFields,customFields:cleanCustomFields,savedAt:Date.now()};
+}
+
+function cleanDebtSave(rawSave){
+  if(!isPlainObject(rawSave)||!Array.isArray(rawSave.debts))return null;
+  const cleanDebts=rawSave.debts.filter(isPlainObject).slice(0,100).map((d,i)=>({
+    id:Number.isFinite(d.id)?d.id:(i+1),
+    name:typeof d.name==='string'?d.name.slice(0,80):'',
+    balance:(typeof d.balance==='string'||typeof d.balance==='number')?String(d.balance):'',
+    rate:(typeof d.rate==='string'||typeof d.rate==='number')?String(d.rate):'',
+    minPayment:(typeof d.minPayment==='string'||typeof d.minPayment==='number')?String(d.minPayment):'',
+    color:DEBT_COLORS.includes(d.color)?d.color:DEBT_COLORS[i%DEBT_COLORS.length],
+    emoji:DEBT_EMOJIS.includes(d.emoji)?d.emoji:DEBT_EMOJIS[i%DEBT_EMOJIS.length]
+  }));
+  const method=(rawSave.method==='avalanche'||rawSave.method==='snowball')?rawSave.method:'avalanche';
+  return {debts:cleanDebts,method,debtIdCounter:Math.max(0,...cleanDebts.map(d=>d.id||0)),savedAt:Date.now()};
+}
+
+function cleanMealSave(rawSave){
+  if(!isPlainObject(rawSave)||!Array.isArray(rawSave.weekData))return null;
+  const cleanWeekData=Array.from({length:7},(_,i)=>{
+    const d=isPlainObject(rawSave.weekData[i])?rawSave.weekData[i]:{};
+    const meals={};
+    MEAL_TYPES.forEach(mt=>{
+      const m=d.meals&&d.meals[mt];
+      meals[mt]=isPlainObject(m)?{name:typeof m.name==='string'?m.name.slice(0,120):'',cost:(typeof m.cost==='string'||typeof m.cost==='number')?String(m.cost):''}:{name:'',cost:''};
+    });
+    return {day:i,meals};
+  });
+  const cleanCustomGrocery=Array.isArray(rawSave.customGrocery)?rawSave.customGrocery.filter(v=>typeof v==='string').slice(0,200).map(v=>v.slice(0,120)):[];
+  const cleanGroceryChecked={};
+  if(isPlainObject(rawSave.groceryChecked)){
+    Object.keys(rawSave.groceryChecked).slice(0,500).forEach(k=>{cleanGroceryChecked[k.slice(0,120)]=!!rawSave.groceryChecked[k];});
+  }
+  return {
+    weekData:cleanWeekData,
+    customGrocery:cleanCustomGrocery,
+    groceryChecked:cleanGroceryChecked,
+    weeklyBudget:(typeof rawSave.weeklyBudget==='string'||typeof rawSave.weeklyBudget==='number')?String(rawSave.weeklyBudget):'',
+    portions:(typeof rawSave.portions==='string'||typeof rawSave.portions==='number')?String(rawSave.portions):'',
+    savedAt:Date.now()
+  };
+}
+
+function exportMyData(){
+  try{
+    const readSave=key=>{ const raw=localStorage.getItem(key); return raw?JSON.parse(raw):null; };
+    const shared=SS.get();
+    const payload={
+      version:1,
+      tool:'suite',
+      exportedAt:new Date().toISOString(),
+      shared:{ep_lang:shared.ep_lang,ep_currency:shared.ep_currency},
+      budget:readSave('ep_budget_save_v1'),
+      debt:readSave('ep_debt_save_v1'),
+      meal:readSave('ep_meal_save_v1')
+    };
+    // ep_has_suite is never read here and must never appear in an export --
+    // it's tied to real purchase verification, not something a customer's
+    // own data file should be able to carry or fake.
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='suite-export-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){}
+}
+
+function handleImportFile(event){
+  const file=event.target.files[0];
+  event.target.value='';
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>importMyData(reader.result);
+  reader.onerror=()=>showImportResult(false);
+  reader.readAsText(file);
+}
+
+function importMyData(jsonText){
+  let payload;
+  try{ payload=JSON.parse(jsonText); }catch(e){ showImportResult(false); return; }
+  if(!isPlainObject(payload)){ showImportResult(false); return; }
+
+  const cleanBudget=cleanBudgetSave(payload.budget);
+  const cleanDebt=cleanDebtSave(payload.debt);
+  const cleanMeal=cleanMealSave(payload.meal);
+  if(!cleanBudget&&!cleanDebt&&!cleanMeal){ showImportResult(false); return; }
+
+  try{
+    if(cleanBudget) localStorage.setItem('ep_budget_save_v1',JSON.stringify(cleanBudget));
+    if(cleanDebt) localStorage.setItem('ep_debt_save_v1',JSON.stringify(cleanDebt));
+    if(cleanMeal) localStorage.setItem('ep_meal_save_v1',JSON.stringify(cleanMeal));
+  }catch(e){ showImportResult(false); return; }
+
+  // Shared display prefs only -- deliberately never reads/writes
+  // payload.ep_has_suite or anything from payload.shared beyond these
+  // two known-safe keys, no matter what a hand-edited file contains.
+  if(isPlainObject(payload.shared)){
+    if(['en','fr','es','pt'].includes(payload.shared.ep_lang)){
+      const sel=document.getElementById('lang-select'); if(sel)sel.value=payload.shared.ep_lang;
+      setLang(payload.shared.ep_lang);
+    }
+    if(Object.prototype.hasOwnProperty.call(CURRENCIES,payload.shared.ep_currency)){
+      const sel=document.getElementById('currency-select'); if(sel)sel.value=payload.shared.ep_currency;
+      setCurrency(payload.shared.ep_currency);
+    }
+  }
+
+  // Best-effort immediate dashboard preview from the imported data --
+  // the individual tools remain the source of truth and will show fully
+  // accurate figures (with proper pay-frequency conversion etc.) once
+  // visited; this just avoids the dashboard looking empty right after
+  // an import until then.
+  if(cleanBudget){
+    const income=(parseFloat(cleanBudget.fields['income-primary'])||0)+(parseFloat(cleanBudget.fields['income-secondary'])||0)+(parseFloat(cleanBudget.fields['income-other'])||0);
+    const expenseIds=['housing-rent','housing-utilities','housing-internet','food-groceries','food-dining','trans-car','trans-gas','trans-insurance','family-childcare','family-school','family-clothing','family-entertainment'];
+    const expenses=expenseIds.reduce((s,id)=>s+(parseFloat(cleanBudget.fields[id])||0),0);
+    setQE('qe-income',income);
+    setQE('qe-expenses',expenses);
+    ssWrite({ep_income:income,ep_expenses:expenses,ep_remaining:income-expenses});
+  }
+  if(cleanDebt){
+    const totalDebt=cleanDebt.debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
+    setQE('qe-debt',totalDebt);
+    ssWrite({ep_total_debt:totalDebt});
+  }
+  if(cleanMeal){
+    setQE('qe-food',parseFloat(cleanMeal.weeklyBudget)||0);
+    ssWrite({ep_food_weekly:parseFloat(cleanMeal.weeklyBudget)||0,mp_weekData:JSON.stringify(cleanMeal.weekData)});
+  }
+  syncAll();
+  showLastSync(SS.get());
+  showImportResult(true);
+}
+
+function showImportResult(success){
+  const btn=document.getElementById('import-data-btn');
+  if(!btn)return;
+  const original=btn.innerHTML;
+  btn.innerHTML=success?('✓ '+t('import_success')):('⚠️ '+t('import_error'));
+  setTimeout(()=>{btn.innerHTML=original;},2400);
 }
 
 confirmPurchaseFromURL();

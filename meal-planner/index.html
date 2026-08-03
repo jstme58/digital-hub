@@ -498,6 +498,13 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
   <div class="save-note" data-i18n="save_device_note">Saves your meal plan in this browser only — nothing is sent anywhere.</div>
 </div>
 
+<div class="save-wrap" id="export-import-wrap">
+  <button class="save-btn" id="export-data-btn" onclick="exportMyData()">⬇️ <span data-i18n="export_data_btn">Export My Data</span></button>
+  <button class="save-btn" id="import-data-btn" onclick="document.getElementById('import-file-input').click()">⬆️ <span data-i18n="import_data_btn">Import My Data</span></button>
+  <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(event)">
+  <div class="save-note" data-i18n="export_import_note">Download a file to carry your numbers to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.</div>
+</div>
+
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset Week</span></button>
   </div>
@@ -550,6 +557,9 @@ const T={
     meals_of:"of 21 meals",per_portion:"per portion",
     mark_done:"Done",
     save_device_btn:"Save on This Device",save_device_note:"Saves your meal plan in this browser only — nothing is sent anywhere.",
+    export_data_btn:"Export My Data",import_data_btn:"Import My Data",
+    export_import_note:"Download a file to carry your numbers to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.",
+    import_success:"Imported!",import_error:"Couldn't read that file",
     saved_confirm:"Saved!",restore_prompt_text:"We found a meal plan saved on this device. Restore it?",
     restore_yes:"Restore",restore_dismiss:"Dismiss",
     download_pdf_btn:"Download Meal Plan as PDF",
@@ -599,6 +609,9 @@ const T={
     budget_good:"Dans les limites",budget_over:"Dépassement",budget_pct:"du budget utilisé",
     meals_of:"sur 21 repas",per_portion:"par portion",mark_done:"Fait",
     save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre votre plan de repas dans ce navigateur uniquement — rien n'est envoyé nulle part.",
+    export_data_btn:"Exporter Mes Données",import_data_btn:"Importer Mes Données",
+    export_import_note:"Téléchargez un fichier pour transférer vos chiffres vous-même vers un autre appareil ou navigateur — pas de compte, pas de sauvegarde cloud. Il vous appartient ; nous ne le voyons jamais.",
+    import_success:"Importé !",import_error:"Impossible de lire ce fichier",
     saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé un plan de repas enregistré sur cet appareil. Le restaurer ?",
     restore_yes:"Restaurer",restore_dismiss:"Ignorer",
     download_pdf_btn:"Télécharger le Plan de Repas en PDF",
@@ -648,6 +661,9 @@ const T={
     budget_good:"En camino",budget_over:"Excedido",budget_pct:"del presupuesto usado",
     meals_of:"de 21 comidas",per_portion:"por porción",mark_done:"Hecho",
     save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tu plan de comidas solo en este navegador — no se envía nada a ningún lado.",
+    export_data_btn:"Exportar Mis Datos",import_data_btn:"Importar Mis Datos",
+    export_import_note:"Descarga un archivo para llevar tus números tú mismo a otro dispositivo o navegador — sin cuenta, sin respaldo en la nube. Es tuyo; nosotros nunca lo vemos.",
+    import_success:"¡Importado!",import_error:"No se pudo leer ese archivo",
     saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos un plan de comidas guardado en este dispositivo. ¿Restaurarlo?",
     restore_yes:"Restaurar",restore_dismiss:"Descartar",
     download_pdf_btn:"Descargar Plan de Comidas en PDF",
@@ -697,6 +713,9 @@ const T={
     budget_good:"No caminho certo",budget_over:"Acima do orçamento",budget_pct:"do orçamento usado",
     meals_of:"de 21 refeições",per_portion:"por porção",mark_done:"Feito",
     save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva seu plano de refeições apenas neste navegador — nada é enviado para lugar nenhum.",
+    export_data_btn:"Exportar Meus Dados",import_data_btn:"Importar Meus Dados",
+    export_import_note:"Baixe um arquivo para levar seus números você mesmo para outro dispositivo ou navegador — sem conta, sem backup na nuvem. É seu para guardar; nunca o vemos.",
+    import_success:"Importado!",import_error:"Não foi possível ler esse arquivo",
     saved_confirm:"Salvo!",restore_prompt_text:"Encontramos um plano de refeições salvo neste dispositivo. Restaurá-lo?",
     restore_yes:"Restaurar",restore_dismiss:"Dispensar",
     download_pdf_btn:"Baixar Plano de Refeições em PDF",
@@ -1096,6 +1115,119 @@ function restoreSavedData(){
     hideRestoreBanner();
     renderAll();
   }catch(e){}
+}
+
+// ── EXPORT / IMPORT (manual cross-device portability) ──────────
+function isPlainObject(v){ return v!==null && typeof v==='object' && !Array.isArray(v); }
+
+function exportMyData(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    const save=raw?JSON.parse(raw):null;
+    const shared=SS.get();
+    const payload={
+      version:1,
+      tool:'meal-planner',
+      exportedAt:new Date().toISOString(),
+      shared:{ep_lang:shared.ep_lang,ep_currency:shared.ep_currency},
+      save:save
+    };
+    // ep_has_suite is never read here and must never appear in an export --
+    // it's tied to real purchase verification, not something a customer's
+    // own data file should be able to carry or fake.
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='meal-planner-export-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){}
+}
+
+function handleImportFile(event){
+  const file=event.target.files[0];
+  event.target.value='';
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>importMyData(reader.result);
+  reader.onerror=()=>showImportResult(false);
+  reader.readAsText(file);
+}
+
+function cleanMealEntry(m){
+  if(!isPlainObject(m)) return {name:'',cost:''};
+  return {
+    name:typeof m.name==='string'?m.name.slice(0,120):'',
+    cost:(typeof m.cost==='string'||typeof m.cost==='number')?String(m.cost):''
+  };
+}
+
+function importMyData(jsonText){
+  let payload;
+  try{ payload=JSON.parse(jsonText); }catch(e){ showImportResult(false); return; }
+  if(!isPlainObject(payload)||!isPlainObject(payload.save)||!Array.isArray(payload.save.weekData)){
+    showImportResult(false); return;
+  }
+  const rawSave=payload.save;
+
+  const cleanWeekData=Array.from({length:7},(_,i)=>{
+    const d=isPlainObject(rawSave.weekData[i])?rawSave.weekData[i]:{};
+    const meals={};
+    MEAL_TYPES.forEach(mt=>{ meals[mt]=cleanMealEntry(d.meals&&d.meals[mt]); });
+    return {day:i,meals};
+  });
+
+  const cleanCustomGrocery=Array.isArray(rawSave.customGrocery)
+    ?rawSave.customGrocery.filter(v=>typeof v==='string').slice(0,200).map(v=>v.slice(0,120))
+    :[];
+
+  const cleanGroceryChecked={};
+  if(isPlainObject(rawSave.groceryChecked)){
+    Object.keys(rawSave.groceryChecked).slice(0,500).forEach(k=>{
+      if(typeof k==='string') cleanGroceryChecked[k.slice(0,120)]=!!rawSave.groceryChecked[k];
+    });
+  }
+
+  const cleanWeeklyBudget=(typeof rawSave.weeklyBudget==='string'||typeof rawSave.weeklyBudget==='number')?String(rawSave.weeklyBudget):'';
+  const cleanPortions=(typeof rawSave.portions==='string'||typeof rawSave.portions==='number')?String(rawSave.portions):'';
+
+  const cleanSave={
+    weekData:cleanWeekData,
+    customGrocery:cleanCustomGrocery,
+    groceryChecked:cleanGroceryChecked,
+    weeklyBudget:cleanWeeklyBudget,
+    portions:cleanPortions,
+    savedAt:Date.now()
+  };
+  try{ localStorage.setItem(SAVE_KEY,JSON.stringify(cleanSave)); }catch(e){ showImportResult(false); return; }
+
+  // Shared display prefs only -- deliberately never reads/writes
+  // payload.ep_has_suite or anything from payload.shared beyond these
+  // two known-safe keys, no matter what a hand-edited file contains.
+  if(isPlainObject(payload.shared)){
+    if(['en','fr','es','pt'].includes(payload.shared.ep_lang)){
+      const sel=document.getElementById('lang-select'); if(sel)sel.value=payload.shared.ep_lang;
+      setLang(payload.shared.ep_lang);
+    }
+    if(Object.prototype.hasOwnProperty.call(CURRENCIES,payload.shared.ep_currency)){
+      const sel=document.getElementById('currency-select'); if(sel)sel.value=payload.shared.ep_currency;
+      setCurrency(payload.shared.ep_currency);
+    }
+  }
+
+  restoreSavedData();
+  showImportResult(true);
+}
+
+function showImportResult(success){
+  const btn=document.getElementById('import-data-btn');
+  if(!btn)return;
+  const original=btn.innerHTML;
+  btn.innerHTML=success?('✓ '+t('import_success')):('⚠️ '+t('import_error'));
+  setTimeout(()=>{btn.innerHTML=original;},2400);
 }
 
 

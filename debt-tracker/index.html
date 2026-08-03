@@ -517,6 +517,13 @@ body::before {
   <div class="save-note" data-i18n="save_device_note">Saves your debts in this browser only — nothing is sent anywhere.</div>
 </div>
 
+<div class="save-wrap" id="export-import-wrap">
+  <button class="save-btn" id="export-data-btn" onclick="exportMyData()">⬇️ <span data-i18n="export_data_btn">Export My Data</span></button>
+  <button class="save-btn" id="import-data-btn" onclick="document.getElementById('import-file-input').click()">⬆️ <span data-i18n="import_data_btn">Import My Data</span></button>
+  <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="handleImportFile(event)">
+  <div class="save-note" data-i18n="export_import_note">Download a file to carry your numbers to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.</div>
+</div>
+
 <div class="reset-wrap">
     <button class="reset-btn" onclick="resetAll()">↺ <span data-i18n="reset">Reset All</span></button>
   </div>
@@ -818,6 +825,9 @@ const T = {
     payoff_on:"Payoff:",
     tip_count_label: "tips",
     save_device_btn:"Save on This Device",save_device_note:"Saves your debts in this browser only — nothing is sent anywhere.",
+    export_data_btn:"Export My Data",import_data_btn:"Import My Data",
+    export_import_note:"Download a file to carry your numbers to another device or browser yourself — no account, no cloud backup. It's yours to keep; we never see it.",
+    import_success:"Imported!",import_error:"Couldn't read that file",
     saved_confirm:"Saved!",restore_prompt_text:"We found debts saved on this device. Restore them?",
     restore_yes:"Restore",restore_dismiss:"Dismiss",
     download_pdf_btn:"Download Debt Report as PDF",
@@ -874,6 +884,9 @@ const T = {
     payoff_on:"Remboursement:",
     tip_count_label:"conseils",
     save_device_btn:"Enregistrer sur cet Appareil",save_device_note:"Enregistre vos dettes dans ce navigateur uniquement — rien n'est envoyé nulle part.",
+    export_data_btn:"Exporter Mes Données",import_data_btn:"Importer Mes Données",
+    export_import_note:"Téléchargez un fichier pour transférer vos chiffres vous-même vers un autre appareil ou navigateur — pas de compte, pas de sauvegarde cloud. Il vous appartient ; nous ne le voyons jamais.",
+    import_success:"Importé !",import_error:"Impossible de lire ce fichier",
     saved_confirm:"Enregistré !",restore_prompt_text:"Nous avons trouvé des dettes enregistrées sur cet appareil. Les restaurer ?",
     restore_yes:"Restaurer",restore_dismiss:"Ignorer",
     download_pdf_btn:"Télécharger le Rapport de Dettes en PDF",
@@ -930,6 +943,9 @@ const T = {
     payoff_on:"Pago:",
     tip_count_label:"consejos",
     save_device_btn:"Guardar en Este Dispositivo",save_device_note:"Guarda tus deudas solo en este navegador — no se envía nada a ningún lado.",
+    export_data_btn:"Exportar Mis Datos",import_data_btn:"Importar Mis Datos",
+    export_import_note:"Descarga un archivo para llevar tus números tú mismo a otro dispositivo o navegador — sin cuenta, sin respaldo en la nube. Es tuyo; nosotros nunca lo vemos.",
+    import_success:"¡Importado!",import_error:"No se pudo leer ese archivo",
     saved_confirm:"¡Guardado!",restore_prompt_text:"Encontramos deudas guardadas en este dispositivo. ¿Restaurarlas?",
     restore_yes:"Restaurar",restore_dismiss:"Descartar",
     download_pdf_btn:"Descargar Reporte de Deudas en PDF",
@@ -986,6 +1002,9 @@ const T = {
     payoff_on:"Pagamento:",
     tip_count_label:"dicas",
     save_device_btn:"Salvar Neste Dispositivo",save_device_note:"Salva suas dívidas apenas neste navegador — nada é enviado para lugar nenhum.",
+    export_data_btn:"Exportar Meus Dados",import_data_btn:"Importar Meus Dados",
+    export_import_note:"Baixe um arquivo para levar seus números você mesmo para outro dispositivo ou navegador — sem conta, sem backup na nuvem. É seu para guardar; nunca o vemos.",
+    import_success:"Importado!",import_error:"Não foi possível ler esse arquivo",
     saved_confirm:"Salvo!",restore_prompt_text:"Encontramos dívidas salvas neste dispositivo. Restaurá-las?",
     restore_yes:"Restaurar",restore_dismiss:"Dispensar",
     download_pdf_btn:"Baixar Relatório de Dívidas em PDF",
@@ -1450,6 +1469,93 @@ function restoreSavedData(){
     hideRestoreBanner();
     renderAll();
   }catch(e){}
+}
+
+// ── EXPORT / IMPORT (manual cross-device portability) ──────────
+function isPlainObject(v){ return v!==null && typeof v==='object' && !Array.isArray(v); }
+
+function exportMyData(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    const save=raw?JSON.parse(raw):null;
+    const shared=SS.get();
+    const payload={
+      version:1,
+      tool:'debt-tracker',
+      exportedAt:new Date().toISOString(),
+      shared:{ep_lang:shared.ep_lang,ep_currency:shared.ep_currency},
+      save:save
+    };
+    // ep_has_suite is never read here and must never appear in an export --
+    // it's tied to real purchase verification, not something a customer's
+    // own data file should be able to carry or fake.
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='debt-tracker-export-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){}
+}
+
+function handleImportFile(event){
+  const file=event.target.files[0];
+  event.target.value='';
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>importMyData(reader.result);
+  reader.onerror=()=>showImportResult(false);
+  reader.readAsText(file);
+}
+
+function importMyData(jsonText){
+  let payload;
+  try{ payload=JSON.parse(jsonText); }catch(e){ showImportResult(false); return; }
+  if(!isPlainObject(payload)||!isPlainObject(payload.save)||!Array.isArray(payload.save.debts)){
+    showImportResult(false); return;
+  }
+  const rawSave=payload.save;
+
+  const cleanDebts=rawSave.debts.filter(isPlainObject).slice(0,100).map((d,i)=>({
+    id:Number.isFinite(d.id)?d.id:(i+1),
+    name:typeof d.name==='string'?d.name.slice(0,80):'',
+    balance:(typeof d.balance==='string'||typeof d.balance==='number')?String(d.balance):'',
+    rate:(typeof d.rate==='string'||typeof d.rate==='number')?String(d.rate):'',
+    minPayment:(typeof d.minPayment==='string'||typeof d.minPayment==='number')?String(d.minPayment):'',
+    color:DEBT_COLORS.includes(d.color)?d.color:DEBT_COLORS[i%DEBT_COLORS.length],
+    emoji:DEBT_EMOJIS.includes(d.emoji)?d.emoji:DEBT_EMOJIS[i%DEBT_EMOJIS.length]
+  }));
+  const cleanMethod=(rawSave.method==='avalanche'||rawSave.method==='snowball')?rawSave.method:'avalanche';
+  const cleanSave={debts:cleanDebts,method:cleanMethod,debtIdCounter:Math.max(0,...cleanDebts.map(d=>d.id||0)),savedAt:Date.now()};
+  try{ localStorage.setItem(SAVE_KEY,JSON.stringify(cleanSave)); }catch(e){ showImportResult(false); return; }
+
+  // Shared display prefs only -- deliberately never reads/writes
+  // payload.ep_has_suite or anything from payload.shared beyond these
+  // two known-safe keys, no matter what a hand-edited file contains.
+  if(isPlainObject(payload.shared)){
+    if(['en','fr','es','pt'].includes(payload.shared.ep_lang)){
+      const sel=document.getElementById('lang-select'); if(sel)sel.value=payload.shared.ep_lang;
+      setLang(payload.shared.ep_lang);
+    }
+    if(Object.prototype.hasOwnProperty.call(CURRENCIES,payload.shared.ep_currency)){
+      const sel=document.getElementById('currency-select'); if(sel)sel.value=payload.shared.ep_currency;
+      setCurrency(payload.shared.ep_currency);
+    }
+  }
+
+  restoreSavedData();
+  showImportResult(true);
+}
+
+function showImportResult(success){
+  const btn=document.getElementById('import-data-btn');
+  if(!btn)return;
+  const original=btn.innerHTML;
+  btn.innerHTML=success?('✓ '+t('import_success')):('⚠️ '+t('import_error'));
+  setTimeout(()=>{btn.innerHTML=original;},2400);
 }
 
 window.addEventListener('scroll',()=>{
