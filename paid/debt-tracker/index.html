@@ -387,9 +387,9 @@ body::before {
 <!-- BUDGET SYNC BANNER -->
 <div id="budget-sync-banner" style="display:none;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);border-radius:14px;padding:12px 18px;margin:0 auto 16px;max-width:820px;position:relative;z-index:1;align-items:center;gap:12px;flex-wrap:wrap;">
   <span style="font-size:14px;">💡</span>
-  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;">Your Budget Planner shows</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;" data-i18n="bsb_prefix">Your Budget Planner shows</span>
   <strong class="bsb-val" style="color:var(--coral);font-size:14px;font-weight:700;"></strong>
-  <span style="font-size:13px;color:rgba(255,255,255,0.55);">available as extra debt payment each month</span>
+  <span style="font-size:13px;color:rgba(255,255,255,0.55);" data-i18n="bsb_suffix">available as extra debt payment each month</span>
   <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;padding:0 4px;">✕</button>
 </div>
 <div class="container">
@@ -467,19 +467,19 @@ body::before {
   <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
     <div style="font-size:28px;flex-shrink:0;">💡</div>
     <div style="flex:1;min-width:200px;">
-      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Know how much extra you can pay each month?</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;">The <strong style="color:var(--coral);">Budget Planner</strong> calculates exactly how much money you have left after expenses — so you know the perfect extra payment amount to crush your debt faster.</div>
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;" data-i18n="upsell_title">Know how much extra you can pay each month?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;"><span data-i18n="upsell_desc_1">The </span><strong style="color:var(--coral);" data-i18n="tool_budget">Budget Planner</strong><span data-i18n="upsell_desc_2"> calculates exactly how much money you have left after expenses — so you know the perfect extra payment amount to crush your debt faster.</span></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#cc4444,#8B0000);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;">Get the Complete Bundle →</a>
-        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_debt','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;">Maybe later</button>
+        <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#cc4444,#8B0000);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;" data-i18n="bundle_cta">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed_debt','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;" data-i18n="upgrade_modal_later">Maybe later</button>
       </div>
-      <a href="/suite/index.html" style="display:inline-block;margin-top:10px;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;">Already own the Suite?</a>
+      <a href="/suite/index.html" style="display:inline-block;margin-top:10px;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;" data-i18n="already_own_suite">Already own the Suite?</a>
     </div>
     <div style="text-align:right;flex-shrink:0;">
-      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;" data-i18n="bundle_includes_label">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 <span data-i18n="tool_budget">Budget Planner</span><br>🎯 <span data-i18n="tool_debt">Debt Tracker</span><br>🥗 <span data-i18n="tool_meal">Meal Planner</span><br>🔗 <span data-i18n="tool_suite">Suite Dashboard</span></div>
       <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
-      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);" data-i18n="bundle_note">one-time · save 33%</div>
     </div>
   </div>
 </div>
@@ -809,6 +809,8 @@ const T = {
     emergency_detail:"While paying debt, keep at least $1,000 in savings. Without it, one emergency puts you right back into debt.",
     auto_tip:"Automate your minimum payments",
     auto_detail:"Set up auto-pay for every debt minimum to avoid late fees. One missed payment can trigger penalty rates that derail your plan.",
+    tag_save_interest:"Save interest",tag_safety_first:"Safety first",tag_avoid_fees:"Avoid fees",
+    bsb_prefix:"Your Budget Planner shows",bsb_suffix:"available as extra debt payment each month",
     debt_free_tip:"You're almost debt-free!",
     debt_free_detail:"You have less than 6 months to go. Stay the course — the finish line is in sight!",
     removing:"Remove",
@@ -824,6 +826,11 @@ const T = {
     upgrade_modal_title:"Your debt payoff plan is ready",upgrade_modal_body:"Get the full Debt Tracker to download this report and save your progress anytime.",
     upgrade_modal_cta:"Get full access — $39.99",upgrade_modal_later:"Maybe later",
     tool_health:"Financial Health Score",
+    upsell_title:"Know how much extra you can pay each month?",
+    upsell_desc_1:"The ",upsell_desc_2:" calculates exactly how much money you have left after expenses — so you know the perfect extra payment amount to crush your debt faster.",
+    bundle_cta:"Get the Complete Bundle →",already_own_suite:"Already own the Suite?",
+    bundle_includes_label:"Bundle includes",tool_budget:"Budget Planner",tool_debt:"Debt Tracker",tool_meal:"Meal Planner",tool_suite:"Suite Dashboard",
+    bundle_note:"one-time · save 33%",
     health_modal_title:"Unlock Your Financial Health Score",health_modal_cta:"Get full access — $49.99",
     suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
     suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
@@ -858,6 +865,8 @@ const T = {
     emergency_detail:"Pendant le remboursement, gardez au moins 1 000$ en épargne pour éviter de vous réendetter.",
     auto_tip:"Automatisez vos paiements minimums",
     auto_detail:"Configurez le prélèvement automatique pour chaque dette afin d'éviter les pénalités.",
+    tag_save_interest:"Économisez des intérêts",tag_safety_first:"Sécurité d'abord",tag_avoid_fees:"Évitez les frais",
+    bsb_prefix:"Votre Planificateur Budgétaire indique",bsb_suffix:"disponible comme paiement de dette supplémentaire chaque mois",
     debt_free_tip:"Vous êtes presque libre de dettes!",
     debt_free_detail:"Il vous reste moins de 6 mois. Tenez bon — la ligne d'arrivée est en vue!",
     removing:"Supprimer",
@@ -873,6 +882,11 @@ const T = {
     upgrade_modal_title:"Votre plan de remboursement est prêt",upgrade_modal_body:"Obtenez le Suivi des Dettes complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
     upgrade_modal_cta:"Débloquer l'accès complet — 39,99 $",upgrade_modal_later:"Plus tard",
     tool_health:"Score de Santé Financière",
+    upsell_title:"Savez-vous combien vous pouvez payer en plus chaque mois ?",
+    upsell_desc_1:"Le ",upsell_desc_2:" calcule exactement combien d'argent il vous reste après les dépenses — pour connaître le montant parfait à verser en plus pour rembourser vos dettes plus vite.",
+    bundle_cta:"Obtenir le Pack Complet →",already_own_suite:"Vous possédez déjà la Suite ?",
+    bundle_includes_label:"Le pack inclut",tool_budget:"Planificateur Budgétaire",tool_debt:"Suivi des Dettes",tool_meal:"Planificateur de Repas",tool_suite:"Tableau de Bord de la Suite",
+    bundle_note:"paiement unique · économisez 33 %",
     health_modal_title:"Débloquez Votre Score de Santé Financière",health_modal_cta:"Débloquer l'accès complet — 49,99 $",
     suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
     suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
@@ -907,6 +921,8 @@ const T = {
     emergency_detail:"Mientras pagas deudas, mantén al menos $1,000 en ahorros para evitar volver a endeudarte.",
     auto_tip:"Automatiza tus pagos mínimos",
     auto_detail:"Configura débito automático para cada deuda para evitar cargos por mora.",
+    tag_save_interest:"Ahorra intereses",tag_safety_first:"Seguridad primero",tag_avoid_fees:"Evita cargos",
+    bsb_prefix:"Tu Planificador de Presupuesto muestra",bsb_suffix:"disponible como pago extra de deuda cada mes",
     debt_free_tip:"¡Casi estás libre de deudas!",
     debt_free_detail:"Te quedan menos de 6 meses. ¡La meta está cerca!",
     removing:"Eliminar",
@@ -922,6 +938,11 @@ const T = {
     upgrade_modal_title:"Tu plan de pago de deudas está listo",upgrade_modal_body:"Obtén el Rastreador de Deudas completo para descargar este reporte y guardar tu progreso en cualquier momento.",
     upgrade_modal_cta:"Obtener acceso completo — $39.99",upgrade_modal_later:"Más tarde",
     tool_health:"Puntaje de Salud Financiera",
+    upsell_title:"¿Sabes cuánto extra puedes pagar cada mes?",
+    upsell_desc_1:"El ",upsell_desc_2:" calcula exactamente cuánto dinero te queda después de los gastos — para que sepas el monto perfecto de pago extra para eliminar tu deuda más rápido.",
+    bundle_cta:"Obtener el Paquete Completo →",already_own_suite:"¿Ya tienes la Suite?",
+    bundle_includes_label:"El paquete incluye",tool_budget:"Planificador de Presupuesto",tool_debt:"Rastreador de Deudas",tool_meal:"Planificador de Comidas",tool_suite:"Panel de la Suite",
+    bundle_note:"pago único · ahorra 33%",
     health_modal_title:"Desbloquea Tu Puntaje de Salud Financiera",health_modal_cta:"Obtener acceso completo — $49.99",
     suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
     suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
@@ -956,6 +977,8 @@ const T = {
     emergency_detail:"Enquanto paga dívidas, mantenha pelo menos R$1.000 em poupança para evitar se reendividar.",
     auto_tip:"Automatize seus pagamentos mínimos",
     auto_detail:"Configure débito automático para cada dívida para evitar multas por atraso.",
+    tag_save_interest:"Economize juros",tag_safety_first:"Segurança primeiro",tag_avoid_fees:"Evite taxas",
+    bsb_prefix:"Seu Planejador de Orçamento mostra",bsb_suffix:"disponível como pagamento extra de dívida por mês",
     debt_free_tip:"Você está quase livre de dívidas!",
     debt_free_detail:"Faltam menos de 6 meses. Continue — a linha de chegada está próxima!",
     removing:"Remover",
@@ -971,6 +994,11 @@ const T = {
     upgrade_modal_title:"Seu plano de quitação de dívidas está pronto",upgrade_modal_body:"Obtenha o Rastreador de Dívidas completo para baixar este relatório e salvar seu progresso a qualquer momento.",
     upgrade_modal_cta:"Obter acesso completo — $39.99",upgrade_modal_later:"Talvez depois",
     tool_health:"Pontuação de Saúde Financeira",
+    upsell_title:"Sabe quanto a mais pode pagar todo mês?",
+    upsell_desc_1:"O ",upsell_desc_2:" calcula exatamente quanto dinheiro sobra após as despesas — para você saber o valor perfeito de pagamento extra para quitar sua dívida mais rápido.",
+    bundle_cta:"Obter o Pacote Completo →",already_own_suite:"Já tem a Suite?",
+    bundle_includes_label:"O pacote inclui",tool_budget:"Planejador de Orçamento",tool_debt:"Rastreador de Dívidas",tool_meal:"Planejador de Refeições",tool_suite:"Painel da Suite",
+    bundle_note:"pagamento único · economize 33%",
     health_modal_title:"Desbloqueie Sua Pontuação de Saúde Financeira",health_modal_cta:"Obter acesso completo — $49,99",
     suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
     suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
@@ -1323,7 +1351,7 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
     tips.push({icon:'🎯',color:'coral',txt:t('highrate_tip'),detail:t('highrate_detail')+' ('+highRateDebt.name+' @ '+highRateDebt.rate+'%)',tag:highRateDebt.rate+'% APR',tagClass:'warn'});
   }
   if(totalBal>5000){
-    tips.push({icon:'🏦',color:'blue',txt:t('consolidation_tip'),detail:t('consolidation_detail'),tag:'Save interest',tagClass:'good'});
+    tips.push({icon:'🏦',color:'blue',txt:t('consolidation_tip'),detail:t('consolidation_detail'),tag:t('tag_save_interest'),tagClass:'good'});
   }
   // Extra-payment & emergency-fund tips: only shown when Budget Planner has actually
   // synced real data via the shared store — otherwise there's no signal to base them on.
@@ -1333,9 +1361,9 @@ function renderTips(balances,activeDebts,totalInterest,interestSaved,maxMonth){
     tips.push({icon:'💡',color:'gold',txt:t('extra_payment_synced_tip'),detail:t('extra_payment_synced_detail'),tag:fmtM(_s.ep_remaining)+'/mo',tagClass:'gold-tag'});
   }
   if(_hasBudgetPlanner&&!(parseFloat(_s['bp_goal-emergency'])>0)){
-    tips.push({icon:'🔒',color:'green',txt:t('emergency_tip'),detail:t('emergency_detail'),tag:'Safety first',tagClass:'good'});
+    tips.push({icon:'🔒',color:'green',txt:t('emergency_tip'),detail:t('emergency_detail'),tag:t('tag_safety_first'),tagClass:'good'});
   }
-  tips.push({icon:'⚙️',color:'purple',txt:t('auto_tip'),detail:t('auto_detail'),tag:'Avoid fees',tagClass:'good'});
+  tips.push({icon:'⚙️',color:'purple',txt:t('auto_tip'),detail:t('auto_detail'),tag:t('tag_avoid_fees'),tagClass:'good'});
   if(maxMonth<=6){
     tips.push({icon:'🏆',color:'green',txt:t('debt_free_tip'),detail:t('debt_free_detail'),tag:'Almost there!',tagClass:'good'});
   }

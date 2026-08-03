@@ -475,9 +475,9 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 <!-- SYNC STATUS -->
 <div id="sync-status" style="display:none;background:rgba(45,212,191,0.06);border:1px solid rgba(45,212,191,0.15);border-radius:14px;padding:10px 18px;max-width:900px;margin:0 auto 8px;position:relative;z-index:1;align-items:center;gap:10px;flex-wrap:wrap;">
   <span style="font-size:12px;">🔗</span>
-  <span style="font-size:12px;color:rgba(255,255,255,0.5);">Synced from:</span>
+  <span style="font-size:12px;color:rgba(255,255,255,0.5);" data-i18n="synced_from">Synced from:</span>
   <span class="sync-tools" style="font-size:12px;font-weight:600;color:var(--teal);"></span>
-  <span style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto;">Data saved on this device</span>
+  <span style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:auto;" data-i18n="data_saved_device">Data saved on this device</span>
 </div>
 
 <div class="master-summary">
@@ -734,6 +734,8 @@ const T={
     score_excellent:"Excellent financial health 🌟",score_good:"Good financial health 👍",
     score_fair:"Fair — room to improve 📈",score_poor:"Needs attention ⚠️",
     ms_debt_sub_months:"months to debt-free",ms_food_pct:"of monthly income",
+    flow_wk_budget_suffix:"/wk budget",flow_total_suffix:" total",mo_suffix:" mo",
+    synced_from:"Synced from:",data_saved_device:"Data saved on this device",
   },
   fr:{
     hero_pill:"Système Complet de Bien-être Financier",
@@ -773,6 +775,8 @@ const T={
     score_excellent:"Excellente santé financière 🌟",score_good:"Bonne santé financière 👍",
     score_fair:"Correct — peut s'améliorer 📈",score_poor:"Nécessite attention ⚠️",
     ms_debt_sub_months:"mois jusqu'à liberté",ms_food_pct:"des revenus mensuels",
+    flow_wk_budget_suffix:"/sem budget",flow_total_suffix:" au total",mo_suffix:" mois",
+    synced_from:"Synchronisé depuis :",data_saved_device:"Données enregistrées sur cet appareil",
   },
   es:{
     hero_pill:"Sistema Completo de Bienestar Financiero",
@@ -812,6 +816,8 @@ const T={
     score_excellent:"Excelente salud financiera 🌟",score_good:"Buena salud financiera 👍",
     score_fair:"Regular — puede mejorar 📈",score_poor:"Necesita atención ⚠️",
     ms_debt_sub_months:"meses hasta libertad",ms_food_pct:"de ingresos mensuales",
+    flow_wk_budget_suffix:"/sem presupuesto",flow_total_suffix:" total",mo_suffix:" meses",
+    synced_from:"Sincronizado desde:",data_saved_device:"Datos guardados en este dispositivo",
   },
   pt:{
     hero_pill:"Sistema Completo de Bem-Estar Financeiro",
@@ -851,6 +857,8 @@ const T={
     score_excellent:"Excelente saúde financeira 🌟",score_good:"Boa saúde financeira 👍",
     score_fair:"Regular — pode melhorar 📈",score_poor:"Precisa de atenção ⚠️",
     ms_debt_sub_months:"meses até liberdade",ms_food_pct:"da renda mensal",
+    flow_wk_budget_suffix:"/sem orçamento",flow_total_suffix:" total",mo_suffix:" meses",
+    synced_from:"Sincronizado de:",data_saved_device:"Dados salvos neste dispositivo",
   }
 };
 
@@ -905,6 +913,7 @@ function setLang(l){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
   document.documentElement.lang=l;
   syncAll();
+  showLastSync(SS.get());
 }
 function setCurrency(c){
   currency=c;
@@ -968,8 +977,8 @@ function syncAll(){
 
   // flow stats
   document.getElementById('flow-stat-budget').textContent=income>0?fmt(income)+' '+t('qe_income').toLowerCase():'— income';
-  document.getElementById('flow-stat-meals').textContent=food>0?fmt(food)+'/wk budget':'— weekly budget';
-  document.getElementById('flow-stat-debt').textContent=debt>0?fmt(debt)+' total':'— total debt';
+  document.getElementById('flow-stat-meals').textContent=food>0?fmt(food)+t('flow_wk_budget_suffix'):'— weekly budget';
+  document.getElementById('flow-stat-debt').textContent=debt>0?fmt(debt)+t('flow_total_suffix'):'— total debt';
 
   // handoff panel
   document.getElementById('hi-food-val').textContent=fmt(foodMonthly);
@@ -980,7 +989,7 @@ function syncAll(){
   document.getElementById('hi-savings-val').textContent=fmt(combined);
   if(debt>0&&combined>0){
     const mos=Math.ceil(debt/combined);
-    document.getElementById('hi-debt-free').textContent=mos+' mo';
+    document.getElementById('hi-debt-free').textContent=mos+t('mo_suffix');
   } else { document.getElementById('hi-debt-free').textContent='—'; }
 
   // health score
@@ -1084,9 +1093,9 @@ function showLastSync(s){
   if(hasData){
     banner.style.display='flex';
     const parts=[];
-    if(s.ep_income>0) parts.push('Budget Planner ✓');
-    if(s.ep_total_debt>0) parts.push('Debt Tracker ✓');
-    if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push('Meal Planner ✓');
+    if(s.ep_income>0) parts.push(t('tool_budget')+' ✓');
+    if(s.ep_total_debt>0) parts.push(t('tool_debt')+' ✓');
+    if(s.ep_meal_spend>=0&&s.mp_weekData) parts.push(t('tool_meal')+' ✓');
     banner.querySelector('.sync-tools').textContent=parts.join(' · ');
   }
 }

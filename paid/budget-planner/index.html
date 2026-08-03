@@ -1070,19 +1070,19 @@ body::before {
   <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
     <div style="font-size:28px;flex-shrink:0;">🎯</div>
     <div style="flex:1;min-width:200px;">
-      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;" id="upsell-title">Want the full picture?</div>
-      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;" id="upsell-desc">You have <strong id="upsell-remaining" style="color:var(--teal);">$0</strong> left over this month. Put it to work — track your debt payoff and plan meals that save even more.</div>
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px;" id="upsell-title" data-i18n="upsell_title">Want the full picture?</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;" id="upsell-desc"><span data-i18n="upsell_desc_1">You have </span><strong id="upsell-remaining" style="color:var(--teal);">$0</strong><span data-i18n="upsell_desc_2"> left over this month. Put it to work — track your debt payoff and plan meals that save even more.</span></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--teal-dim),#0B7A6E);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(45,212,191,0.2);" id="upsell-cta">Get the Complete Bundle →</a>
-        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;transition:all 0.2s;" id="upsell-dismiss">Maybe later</button>
+        <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--teal-dim),#0B7A6E);color:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(45,212,191,0.2);" id="upsell-cta" data-i18n="bundle_cta">Get the Complete Bundle →</a>
+        <button onclick="document.getElementById('upsell-prompt').style.display='none';localStorage.setItem('ep_upsell_dismissed','1');" style="background:none;border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-family:var(--font-body);font-size:12px;padding:10px 16px;border-radius:99px;cursor:pointer;transition:all 0.2s;" id="upsell-dismiss" data-i18n="upgrade_modal_later">Maybe later</button>
       </div>
-      <a href="/suite/index.html" style="display:inline-block;margin-top:10px;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;">Already own the Suite?</a>
+      <a href="/suite/index.html" style="display:inline-block;margin-top:10px;color:rgba(255,255,255,0.3);font-family:var(--font-body);font-size:11px;text-decoration:underline;" data-i18n="already_own_suite">Already own the Suite?</a>
     </div>
     <div style="text-align:right;flex-shrink:0;">
-      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Bundle includes</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 Budget Planner<br>🎯 Debt Tracker<br>🥗 Meal Planner<br>🔗 Suite Dashboard</div>
+      <div style="font-size:10px;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;" data-i18n="bundle_includes_label">Bundle includes</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">🏠 <span data-i18n="tool_budget">Budget Planner</span><br>🎯 <span data-i18n="tool_debt">Debt Tracker</span><br>🥗 <span data-i18n="tool_meal">Meal Planner</span><br>🔗 <span data-i18n="tool_suite">Suite Dashboard</span></div>
       <div style="margin-top:8px;font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;">$49.99</div>
-      <div style="font-size:10px;color:rgba(255,255,255,0.3);">one-time · save 33%</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);" data-i18n="bundle_note">one-time · save 33%</div>
     </div>
   </div>
 </div>
@@ -1174,11 +1174,19 @@ const T = {
     upgrade_modal_title:"Your budget is ready",upgrade_modal_body:"Get the full Budget Planner to download this report and save your progress anytime.",
     upgrade_modal_cta:"Get full access — $29.99",upgrade_modal_later:"Maybe later",
     tool_health:"Financial Health Score",
+    upsell_title:"Want the full picture?",
+    upsell_desc_1:"You have ",upsell_desc_2:" left over this month. Put it to work — track your debt payoff and plan meals that save even more.",
+    upsell_title_debt:"You have money to put toward debt",upsell_title_meal:"Cut your food budget further",
+    upsell_desc_debt_1:"You have ",upsell_desc_debt_2:"/mo left over. The Debt Tracker shows exactly when you'll be debt-free if you put it to work.",
+    upsell_desc_meal_1:"The Meal Planner helps families save ",upsell_desc_meal_2:" on food by planning meals within your food budget.",
+    bundle_cta:"Get the Complete Bundle →",already_own_suite:"Already own the Suite?",
+    bundle_includes_label:"Bundle includes",tool_budget:"Budget Planner",tool_debt:"Debt Tracker",tool_meal:"Meal Planner",tool_suite:"Suite Dashboard",
+    bundle_note:"one-time · save 33%",
     health_modal_title:"Unlock Your Financial Health Score",health_modal_cta:"Get full access — $49.99",
     suite_only_label:"Suite only",health_locked_desc:"See your full 0–100 score across savings, debt and spending.",
     suite_upsell_text:"Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.",suite_upsell_btn:"See the suite →",
     footer:"Start fresh each month — ",
-    under_budget:"Under budget ✓",over_budget:"Over budget",on_track:"On track",
+    under_budget:"Under budget ✓",over_budget:"Over budget",on_track:"On track",below_target:"< 10% target",
     tap_expand:"Tap to expand",
     qw_housing_tip:"Housing exceeds 35% of income",qw_housing_detail:"Financial experts recommend keeping housing under 30%. Consider refinancing, a roommate, or negotiating rent.",qw_housing_savings:"/mo to reclaim",
     qw_dining_tip:"Cut dining out by cooking 2 more meals/week",qw_dining_detail:"Dining out accounts for over 8% of your income. Meal prepping on Sundays can save hundreds monthly.",qw_dining_savings:"/mo potential",
@@ -1224,11 +1232,19 @@ const T = {
     upgrade_modal_title:"Votre budget est prêt",upgrade_modal_body:"Obtenez le Planificateur Budgétaire complet pour télécharger ce rapport et enregistrer vos progrès à tout moment.",
     upgrade_modal_cta:"Débloquer l'accès complet — 29,99 $",upgrade_modal_later:"Plus tard",
     tool_health:"Score de Santé Financière",
+    upsell_title:"Vous voulez voir le tableau complet ?",
+    upsell_desc_1:"Il vous reste ",upsell_desc_2:" ce mois-ci. Utilisez-le — suivez le remboursement de vos dettes et planifiez des repas qui économisent encore plus.",
+    upsell_title_debt:"Vous avez de l'argent à mettre de côté pour vos dettes",upsell_title_meal:"Réduisez encore votre budget alimentaire",
+    upsell_desc_debt_1:"Il vous reste ",upsell_desc_debt_2:"/mois. Le Suivi des Dettes vous montre exactement quand vous serez libéré de vos dettes si vous l'utilisez.",
+    upsell_desc_meal_1:"Le Planificateur de Repas aide les familles à économiser ",upsell_desc_meal_2:" sur la nourriture en planifiant les repas selon leur budget alimentaire.",
+    bundle_cta:"Obtenir le Pack Complet →",already_own_suite:"Vous possédez déjà la Suite ?",
+    bundle_includes_label:"Le pack inclut",tool_budget:"Planificateur Budgétaire",tool_debt:"Suivi des Dettes",tool_meal:"Planificateur de Repas",tool_suite:"Tableau de Bord de la Suite",
+    bundle_note:"paiement unique · économisez 33 %",
     health_modal_title:"Débloquez Votre Score de Santé Financière",health_modal_cta:"Débloquer l'accès complet — 49,99 $",
     suite_only_label:"Suite uniquement",health_locked_desc:"Voyez votre score complet sur 100 basé sur l'épargne, les dettes et les dépenses.",
     suite_upsell_text:"Le score de santé financière est une fonctionnalité de la Suite. Obtenez les 3 outils plus votre score en direct pour 49,99 $.",suite_upsell_btn:"Voir la Suite →",
     footer:"Commencez frais chaque mois — ",
-    under_budget:"Sous budget ✓",over_budget:"Dépassement",on_track:"En bonne voie",
+    under_budget:"Sous budget ✓",over_budget:"Dépassement",on_track:"En bonne voie",below_target:"< 10 % de l'objectif",
     tap_expand:"Appuyer pour ouvrir",
     qw_housing_tip:"Le logement dépasse 35% des revenus",qw_housing_detail:"Les experts recommandent de garder le logement sous 30%. Envisagez de renégocier votre loyer.",qw_housing_savings:"/mois à récupérer",
     qw_dining_tip:"Réduisez les restaurants",qw_dining_detail:"Les restaurants représentent plus de 8% de vos revenus. La préparation des repas le dimanche peut économiser des centaines par mois.",qw_dining_savings:"/mois potentiel",
@@ -1274,11 +1290,19 @@ const T = {
     upgrade_modal_title:"Tu presupuesto está listo",upgrade_modal_body:"Obtén el Planificador de Presupuesto completo para descargar este reporte y guardar tu progreso en cualquier momento.",
     upgrade_modal_cta:"Obtener acceso completo — $29.99",upgrade_modal_later:"Más tarde",
     tool_health:"Puntaje de Salud Financiera",
+    upsell_title:"¿Quieres ver el panorama completo?",
+    upsell_desc_1:"Te quedan ",upsell_desc_2:" este mes. Ponlos a trabajar — sigue el pago de tu deuda y planifica comidas que ahorren aún más.",
+    upsell_title_debt:"Tienes dinero para destinar a tu deuda",upsell_title_meal:"Reduce aún más tu presupuesto de comida",
+    upsell_desc_debt_1:"Te quedan ",upsell_desc_debt_2:"/mes. El Rastreador de Deudas te muestra exactamente cuándo estarás libre de deudas si lo aprovechas.",
+    upsell_desc_meal_1:"El Planificador de Comidas ayuda a las familias a ahorrar ",upsell_desc_meal_2:" en comida planificando comidas dentro de su presupuesto.",
+    bundle_cta:"Obtener el Paquete Completo →",already_own_suite:"¿Ya tienes la Suite?",
+    bundle_includes_label:"El paquete incluye",tool_budget:"Planificador de Presupuesto",tool_debt:"Rastreador de Deudas",tool_meal:"Planificador de Comidas",tool_suite:"Panel de la Suite",
+    bundle_note:"pago único · ahorra 33%",
     health_modal_title:"Desbloquea Tu Puntaje de Salud Financiera",health_modal_cta:"Obtener acceso completo — $49.99",
     suite_only_label:"Solo en la Suite",health_locked_desc:"Ve tu puntaje completo de 0 a 100 en ahorros, deudas y gastos.",
     suite_upsell_text:"El puntaje de salud financiera es una función de la Suite. Obtén las 3 herramientas más tu puntaje en vivo por $49.99.",suite_upsell_btn:"Ver la Suite →",
     footer:"Comienza de nuevo cada mes — ",
-    under_budget:"Bajo presupuesto ✓",over_budget:"Excedido",on_track:"En camino",
+    under_budget:"Bajo presupuesto ✓",over_budget:"Excedido",on_track:"En camino",below_target:"< 10% de la meta",
     tap_expand:"Toca para expandir",
     qw_housing_tip:"La vivienda supera el 35% de los ingresos",qw_housing_detail:"Los expertos recomiendan mantener la vivienda por debajo del 30%. Considera refinanciar o negociar el alquiler.",qw_housing_savings:"/mes a recuperar",
     qw_dining_tip:"Reduce restaurantes cocinando más",qw_dining_detail:"Los restaurantes representan más del 8% de tus ingresos. Preparar comidas los domingos puede ahorrar cientos al mes.",qw_dining_savings:"/mes potencial",
@@ -1324,11 +1348,19 @@ const T = {
     upgrade_modal_title:"Seu orçamento está pronto",upgrade_modal_body:"Obtenha o Planejador de Orçamento completo para baixar este relatório e salvar seu progresso a qualquer momento.",
     upgrade_modal_cta:"Obter acesso completo — $29.99",upgrade_modal_later:"Talvez depois",
     tool_health:"Pontuação de Saúde Financeira",
+    upsell_title:"Quer ver o panorama completo?",
+    upsell_desc_1:"Você tem ",upsell_desc_2:" sobrando este mês. Coloque para trabalhar — acompanhe o pagamento de dívidas e planeje refeições que economizem ainda mais.",
+    upsell_title_debt:"Você tem dinheiro para colocar na dívida",upsell_title_meal:"Reduza ainda mais seu orçamento de alimentação",
+    upsell_desc_debt_1:"Você tem ",upsell_desc_debt_2:"/mês sobrando. O Rastreador de Dívidas mostra exatamente quando você ficará livre de dívidas se usar isso.",
+    upsell_desc_meal_1:"O Planejador de Refeições ajuda famílias a economizar ",upsell_desc_meal_2:" em comida planejando refeições dentro do orçamento.",
+    bundle_cta:"Obter o Pacote Completo →",already_own_suite:"Já tem a Suite?",
+    bundle_includes_label:"O pacote inclui",tool_budget:"Planejador de Orçamento",tool_debt:"Rastreador de Dívidas",tool_meal:"Planejador de Refeições",tool_suite:"Painel da Suite",
+    bundle_note:"pagamento único · economize 33%",
     health_modal_title:"Desbloqueie Sua Pontuação de Saúde Financeira",health_modal_cta:"Obter acesso completo — $49,99",
     suite_only_label:"Somente na Suite",health_locked_desc:"Veja sua pontuação completa de 0 a 100 em poupança, dívidas e gastos.",
     suite_upsell_text:"A pontuação de saúde financeira é um recurso da Suite. Obtenha as 3 ferramentas mais sua pontuação ao vivo por $49.99.",suite_upsell_btn:"Ver a Suite →",
     footer:"Comece de novo a cada mês — ",
-    under_budget:"Dentro do orçamento ✓",over_budget:"Acima do orçamento",on_track:"No caminho certo",
+    under_budget:"Dentro do orçamento ✓",over_budget:"Acima do orçamento",on_track:"No caminho certo",below_target:"< 10% da meta",
     tap_expand:"Toque para expandir",
     qw_housing_tip:"Moradia ultrapassa 35% da renda",qw_housing_detail:"Especialistas recomendam manter a moradia abaixo de 30%. Considere renegociar o aluguel.",qw_housing_savings:"/mês a recuperar",
     qw_dining_tip:"Reduza restaurantes cozinhando mais",qw_dining_detail:"Restaurantes representam mais de 8% da sua renda. Preparar refeições aos domingos pode economizar centenas por mês.",qw_dining_savings:"/mês potencial",
@@ -1455,6 +1487,10 @@ function animateVal(id, newVal, formatter){
 function setLang(l){
   lang=l;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
+  // placeholders aren't text nodes, so the data-i18n loop above never
+  // touches them -- existing custom fields need their placeholder reset
+  // explicitly or they stay in whichever language they were created in.
+  document.querySelectorAll('.custom-label-input').forEach(el=>{el.placeholder=T[l]['custom_label_placeholder']||T.en['custom_label_placeholder'];});
   document.documentElement.lang=l;
   buildProgress(); updateSubtitles(); calculate();
 }
@@ -1625,7 +1661,7 @@ function calculate(){
   } else { if(trendEl)trendEl.textContent='—'; }
 
   const savTrend=document.getElementById('trend-savings');
-  if(savTrend)savTrend.textContent=savingsRate>=10?t('on_track'):(income>0?'< 10% target':'—');
+  if(savTrend)savTrend.textContent=savingsRate>=10?t('on_track'):(income>0?t('below_target'):'—');
 
   // gauge
   updateGauge(savingsRate);
@@ -1813,13 +1849,14 @@ function showUpsellIfNeeded(income, remaining){
     const title=document.getElementById('upsell-title');
     const desc=document.getElementById('upsell-desc');
     if(!hasDebtTracker && !hasMealPlanner){
-      if(title) title.textContent='Want the full picture?';
+      if(title) title.textContent=t('upsell_title');
+      if(desc) desc.innerHTML=t('upsell_desc_1')+'<strong id="upsell-remaining" style="color:var(--teal);">'+fmt(remaining)+'</strong>'+t('upsell_desc_2');
     } else if(!hasDebtTracker){
-      if(title) title.textContent='You have money to put toward debt';
-      if(desc) desc.innerHTML='You have <strong style="color:var(--teal);">'+fmt(Math.max(0,remaining))+'</strong>/mo left over. The Debt Tracker shows exactly when you\'ll be debt-free if you put it to work.';
+      if(title) title.textContent=t('upsell_title_debt');
+      if(desc) desc.innerHTML=t('upsell_desc_debt_1')+'<strong style="color:var(--teal);">'+fmt(Math.max(0,remaining))+'</strong>'+t('upsell_desc_debt_2');
     } else if(!hasMealPlanner){
-      if(title) title.textContent='Cut your food budget further';
-      if(desc) desc.innerHTML='The Meal Planner helps families save <strong style="color:var(--teal);">$150–300/mo</strong> on food by planning meals within your food budget.';
+      if(title) title.textContent=t('upsell_title_meal');
+      if(desc) desc.innerHTML=t('upsell_desc_meal_1')+'<strong style="color:var(--teal);">$150–300/mo</strong>'+t('upsell_desc_meal_2');
     }
   } else {
     prompt.style.display='none';
