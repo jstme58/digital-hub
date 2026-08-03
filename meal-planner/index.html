@@ -978,6 +978,10 @@ function renderTips(){
 }
 
 // ── RENDER ALL ───────────────────────────────────────────────
+// Any new function that builds dynamic display content must be called
+// here, or it will silently fail to update on language switch (setLang()
+// calls renderAll() but nothing else) -- this is the exact mistake that
+// caused the debt-card and stale-Suite-figure bugs found in the full audit.
 function renderAll(){
   const budget=parseFloat(document.getElementById('weekly-budget').value)||0;
   const portions=parseInt(document.getElementById('portions').value)||4;

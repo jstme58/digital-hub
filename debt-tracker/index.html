@@ -1206,6 +1206,10 @@ function calcPayoff(){
 }
 
 // ── RENDER ALL ───────────────────────────────────────────────
+// Any new function that builds dynamic display content must be called
+// here, or it will silently fail to update on language switch (setLang()
+// calls renderAll() but nothing else) -- renderDebtList() was missing
+// from this chain until the full audit caught it; don't repeat that.
 function renderAll(){
   renderDebtList();
   const totalDebt=debts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);

@@ -1631,6 +1631,10 @@ function dismissWin(id){
   if(el){el.style.opacity='0';el.style.transform='translateX(12px)';el.style.transition='all 0.3s';setTimeout(()=>calculate(),320);}
 }
 
+// Any new function that builds dynamic display content must be called
+// here, or it will silently fail to update on language switch (setLang()
+// calls calculate() but nothing else) -- this is the exact mistake that
+// caused the debt-card and stale-Suite-figure bugs found in the full audit.
 function calculate(){
   const income=incomeMonthly('income-primary')+incomeMonthly('income-secondary')+incomeMonthly('income-other')+customFieldsTotal('income');
   const anyNonMonthlyIncome=['income-primary','income-secondary','income-other'].some(id=>incomeFreq(id)!=='monthly')||customIncomeHasNonMonthly();

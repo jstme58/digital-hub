@@ -949,6 +949,10 @@ function updateFooterLinks(){
   });
 }
 
+// Any new function that builds dynamic display content must be called
+// here, or it will silently fail to update on language switch (setLang()
+// calls syncAll() but nothing else) -- showLastSync() was missing from
+// this chain until the full audit caught it; don't repeat that.
 function syncAll(){
   const income=parseFloat(document.getElementById('qe-income').value)||0;
   const expenses=parseFloat(document.getElementById('qe-expenses').value)||0;
