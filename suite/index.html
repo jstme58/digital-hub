@@ -904,10 +904,12 @@ function setLang(l){
   lang=l;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k])el.textContent=T[l][k];});
   document.documentElement.lang=l;
+  syncAll();
 }
 function setCurrency(c){
   currency=c;
   document.querySelectorAll('.currency-symbol').forEach(el=>el.textContent=CURRENCIES[c].symbol);
+  syncAll();
 }
 
 function openTool(tool){
