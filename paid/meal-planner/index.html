@@ -232,7 +232,10 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 .fab { position:fixed; bottom:28px; right:20px; z-index:200; background:linear-gradient(135deg,var(--green-dark),#006644); color:#fff; border:none; cursor:pointer; padding:13px 18px; border-radius:99px; font-family:var(--font-body); font-size:13px; font-weight:600; box-shadow:0 4px 24px rgba(0,200,150,0.3),0 2px 8px rgba(0,0,0,0.3); display:none; align-items:center; gap:8px; transition:transform 0.2s; }
 .fab:active { transform:scale(0.97); }
 .fab-num { background:rgba(255,255,255,0.2); font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; min-width:20px; text-align:center; }
-@media (max-width:767px) { .fab { display:flex; } }
+/* Hidden by default even on mobile -- initFabVisibility() only reveals it
+   once .budget-bar-card (whose Weekly budget/Portions row it would
+   otherwise sit on top of while scrolling past) is out of view. */
+@media (max-width:767px) { .fab.fab-visible { display:flex; } }
 .footer { background:rgba(13,31,60,0.8); border-top:1px solid var(--border); text-align:center; padding:22px 20px; color:var(--text-muted); font-size:12px; position:relative; z-index:1; }
 .footer strong { color:var(--green); font-weight:500; }
 
@@ -1337,6 +1340,17 @@ checkForSavedData();
 initLockUI();
 initSuiteUpsellPanel();
 applyHealthLockState();
+function initFabVisibility(){
+  const fab=document.getElementById('fab');
+  if(!fab||!('IntersectionObserver' in window))return;
+  const target=document.querySelector('.budget-bar-card');
+  if(!target)return;
+  const observer=new IntersectionObserver(entries=>{
+    fab.classList.toggle('fab-visible',!entries[0].isIntersecting);
+  },{threshold:0});
+  observer.observe(target);
+}
+initFabVisibility();
 </script>
 </body>
 </html>

@@ -625,7 +625,10 @@ body::before {
   font-size: 11px; font-weight: 700; padding: 2px 7px;
   border-radius: 99px; min-width: 20px; text-align: center;
 }
-@media (max-width: 767px) { .fab { display: flex; } }
+/* Hidden by default on mobile too -- initFabVisibility() only reveals it
+   once the gauge/breakdown cards (whose $ values it would otherwise sit
+   on top of while scrolling past) are out of view. */
+@media (max-width: 767px) { .fab.fab-visible { display: flex; } }
 @media (min-width: 768px) { .fab { display: none !important; } }
 
 /* ── FOOTER ────────────────────────────────────────── */
@@ -2024,7 +2027,21 @@ function downloadReport(isSample=false){
   setTimeout(()=>{ win.print(); }, 600);
 }
 
-buildProgress();updateSubtitles();loadFromStore();calculate();checkForSavedData();initLockUI();initSuiteUpsellPanel();applyHealthLockState();
+function initFabVisibility(){
+  const fab=document.getElementById('fab');
+  if(!fab||!('IntersectionObserver' in window))return;
+  const targets=[document.querySelector('.gauge-card'),document.querySelector('.breakdown-card')].filter(Boolean);
+  if(!targets.length)return;
+  const state=new Map();
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>state.set(e.target,e.isIntersecting));
+    const anyVisible=[...state.values()].some(v=>v);
+    fab.classList.toggle('fab-visible',!anyVisible);
+  },{threshold:0});
+  targets.forEach(t=>observer.observe(t));
+}
+
+buildProgress();updateSubtitles();loadFromStore();calculate();checkForSavedData();initLockUI();initSuiteUpsellPanel();applyHealthLockState();initFabVisibility();
 </script>
 </body>
 </html>
