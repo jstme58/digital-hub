@@ -418,7 +418,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
         <div class="hero-tool-name" data-i18n="tool_meal">Meal Planner</div>
         <div class="hero-tool-desc" data-i18n="hero_meal_desc">Reduce grocery spending and plan meals efficiently.</div>
       </div>
-      <div class="hero-tool" onclick="document.getElementById('qe-income').scrollIntoView({behavior:'smooth'})">
+      <div class="hero-tool" onclick="document.getElementById('financial-health-score').scrollIntoView({behavior:'smooth'})">
         <div class="hero-tool-icon">❤️</div>
         <div class="hero-tool-name" data-i18n="tool_health">Financial Health Score</div>
         <div class="hero-tool-desc" data-i18n="hero_health_desc">Measure your financial progress and stay on track.</div>
@@ -642,7 +642,7 @@ body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:no
 </div>
 
 <!-- FINANCIAL HEALTH SCORE -->
-<div class="health-wrap">
+<div class="health-wrap" id="financial-health-score">
   <div class="health-card">
     <div class="flow-title" style="margin-bottom:16px"><div class="flow-ch" style="background:var(--green-dim);border-color:rgba(0,200,150,0.2)">❤️</div><span data-i18n="health_title">Financial Health Score</span></div>
     <div class="health-score-row">
@@ -1093,6 +1093,14 @@ confirmPurchaseFromURL();
 applyAccessGate();
 loadFromStore();
 updateFooterLinks();
+// applyAccessGate() reveals #dashboard-content (previously display:none),
+// which shifts everything below it down the page -- so the browser's
+// native scroll-to-#hash-on-load (which already fired against the old,
+// pre-reveal layout) lands in the wrong place. Re-scroll after the reveal.
+if(window.location.hash){
+  const hashTarget=document.querySelector(window.location.hash);
+  if(hashTarget) hashTarget.scrollIntoView();
+}
 
 </script>
 </body>

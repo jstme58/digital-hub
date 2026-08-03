@@ -457,7 +457,7 @@ body::before {
     <p class="health-lock-desc" data-i18n="health_locked_desc">See your full 0–100 score across savings, debt and spending.</p>
     <div class="suite-upsell-row" id="suite-upsell-row">
       <span class="suite-upsell-text" data-i18n="suite_upsell_text">Financial health score is a suite feature. Get all 3 tools plus your live score for $49.99.</span>
-      <a href="../index.html#value" class="suite-upsell-btn" data-i18n="suite_upsell_btn">See the suite →</a>
+      <a href="https://stan.store/EPelissierdigital/p/get-my-financial-freedom-suite-now" target="_blank" rel="noopener" class="suite-upsell-btn" data-i18n="suite_upsell_btn">See the suite →</a>
     </div>
   </div>
 
@@ -755,7 +755,7 @@ function handleHealthLockClick(event){
   // source file), and suite/index.html has no /paid/ copy of its own
   // (it gates itself live via ep_has_suite). A relative ../suite/index.html
   // resolves to a real page from the source copy but a 404 from paid/.
-  if(ownsFullSuite()){ window.location.href='/suite/index.html'; }
+  if(ownsFullSuite()){ window.location.href='/suite/index.html#financial-health-score'; }
   else { showHealthUpgradeModal(); }
 }
 function showHealthUpgradeModal(){

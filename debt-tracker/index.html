@@ -754,7 +754,7 @@ function handleHealthLockClick(event){
   // source file), and suite/index.html has no /paid/ copy of its own
   // (it gates itself live via ep_has_suite). A relative ../suite/index.html
   // resolves to a real page from the source copy but a 404 from paid/.
-  if(ownsFullSuite()){ window.location.href='/suite/index.html'; }
+  if(ownsFullSuite()){ window.location.href='/suite/index.html#financial-health-score'; }
   else { showHealthUpgradeModal(); }
 }
 function showHealthUpgradeModal(){
